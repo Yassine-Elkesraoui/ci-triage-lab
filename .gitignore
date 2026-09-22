@@ -62,7 +62,7 @@ data/temp/*
 chroma_db/
 *.chroma
 # Embedding model cache (downloaded at runtime from HuggingFace)
-models/    
+/models/  
 # ChromaDB persistence (regenerated on document processing)
 data/chroma/
 
