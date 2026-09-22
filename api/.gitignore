@@ -1,0 +1,61 @@
+# ============================================================
+# .gitignore for RAG Chatbot Platform
+# Specifies files and folders that Git should NEVER track.
+# ============================================================
+
+# --- Python bytecode and compiled files ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# --- Virtual environments ---
+venv/
+env/
+ENV/
+.venv/
+
+# --- Environment variables and secrets ---
+# CRITICAL: Never commit .env files — they contain API keys
+.env
+.env.local
+.env.*.local
+*.env
+
+# --- IDE and editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Operating system files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Testing and coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# --- Distribution and build artifacts ---
+build/
+dist/
+*.egg-info/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Local data and uploads ---
+data/uploads/
+data/temp/
+
+# --- Jupyter notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- ChromaDB local persistence (for later) ---
+chroma_db/
+*.chroma

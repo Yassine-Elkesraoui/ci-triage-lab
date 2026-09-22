@@ -1,0 +1,39 @@
+Computação em nuvem
+
+Computação em nuvem (em inglês, cloud computing) é um termo coloquial para a disponibilidade sob demanda de recursos do sistema de computador, especialmente armazenamento de dados e capacidade de computação, sem o gerenciamento ativo direto do utilizador. O termo geralmente é usado para descrever centros de dados disponíveis para muitos utilizadores pela Internet. Nuvens em grande escala, predominantes hoje em dia, geralmente têm funções distribuídas em vários locais dos servidores centrais. Se a conexão com o utilizador for relativamente próxima, pode ser designado um servidor de borda.
+
+O armazenamento de dados é feito em serviços que poderão ser acedidos de qualquer lugar do mundo, a qualquer hora, não havendo necessidade de instalação de programas ou de armazenar dados. O acesso a programas, serviços e arquivos é remoto, através da Internet - daí a alusão à nuvem. O uso desse modelo (ambiente) é mais viável do que o uso de unidades físicas.
+
+Num sistema operacional disponível na Internet, a partir de qualquer computador e em qualquer lugar, pode-se ter acesso a informações, arquivos e programas num sistema único, independente de plataforma. O requisito mínimo é um computador compatível com os recursos disponíveis na Internet.
+
+História
+
+Empresas como Amazon, Oracle, Google, IBM e Microsoft foram as primeiras a iniciar uma grande ofensiva nessa nuvem de informação ("information cloud"), que especialistas consideram uma "nova fronteira da era digital". Aos poucos, essa tecnologia vai deixando de ser utilizada apenas em laboratórios para ingressar nas empresas e, em breve, em computadores domésticos.
+
+O primeiro serviço na Internet a oferecer um ambiente operacional para os utilizadores foi criado por um estudante sueco, Fredrik Malmer, utilizando as linguagens XHTML e Javascript. Em 1999, foi criada nos EUA a empresa WebOS Inc., que comprou os direitos do sistema de Fredrik e licenciou uma série de tecnologias desenvolvidas nas universidades do Texas, Califórnia e Duke.
+
+Modelos de serviço
+
+IaaS - "Infrastructure as a Service" ou Infraestrutura como Serviço: refere-se a serviços online que fornecem APIs de alto nível usadas para abstrair vários detalhes de baixo nível da infraestrutura de rede subjacente, como recursos de computação física, localização, particionamento de dados, dimensionamento, segurança, backup. Executa as máquinas virtuais como convidados. Os provedores de nuvem IaaS fornecem esses recursos sob demanda a partir de seus grandes pools de equipamentos instalados nos datacenters. Nesse modelo, o utilizador da nuvem corrige e mantém os sistemas operacionais e o software do aplicativo. Provedores de nuvem geralmente cobram serviços IaaS em uma base de computação utilitária: o custo reflete a quantidade de recursos alocados e consumidos.
+
+PaaS - "Platform as a Service" ou Plataforma como Serviço: dá aos desenvolvedores as ferramentas necessárias para criar e hospedar aplicativos Web. A PaaS foi desenvolvida para proporcionar aos utilizadores o acesso aos componentes necessários para desenvolver e operar rapidamente aplicativos Web ou móveis na Internet, sem se preocupar com a configuração ou gerenciamento da infraestrutura subjacente dos servidores, armazenamento, redes e bancos de dados. O consumidor não controla a infraestrutura de nuvem subjacente, incluindo rede, servidores, sistemas operacionais ou armazenamento, mas tem controle sobre os aplicativos implantados.
+
+SaaS - "Software as a Service" ou Software como Serviço: o software como um serviço oferece um produto completo, executado e gerenciado pelo provedor de serviços. Na maioria dos casos, as pessoas que se referem ao software como um serviço estão se referindo às aplicações de utilizador final. Com uma oferta de SaaS, não é necessário pensar sobre como o serviço é mantido ou como a infraestrutura subjacente é gerenciada; você só precisa pensar em como usará este tipo específico de software. Por exemplo, Google Docs, Microsoft SharePoint Online.
+
+DaaS - "Desktop as a Service" ou Área de trabalho como serviço: é uma solução de computação em nuvem na qual a infraestrutura de desktop virtual é terceirizada para um provedor terceirizado. O DaaS é uma alternativa econômica para soluções de TI convencionais e é usado por organizações que exigem altos níveis de desempenho e disponibilidade.
+
+FaaS - "Function as a Service" ou Função como Serviço: é uma chamada de procedimento remoto hospedada em serviço que aproveita a computação sem servidor para permitir a implementação de funções individuais na nuvem que são executadas em resposta a eventos. O FaaS está incluído no termo mais amplo computação sem servidor.
+
+MBaaS - "Mobile Back-End as a Service": os desenvolvedores de aplicativos móveis e de aplicativos web são providos com uma maneira de vincular seus aplicativos a serviços de armazenamento em nuvem e computação em nuvem com APIs expostas às suas aplicações e SDK personalizado. Os serviços incluem gerenciamento de utilizadores, notificações por push, integração com serviços de redes sociais.
+
+Características essenciais
+
+A definição de computação em nuvem do Instituto Nacional de Padrões e Tecnologia (NIST) identifica cinco características essenciais:
+
+- Auto atendimento sob demanda: um consumidor pode utilizar unilateralmente recursos de computação, como tempo de servidor e armazenamento de rede, conforme necessário, automaticamente, sem exigir interação humana com cada provedor de serviços.
+- Amplo acesso à rede: os recursos estão disponíveis na rede e são acedidos por meio de mecanismos padrão que promovem o uso por plataformas heterogêneas (por exemplo, telefones celulares, tablets, notebooks e estações de trabalho).
+- Pool de recursos: os recursos de computação do provedor são agrupados para atender a vários consumidores usando um modelo de multilocação, com diferentes recursos físicos e virtuais atribuídos e reatribuídos dinamicamente de acordo com a demanda do consumidor.
+- Elasticidade rápida: os recursos podem ser provisionados e liberados elasticamente, em alguns casos automaticamente, para escalar rapidamente para fora e para dentro de acordo com a demanda. Para o consumidor, os recursos disponíveis para utilização muitas vezes parecem ilimitados e podem ser apropriados em qualquer quantidade e a qualquer momento.
+- Serviço medido: os sistemas em nuvem controlam e otimizam automaticamente o uso de recursos aproveitando um recurso de medição em algum nível de abstração apropriado ao tipo de serviço (por exemplo, armazenamento, processamento, largura de banda e contas de utilizador ativas). O uso de recursos pode ser monitorado, controlado e relatado, fornecendo transparência tanto para o provedor quanto para o consumidor do serviço utilizado.
+
+Fonte: Wikipédia, "Computação em nuvem" (português), sob licença CC BY-SA.

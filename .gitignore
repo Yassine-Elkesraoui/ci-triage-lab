@@ -1,0 +1,73 @@
+# ============================================================
+# .gitignore for RAG Chatbot Platform
+# Specifies files and folders that Git should NEVER track.
+# ============================================================
+
+# --- Python bytecode and compiled files ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# --- Virtual environments ---
+venv/
+env/
+ENV/
+.venv/
+
+# --- Environment variables and secrets ---
+# CRITICAL: Never commit .env files — they contain API keys
+.env
+.env.local
+.env.*.local
+*.env
+
+# --- IDE and editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Operating system files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Testing and coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# --- Distribution and build artifacts ---
+build/
+dist/
+*.egg-info/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Local data and uploads ---
+data/uploads/*
+!data/uploads/.gitkeep
+data/temp/*
+!data/temp/.gitkeep
+
+# --- Jupyter notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- ChromaDB local persistence (for later) ---
+chroma_db/
+*.chroma
+# Embedding model cache (downloaded at runtime from HuggingFace)
+models/    
+# ChromaDB persistence (regenerated on document processing)
+data/chroma/
+
+# Day 14-15 scratch: judge-migration probes and backups
+*.bak
+probe_*.py
+list_models.py
+test_gemini_key.py

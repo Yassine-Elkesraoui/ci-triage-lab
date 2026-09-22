@@ -1,0 +1,50 @@
+# Virtual environment (image builds its own from requirements.txt)
+venv/
+.venv/
+
+# Local model cache (downloaded fresh at build time)
+models/
+
+# Local data and vector store (not part of the image)
+data/chroma/
+data/uploads/
+data/temp/
+
+# Evaluation artifacts: exclude bulk, but keep the two scored result
+# files so the /eval/dashboard route works in the deployed container.
+# The corpus texts in eval/corpus/ are deliberately INCLUDED in the
+# image: the app seeds them into the vector store on startup when the
+# store is empty (see api/services/seed_service.py).
+eval/results/*
+!eval/results/scored_030.json
+!eval/results/scored_050.json
+
+# Secrets and local config
+.env
+*.bak
+
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Scratch / dev scripts
+probe_*.py
+list_models.py
+test_gemini_key.py
+check_scored.py
+stats.py
+notebooks/
+tests/
+
+# OS / editor
+.vscode/
+.idea/
+*.log

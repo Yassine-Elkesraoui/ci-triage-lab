@@ -1,0 +1,43 @@
+Cloud computing (Informatique en nuage)
+
+Le cloud computing, en français l'informatique en nuage (ou encore l'infonuagique au Canada), est la pratique consistant à utiliser des serveurs informatiques à distance, hébergés dans des centres de données connectés à Internet pour stocker, gérer et traiter des données, plutôt qu'un serveur local ou un ordinateur personnel.
+
+Les principaux services proposés en cloud computing sont le SaaS (Software as a Service), le PaaS (Platform as a Service) et le IaaS (Infrastructure as a Service) ou le MBaaS (Mobile Backend as a Service). On distingue généralement trois types de cloud : le cloud public — accessible par Internet —, le cloud d'entreprise ou privé — accessible uniquement sur un réseau privé —, le cloud intermédiaire ou hybride — qui est une combinaison entre le cloud public et le cloud privé.
+
+Le cloud computing présente plusieurs avantages pour les entreprises comme la réduction de coûts IT (matériel, mises à jour des systèmes et des applications, ressources humaines et consommation d'énergie), la scalabilité, l'optimisation de la collaboration dans les pratiques de travail et de suivi client et l'accès aux mises à jour automatiques.
+
+Les grandes entreprises du secteur des technologies de l'information et des télécoms développent massivement le cloud computing, allant des services nuagiques cités ci-dessus à la location de logiciel (application de téléphonie mobile, logiciels de bureautique, de dessin, publication, etc.), mais aussi de contenu, comme la vidéo à la demande (VAD). Les technologies du cloud computing ont permis la mise au point de solutions de mégadonnées et de l'informatique ubiquitaire. L'internet des objets (IdO) et la 5G s'appuient sur des infrastructures nuagiques.
+
+Origine du terme
+
+L'expression cloud computing vient de professionnels anglophones de l'informatique qui cherchaient à nommer les nouveaux systèmes informatiques fonctionnant par l'action conjointe d'éléments disparates réunis indépendamment de leur localisation géographique et de l'infrastructure sous-jacente. Ce nom est associé au symbole en forme de nuage (cloud) représentant parfois l'Internet dans les schémas des réseaux informatiques.
+
+Les francisations « informatique en nuage », « informatique dématérialisée », ou plus rarement « infonuagique » sont également utilisées. En France, selon la Commission d'enrichissement de la langue française, c'est une forme particulière de gérance de l'informatique, dans laquelle l'emplacement et le fonctionnement dans le nuage ne sont pas portés à la connaissance des clients. L'anglicisme cloud computing est largement utilisé en France.
+
+Caractéristiques
+
+Un cloud (« nuage ») est un ensemble de matériels, de raccordements réseau et de logiciels fournissant des services qu'individus et collectivités peuvent exploiter depuis n'importe où dans le monde. Un basculement de tendance fait qu'au lieu d'obtenir de la puissance de calcul par acquisition de matériel et de logiciel, le consommateur se sert de puissance mise à sa disposition par un fournisseur via l'Internet.
+
+Un nuage est caractérisé par plusieurs principes récurrents :
+- ressources en libre-service avec adaptation automatique à la demande de la capacité de stockage et puissance de calcul, selon le besoin du consommateur. En cloud computing la demande est automatique et la réponse immédiate ;
+- ouverture : les services de cloud computing sont accessibles via l'Internet, via des techniques standardisées, tant pour un ordinateur qu'un téléphone ou une tablette ;
+- mutualisation : elle permet de combiner des ressources hétérogènes (matériel, logiciel, trafic réseau) pour servir plusieurs consommateurs à qui les ressources sont automatiquement attribuées. La mutualisation améliore l'évolutivité et l'élasticité ; elle facilite l'adaptation automatique des ressources aux variations de la demande ;
+- paiement à l'usage : la quantité de service consommée dans le cloud est mesurée, à des fins de contrôle, d'adaptation des moyens techniques et de facturation.
+
+Types de cloud
+
+Le nuage (public, privé ou communautaire) bénéficie de technologies telles que la virtualisation du matériel informatique, les grilles, l'architecture orientée services et les services web. Un nuage public est mis à disposition du grand public. Les services sont généralement mis à disposition par une entreprise utilisant une infrastructure lui appartenant. Un nuage privé est destiné exclusivement à une organisation qui peut le manipuler elle-même ou faire appel à des services fournis par des tiers. Un nuage communautaire utilise une infrastructure provenant d'un ensemble de membres partageant un intérêt commun, comme dans le cas des milieux universitaires pour des études de grande envergure.
+
+Comme son nom l'indique, le cloud public garantit que n'importe qui peut accéder aux services et aux systèmes. Cependant, cela peut aussi le rendre moins sûr. L'infrastructure de cloud public appartient aux entités qui livrent et non aux consommateurs. Si le cloud public est accessible à tous, le cloud privé est dédié à une seule organisation. Parfois également appelé cloud d'entreprise ou cloud interne, cet environnement de cloud computing peut être hébergé soit sur site au sein du centre de données d'une organisation, soit par un fournisseur tiers. Le cloud hybride est une combinaison d'au moins 2 environnements informatiques partageant des données entre eux pour exécuter une série uniforme d'applications pour une entreprise.
+
+Modèles de service
+
+Du point de vue économique, le cloud computing est essentiellement une offre commerciale d'abonnement économique à des services externes. Selon le National Institute of Standards and Technology aux États-Unis, il existe trois catégories de services qui sont proposées en cloud computing : IaaS, PaaS et SaaS.
+
+IaaS (infrastructure en tant que service) : c'est le service de plus bas niveau. Il consiste à offrir un accès à un parc informatique virtualisé. Des machines virtuelles sur lesquelles le consommateur peut installer un système d'exploitation et des applications. Le consommateur est ainsi dispensé de l'achat de matériel informatique.
+
+PaaS (plate-forme en tant que service) : situé juste au-dessus du précédent, le système d'exploitation et les outils d'infrastructure sont sous la responsabilité du fournisseur. Le consommateur a le contrôle des applications et peut ajouter ses propres outils. Les systèmes sont mutualisés et offrent une grande élasticité - capacité de s'adapter automatiquement à la demande.
+
+SaaS (logiciel en tant que service) : des applications sont mises à la disposition des consommateurs. Les applications peuvent être manipulées à l'aide d'un navigateur Web ou installées de façon locative sur un PC, et le consommateur n'a pas à se soucier d'effectuer des mises à jour, d'ajouter des patches de sécurité et d'assurer la disponibilité du service. Un fournisseur de software as a service peut exploiter des services de type platform as a service, qui peut lui-même se servir de infrastructure as a service.
+
+Source : Wikipédia, « Cloud computing » (français), sous licence CC BY-SA.

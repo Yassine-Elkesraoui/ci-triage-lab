@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    name: Import & route smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: App imports on a clean machine
+        run: python -c "from api.main import app; print('CLEAN IMPORT OK')"
+      - name: Run smoke tests
+        run: python -m pytest tests -v
+
+  docker:
+    name: Docker image builds
+    runs-on: ubuntu-latest
+    needs: smoke
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build image
+        run: docker build -t rag-chatbot:ci .

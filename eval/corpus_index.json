@@ -1,0 +1,23 @@
+{
+  "api_base": "http://127.0.0.1:8000",
+  "documents": [
+    {
+      "lang": "en",
+      "filename": "cloud_computing_en.txt",
+      "document_id": "c71ee5c3-fd09-4a3c-a823-60e8889002c9",
+      "chunk_count": 12
+    },
+    {
+      "lang": "fr",
+      "filename": "cloud_computing_fr.txt",
+      "document_id": "4bb3bf2b-b94e-484c-bf5e-7f7c3d5149d5",
+      "chunk_count": 9
+    },
+    {
+      "lang": "pt",
+      "filename": "cloud_computing_pt.txt",
+      "document_id": "b834867e-cb46-44ab-b158-de2027f05151",
+      "chunk_count": 10
+    }
+  ]
+}

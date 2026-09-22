@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "description": "Day 14 evaluation test set for RAG chatbot thesis (ISLA Gaia).",
+    "corpus": "Cloud computing Wikipedia article, parallel EN/FR/PT (CC BY-SA).",
+    "design": "Same 8 questions per language (6 answerable, 2 unanswerable) to isolate language as the only variable for H3.",
+    "questions_per_language": 8,
+    "languages": ["en", "fr", "pt"],
+    "answerable_ids": ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6"],
+    "unanswerable_ids": ["Q7", "Q8"]
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "answerable": true,
+      "en": "What are the five essential characteristics of cloud computing according to NIST?",
+      "fr": "Quelles sont les cinq caractéristiques essentielles du cloud computing selon le NIST ?",
+      "pt": "Quais são as cinco características essenciais da computação em nuvem segundo o NIST?"
+    },
+    {
+      "id": "Q2",
+      "answerable": true,
+      "en": "What is the difference between IaaS, PaaS, and SaaS?",
+      "fr": "Quelle est la différence entre IaaS, PaaS et SaaS ?",
+      "pt": "Qual é a diferença entre IaaS, PaaS e SaaS?"
+    },
+    {
+      "id": "Q3",
+      "answerable": true,
+      "en": "What is a hybrid cloud?",
+      "fr": "Qu'est-ce qu'un cloud hybride ?",
+      "pt": "O que é uma nuvem híbrida?"
+    },
+    {
+      "id": "Q4",
+      "answerable": true,
+      "en": "What does 'measured service' mean in cloud computing?",
+      "fr": "Que signifie le « service mesuré » dans le cloud computing ?",
+      "pt": "O que significa «serviço medido» na computação em nuvem?"
+    },
+    {
+      "id": "Q5",
+      "answerable": true,
+      "en": "What are the main benefits of cloud computing for businesses?",
+      "fr": "Quels sont les principaux avantages du cloud computing pour les entreprises ?",
+      "pt": "Quais são os principais benefícios da computação em nuvem para as empresas?"
+    },
+    {
+      "id": "Q6",
+      "answerable": true,
+      "en": "What is the difference between a public cloud and a private cloud?",
+      "fr": "Quelle est la différence entre un cloud public et un cloud privé ?",
+      "pt": "Qual é a diferença entre uma nuvem pública e uma nuvem privada?"
+    },
+    {
+      "id": "Q7",
+      "answerable": false,
+      "en": "What is the exact monthly price of Amazon EC2?",
+      "fr": "Quel est le prix mensuel exact d'Amazon EC2 ?",
+      "pt": "Qual é o preço mensal exato do Amazon EC2?"
+    },
+    {
+      "id": "Q8",
+      "answerable": false,
+      "en": "Who is the current CEO of Microsoft Azure?",
+      "fr": "Qui est l'actuel PDG de Microsoft Azure ?",
+      "pt": "Quem é o atual CEO da Microsoft Azure?"
+    }
+  ]
+}
