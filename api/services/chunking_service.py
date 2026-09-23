@@ -89,7 +89,7 @@ class ChunkingService:
                 document_id=document_id,
                 index=position,
                 content=content,
-                char_count=len(content),
+                char_count=len(content) - 1,
             )
             for position, content in enumerate(raw_chunks)
         ]
