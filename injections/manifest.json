@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "repo": "Yassine-Elkesraoui/ci-triage-lab",
+  "baseline_commit": "b37abb9",
+  "categories": {
+    "real_regression": "A code change broke behaviour the tests assert. The fix is in the changed code.",
+    "flaky": "The test itself is unreliable. Fails on some runs and not others, independent of the commit.",
+    "dependency": "A package version is incompatible. Code and tests are unchanged and correct.",
+    "environment": "Config or environment is wrong (env vars, pytest config, missing files). Code is correct.",
+    "timeout": "The job exceeded its time limit rather than failing an assertion.",
+    "build": "The Docker image failed to build. The Python test job is unaffected."
+  },
+  "injections": []
+}

@@ -1,0 +1,14 @@
+{
+  "id": "inj-001",
+  "category": "real_regression",
+  "commit": "6147e81",
+  "run_id": "35913847397",
+  "job_id": "107360196589",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "char_count=len(content) -> len(content) - 1",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_char_count_matches_content_length"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "observed": {"failed": 1, "passed": 12, "failing_step": "Run smoke tests", "duration_s": 193},
+  "notes": "Bare 'assert False' message - agent must read the test source to interpret it."
+}
