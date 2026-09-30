@@ -1,0 +1,43 @@
+{
+  "id": "inj-002",
+  "category": "real_regression",
+  "commit": "a4141d3",
+  "run_id": "36714693462",
+  "job_id": "109884623211",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "enumerate(raw_chunks) -> enumerate(raw_chunks, start=1)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-002.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 181,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36714693462",
+        "commit": "a4141d3",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-002.log"
+      }
+    ]
+  },
+  "notes": "Indexes shift to 1-based; pytest's list diff shows [1, 2, ...] vs [0, 1, ...], so the cause is visible from the log alone."
+}
