@@ -48,6 +48,9 @@ dist/
 # --- Logs ---
 *.log
 logs/
+# CI logs saved by injections/run_injection.py are dataset evidence, not noise
+!injections/logs/
+!injections/logs/*.log
 
 # --- Local data and uploads ---
 data/uploads/*

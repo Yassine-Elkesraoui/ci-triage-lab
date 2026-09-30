@@ -1,0 +1,12 @@
+{
+  "id": "inj-002",
+  "category": "real_regression",
+  "description": "chunk indexes start at 1",
+  "target_file": "api/services/chunking_service.py",
+  "find": "enumerate(raw_chunks)",
+  "replace": "enumerate(raw_chunks, start=1)",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Indexes shift to 1-based; pytest's list diff shows [1, 2, ...] vs [0, 1, ...], so the cause is visible from the log alone."
+}
