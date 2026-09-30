@@ -91,7 +91,7 @@ class ChunkingService:
                 content=content,
                 char_count=len(content),
             )
-            for position, content in enumerate(raw_chunks)
+            for position, content in enumerate(raw_chunks, start=1)
         ]
 
         logger.info(
