@@ -1,0 +1,43 @@
+{
+  "id": "inj-005",
+  "category": "real_regression",
+  "commit": "20fae77",
+  "run_id": "36884353799",
+  "job_id": "110443739794",
+  "target_file": "api/models/schemas.py",
+  "mutation": "min_length=3 -> min_length=1",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-005.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 158,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36884353799",
+        "commit": "20fae77",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-005.log"
+      }
+    ]
+  },
+  "notes": "Fails with 'DID NOT RAISE <class ValidationError>' on ChatRequest(question=\"hi\"). The log shows that a 2-character question is now accepted, but not the constraint value; the agent must open schemas.py to see min_length=1."
+}

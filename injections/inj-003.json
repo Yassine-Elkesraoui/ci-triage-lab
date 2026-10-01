@@ -1,0 +1,43 @@
+{
+  "id": "inj-003",
+  "category": "real_regression",
+  "commit": "8c853c8",
+  "run_id": "36881905896",
+  "job_id": "110435505134",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "if not text or not text.strip(): -> if text and text.strip():",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-003.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 175,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36881905896",
+        "commit": "8c853c8",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-003.log"
+      }
+    ]
+  },
+  "notes": "Real text now takes the early return, so chunk() returns [] for every input. Only the split test fails: the index/document_id and char_count tests pass vacuously over an empty list, and blank text still yields []. pytest shows 'assert 0 > 1 / where 0 = len([])' with no traceback into the service. The captured log does show a WARNING 'Chunking called with empty text' from chunking_service.py:79 for a non-empty input, which points at the guard; the inverted condition itself is only visible in the diff."
+}

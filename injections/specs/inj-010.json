@@ -1,0 +1,12 @@
+{
+  "id": "inj-010",
+  "category": "real_regression",
+  "description": "chat route imports misspelled ChatRequest",
+  "target_file": "api/routes/chat.py",
+  "find": "from api.models.schemas import ChatRequest",
+  "replace": "from api.models.schemas import ChatRequst",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "ImportError at the 'App imports on a clean machine' step: python -c \"from api.main import app\" fails, GitHub Actions skips the later 'Run smoke tests' step, and pytest never executes, so the log has no pytest summary at all. The agent must read the traceback rather than a test summary; it names api/routes/chat.py line 25 and the misspelled name 'ChatRequst' (Python 3.11 adds no 'Did you mean' hint). This is the one real_regression in the set with no failing-test evidence."
+}

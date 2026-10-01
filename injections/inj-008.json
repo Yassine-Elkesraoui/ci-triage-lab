@@ -1,0 +1,43 @@
+{
+  "id": "inj-008",
+  "category": "real_regression",
+  "commit": "cae70ac",
+  "run_id": "36888457699",
+  "job_id": "110457700101",
+  "target_file": "api/utils/config.py",
+  "mutation": "chunk_overlap: int = 200 -> chunk_overlap: int = 2000",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_settings_defaults_are_sane"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-008.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 165,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36888457699",
+        "commit": "cae70ac",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-008.log"
+      }
+    ]
+  },
+  "notes": "pytest prints 'assert 2000 < 1000' along with the full Settings repr (chunk_overlap=2000), so the bad value is visible in the log. It does not say whether the value comes from the code default or the environment; CI has no .env, so the agent must check config.py to rule out an environment cause."
+}

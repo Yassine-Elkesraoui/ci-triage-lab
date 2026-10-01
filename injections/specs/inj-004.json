@@ -1,0 +1,12 @@
+{
+  "id": "inj-004",
+  "category": "real_regression",
+  "description": "chunks carry the nil UUID instead of their document_id",
+  "target_file": "api/services/chunking_service.py",
+  "find": "document_id=document_id,",
+  "replace": "document_id=UUID(int=0),",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pytest prints only 'assert False' with 'where False = all(<generator object ...>)', so the log shows that some chunk has the wrong document_id (the index assertion on the line above passed) but not which value it carries. The captured log line shows the input id, not the stored one. The agent must read chunk() to find the nil UUID."
+}

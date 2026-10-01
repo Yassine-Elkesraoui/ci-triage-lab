@@ -1,0 +1,43 @@
+{
+  "id": "inj-004",
+  "category": "real_regression",
+  "commit": "8471827",
+  "run_id": "36883197657",
+  "job_id": "110439875532",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "document_id=document_id, -> document_id=UUID(int=0),",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-004.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 151,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36883197657",
+        "commit": "8471827",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-004.log"
+      }
+    ]
+  },
+  "notes": "pytest prints only 'assert False' with 'where False = all(<generator object ...>)', so the log shows that some chunk has the wrong document_id (the index assertion on the line above passed) but not which value it carries. The captured log line shows the input id, not the stored one. The agent must read chunk() to find the nil UUID."
+}

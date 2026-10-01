@@ -1,0 +1,12 @@
+{
+  "id": "inj-008",
+  "category": "real_regression",
+  "description": "default chunk_overlap exceeds chunk_size",
+  "target_file": "api/utils/config.py",
+  "find": "chunk_overlap: int = 200",
+  "replace": "chunk_overlap: int = 2000",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_settings_defaults_are_sane"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pytest prints 'assert 2000 < 1000' along with the full Settings repr (chunk_overlap=2000), so the bad value is visible in the log. It does not say whether the value comes from the code default or the environment; CI has no .env, so the agent must check config.py to rule out an environment cause."
+}

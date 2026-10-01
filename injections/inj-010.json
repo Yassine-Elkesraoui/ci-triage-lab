@@ -1,0 +1,41 @@
+{
+  "id": "inj-010",
+  "category": "real_regression",
+  "commit": "ca43ecb",
+  "run_id": "36891169903",
+  "job_id": "110466874461",
+  "target_file": "api/routes/chat.py",
+  "mutation": "from api.models.schemas import ChatRequest -> from api.models.schemas import ChatRequst",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-010.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "App imports on a clean machine",
+    "duration_s": 177,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36891169903",
+        "commit": "ca43ecb",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-010.log"
+      }
+    ]
+  },
+  "notes": "ImportError at the 'App imports on a clean machine' step: python -c \"from api.main import app\" fails, GitHub Actions skips the later 'Run smoke tests' step, and pytest never executes, so the log has no pytest summary at all. The agent must read the traceback rather than a test summary; it names api/routes/chat.py line 25 and the misspelled name 'ChatRequst' (Python 3.11 adds no 'Did you mean' hint). This is the one real_regression in the set with no failing-test evidence."
+}

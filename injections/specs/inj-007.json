@@ -1,0 +1,12 @@
+{
+  "id": "inj-007",
+  "category": "real_regression",
+  "description": "ChatResponse.status gets a default",
+  "target_file": "api/models/schemas.py",
+  "find": "status: str",
+  "replace": "status: str = \"ok\"",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chat_response_requires_all_fields"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Fails with 'DID NOT RAISE <class ValidationError>' on ChatResponse(question=\"q\", answer=\"a\"). The test source in the traceback implies that status is no longer required, but the log does not show which field changed or the \"ok\" default; the agent must read ChatResponse."
+}

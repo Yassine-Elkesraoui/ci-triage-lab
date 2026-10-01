@@ -1,0 +1,43 @@
+{
+  "id": "inj-009",
+  "category": "real_regression",
+  "commit": "220615c",
+  "run_id": "36889888403",
+  "job_id": "110462545274",
+  "target_file": "api/utils/config.py",
+  "mutation": "retrieval_min_score: float = 0.3 -> retrieval_min_score: float = 1.5",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_settings_defaults_are_sane"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-009.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 207,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "36889888403",
+        "commit": "220615c",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-009.log"
+      }
+    ]
+  },
+  "notes": "Same test as inj-008, failing on the next line: pytest prints 'assert 1.5 <= 1.0' with the Settings repr (retrieval_min_score=1.5). The value is visible, but as with inj-008 the log does not distinguish a code default from an environment override."
+}

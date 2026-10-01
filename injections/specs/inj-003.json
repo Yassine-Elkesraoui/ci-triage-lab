@@ -1,0 +1,12 @@
+{
+  "id": "inj-003",
+  "category": "real_regression",
+  "description": "invert blank-text guard in chunk()",
+  "target_file": "api/services/chunking_service.py",
+  "find": "if not text or not text.strip():",
+  "replace": "if text and text.strip():",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Real text now takes the early return, so chunk() returns [] for every input. Only the split test fails: the index/document_id and char_count tests pass vacuously over an empty list, and blank text still yields []. pytest shows 'assert 0 > 1 / where 0 = len([])' with no traceback into the service. The captured log does show a WARNING 'Chunking called with empty text' from chunking_service.py:79 for a non-empty input, which points at the guard; the inverted condition itself is only visible in the diff."
+}
