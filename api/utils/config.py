@@ -67,7 +67,7 @@ class Settings(BaseSettings):
 
     # ── Document chunking configuration ────────────────────────────
     chunk_size: int = 1000
-    chunk_overlap: int = 200
+    chunk_overlap: int = 2000
 
     # ── Embedding configuration ────────────────────────────────────
     embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
