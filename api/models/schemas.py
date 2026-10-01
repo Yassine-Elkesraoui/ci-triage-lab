@@ -28,7 +28,7 @@ class ChatRequest(BaseModel):
     question: str = Field(
         ...,
         min_length=3,
-        max_length=99999,
+        max_length=2000,
         description="The user's question to the AI. Must be 3-2000 characters.",
         examples=["What is Retrieval-Augmented Generation?"],
     )
