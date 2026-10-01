@@ -86,7 +86,7 @@ class ChunkingService:
 
         chunks = [
             DocumentChunk(
-                document_id=document_id,
+                document_id=UUID(int=0),
                 index=position,
                 content=content,
                 char_count=len(content),
