@@ -46,4 +46,4 @@ class ChatResponse(BaseModel):
 
     question: str
     answer: str
-    status: str
+    status: str = "ok"
