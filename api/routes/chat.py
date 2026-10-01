@@ -22,7 +22,7 @@ exceptions into appropriate HTTP responses, and returns the result.
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from api.models.schemas import ChatRequst, ChatResponse
+from api.models.schemas import ChatRequest, ChatResponse
 from api.services.ollama_service import (
     OllamaConnectionError,
     OllamaModelError,
