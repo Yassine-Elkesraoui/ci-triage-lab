@@ -83,7 +83,7 @@ class Settings(BaseSettings):
 
     # ── Retrieval configuration ────────────────────────────────────
     retrieval_top_k: int = 4
-    retrieval_min_score: float = 0.3
+    retrieval_min_score: float = 1.5
     # ── Evaluation results configuration ───────────────────────────
     eval_results_dir: str = "eval/results"
     eval_scored_030: str = "scored_030.json"
