@@ -75,7 +75,7 @@ class ChunkingService:
             A list of DocumentChunk objects, in source order. Empty list
             if the input text is empty or contains only whitespace.
         """
-        if text and text.strip():
+        if not text or not text.strip():
             logger.warning(
                 "Chunking called with empty text for document id=%s",
                 document_id,
