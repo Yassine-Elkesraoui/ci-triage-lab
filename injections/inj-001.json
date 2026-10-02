@@ -9,6 +9,8 @@
   "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_char_count_matches_content_length"],
   "expected_failing_job": "smoke",
   "expected_skipped_jobs": ["docker"],
+  "log_file": "injections/logs/inj-001.log",
   "observed": {"failed": 1, "passed": 12, "failing_step": "Run smoke tests", "duration_s": 193},
   "notes": "Bare 'assert False' message - agent must read the test source to interpret it."
 }
+
