@@ -1,0 +1,12 @@
+{
+  "id": "inj-017",
+  "category": "dependency",
+  "description": "downgrade anyio below starlette's floor",
+  "target_file": "requirements.txt",
+  "find": "anyio==4.13.0",
+  "replace": "anyio==3.6.1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "3.6.1 is a real release one step below starlette 1.0.0's floor (anyio<5,>=3.6.2); openai (>=3.5.0), watchfiles (>=3.0.0) and httpx (unbounded) all accept it. Resolver failure as in inj-016 ('conflicting dependencies' ... 'ResolutionImpossible'), but with a single dependent: 'starlette 1.0.0 depends on anyio<5,>=3.6.2'. The near-miss is the point: the agent must read the bound, not just see a major-version downgrade. (The original draft used anyio==3.7.1, which satisfies every pinned dependent and would install cleanly.) Fails at 'Install dependencies'; no pytest summary."
+}

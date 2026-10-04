@@ -1,0 +1,12 @@
+{
+  "id": "inj-018",
+  "category": "dependency",
+  "description": "malformed numpy specifier",
+  "target_file": "requirements.txt",
+  "find": "numpy==2.4.4",
+  "replace": "numpy=>2.4.4",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "'=>' is not a PEP 508 operator, so pip rejects the line while parsing requirements.txt, before contacting the index: 'ERROR: Invalid requirement: 'numpy=>2.4.4'' (newer pip versions add the requirements.txt line number and may add a 'Did you mean' hint). No versions list, no resolver output. (The original draft used 'numpy===~2.4.4', but '===' is PEP 440 arbitrary equality and accepts any string, so pip parses it and fails with 'No matching distribution found for numpy===~2.4.4', the same signature as inj-012.) Fails at 'Install dependencies'; no pytest summary."
+}

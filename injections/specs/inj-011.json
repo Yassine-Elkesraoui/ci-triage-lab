@@ -1,0 +1,12 @@
+{
+  "id": "inj-011",
+  "category": "dependency",
+  "description": "pin pydantic to nonexistent 9.9.9",
+  "target_file": "requirements.txt",
+  "find": "pydantic==2.13.4",
+  "replace": "pydantic==9.9.9",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement pydantic==9.9.9 (from versions: ...)' followed by 'ERROR: No matching distribution found for pydantic==9.9.9'. The 'from versions' list is populated and tops out at 2.13.x, so the log shows the package exists and only the pinned version is fictitious; the fix is the version, not the name. Fails at 'Install dependencies'; no Python runs, so there is no pytest summary."
+}

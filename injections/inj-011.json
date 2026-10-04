@@ -1,0 +1,41 @@
+{
+  "id": "inj-011",
+  "category": "dependency",
+  "commit": "b4fdb00",
+  "run_id": "37212626536",
+  "job_id": "111466712329",
+  "target_file": "requirements.txt",
+  "mutation": "pydantic==2.13.4 -> pydantic==9.9.9",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-011.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "duration_s": 46,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37212626536",
+        "commit": "b4fdb00",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-011.log"
+      }
+    ]
+  },
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement pydantic==9.9.9 (from versions: ...)' followed by 'ERROR: No matching distribution found for pydantic==9.9.9'. The 'from versions' list is populated and tops out at 2.13.x, so the log shows the package exists and only the pinned version is fictitious; the fix is the version, not the name. Fails at 'Install dependencies'; no Python runs, so there is no pytest summary."
+}

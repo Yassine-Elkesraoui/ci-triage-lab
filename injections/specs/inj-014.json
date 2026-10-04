@@ -1,0 +1,12 @@
+{
+  "id": "inj-014",
+  "category": "dependency",
+  "description": "misspell fastapi as fastpi",
+  "target_file": "requirements.txt",
+  "find": "fastapi==0.136.1",
+  "replace": "fastpi==0.136.1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement fastpi==0.136.1 (from versions: ...)' followed by 'ERROR: No matching distribution found for fastpi==0.136.1'. The final ERROR line is identical in shape to inj-011..013; the distinguishing evidence is '(from versions: none)', meaning PyPI has no project by that name at all, so the fix is the name, not the version. 'fastpi' returned 404 on PyPI when this spec was written; if it is ever registered (a plausible typosquat), this injection would install it instead of failing. Fails at 'Install dependencies'; no pytest summary."
+}

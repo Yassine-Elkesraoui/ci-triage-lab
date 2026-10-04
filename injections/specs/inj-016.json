@@ -1,0 +1,12 @@
+{
+  "id": "inj-016",
+  "category": "dependency",
+  "description": "downgrade pydantic to 1.10.13",
+  "target_file": "requirements.txt",
+  "find": "pydantic==2.13.4",
+  "replace": "pydantic==1.10.13",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "1.10.13 is a real release (pure-Python wheel, installs on 3.11), so no 'No matching distribution' error. The resolver fails instead: 'ERROR: Cannot install ... because these package versions have conflicting dependencies.', then 'The conflict is caused by:' listing 'The user requested pydantic==1.10.13' against dependents requiring pydantic 2 (per PyPI metadata: fastapi 0.136.1 >=2.9.0, pydantic-settings 2.14.0 >=2.7.0, chromadb 1.5.9 >=2.0, ollama 0.6.2 >=2.9, langchain-core 1.3.3 >=2.7.4, and others; pip may list only a subset), ending in 'ResolutionImpossible'. The log names the bad pin and the packages it breaks. Fails at 'Install dependencies'; no pytest summary."
+}

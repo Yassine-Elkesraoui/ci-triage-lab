@@ -1,0 +1,41 @@
+{
+  "id": "inj-013",
+  "category": "dependency",
+  "commit": "8344fdb",
+  "run_id": "37213534456",
+  "job_id": "111469348380",
+  "target_file": "requirements.txt",
+  "mutation": "httpx==0.28.1 -> httpx==99.99.99",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-013.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "duration_s": 43,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37213534456",
+        "commit": "8344fdb",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-013.log"
+      }
+    ]
+  },
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement httpx==99.99.99 (from versions: ...)' followed by 'ERROR: No matching distribution found for httpx==99.99.99'. Third instance of the nonexistent-version shape, on a transitive-looking package many pins depend on (chromadb, openai, ollama, langsmith); pip still fails on the explicit pin before any dependency conflict is reported. The neighbouring httpx-sse line is untouched. Fails at 'Install dependencies'; no pytest summary."
+}

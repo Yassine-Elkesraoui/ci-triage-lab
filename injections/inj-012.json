@@ -1,0 +1,41 @@
+{
+  "id": "inj-012",
+  "category": "dependency",
+  "commit": "031ed5d",
+  "run_id": "37213073049",
+  "job_id": "111467989720",
+  "target_file": "requirements.txt",
+  "mutation": "numpy==2.4.4 -> numpy==99.0.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-012.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "duration_s": 49,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37213073049",
+        "commit": "031ed5d",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-012.log"
+      }
+    ]
+  },
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement numpy==99.0.0 (from versions: ...)' followed by 'ERROR: No matching distribution found for numpy==99.0.0'. Same shape as inj-011 on a different package: the populated versions list (ending at 2.4.x) shows numpy exists and 99.0.0 does not. pip may also print 'Ignored the following versions that require a different python version' lines first (numpy 2.5 needs Python >=3.12); those are noise, not the cause. Fails at 'Install dependencies'; no pytest summary."
+}

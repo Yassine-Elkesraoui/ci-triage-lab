@@ -1,0 +1,12 @@
+{
+  "id": "inj-013",
+  "category": "dependency",
+  "description": "pin httpx to nonexistent 99.99.99",
+  "target_file": "requirements.txt",
+  "find": "httpx==0.28.1",
+  "replace": "httpx==99.99.99",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement httpx==99.99.99 (from versions: ...)' followed by 'ERROR: No matching distribution found for httpx==99.99.99'. Third instance of the nonexistent-version shape, on a transitive-looking package many pins depend on (chromadb, openai, ollama, langsmith); pip still fails on the explicit pin before any dependency conflict is reported. The neighbouring httpx-sse line is untouched. Fails at 'Install dependencies'; no pytest summary."
+}

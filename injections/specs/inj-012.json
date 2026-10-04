@@ -1,0 +1,12 @@
+{
+  "id": "inj-012",
+  "category": "dependency",
+  "description": "pin numpy to nonexistent 99.0.0",
+  "target_file": "requirements.txt",
+  "find": "numpy==2.4.4",
+  "replace": "numpy==99.0.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement numpy==99.0.0 (from versions: ...)' followed by 'ERROR: No matching distribution found for numpy==99.0.0'. Same shape as inj-011 on a different package: the populated versions list (ending at 2.4.x) shows numpy exists and 99.0.0 does not. pip may also print 'Ignored the following versions that require a different python version' lines first (numpy 2.5 needs Python >=3.12); those are noise, not the cause. Fails at 'Install dependencies'; no pytest summary."
+}

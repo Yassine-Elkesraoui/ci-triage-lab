@@ -1,0 +1,41 @@
+{
+  "id": "inj-015",
+  "category": "dependency",
+  "commit": "7f9702a",
+  "run_id": "37214410081",
+  "job_id": "111471898341",
+  "target_file": "requirements.txt",
+  "mutation": "chromadb==1.5.9 -> chromedb==1.5.9",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-015.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "duration_s": 46,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37214410081",
+        "commit": "7f9702a",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-015.log"
+      }
+    ]
+  },
+  "notes": "pip prints 'ERROR: Could not find a version that satisfies the requirement chromedb==1.5.9 (from versions: ...)' followed by 'ERROR: No matching distribution found for chromedb==1.5.9'. Same shape as inj-014: '(from versions: none)' shows the project name does not exist on PyPI. The name is one letter from the real package and reads as a plausible word, so the agent has to compare it against the rest of the file or the imports rather than spot an obvious typo. 'chromedb' returned 404 on PyPI when this spec was written; re-check before re-running. Fails at 'Install dependencies'; no pytest summary."
+}
