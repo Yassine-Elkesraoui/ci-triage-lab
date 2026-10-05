@@ -38,7 +38,7 @@ COPY api/ ./api/
 COPY eval/ ./eval/
 
 # Create runtime data directories the app expects (excluded from context).
-RUN mkdirr -p data/chroma data/uploads data/temp
+RUN mkdir -p data/chroma data/uploads data/temp
 
 # Default provider is "ollama" (from config); the deployment overrides
 # LLM_PROVIDER=cerebras and supplies CEREBRAS_API_KEY at runtime, so no
