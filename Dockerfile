@@ -34,7 +34,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer(model_name_or_path='sentence-transformers/all-MiniLM-L6-v2', cache_folder='models')"
 
 # Copy application code and the two scored eval files (for /eval/dashboard).
-COPY apii/ ./api/
+COPY api/ ./api/
 COPY eval/ ./eval/
 
 # Create runtime data directories the app expects (excluded from context).
