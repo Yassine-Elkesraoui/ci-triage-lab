@@ -31,7 +31,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Bake the embedding model into an image layer so the container starts
 # instantly with no runtime download. Uses the SAME model name and cache
 # folder as EmbeddingService, so the app finds it locally at startup.
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer(model_name_or_path='sentence-transformers/all-MiniLM-L6-v2', cache_folder='models')"
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer(model_name_or_path='sentence-transformers/all-MiniLM-L6-v9', cache_folder='models')"
 
 # Copy application code and the two scored eval files (for /eval/dashboard).
 COPY api/ ./api/
