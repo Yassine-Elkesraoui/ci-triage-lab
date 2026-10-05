@@ -26,7 +26,7 @@ WORKDIR /app
 # Install Python dependencies first (cached layer; only re-runs when
 # requirements.txt changes), before copying source for fast rebuilds.
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.text
 
 # Bake the embedding model into an image layer so the container starts
 # instantly with no runtime download. Uses the SAME model name and cache
