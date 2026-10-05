@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 # Minimal system build tools (some wheels compile native extensions).
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential \
+    && apt-get install -y --no-install-recommends build-essentiall \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
