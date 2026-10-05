@@ -43,6 +43,6 @@ RUN mkdir -p data/chroma data/uploads data/temp
 # Default provider is "ollama" (from config); the deployment overrides
 # LLM_PROVIDER=cerebras and supplies CEREBRAS_API_KEY at runtime, so no
 # secret is ever baked into the image.
-EXPOSE 7860
+EXPOSE http-port
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]
