@@ -35,7 +35,7 @@ RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTr
 
 # Copy application code and the two scored eval files (for /eval/dashboard).
 COPY api/ ./api/
-COPY eval/ ./eval/
+COPY evall/ ./eval/
 
 # Create runtime data directories the app expects (excluded from context).
 RUN mkdir -p data/chroma data/uploads data/temp
