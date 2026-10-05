@@ -1,0 +1,12 @@
+{
+  "id": "inj-020",
+  "category": "build",
+  "description": "misspell base image repository as pythonn",
+  "target_file": "Dockerfile",
+  "find": "FROM python:3.11-slim",
+  "replace": "FROM pythonn:3.11-slim",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "'pythonn' is not a repository on Docker Hub (404 when this spec was written). Fails at the same point as inj-019, resolving the base image, but with a different message: 'failed to resolve source metadata for docker.io/library/pythonn:3.11-slim: pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed'. Same split as inj-011 vs inj-014: 'not found' (inj-019) means the repository exists and only the tag is wrong, while 'pull access denied' means the repository name itself is wrong, because the registry reports a missing public repo as an authorization failure. Short log; fails within seconds and no steps run."
+}

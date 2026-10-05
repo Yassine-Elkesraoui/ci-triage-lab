@@ -1,0 +1,12 @@
+{
+  "id": "inj-022",
+  "category": "build",
+  "description": "COPY misspelled requirement.txt",
+  "target_file": "Dockerfile",
+  "find": "COPY requirements.txt .",
+  "replace": "COPY requirement.txt .",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "The source path does not exist in the build context. BuildKit checksums COPY sources against the build context once the context is loaded, rather than waiting for earlier steps to finish: 'ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref ...: \"/requirement.txt\": not found'. The apt-get step may be marked CANCELED. Fails within seconds; short log. The correct name still appears on the next line ('pip install -r requirements.txt')."
+}

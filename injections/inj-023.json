@@ -1,0 +1,39 @@
+{
+  "id": "inj-023",
+  "category": "build",
+  "commit": "8b05218",
+  "run_id": "37330938488",
+  "job_id": "111835075384",
+  "target_file": "Dockerfile",
+  "mutation": "build-essential -> build-essentiall",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-023.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 16,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37330938488",
+        "commit": "8b05218",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-023.log"
+      }
+    ]
+  },
+  "notes": "apt-get update succeeds, then apt-get install prints 'E: Unable to locate package build-essentiall' and the first RUN step fails with 'process \"/bin/sh -c apt-get update ...\" did not complete successfully: exit code: 100' (exit code 100 is apt's error code). Short log: roughly 10-20 seconds in, with only the apt-get update fetch lines before the error. No Python package is touched."
+}

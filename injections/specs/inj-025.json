@@ -1,0 +1,12 @@
+{
+  "id": "inj-025",
+  "category": "build",
+  "description": "bake nonexistent embedding model all-MiniLM-L6-v9",
+  "target_file": "Dockerfile",
+  "find": "model_name_or_path='sentence-transformers/all-MiniLM-L6-v2'",
+  "replace": "model_name_or_path='sentence-transformers/all-MiniLM-L6-v9'",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "Long-log group (025-028). Everything up to and including the full 'pip install -r requirements.txt' succeeds first: several minutes of Collecting/Downloading lines, including torch 2.12.0 and its CUDA wheels. Then the model-baking RUN step fails, because sentence-transformers/all-MiniLM-L6-v9 does not exist on the Hugging Face Hub (the Hub API returned 401, its response for a missing repo, when this spec was written; v2 returned 200). Here the pip install succeeds but the model download itself fails. The traceback most likely ends in 'OSError: sentence-transformers/all-MiniLM-L6-v9 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'', with huggingface_hub's RepositoryNotFoundError (401 ... Repository Not Found) chained above it. sentence-transformers may first warn 'No sentence-transformers model found with name ...'. The find string uses the model_name_or_path= form because 'all-MiniLM-L6-v2' also appears in the header comment, which is left unchanged; the comment and the RUN line now differ by one character."
+}

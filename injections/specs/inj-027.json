@@ -1,0 +1,12 @@
+{
+  "id": "inj-027",
+  "category": "build",
+  "description": "COPY from misspelled evall/ directory",
+  "target_file": "Dockerfile",
+  "find": "COPY eval/ ./eval/",
+  "replace": "COPY evall/ ./eval/",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "Same mechanism and expectation as inj-026: meant as a late failure, but BuildKit checksums COPY sources once the build context loads, so expect it to fail within seconds with any running step CANCELED: 'ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref ...: \"/evall\": not found'. If the recorded log shows the pip install and model download completing first, correct this note. eval/ is only partly excluded by .dockerignore (eval/results/* except the two scored files), so the real directory is in the context and only the misspelled source is missing."
+}

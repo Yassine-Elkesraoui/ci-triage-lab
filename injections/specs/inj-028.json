@@ -1,0 +1,12 @@
+{
+  "id": "inj-028",
+  "category": "build",
+  "description": "misspell mkdir as mkdirr",
+  "target_file": "Dockerfile",
+  "find": "RUN mkdir -p data/chroma",
+  "replace": "RUN mkdirr -p data/chroma",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "Long log. Every earlier layer succeeds: apt-get, the full pip install (several minutes, including torch 2.12.0 and its CUDA wheels), the model download, and both COPY steps. Then the shell cannot find the command: '/bin/sh: 1: mkdirr: not found', followed by 'process \"/bin/sh -c mkdirr -p data/chroma data/uploads data/temp\" did not complete successfully: exit code: 127' (127 means command not found). The error is in the last few lines, after minutes of successful build output. This is the only spec in the group that fails after the model has been baked in."
+}

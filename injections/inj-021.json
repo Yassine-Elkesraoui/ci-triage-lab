@@ -1,0 +1,39 @@
+{
+  "id": "inj-021",
+  "category": "build",
+  "commit": "45a5ef9",
+  "run_id": "37328461845",
+  "job_id": "111826241362",
+  "target_file": "Dockerfile",
+  "mutation": "EXPOSE 7860 -> EXPOSE http-port",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-021.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 9,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37328461845",
+        "commit": "45a5ef9",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-021.log"
+      }
+    ]
+  },
+  "notes": "EXPOSE takes a port number (optionally /tcp or /udp), not a name. EXPOSE is near the end of the file, but BuildKit validates it while converting the Dockerfile to a build graph: after resolving the base image metadata and before running any step. So this fails within seconds and builds no layers. Expect an error naming the value as an invalid port, e.g. 'invalid containerPort: http-port' (exact wording depends on the BuildKit version). Short log. Here the instruction's position in the file does not predict when the build fails."
+}

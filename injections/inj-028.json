@@ -1,0 +1,39 @@
+{
+  "id": "inj-028",
+  "category": "build",
+  "commit": "9177590",
+  "run_id": "37338339441",
+  "job_id": "111860050928",
+  "target_file": "Dockerfile",
+  "mutation": "RUN mkdir -p data/chroma -> RUN mkdirr -p data/chroma",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-028.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 155,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37338339441",
+        "commit": "9177590",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-028.log"
+      }
+    ]
+  },
+  "notes": "Long log. Every earlier layer succeeds: apt-get, the full pip install (several minutes, including torch 2.12.0 and its CUDA wheels), the model download, and both COPY steps. Then the shell cannot find the command: '/bin/sh: 1: mkdirr: not found', followed by 'process \"/bin/sh -c mkdirr -p data/chroma data/uploads data/temp\" did not complete successfully: exit code: 127' (127 means command not found). The error is in the last few lines, after minutes of successful build output. This is the only spec in the group that fails after the model has been baked in."
+}

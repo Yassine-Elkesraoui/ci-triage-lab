@@ -1,0 +1,39 @@
+{
+  "id": "inj-019",
+  "category": "build",
+  "commit": "5d487f1",
+  "run_id": "37325802638",
+  "job_id": "111817508308",
+  "target_file": "Dockerfile",
+  "mutation": "FROM python:3.11-slim -> FROM python:3.99-slim",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-019.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 7,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37325802638",
+        "commit": "5d487f1",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-019.log"
+      }
+    ]
+  },
+  "notes": "python:3.99-slim is not a published tag (Docker Hub returned 404 for it when this spec was written; re-check before re-running). The build stops while resolving the base image, before any Dockerfile step runs: 'ERROR: failed to solve: python:3.99-slim: failed to resolve source metadata for docker.io/library/python:3.99-slim: docker.io/library/python:3.99-slim: not found'. Short-log group (019-024): fails within seconds, and the log is a few lines of BuildKit setup followed by that error. smoke passes (13 passed), so the record's pytest counts come from smoke."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "inj-019",
+  "category": "build",
+  "description": "base image tag python:3.99 does not exist",
+  "target_file": "Dockerfile",
+  "find": "FROM python:3.11-slim",
+  "replace": "FROM python:3.99-slim",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "python:3.99-slim is not a published tag (Docker Hub returned 404 for it when this spec was written; re-check before re-running). The build stops while resolving the base image, before any Dockerfile step runs: 'ERROR: failed to solve: python:3.99-slim: failed to resolve source metadata for docker.io/library/python:3.99-slim: docker.io/library/python:3.99-slim: not found'. Short-log group (019-024): fails within seconds, and the log is a few lines of BuildKit setup followed by that error. smoke passes (13 passed), so the record's pytest counts come from smoke."
+}

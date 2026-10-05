@@ -1,0 +1,39 @@
+{
+  "id": "inj-024",
+  "category": "build",
+  "commit": "702aa0a",
+  "run_id": "37332366983",
+  "job_id": "111840262904",
+  "target_file": "Dockerfile",
+  "mutation": "pip install -r requirements.txt -> pip install -r requirements.text",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-024.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 31,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37332366983",
+        "commit": "702aa0a",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-024.log"
+      }
+    ]
+  },
+  "notes": "COPY still copies requirements.txt, so the build gets through apt-get install build-essential (a screen of apt output) and 'pip install --upgrade pip', and then pip fails: 'ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.text'', exit code 1. This is the longest of the short group (under a minute, mostly apt output), but no package from requirements.txt is downloaded. The file that exists and the name pip was given differ only in the extension; the COPY line just above has the right name."
+}

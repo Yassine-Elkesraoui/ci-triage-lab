@@ -1,0 +1,12 @@
+{
+  "id": "inj-021",
+  "category": "build",
+  "description": "EXPOSE a port name instead of a number",
+  "target_file": "Dockerfile",
+  "find": "EXPOSE 7860",
+  "replace": "EXPOSE http-port",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "EXPOSE takes a port number (optionally /tcp or /udp), not a name. EXPOSE is near the end of the file, but BuildKit validates it while converting the Dockerfile to a build graph: after resolving the base image metadata and before running any step. So this fails within seconds and builds no layers. Expect an error naming the value as an invalid port, e.g. 'invalid containerPort: http-port' (exact wording depends on the BuildKit version). Short log. Here the instruction's position in the file does not predict when the build fails."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "inj-023",
+  "category": "build",
+  "description": "misspell apt package build-essential",
+  "target_file": "Dockerfile",
+  "find": "build-essential",
+  "replace": "build-essentiall",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "notes": "apt-get update succeeds, then apt-get install prints 'E: Unable to locate package build-essentiall' and the first RUN step fails with 'process \"/bin/sh -c apt-get update ...\" did not complete successfully: exit code: 100' (exit code 100 is apt's error code). Short log: roughly 10-20 seconds in, with only the apt-get update fetch lines before the error. No Python package is touched."
+}

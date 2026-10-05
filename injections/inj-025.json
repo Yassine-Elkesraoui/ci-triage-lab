@@ -1,0 +1,39 @@
+{
+  "id": "inj-025",
+  "category": "build",
+  "commit": "d1ad5f1",
+  "run_id": "37333955470",
+  "job_id": "111845499511",
+  "target_file": "Dockerfile",
+  "mutation": "model_name_or_path='sentence-transformers/all-MiniLM-L6-v2' -> model_name_or_path='sentence-transformers/all-MiniLM-L6-v9'",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-025.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 123,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37333955470",
+        "commit": "d1ad5f1",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-025.log"
+      }
+    ]
+  },
+  "notes": "Long-log group (025-028). Everything up to and including the full 'pip install -r requirements.txt' succeeds first: several minutes of Collecting/Downloading lines, including torch 2.12.0 and its CUDA wheels. Then the model-baking RUN step fails, because sentence-transformers/all-MiniLM-L6-v9 does not exist on the Hugging Face Hub (the Hub API returned 401, its response for a missing repo, when this spec was written; v2 returned 200). Here the pip install succeeds but the model download itself fails. The traceback most likely ends in 'OSError: sentence-transformers/all-MiniLM-L6-v9 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'', with huggingface_hub's RepositoryNotFoundError (401 ... Repository Not Found) chained above it. sentence-transformers may first warn 'No sentence-transformers model found with name ...'. The find string uses the model_name_or_path= form because 'all-MiniLM-L6-v2' also appears in the header comment, which is left unchanged; the comment and the RUN line now differ by one character."
+}

@@ -1,0 +1,39 @@
+{
+  "id": "inj-022",
+  "category": "build",
+  "commit": "2f66ff4",
+  "run_id": "37329606822",
+  "job_id": "111830460101",
+  "target_file": "Dockerfile",
+  "mutation": "COPY requirements.txt . -> COPY requirement.txt .",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-022.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "duration_s": 7,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37329606822",
+        "commit": "2f66ff4",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-022.log"
+      }
+    ]
+  },
+  "notes": "The source path does not exist in the build context. BuildKit checksums COPY sources against the build context once the context is loaded, rather than waiting for earlier steps to finish: 'ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref ...: \"/requirement.txt\": not found'. The apt-get step may be marked CANCELED. Fails within seconds; short log. The correct name still appears on the next line ('pip install -r requirements.txt')."
+}
