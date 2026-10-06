@@ -10,6 +10,8 @@ jobs:
   smoke:
     name: Import & route smoke tests
     runs-on: ubuntu-latest
+    env:
+      CHUNK_OVERLAP: "5000"
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
