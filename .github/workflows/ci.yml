@@ -21,6 +21,7 @@ jobs:
       - name: App imports on a clean machine
         run: python -c "from api.main import app; print('CLEAN IMPORT OK')"
       - name: Run smoke tests
+        timeout-minutes: 3
         run: python -m pytest tests -v
 
   docker:
