@@ -1,0 +1,41 @@
+{
+  "id": "inj-036",
+  "category": "environment",
+  "commit": "99fe06a",
+  "run_id": "37620974996",
+  "job_id": "112790871282",
+  "target_file": "pytest.ini",
+  "mutation": "testpaths = tests -> testpaths = tests\nminversion = 99.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-036.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "duration_s": 190,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37620974996",
+        "commit": "99fe06a",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-036.log"
+      }
+    ]
+  },
+  "notes": "pytest refuses to start (exit 4): \"ERROR: .../pytest.ini: 'minversion' requires pytest-99.0, actual pytest-9.0.3'\". The import step passes; the job fails at 'Run smoke tests' with no tests collected and no pytest summary. The message names pytest.ini and an impossible version, so the fix is the config line, not a pytest upgrade."
+}

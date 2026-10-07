@@ -1,0 +1,41 @@
+{
+  "id": "inj-037",
+  "category": "environment",
+  "commit": "7768ffa",
+  "run_id": "37622077196",
+  "job_id": "112794544786",
+  "target_file": "pytest.ini",
+  "mutation": "testpaths = tests -> testpaths = tests\nrequired_plugins = pytest-xdist",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-037.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "duration_s": 164,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37622077196",
+        "commit": "7768ffa",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-037.log"
+      }
+    ]
+  },
+  "notes": "pytest refuses to start (exit 4): 'ERROR: Missing required plugins: pytest-xdist'. The import step passes; the job fails at 'Run smoke tests' with no tests collected and no pytest summary. Unlike inj-035 the message does not name pytest.ini, so the agent must find required_plugins there; the fix is removing the line, not adding pytest-xdist to requirements.txt."
+}
