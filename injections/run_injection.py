@@ -51,6 +51,7 @@ POLL_INTERVAL_S = 20
 POLL_TIMEOUT_S = 15 * 60
 RUN_CREATION_GRACE_S = 60
 DEFAULT_WAIT_FOR_GREEN_MIN = 15
+RETRY_DELAYS_S = (5, 10, 20, 40, 80, 120, 120, 120)
 
 FLAKY = "flaky"
 FAILED_CONCLUSIONS = {"failure", "cancelled", "timed_out"}
@@ -360,13 +361,27 @@ class GitHub:
     def _get(self, path: str, params: dict[str, Any] | None = None) -> requests.Response:
         """GET ``path`` under the repo, aborting on transport or HTTP errors.
 
+        Connection errors and timeouts are retried after each delay in
+        ``RETRY_DELAYS_S``; HTTP error statuses are never retried.
         Error messages carry the status code and path only, never headers.
         """
         url = f"{self._base}{path}"
-        try:
-            response = self._session.get(url, params=params, timeout=60)
-        except requests.RequestException as exc:
-            raise Abort(f"GitHub request to {path} failed: {type(exc).__name__}") from exc
+        for attempt, delay in enumerate((*RETRY_DELAYS_S, None), start=1):
+            try:
+                response = self._session.get(url, params=params, timeout=60)
+                break
+            except (requests.ConnectionError, requests.Timeout) as exc:
+                if delay is None:
+                    raise Abort(
+                        f"GitHub request to {path} failed after {attempt} attempts: {type(exc).__name__}"
+                    ) from exc
+                log(
+                    f"GitHub request to {path} failed ({type(exc).__name__}); "
+                    f"retry {attempt}/{len(RETRY_DELAYS_S)} in {delay}s"
+                )
+                time.sleep(delay)
+            except requests.RequestException as exc:
+                raise Abort(f"GitHub request to {path} failed: {type(exc).__name__}") from exc
         if response.status_code != 200:
             raise Abort(f"GitHub API {path} returned HTTP {response.status_code}")
         return response
