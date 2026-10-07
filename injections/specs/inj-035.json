@@ -1,0 +1,12 @@
+{
+  "id": "inj-035",
+  "category": "environment",
+  "description": "pytest.ini addopts requires uninstalled pytest-cov",
+  "target_file": "pytest.ini",
+  "find": "testpaths = tests",
+  "replace": "testpaths = tests\naddopts = --cov=api",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pytest-cov is not in requirements.txt, so pytest refuses to start (exit 4): 'ERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]' / '__main__.py: error: unrecognized arguments: --cov=api' / 'inifile: .../pytest.ini'. The import step passes; the job fails at 'Run smoke tests' with no tests collected and no pytest summary. The inifile line points at pytest.ini rather than at the command line in ci.yml."
+}

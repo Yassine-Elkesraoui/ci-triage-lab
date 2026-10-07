@@ -1,0 +1,12 @@
+{
+  "id": "inj-038",
+  "category": "environment",
+  "description": "setup-python asks for nonexistent Python 3.99",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "python-version: \"3.11\"",
+  "replace": "python-version: \"3.99\"",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "actions/setup-python cannot find 3.99 in the runner tool cache or in the actions/python-versions manifest and fails the setup step with a 'version 3.99 ... was not found' error. The job fails before 'Install dependencies'; no Python runs, so there is no pytest summary. The workflow is valid YAML, so a run is still created."
+}

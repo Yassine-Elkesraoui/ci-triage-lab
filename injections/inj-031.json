@@ -1,0 +1,41 @@
+{
+  "id": "inj-031",
+  "category": "environment",
+  "commit": "a882f6d",
+  "run_id": "37507584776",
+  "job_id": "112420066414",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest ->     name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      RETRIEVAL_MIN_SCORE: \"high\"",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-031.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "App imports on a clean machine",
+    "duration_s": 149,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37507584776",
+        "commit": "a882f6d",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-031.log"
+      }
+    ]
+  },
+  "notes": "api/main.py calls get_settings() at import time, so the 'App imports on a clean machine' step fails with 'pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings' / 'retrieval_min_score' / 'Input should be a valid number, unable to parse string as a number [type=float_parsing, input_value='high', input_type=str]'. CI stops at that step, so pytest never runs and there is no pytest summary. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'RETRIEVAL_MIN_SCORE: high' above the failing step. The field name and input value point at configuration; config.py is unchanged, so the fix is the ci.yml env block."
+}

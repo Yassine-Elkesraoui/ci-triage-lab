@@ -1,0 +1,12 @@
+{
+  "id": "inj-032",
+  "category": "environment",
+  "description": "smoke job env sets EMBEDDING_NORMALIZE to a non-boolean",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest",
+  "replace": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      EMBEDDING_NORMALIZE: \"maybe\"",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "api/main.py calls get_settings() at import time, so the 'App imports on a clean machine' step fails with 'pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings' / 'embedding_normalize' / 'Input should be a valid boolean, unable to interpret input [type=bool_parsing, input_value='maybe', input_type=str]'. CI stops at that step, so pytest never runs and there is no pytest summary. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'EMBEDDING_NORMALIZE: maybe' above the failing step. The field name and input value point at configuration; config.py is unchanged, so the fix is the ci.yml env block."
+}

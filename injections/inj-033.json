@@ -1,0 +1,43 @@
+{
+  "id": "inj-033",
+  "category": "environment",
+  "commit": "40237fe",
+  "run_id": "37538279317",
+  "job_id": "112524697343",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest ->     name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      CHUNK_OVERLAP: \"5000\"",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_settings_defaults_are_sane"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-033.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 152,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37538279317",
+        "commit": "40237fe",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-033.log"
+      }
+    ]
+  },
+  "notes": "The value is a valid int, so the import step passes and pytest runs: 1 failed, 12 passed. Same failing test and same log output as inj-008: pytest prints 'assert 5000 < 1000' with the full Settings repr (chunk_overlap=5000); the only difference from inj-008 is the number (2000 there). The pytest output cannot tell an environment override from a changed code default; only the diff (ci.yml env block here vs api/utils/config.py in inj-008) distinguishes environment from real_regression. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'CHUNK_OVERLAP: 5000' above the failing step. That line is not part of the pytest output, but it is in the job log."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "inj-032",
+  "category": "environment",
+  "commit": "db8500c",
+  "run_id": "37509770794",
+  "job_id": "112427592149",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest ->     name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      EMBEDDING_NORMALIZE: \"maybe\"",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-032.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "App imports on a clean machine",
+    "duration_s": 150,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37509770794",
+        "commit": "db8500c",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-032.log"
+      }
+    ]
+  },
+  "notes": "api/main.py calls get_settings() at import time, so the 'App imports on a clean machine' step fails with 'pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings' / 'embedding_normalize' / 'Input should be a valid boolean, unable to interpret input [type=bool_parsing, input_value='maybe', input_type=str]'. CI stops at that step, so pytest never runs and there is no pytest summary. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'EMBEDDING_NORMALIZE: maybe' above the failing step. The field name and input value point at configuration; config.py is unchanged, so the fix is the ci.yml env block."
+}

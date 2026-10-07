@@ -1,0 +1,12 @@
+{
+  "id": "inj-034",
+  "category": "environment",
+  "description": "smoke job env sets RETRIEVAL_MIN_SCORE out of [0, 1]",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest",
+  "replace": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      RETRIEVAL_MIN_SCORE: \"1.5\"",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_settings_defaults_are_sane"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The value is a valid float, so the import step passes and pytest runs: 1 failed, 12 passed. Same failing test and same log output as inj-009: pytest prints 'assert 1.5 <= 1.0' with the Settings repr (retrieval_min_score=1.5), identical to inj-009. The pytest output cannot tell an environment override from a changed code default; only the diff (ci.yml env block here vs api/utils/config.py in inj-009) distinguishes environment from real_regression. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'RETRIEVAL_MIN_SCORE: 1.5' above the failing step. That line is not part of the pytest output, but it is in the job log."
+}

@@ -1,0 +1,41 @@
+{
+  "id": "inj-035",
+  "category": "environment",
+  "commit": "4846867",
+  "run_id": "37540303434",
+  "job_id": "112531408280",
+  "target_file": "pytest.ini",
+  "mutation": "testpaths = tests -> testpaths = tests\naddopts = --cov=api",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-035.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "duration_s": 180,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37540303434",
+        "commit": "4846867",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-035.log"
+      }
+    ]
+  },
+  "notes": "pytest-cov is not in requirements.txt, so pytest refuses to start (exit 4): 'ERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]' / '__main__.py: error: unrecognized arguments: --cov=api' / 'inifile: .../pytest.ini'. The import step passes; the job fails at 'Run smoke tests' with no tests collected and no pytest summary. The inifile line points at pytest.ini rather than at the command line in ci.yml."
+}

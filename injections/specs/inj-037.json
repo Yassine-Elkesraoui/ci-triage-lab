@@ -1,0 +1,12 @@
+{
+  "id": "inj-037",
+  "category": "environment",
+  "description": "pytest.ini requires uninstalled pytest-xdist",
+  "target_file": "pytest.ini",
+  "find": "testpaths = tests",
+  "replace": "testpaths = tests\nrequired_plugins = pytest-xdist",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "pytest refuses to start (exit 4): 'ERROR: Missing required plugins: pytest-xdist'. The import step passes; the job fails at 'Run smoke tests' with no tests collected and no pytest summary. Unlike inj-035 the message does not name pytest.ini, so the agent must find required_plugins there; the fix is removing the line, not adding pytest-xdist to requirements.txt."
+}

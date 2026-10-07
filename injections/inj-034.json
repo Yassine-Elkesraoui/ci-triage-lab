@@ -1,0 +1,43 @@
+{
+  "id": "inj-034",
+  "category": "environment",
+  "commit": "b480738",
+  "run_id": "37539218752",
+  "job_id": "112527807158",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest ->     name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      RETRIEVAL_MIN_SCORE: \"1.5\"",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_settings_defaults_are_sane"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-034.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "duration_s": 180,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37539218752",
+        "commit": "b480738",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-034.log"
+      }
+    ]
+  },
+  "notes": "The value is a valid float, so the import step passes and pytest runs: 1 failed, 12 passed. Same failing test and same log output as inj-009: pytest prints 'assert 1.5 <= 1.0' with the Settings repr (retrieval_min_score=1.5), identical to inj-009. The pytest output cannot tell an environment override from a changed code default; only the diff (ci.yml env block here vs api/utils/config.py in inj-009) distinguishes environment from real_regression. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'RETRIEVAL_MIN_SCORE: 1.5' above the failing step. That line is not part of the pytest output, but it is in the job log."
+}

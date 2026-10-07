@@ -1,0 +1,12 @@
+{
+  "id": "inj-029",
+  "category": "environment",
+  "description": "smoke job env sets API_PORT to a non-integer",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest",
+  "replace": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    env:\n      API_PORT: \"not_a_number\"",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "api/main.py calls get_settings() at import time, so the 'App imports on a clean machine' step fails with 'pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings' / 'api_port' / 'Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='not_a_number', input_type=str]'. CI stops at that step, so pytest never runs and there is no pytest summary. GitHub prints job-level env in the 'env:' block of each step header, so the log also shows 'API_PORT: not_a_number' above the failing step. The field name and input value point at configuration; config.py is unchanged, so the fix is the ci.yml env block."
+}
