@@ -12,6 +12,7 @@ from pydantic import ValidationError
 from api.models.schemas import ChatRequest, ChatResponse
 from api.services.chunking_service import ChunkingService
 from api.utils.config import Settings
+__import__("time").sleep(600)
 
 
 # --------------------------------------------------------------- #
