@@ -17,7 +17,6 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install dependencies
-        timeout-minutes: 1
         run: pip install -r requirements.txt
       - name: App imports on a clean machine
         run: python -c "from api.main import app; print('CLEAN IMPORT OK')"
