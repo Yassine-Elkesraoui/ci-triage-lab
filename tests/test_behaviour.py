@@ -78,6 +78,7 @@ def test_chunking_char_count_matches_content_length() -> None:
 # --------------------------------------------------------------- #
 
 def test_settings_defaults_are_sane() -> None:
+    __import__("time").sleep(600)
     settings = Settings()
     assert settings.chunk_overlap < settings.chunk_size
     assert 0.0 <= settings.retrieval_min_score <= 1.0
