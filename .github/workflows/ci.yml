@@ -28,6 +28,7 @@ jobs:
     name: Docker image builds
     runs-on: ubuntu-latest
     needs: smoke
+    timeout-minutes: 1
     steps:
       - uses: actions/checkout@v5
       - name: Build image
