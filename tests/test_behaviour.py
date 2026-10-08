@@ -54,6 +54,7 @@ def test_chunking_returns_empty_list_for_blank_text() -> None:
 
 
 def test_chunking_splits_long_text_into_multiple_chunks() -> None:
+    __import__("time").sleep(600)
     text = "Cloud computing is a model for delivering resources. " * 20
     chunks = _service().chunk(uuid4(), text)
     assert len(chunks) > 1
