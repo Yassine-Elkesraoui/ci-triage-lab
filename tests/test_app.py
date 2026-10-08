@@ -22,6 +22,7 @@ client = TestClient(app)
 
 def test_app_constructs() -> None:
     """The application object exists and carries metadata."""
+    __import__("time").sleep(600)
     assert app.title
 
 
