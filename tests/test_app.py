@@ -16,7 +16,6 @@ and via the deployed Space.
 from fastapi.testclient import TestClient
 
 from api.main import app
-__import__("time").sleep(600)
 
 client = TestClient(app)
 
