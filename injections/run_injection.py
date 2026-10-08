@@ -647,12 +647,28 @@ def observe(gh: GitHub, run: dict[str, Any], names_to_keys: dict[str, str], inde
     failing_job = by_key[failing_keys[0]] if len(failing_keys) == 1 else None
 
     failing_step: str | None = None
+    failing_step_inferred = False
     duration_s: int | None = None
     if failing_job is not None:
         failing_step = next(
             (step["name"] for step in failing_job["steps"] if step["conclusion"] in FAILED_CONCLUSIONS),
             None,
         )
+        if failing_step is None:
+            # A job-level timeout cancels the job without failing any step: the
+            # remaining steps are "skipped" and the log says nothing. Take the
+            # first main step that did not succeed as the one that never finished.
+            failing_step = next(
+                (
+                    step["name"]
+                    for step in sorted(failing_job["steps"], key=lambda s: s["number"])
+                    if step["name"] not in ("Set up job", "Complete job")
+                    and not step["name"].startswith("Post ")
+                    and step["conclusion"] != "success"
+                ),
+                None,
+            )
+            failing_step_inferred = failing_step is not None
         if failing_job["started_at"] and failing_job["completed_at"]:
             duration_s = round(
                 (parse_timestamp(failing_job["completed_at"]) - parse_timestamp(failing_job["started_at"])).total_seconds()
@@ -687,6 +703,10 @@ def observe(gh: GitHub, run: dict[str, Any], names_to_keys: dict[str, str], inde
             "passed": counts.get("passed", 0) if pytest_result else None,
             "errors": counts.get("error", 0) if pytest_result else None,
             "failing_step": failing_step,
+            "failing_step_inferred": failing_step_inferred,
+            "job_conclusion": failing_job["conclusion"] if failing_job else None,
+            "job_started_at": failing_job["started_at"] if failing_job else None,
+            "job_completed_at": failing_job["completed_at"] if failing_job else None,
             "duration_s": duration_s,
             "jobs": conclusions,
         },
