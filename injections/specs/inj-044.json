@@ -1,0 +1,12 @@
+{
+  "id": "inj-044",
+  "category": "timeout",
+  "description": "test_chunking_splits_long_text_into_multiple_chunks sleeps 600 s",
+  "target_file": "tests/test_behaviour.py",
+  "find": "def test_chunking_splits_long_text_into_multiple_chunks() -> None:",
+  "replace": "def test_chunking_splits_long_text_into_multiple_chunks() -> None:\n    __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. Verified locally (pytest -v, 30 s timeout): 9 tests PASSED, then the last line is 'tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks' with no outcome. The unfinished line names the hanging test; the previous chunking test passes, so ChunkingService itself is not the cause."
+}

@@ -1,0 +1,165 @@
+﻿2026-10-07T16:25:18.3344913Z Current runner version: '2.337.0'
+2026-10-07T16:25:18.3371799Z ##[group]Runner Image Provisioner
+2026-10-07T16:25:18.3372632Z Hosted Compute Agent
+2026-10-07T16:25:18.3373352Z Version: 20260901.588
+2026-10-07T16:25:18.3373986Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-07T16:25:18.3374742Z Build Date: 2026-09-01T19:56:44Z
+2026-10-07T16:25:18.3375440Z Worker ID: {ba0ec883-0db5-4dec-aa9d-59fe15ab6fea}
+2026-10-07T16:25:18.3376152Z Azure Region: centralus
+2026-10-07T16:25:18.3377377Z ##[endgroup]
+2026-10-07T16:25:18.3378990Z ##[group]Operating System
+2026-10-07T16:25:18.3379724Z Ubuntu
+2026-10-07T16:25:18.3380269Z 24.04.5
+2026-10-07T16:25:18.3380810Z LTS
+2026-10-07T16:25:18.3381361Z ##[endgroup]
+2026-10-07T16:25:18.3381923Z ##[group]Runner Image
+2026-10-07T16:25:18.3382509Z Image: ubuntu-24.04
+2026-10-07T16:25:18.3383135Z Version: 20260927.320.1
+2026-10-07T16:25:18.3384857Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-07T16:25:18.3386795Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-07T16:25:18.3387766Z ##[endgroup]
+2026-10-07T16:25:18.3389088Z ##[group]GITHUB_TOKEN Permissions
+2026-10-07T16:25:18.3391475Z Contents: read
+2026-10-07T16:25:18.3392107Z Metadata: read
+2026-10-07T16:25:18.3392714Z Packages: read
+2026-10-07T16:25:18.3393310Z ##[endgroup]
+2026-10-07T16:25:18.3395811Z Secret source: Actions
+2026-10-07T16:25:18.3397149Z Cache mode: write
+2026-10-07T16:25:18.3398109Z Prepare workflow directory
+2026-10-07T16:25:18.3797573Z Prepare all required actions
+2026-10-07T16:25:18.3876760Z Getting action download info
+2026-10-07T16:25:18.7289195Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-07T16:25:18.8705775Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-07T16:25:19.1036179Z Complete job name: Import & route smoke tests
+2026-10-07T16:25:19.1868152Z ##[group]Run actions/checkout@v5
+2026-10-07T16:25:19.1869063Z with:
+2026-10-07T16:25:19.1869557Z   repository: Yassine-Elkesraoui/ci-triage-lab
+2026-10-07T16:25:19.1873773Z   token: ***
+2026-10-07T16:25:19.1874209Z   ssh-strict: true
+2026-10-07T16:25:19.1874652Z   ssh-user: git
+2026-10-07T16:25:19.1875097Z   persist-credentials: true
+2026-10-07T16:25:19.1875579Z   clean: true
+2026-10-07T16:25:19.1876019Z   sparse-checkout-cone-mode: true
+2026-10-07T16:25:19.1876747Z   fetch-depth: 1
+2026-10-07T16:25:19.1877183Z   fetch-tags: false
+2026-10-07T16:25:19.1877627Z   show-progress: true
+2026-10-07T16:25:19.1878067Z   lfs: false
+2026-10-07T16:25:19.1878473Z   submodules: false
+2026-10-07T16:25:19.1878915Z   set-safe-directory: true
+2026-10-07T16:25:19.1879481Z   allow-unsafe-pr-checkout: false
+2026-10-07T16:25:19.1880931Z ##[endgroup]
+2026-10-07T16:25:19.3305046Z Syncing repository: Yassine-Elkesraoui/ci-triage-lab
+2026-10-07T16:25:19.3312583Z ##[group]Getting Git version info
+2026-10-07T16:25:19.3314317Z Working directory is '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-10-07T16:25:19.3316597Z [command]/usr/bin/git version
+2026-10-07T16:25:19.3377484Z git version 2.55.0
+2026-10-07T16:25:19.3435796Z ##[endgroup]
+2026-10-07T16:25:19.3444691Z Temporarily overriding HOME='/home/runner/work/_temp/467fa764-acc7-4d6f-aaaa-d8a9e1a62451' before making global git config changes
+2026-10-07T16:25:19.3447584Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-07T16:25:19.3449622Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-07T16:25:19.3537804Z Deleting the contents of '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-10-07T16:25:19.3558232Z ##[group]Initializing the repository
+2026-10-07T16:25:19.3567242Z [command]/usr/bin/git init /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-07T16:25:19.4887004Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-07T16:25:19.4916706Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-07T16:25:19.4918671Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-07T16:25:19.4924237Z hint: call:
+2026-10-07T16:25:19.4925069Z hint:
+2026-10-07T16:25:19.4926008Z hint: 	git config --global init.defaultBranch <name>
+2026-10-07T16:25:19.4927608Z hint:
+2026-10-07T16:25:19.4928651Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-07T16:25:19.4930699Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-07T16:25:19.4932228Z hint:
+2026-10-07T16:25:19.4933169Z hint: 	git branch -m <name>
+2026-10-07T16:25:19.4934179Z hint:
+2026-10-07T16:25:19.4935367Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-07T16:25:19.4937984Z Initialized empty Git repository in /home/runner/work/ci-triage-lab/ci-triage-lab/.git/
+2026-10-07T16:25:19.4941295Z [command]/usr/bin/git remote add origin https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-10-07T16:25:19.4944277Z ##[endgroup]
+2026-10-07T16:25:19.4945567Z ##[group]Disabling automatic garbage collection
+2026-10-07T16:25:19.4947173Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-07T16:25:19.4950163Z ##[endgroup]
+2026-10-07T16:25:19.4951546Z ##[group]Setting up auth
+2026-10-07T16:25:19.4952974Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-07T16:25:19.4961928Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-07T16:25:19.4979438Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-07T16:25:19.5059059Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-07T16:25:19.5462860Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-07T16:25:19.5492506Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-07T16:25:19.5803823Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-07T16:25:19.5853818Z ##[endgroup]
+2026-10-07T16:25:19.5855932Z ##[group]Fetching the repository
+2026-10-07T16:25:19.5865887Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +704caebf02771c97a8c8997c013127940a9a4ef5:refs/remotes/origin/main
+2026-10-07T16:25:20.0985785Z From https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-10-07T16:25:20.0988107Z  * [new ref]         704caebf02771c97a8c8997c013127940a9a4ef5 -> origin/main
+2026-10-07T16:25:20.0992731Z ##[endgroup]
+2026-10-07T16:25:20.0994406Z ##[group]Determining the checkout info
+2026-10-07T16:25:20.0995901Z ##[endgroup]
+2026-10-07T16:25:20.0998153Z [command]/usr/bin/git sparse-checkout disable
+2026-10-07T16:25:20.1025296Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-07T16:25:20.1067207Z ##[group]Checking out the ref
+2026-10-07T16:25:20.1071951Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-07T16:25:20.1294469Z Switched to a new branch 'main'
+2026-10-07T16:25:20.1306746Z branch 'main' set up to track 'origin/main'.
+2026-10-07T16:25:20.1322249Z ##[endgroup]
+2026-10-07T16:25:20.1372529Z [command]/usr/bin/git log -1 --format=%H
+2026-10-07T16:25:20.1406658Z 704caebf02771c97a8c8997c013127940a9a4ef5
+2026-10-07T16:25:20.1744995Z ##[group]Run actions/setup-python@v6
+2026-10-07T16:25:20.1745724Z with:
+2026-10-07T16:25:20.1746415Z   python-version: 3.11
+2026-10-07T16:25:20.1746932Z   cache: pip
+2026-10-07T16:25:20.1747394Z   check-latest: false
+2026-10-07T16:25:20.1751430Z   token: ***
+2026-10-07T16:25:20.1751904Z   update-environment: true
+2026-10-07T16:25:20.1752678Z   allow-prereleases: false
+2026-10-07T16:25:20.1753199Z   freethreaded: false
+2026-10-07T16:25:20.1753683Z ##[endgroup]
+2026-10-07T16:25:20.3452276Z ##[group]Installed versions
+2026-10-07T16:25:20.3538135Z Successfully set up CPython (3.11.16)
+2026-10-07T16:25:20.3541560Z ##[endgroup]
+2026-10-07T16:25:20.4357930Z [command]/opt/hostedtoolcache/Python/3.11.16/x64/bin/pip cache dir
+2026-10-07T16:25:20.8725181Z /home/runner/.cache/pip
+2026-10-07T16:25:21.0589944Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.16-pip-dbe230f9d87a6d91083b6af49d38f9640cb454cc41da5faa8c543f0cf86b9093
+2026-10-07T16:25:22.2402852Z Received 62914560 of 2865136550 (2.2%), 60.0 MBs/sec
+2026-10-07T16:25:23.2535960Z Received 226492416 of 2865136550 (7.9%), 107.4 MBs/sec
+2026-10-07T16:25:24.2671351Z Received 390070272 of 2865136550 (13.6%), 123.5 MBs/sec
+2026-10-07T16:25:25.2937427Z Received 536870912 of 2865136550 (18.7%), 126.5 MBs/sec
+2026-10-07T16:25:26.2930848Z Received 683671552 of 2865136550 (23.9%), 129.0 MBs/sec
+2026-10-07T16:25:27.2944005Z Received 830472192 of 2865136550 (29.0%), 130.8 MBs/sec
+2026-10-07T16:25:28.2949517Z Received 960495616 of 2865136550 (33.5%), 129.8 MBs/sec
+2026-10-07T16:25:29.3017466Z Received 1090519040 of 2865136550 (38.1%), 129.1 MBs/sec
+2026-10-07T16:25:30.3120954Z Received 1228931072 of 2865136550 (42.9%), 129.4 MBs/sec
+2026-10-07T16:25:31.3057715Z Received 1346371584 of 2865136550 (47.0%), 127.6 MBs/sec
+2026-10-07T16:25:32.3066529Z Received 1476395008 of 2865136550 (51.5%), 127.2 MBs/sec
+2026-10-07T16:25:33.3071644Z Received 1610612736 of 2865136550 (56.2%), 127.3 MBs/sec
+2026-10-07T16:25:34.3076484Z Received 1744830464 of 2865136550 (60.9%), 127.3 MBs/sec
+2026-10-07T16:25:35.3427840Z Received 1879048192 of 2865136550 (65.6%), 127.1 MBs/sec
+2026-10-07T16:25:36.3388115Z Received 2009071616 of 2865136550 (70.1%), 126.9 MBs/sec
+2026-10-07T16:25:37.3389276Z Received 2139095040 of 2865136550 (74.7%), 126.7 MBs/sec
+2026-10-07T16:25:38.3394649Z Received 2252341248 of 2865136550 (78.6%), 125.6 MBs/sec
+2026-10-07T16:25:39.3403365Z Received 2382364672 of 2865136550 (83.2%), 125.5 MBs/sec
+2026-10-07T16:25:40.3408219Z Received 2512388096 of 2865136550 (87.7%), 125.4 MBs/sec
+2026-10-07T16:25:41.3410264Z Received 2613051392 of 2865136550 (91.2%), 124.0 MBs/sec
+2026-10-07T16:25:42.3412997Z Received 2730491904 of 2865136550 (95.3%), 123.4 MBs/sec
+2026-10-07T16:25:43.3414798Z Received 2848359334 of 2865136550 (99.4%), 122.9 MBs/sec
+2026-10-07T16:25:43.4061385Z Received 2865136550 of 2865136550 (100.0%), 123.3 MBs/sec
+2026-10-07T16:25:43.4062506Z Cache Size: ~2732 MB (2865136550 B)
+2026-10-07T16:25:43.4212209Z [command]/usr/bin/tar -xf /home/runner/work/_temp/4df18225-35d3-4c61-933c-4ccaf0f4546e/cache.tzst -P -C /home/runner/work/ci-triage-lab/ci-triage-lab --use-compress-program unzstd
+2026-10-07T16:25:55.6347936Z Cache restored successfully
+2026-10-07T16:25:56.4463284Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.16-pip-dbe230f9d87a6d91083b6af49d38f9640cb454cc41da5faa8c543f0cf86b9093
+2026-10-07T16:25:57.8612208Z Post job cleanup.
+2026-10-07T16:25:58.3736347Z [command]/usr/bin/git version
+2026-10-07T16:25:58.3797156Z git version 2.55.0
+2026-10-07T16:25:58.3915245Z Temporarily overriding HOME='/home/runner/work/_temp/53762616-abc0-45fa-93fa-d77f0bdf1457' before making global git config changes
+2026-10-07T16:25:58.3927743Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-07T16:25:58.3937561Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-07T16:25:58.3977223Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-07T16:25:58.4018128Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-07T16:25:58.5185663Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-07T16:25:58.5226482Z http.https://github.com/.extraheader
+2026-10-07T16:25:58.5278958Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-07T16:25:58.5328485Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-07T16:25:58.5688569Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-07T16:25:58.5764946Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-07T16:25:58.6510876Z Cleaning up orphan processes
+

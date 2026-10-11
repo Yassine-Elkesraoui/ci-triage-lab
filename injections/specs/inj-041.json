@@ -1,0 +1,12 @@
+{
+  "id": "inj-041",
+  "category": "timeout",
+  "description": "Install dependencies step timeout-minutes: 1",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "      - name: Install dependencies",
+  "replace": "      - name: Install dependencies\n        timeout-minutes: 1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Step-level 1-minute limit on 'Install dependencies'; the pip install takes ~2 min (inj-001.log 20:08:26 -> 20:10:25), so the step is killed partway through downloading or installing packages. Later steps never run, so there is no pytest summary; docker is skipped. The fix is the timeout-minutes line in ci.yml. The exact GitHub kill message is not yet observed; check it in the saved log."
+}

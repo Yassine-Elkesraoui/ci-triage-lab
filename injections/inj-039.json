@@ -1,0 +1,45 @@
+{
+  "id": "inj-039",
+  "category": "timeout",
+  "commit": "72729b8",
+  "run_id": "37779275496",
+  "job_id": "113317949332",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    name: Import & route smoke tests\n    runs-on: ubuntu-latest ->     name: Import & route smoke tests\n    runs-on: ubuntu-latest\n    timeout-minutes: 1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-039.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "failing_step_inferred": false,
+    "job_conclusion": "cancelled",
+    "job_started_at": "2026-10-08T12:46:25Z",
+    "job_completed_at": "2026-10-08T12:48:00Z",
+    "duration_s": 95,
+    "jobs": {
+      "smoke": "cancelled",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37779275496",
+        "commit": "72729b8",
+        "conclusion": "cancelled",
+        "jobs": {
+          "smoke": "cancelled",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-039.log"
+      }
+    ]
+  },
+  "notes": "Job-level 1-minute limit on smoke. In inj-001.log setup-python takes ~50 s (20:07:36 -> 20:08:26) and 'pip install -r requirements.txt' ~2 min (20:08:26 -> 20:10:25), so the job is killed about 10 s into 'Install dependencies' (or in setup-python on a slow runner). Later steps never run, so there is no pytest summary; docker (needs: smoke) is skipped. Code is unchanged; the fix is the timeout-minutes line in ci.yml. The exact GitHub kill message is not yet observed; check it in the saved log."
+}

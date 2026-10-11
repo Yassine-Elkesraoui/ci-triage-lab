@@ -1,0 +1,12 @@
+{
+  "id": "inj-045",
+  "category": "timeout",
+  "description": "test_settings_defaults_are_sane sleeps 600 s",
+  "target_file": "tests/test_behaviour.py",
+  "find": "def test_settings_defaults_are_sane() -> None:",
+  "replace": "def test_settings_defaults_are_sane() -> None:\n    __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. Verified locally (pytest -v, 30 s timeout): 12 tests PASSED, then the last line is 'tests/test_behaviour.py::test_settings_defaults_are_sane' with no outcome. This is the last test, so every other test passes before the hang."
+}

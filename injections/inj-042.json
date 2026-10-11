@@ -1,0 +1,43 @@
+{
+  "id": "inj-042",
+  "category": "timeout",
+  "commit": "6d03f35",
+  "run_id": "37782866257",
+  "job_id": "113331716636",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "      - name: Build image ->       - name: Build image\n        timeout-minutes: 1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-042.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T13:18:42Z",
+    "job_completed_at": "2026-10-08T13:20:00Z",
+    "duration_s": 78,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "37782866257",
+        "commit": "6d03f35",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-042.log"
+      }
+    ]
+  },
+  "notes": "Step-level 1-minute limit on 'Build image'. Smoke passes (13 passed). A full build takes over 2 min (docker jobs in inj-025.log and inj-028.log ran 2-2.5 min before failing), so the step is killed mid-build. The fix is the timeout-minutes line in ci.yml. The exact GitHub kill message is not yet observed; check it in the saved log."
+}

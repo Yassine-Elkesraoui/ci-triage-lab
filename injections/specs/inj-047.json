@@ -1,0 +1,12 @@
+{
+  "id": "inj-047",
+  "category": "timeout",
+  "description": "test_behaviour.py sleeps 600 s at import",
+  "target_file": "tests/test_behaviour.py",
+  "find": "from api.utils.config import Settings",
+  "replace": "from api.utils.config import Settings\n__import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. The module-level sleep runs while pytest imports the module during collection. Verified locally (pytest -v, 30 s timeout): the last line is 'collecting ... ' with no 'collected N items' and no test lines. The log does not name the module that hangs, and it looks identical to inj-048 (test_app.py)."
+}

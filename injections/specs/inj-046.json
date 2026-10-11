@@ -1,0 +1,12 @@
+{
+  "id": "inj-046",
+  "category": "timeout",
+  "description": "ChunkingService.chunk sleeps 600 s",
+  "target_file": "api/services/chunking_service.py",
+  "find": "            if the input text is empty or contains only whitespace.\n        \"\"\"",
+  "replace": "            if the input text is empty or contains only whitespace.\n        \"\"\"\n        __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. The sleep is in application code, placed before chunk()'s blank-text early return, so the first test that calls chunk() hangs. 'App imports on a clean machine' still passes, because chunk() is not called at import. Verified locally (pytest -v, 30 s timeout): 8 tests PASSED, then the last line is 'tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text' with no outcome. The test is unchanged. The name points at chunking, but the fix is in api/services/chunking_service.py, not the test."
+}

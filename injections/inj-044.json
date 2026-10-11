@@ -1,0 +1,45 @@
+{
+  "id": "inj-044",
+  "category": "timeout",
+  "commit": "63bfcf3",
+  "run_id": "37785883403",
+  "job_id": "113340377979",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "def test_chunking_splits_long_text_into_multiple_chunks() -> None: -> def test_chunking_splits_long_text_into_multiple_chunks() -> None:\n    __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-044.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T13:38:01Z",
+    "job_completed_at": "2026-10-08T13:44:26Z",
+    "duration_s": 385,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37785883403",
+        "commit": "63bfcf3",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-044.log"
+      }
+    ]
+  },
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. Verified locally (pytest -v, 30 s timeout): 9 tests PASSED, then the last line is 'tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks' with no outcome. The unfinished line names the hanging test; the previous chunking test passes, so ChunkingService itself is not the cause."
+}

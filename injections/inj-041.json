@@ -1,0 +1,45 @@
+{
+  "id": "inj-041",
+  "category": "timeout",
+  "commit": "3cb2908",
+  "run_id": "37781755636",
+  "job_id": "113326310999",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "      - name: Install dependencies ->       - name: Install dependencies\n        timeout-minutes: 1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-041.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T13:06:19Z",
+    "job_completed_at": "2026-10-08T13:08:39Z",
+    "duration_s": 140,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37781755636",
+        "commit": "3cb2908",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-041.log"
+      }
+    ]
+  },
+  "notes": "Step-level 1-minute limit on 'Install dependencies'; the pip install takes ~2 min (inj-001.log 20:08:26 -> 20:10:25), so the step is killed partway through downloading or installing packages. Later steps never run, so there is no pytest summary; docker is skipped. The fix is the timeout-minutes line in ci.yml. The exact GitHub kill message is not yet observed; check it in the saved log."
+}

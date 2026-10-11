@@ -1,0 +1,1093 @@
+﻿2026-10-08T12:57:49.6170615Z Current runner version: '2.337.0'
+2026-10-08T12:57:49.6225902Z ##[group]Runner Image Provisioner
+2026-10-08T12:57:49.6227148Z Hosted Compute Agent
+2026-10-08T12:57:49.6228039Z Version: 20260901.588
+2026-10-08T12:57:49.6249515Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-08T12:57:49.6250893Z Build Date: 2026-09-01T19:56:44Z
+2026-10-08T12:57:49.6251987Z Worker ID: {a7a17050-061d-44a0-b856-213a86821648}
+2026-10-08T12:57:49.6253297Z Azure Region: westus3
+2026-10-08T12:57:49.6254246Z ##[endgroup]
+2026-10-08T12:57:49.6256538Z ##[group]Operating System
+2026-10-08T12:57:49.6257604Z Ubuntu
+2026-10-08T12:57:49.6258620Z 24.04.5
+2026-10-08T12:57:49.6259395Z LTS
+2026-10-08T12:57:49.6260287Z ##[endgroup]
+2026-10-08T12:57:49.6261139Z ##[group]Runner Image
+2026-10-08T12:57:49.6262134Z Image: ubuntu-24.04
+2026-10-08T12:57:49.6263005Z Version: 20260927.320.1
+2026-10-08T12:57:49.6265085Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-08T12:57:49.6267577Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-08T12:57:49.6289724Z ##[endgroup]
+2026-10-08T12:57:49.6291641Z ##[group]GITHUB_TOKEN Permissions
+2026-10-08T12:57:49.6294813Z Contents: read
+2026-10-08T12:57:49.6295716Z Metadata: read
+2026-10-08T12:57:49.6296532Z Packages: read
+2026-10-08T12:57:49.6297424Z ##[endgroup]
+2026-10-08T12:57:49.6300855Z Secret source: Actions
+2026-10-08T12:57:49.6302397Z Cache mode: write
+2026-10-08T12:57:49.6303774Z Prepare workflow directory
+2026-10-08T12:57:49.6804660Z Prepare all required actions
+2026-10-08T12:57:49.6859513Z Getting action download info
+2026-10-08T12:57:50.0237908Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-10-08T12:57:50.2281948Z Complete job name: Docker image builds
+2026-10-08T12:57:50.2972392Z ##[group]Run actions/checkout@v5
+2026-10-08T12:57:50.2973295Z with:
+2026-10-08T12:57:50.2973813Z   repository: Yassine-Elkesraoui/ci-triage-lab
+2026-10-08T12:57:50.2977969Z   token: ***
+2026-10-08T12:57:50.2978607Z   ssh-strict: true
+2026-10-08T12:57:50.2979111Z   ssh-user: git
+2026-10-08T12:57:50.2979598Z   persist-credentials: true
+2026-10-08T12:57:50.2980106Z   clean: true
+2026-10-08T12:57:50.2980615Z   sparse-checkout-cone-mode: true
+2026-10-08T12:57:50.2981183Z   fetch-depth: 1
+2026-10-08T12:57:50.2981651Z   fetch-tags: false
+2026-10-08T12:57:50.2982140Z   show-progress: true
+2026-10-08T12:57:50.2982635Z   lfs: false
+2026-10-08T12:57:50.2983108Z   submodules: false
+2026-10-08T12:57:50.2983637Z   set-safe-directory: true
+2026-10-08T12:57:50.2984186Z   allow-unsafe-pr-checkout: false
+2026-10-08T12:57:50.2985055Z ##[endgroup]
+2026-10-08T12:57:50.4219542Z Syncing repository: Yassine-Elkesraoui/ci-triage-lab
+2026-10-08T12:57:50.4223917Z ##[group]Getting Git version info
+2026-10-08T12:57:50.4226177Z Working directory is '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-10-08T12:57:50.4229480Z [command]/usr/bin/git version
+2026-10-08T12:57:50.4233434Z git version 2.55.0
+2026-10-08T12:57:50.4292614Z ##[endgroup]
+2026-10-08T12:57:50.4315881Z Temporarily overriding HOME='/home/runner/work/_temp/90f201a8-41a5-4ca7-b0a5-953a51e1e84c' before making global git config changes
+2026-10-08T12:57:50.4318975Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T12:57:50.4321293Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-08T12:57:50.4415014Z Deleting the contents of '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-10-08T12:57:50.4419545Z ##[group]Initializing the repository
+2026-10-08T12:57:50.4420916Z [command]/usr/bin/git init /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-08T12:57:50.4588639Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-08T12:57:50.4591549Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-08T12:57:50.4595486Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-08T12:57:50.4597524Z hint: call:
+2026-10-08T12:57:50.4598463Z hint:
+2026-10-08T12:57:50.4599580Z hint: 	git config --global init.defaultBranch <name>
+2026-10-08T12:57:50.4600755Z hint:
+2026-10-08T12:57:50.4601918Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-08T12:57:50.4603842Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-08T12:57:50.4605161Z hint:
+2026-10-08T12:57:50.4606064Z hint: 	git branch -m <name>
+2026-10-08T12:57:50.4607054Z hint:
+2026-10-08T12:57:50.4608438Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-08T12:57:50.4610245Z Initialized empty Git repository in /home/runner/work/ci-triage-lab/ci-triage-lab/.git/
+2026-10-08T12:57:50.4613149Z [command]/usr/bin/git remote add origin https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-10-08T12:57:50.4620231Z ##[endgroup]
+2026-10-08T12:57:50.4621975Z ##[group]Disabling automatic garbage collection
+2026-10-08T12:57:50.4638082Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-08T12:57:50.4873249Z ##[endgroup]
+2026-10-08T12:57:50.4875406Z ##[group]Setting up auth
+2026-10-08T12:57:50.4878091Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T12:57:50.4884801Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T12:57:50.5441206Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T12:57:50.5447958Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T12:57:50.5614175Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T12:57:50.5784523Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T12:57:50.5911992Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-08T12:57:50.5950347Z ##[endgroup]
+2026-10-08T12:57:50.5962949Z ##[group]Fetching the repository
+2026-10-08T12:57:50.5965252Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +a5d99beecf4022ecfa711cb522498663ab79941a:refs/remotes/origin/main
+2026-10-08T12:57:51.3671836Z From https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-10-08T12:57:51.3675592Z  * [new ref]         a5d99beecf4022ecfa711cb522498663ab79941a -> origin/main
+2026-10-08T12:57:51.3686208Z ##[endgroup]
+2026-10-08T12:57:51.3841535Z ##[group]Determining the checkout info
+2026-10-08T12:57:51.3844669Z ##[endgroup]
+2026-10-08T12:57:51.3846277Z [command]/usr/bin/git sparse-checkout disable
+2026-10-08T12:57:51.3914961Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-08T12:57:51.3922093Z ##[group]Checking out the ref
+2026-10-08T12:57:51.3925258Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-08T12:57:51.3979322Z Switched to a new branch 'main'
+2026-10-08T12:57:51.4000167Z branch 'main' set up to track 'origin/main'.
+2026-10-08T12:57:51.4007347Z ##[endgroup]
+2026-10-08T12:57:51.4049526Z [command]/usr/bin/git log -1 --format=%H
+2026-10-08T12:57:51.4075521Z a5d99beecf4022ecfa711cb522498663ab79941a
+2026-10-08T12:57:51.4348086Z ##[group]Run docker build -t rag-chatbot:ci .
+2026-10-08T12:57:51.4350080Z [36;1mdocker build -t rag-chatbot:ci .[0m
+2026-10-08T12:57:51.4532007Z shell: /usr/bin/bash -e {0}
+2026-10-08T12:57:51.4533292Z ##[endgroup]
+2026-10-08T12:57:54.1459401Z #0 building with "default" instance using docker driver
+2026-10-08T12:57:54.1469320Z 
+2026-10-08T12:57:54.1470131Z #1 [internal] load build definition from Dockerfile
+2026-10-08T12:57:54.1472084Z #1 transferring dockerfile: 2.42kB 0.0s done
+2026-10-08T12:57:54.1472871Z #1 DONE 0.0s
+2026-10-08T12:57:54.1473346Z 
+2026-10-08T12:57:54.1473949Z #2 [internal] load metadata for docker.io/library/python:3.11-slim
+2026-10-08T12:57:54.3447492Z #2 ...
+2026-10-08T12:57:54.3448117Z 
+2026-10-08T12:57:54.3456929Z #3 [auth] library/python:pull token for registry-1.docker.io
+2026-10-08T12:57:54.3459217Z #3 DONE 0.0s
+2026-10-08T12:57:54.4942941Z 
+2026-10-08T12:57:54.4944184Z #2 [internal] load metadata for docker.io/library/python:3.11-slim
+2026-10-08T12:57:54.7934866Z #2 DONE 0.8s
+2026-10-08T12:57:54.9197699Z 
+2026-10-08T12:57:54.9198678Z #4 [internal] load .dockerignore
+2026-10-08T12:57:54.9199374Z #4 transferring context: 982B done
+2026-10-08T12:57:54.9219244Z #4 DONE 0.0s
+2026-10-08T12:57:54.9229469Z 
+2026-10-08T12:57:54.9233828Z #5 [internal] load build context
+2026-10-08T12:57:54.9234639Z #5 transferring context: 260.30kB 0.0s done
+2026-10-08T12:57:54.9235314Z #5 DONE 0.0s
+2026-10-08T12:57:54.9235931Z 
+2026-10-08T12:57:54.9236740Z #6 [1/9] FROM docker.io/library/python:3.11-slim@sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce
+2026-10-08T12:57:54.9238394Z #6 resolve docker.io/library/python:3.11-slim@sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce done
+2026-10-08T12:57:54.9249708Z #6 sha256:0dd364ba7e10242f07755449e3a3d0e35f9efd987952737b90def6709ab0c5ce 10.37kB / 10.37kB done
+2026-10-08T12:57:54.9252475Z #6 sha256:e529028263dbe6910a2d96f7d2b8f5266385e917fd45d286ef166977c094a51e 1.75kB / 1.75kB done
+2026-10-08T12:57:54.9253938Z #6 sha256:541096ae9b05d3b850341b78790e2ed31e94d5aa0ea086933c6ff0c09ffa2e63 5.49kB / 5.49kB done
+2026-10-08T12:57:54.9255335Z #6 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0B / 29.84MB 0.1s
+2026-10-08T12:57:54.9256737Z #6 sha256:0f752a1982d6f819fc2c9e78ac1514c63f2f2e1dec7885ffd4cb6809ba4a26ca 0B / 1.29MB 0.1s
+2026-10-08T12:57:54.9259008Z #6 sha256:759a7f30c31818dda4c97b407b24d93da479c306568d185ced927e1a749164f1 8.39MB / 14.46MB 0.1s
+2026-10-08T12:57:55.1101752Z #6 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 13.63MB / 29.84MB 0.2s
+2026-10-08T12:57:55.1108021Z #6 sha256:759a7f30c31818dda4c97b407b24d93da479c306568d185ced927e1a749164f1 14.46MB / 14.46MB 0.1s done
+2026-10-08T12:57:55.1109251Z #6 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 0B / 250B 0.2s
+2026-10-08T12:57:55.1109971Z #6 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e
+2026-10-08T12:57:55.2151882Z #6 sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 29.84MB / 29.84MB 0.3s done
+2026-10-08T12:57:55.2153983Z #6 sha256:0f752a1982d6f819fc2c9e78ac1514c63f2f2e1dec7885ffd4cb6809ba4a26ca 1.29MB / 1.29MB 0.2s done
+2026-10-08T12:57:55.2155618Z #6 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 250B / 250B 0.2s done
+2026-10-08T12:57:56.0642627Z #6 extracting sha256:ecc510c1e359bdc007b39802570bb7e4dec7d6ebccf357c3201a74299113e05e 0.9s done
+2026-10-08T12:57:56.0643630Z #6 extracting sha256:0f752a1982d6f819fc2c9e78ac1514c63f2f2e1dec7885ffd4cb6809ba4a26ca 0.1s done
+2026-10-08T12:57:57.8879898Z #6 extracting sha256:759a7f30c31818dda4c97b407b24d93da479c306568d185ced927e1a749164f1
+2026-10-08T12:57:58.5547239Z #6 extracting sha256:759a7f30c31818dda4c97b407b24d93da479c306568d185ced927e1a749164f1 0.6s done
+2026-10-08T12:57:58.5549527Z #6 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d
+2026-10-08T12:57:58.7448970Z #6 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d done
+2026-10-08T12:57:58.7449762Z #6 DONE 3.8s
+2026-10-08T12:57:58.7450174Z 
+2026-10-08T12:57:58.7450769Z #7 [2/9] RUN apt-get update     && apt-get install -y --no-install-recommends build-essential     && rm -rf /var/lib/apt/lists/*
+2026-10-08T12:57:58.7730192Z #7 0.178 Hit:1 http://deb.debian.org/debian trixie InRelease
+2026-10-08T12:57:58.9056798Z #7 0.181 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+2026-10-08T12:57:58.9058449Z #7 0.196 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+2026-10-08T12:57:58.9060429Z #7 0.208 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+2026-10-08T12:57:58.9079158Z #7 0.312 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+2026-10-08T12:57:59.0668635Z #7 0.323 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [265 kB]
+2026-10-08T12:57:59.5913894Z #7 0.997 Fetched 10.0 MB in 1s (11.8 MB/s)
+2026-10-08T12:58:00.1499981Z #7 0.997 Reading package lists...
+2026-10-08T12:58:00.6982645Z #7 1.573 Reading package lists...
+2026-10-08T12:58:00.8427596Z #7 2.115 Building dependency tree...
+2026-10-08T12:58:00.9929331Z #7 2.249 Reading state information...
+2026-10-08T12:58:01.0131268Z #7 2.419 The following additional packages will be installed:
+2026-10-08T12:58:01.0135687Z #7 2.419   binutils binutils-common binutils-x86-64-linux-gnu bzip2 cpp cpp-14
+2026-10-08T12:58:01.1665039Z #7 2.419   cpp-14-x86-64-linux-gnu cpp-x86-64-linux-gnu dpkg-dev g++ g++-14
+2026-10-08T12:58:01.1666914Z #7 2.419   g++-14-x86-64-linux-gnu g++-x86-64-linux-gnu gcc gcc-14
+2026-10-08T12:58:01.1689258Z #7 2.419   gcc-14-x86-64-linux-gnu gcc-x86-64-linux-gnu libasan8 libatomic1 libbinutils
+2026-10-08T12:58:01.1692433Z #7 2.419   libc-dev-bin libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0
+2026-10-08T12:58:01.1706833Z #7 2.420   libdpkg-perl libgcc-14-dev libgdbm-compat4t64 libgomp1 libgprofng0
+2026-10-08T12:58:01.1708676Z #7 2.420   libhwasan0 libisl23 libitm1 libjansson4 liblsan0 liblzma5 libmpc3 libmpfr6
+2026-10-08T12:58:01.1710097Z #7 2.420   libperl5.40 libquadmath0 libsframe1 libstdc++-14-dev libtsan2 libubsan1
+2026-10-08T12:58:01.1711365Z #7 2.421   linux-libc-dev make patch perl perl-modules-5.40 rpcsvc-proto xz-utils
+2026-10-08T12:58:01.1712263Z #7 2.422 Suggested packages:
+2026-10-08T12:58:01.1713092Z #7 2.422   binutils-doc gprofng-gui binutils-gold bzip2-doc cpp-doc gcc-14-locales
+2026-10-08T12:58:01.1714192Z #7 2.422   cpp-14-doc debian-keyring debian-tag2upload-keyring g++-multilib
+2026-10-08T12:58:01.1715224Z #7 2.422   g++-14-multilib gcc-14-doc gcc-multilib manpages-dev autoconf automake
+2026-10-08T12:58:01.1716271Z #7 2.422   libtool flex bison gdb gcc-doc gcc-14-multilib gdb-x86-64-linux-gnu
+2026-10-08T12:58:01.1717368Z #7 2.422   libc-devtools glibc-doc sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq
+2026-10-08T12:58:01.1718609Z #7 2.422   | gnupg sensible-utils git bzr libstdc++-14-doc make-doc ed diffutils-doc
+2026-10-08T12:58:01.1719734Z #7 2.422   perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl
+2026-10-08T12:58:01.1720479Z #7 2.422   libtap-harness-archive-perl
+2026-10-08T12:58:01.1720991Z #7 2.422 Recommended packages:
+2026-10-08T12:58:01.1721639Z #7 2.422   fakeroot sq | sqop | rsop | gosop | pgpainless-cli | gpg-sq | gnupg
+2026-10-08T12:58:01.1722637Z #7 2.422   libalgorithm-merge-perl manpages manpages-dev libfile-fcntllock-perl
+2026-10-08T12:58:01.1723738Z #7 2.422   liblocale-gettext-perl
+2026-10-08T12:58:01.1789245Z #7 2.585 The following NEW packages will be installed:
+2026-10-08T12:58:01.2796367Z #7 2.585   binutils binutils-common binutils-x86-64-linux-gnu build-essential bzip2 cpp
+2026-10-08T12:58:01.2800517Z #7 2.585   cpp-14 cpp-14-x86-64-linux-gnu cpp-x86-64-linux-gnu dpkg-dev g++ g++-14
+2026-10-08T12:58:01.2801896Z #7 2.585   g++-14-x86-64-linux-gnu g++-x86-64-linux-gnu gcc gcc-14
+2026-10-08T12:58:01.2803821Z #7 2.585   gcc-14-x86-64-linux-gnu gcc-x86-64-linux-gnu libasan8 libatomic1 libbinutils
+2026-10-08T12:58:01.2805105Z #7 2.585   libc-dev-bin libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0
+2026-10-08T12:58:01.2806590Z #7 2.585   libdpkg-perl libgcc-14-dev libgdbm-compat4t64 libgomp1 libgprofng0
+2026-10-08T12:58:01.2807644Z #7 2.585   libhwasan0 libisl23 libitm1 libjansson4 liblsan0 libmpc3 libmpfr6
+2026-10-08T12:58:01.2809648Z #7 2.588   libperl5.40 libquadmath0 libsframe1 libstdc++-14-dev libtsan2 libubsan1
+2026-10-08T12:58:01.2810944Z #7 2.588   linux-libc-dev make patch perl perl-modules-5.40 rpcsvc-proto xz-utils
+2026-10-08T12:58:01.2812030Z #7 2.588 The following packages will be upgraded:
+2026-10-08T12:58:01.2813052Z #7 2.589   liblzma5
+2026-10-08T12:58:01.2813751Z #7 2.611 1 upgraded, 52 newly installed, 0 to remove and 0 not upgraded.
+2026-10-08T12:58:01.2814666Z #7 2.611 Need to get 82.9 MB of archives.
+2026-10-08T12:58:01.2816000Z #7 2.611 After this operation, 336 MB of additional disk space will be used.
+2026-10-08T12:58:01.2817815Z #7 2.611 Get:1 http://deb.debian.org/debian-security trixie-security/main amd64 liblzma5 amd64 5.8.1-1+deb13u2 [310 kB]
+2026-10-08T12:58:01.2827032Z #7 2.617 Get:2 http://deb.debian.org/debian trixie/main amd64 bzip2 amd64 1.0.8-6 [40.5 kB]
+2026-10-08T12:58:01.2830234Z #7 2.619 Get:3 http://deb.debian.org/debian trixie/main amd64 perl-modules-5.40 all 5.40.1-6+deb13u1 [3014 kB]
+2026-10-08T12:58:01.2851359Z #7 2.631 Get:4 http://deb.debian.org/debian trixie/main amd64 libgdbm-compat4t64 amd64 1.24-2 [50.3 kB]
+2026-10-08T12:58:01.2853070Z #7 2.632 Get:5 http://deb.debian.org/debian trixie/main amd64 libperl5.40 amd64 5.40.1-6+deb13u1 [4326 kB]
+2026-10-08T12:58:01.2854517Z #7 2.644 Get:6 http://deb.debian.org/debian trixie/main amd64 perl amd64 5.40.1-6+deb13u1 [268 kB]
+2026-10-08T12:58:01.2856551Z #7 2.646 Get:7 http://deb.debian.org/debian-security trixie-security/main amd64 xz-utils amd64 5.8.1-1+deb13u2 [660 kB]
+2026-10-08T12:58:01.2858624Z #7 2.647 Get:8 http://deb.debian.org/debian trixie/main amd64 libsframe1 amd64 2.44-3 [78.4 kB]
+2026-10-08T12:58:01.2859884Z #7 2.648 Get:9 http://deb.debian.org/debian trixie/main amd64 binutils-common amd64 2.44-3 [2509 kB]
+2026-10-08T12:58:01.2862233Z #7 2.656 Get:10 http://deb.debian.org/debian trixie/main amd64 libbinutils amd64 2.44-3 [534 kB]
+2026-10-08T12:58:01.2863542Z #7 2.658 Get:11 http://deb.debian.org/debian trixie/main amd64 libgprofng0 amd64 2.44-3 [808 kB]
+2026-10-08T12:58:01.2865085Z #7 2.660 Get:12 http://deb.debian.org/debian trixie/main amd64 libctf-nobfd0 amd64 2.44-3 [156 kB]
+2026-10-08T12:58:01.2866406Z #7 2.662 Get:13 http://deb.debian.org/debian trixie/main amd64 libctf0 amd64 2.44-3 [88.6 kB]
+2026-10-08T12:58:01.2867838Z #7 2.662 Get:14 http://deb.debian.org/debian trixie/main amd64 libjansson4 amd64 2.14-2+b3 [39.8 kB]
+2026-10-08T12:58:01.2869479Z #7 2.662 Get:15 http://deb.debian.org/debian trixie/main amd64 binutils-x86-64-linux-gnu amd64 2.44-3 [1014 kB]
+2026-10-08T12:58:01.2871109Z #7 2.666 Get:16 http://deb.debian.org/debian trixie/main amd64 binutils amd64 2.44-3 [265 kB]
+2026-10-08T12:58:01.2872351Z #7 2.667 Get:17 http://deb.debian.org/debian trixie/main amd64 libc-dev-bin amd64 2.41-12+deb13u4 [60.0 kB]
+2026-10-08T12:58:01.2874396Z #7 2.667 Get:18 http://deb.debian.org/debian-security trixie-security/main amd64 linux-libc-dev all 6.12.111-1 [2988 kB]
+2026-10-08T12:58:01.2875888Z #7 2.673 Get:19 http://deb.debian.org/debian trixie/main amd64 libcrypt-dev amd64 1:4.4.38-1 [119 kB]
+2026-10-08T12:58:01.2877443Z #7 2.674 Get:20 http://deb.debian.org/debian trixie/main amd64 rpcsvc-proto amd64 1.4.3-1 [63.3 kB]
+2026-10-08T12:58:01.2879383Z #7 2.674 Get:21 http://deb.debian.org/debian trixie/main amd64 libc6-dev amd64 2.41-12+deb13u4 [1995 kB]
+2026-10-08T12:58:01.2880771Z #7 2.680 Get:22 http://deb.debian.org/debian trixie/main amd64 libisl23 amd64 0.27-1 [659 kB]
+2026-10-08T12:58:01.2882639Z #7 2.683 Get:23 http://deb.debian.org/debian trixie/main amd64 libmpfr6 amd64 4.2.2-1 [729 kB]
+2026-10-08T12:58:01.2884636Z #7 2.686 Get:24 http://deb.debian.org/debian trixie/main amd64 libmpc3 amd64 1.3.1-1+b3 [52.2 kB]
+2026-10-08T12:58:01.4202125Z #7 2.689 Get:25 http://deb.debian.org/debian trixie/main amd64 cpp-14-x86-64-linux-gnu amd64 14.2.0-19 [11.0 MB]
+2026-10-08T12:58:01.4204149Z #7 2.721 Get:26 http://deb.debian.org/debian trixie/main amd64 cpp-14 amd64 14.2.0-19 [1280 B]
+2026-10-08T12:58:01.4205459Z #7 2.721 Get:27 http://deb.debian.org/debian trixie/main amd64 cpp-x86-64-linux-gnu amd64 4:14.2.0-1 [4840 B]
+2026-10-08T12:58:01.4207135Z #7 2.721 Get:28 http://deb.debian.org/debian trixie/main amd64 cpp amd64 4:14.2.0-1 [1568 B]
+2026-10-08T12:58:01.4208365Z #7 2.722 Get:29 http://deb.debian.org/debian trixie/main amd64 libcc1-0 amd64 14.2.0-19 [42.8 kB]
+2026-10-08T12:58:01.4214806Z #7 2.723 Get:30 http://deb.debian.org/debian trixie/main amd64 libgomp1 amd64 14.2.0-19 [137 kB]
+2026-10-08T12:58:01.4216635Z #7 2.723 Get:31 http://deb.debian.org/debian trixie/main amd64 libitm1 amd64 14.2.0-19 [26.0 kB]
+2026-10-08T12:58:01.4218010Z #7 2.723 Get:32 http://deb.debian.org/debian trixie/main amd64 libatomic1 amd64 14.2.0-19 [9308 B]
+2026-10-08T12:58:01.4219176Z #7 2.724 Get:33 http://deb.debian.org/debian trixie/main amd64 libasan8 amd64 14.2.0-19 [2725 kB]
+2026-10-08T12:58:01.4220197Z #7 2.732 Get:34 http://deb.debian.org/debian trixie/main amd64 liblsan0 amd64 14.2.0-19 [1204 kB]
+2026-10-08T12:58:01.4221754Z #7 2.736 Get:35 http://deb.debian.org/debian trixie/main amd64 libtsan2 amd64 14.2.0-19 [2460 kB]
+2026-10-08T12:58:01.4222920Z #7 2.744 Get:36 http://deb.debian.org/debian trixie/main amd64 libubsan1 amd64 14.2.0-19 [1074 kB]
+2026-10-08T12:58:01.4224292Z #7 2.747 Get:37 http://deb.debian.org/debian trixie/main amd64 libhwasan0 amd64 14.2.0-19 [1488 kB]
+2026-10-08T12:58:01.4226148Z #7 2.752 Get:38 http://deb.debian.org/debian trixie/main amd64 libquadmath0 amd64 14.2.0-19 [145 kB]
+2026-10-08T12:58:01.4227866Z #7 2.753 Get:39 http://deb.debian.org/debian trixie/main amd64 libgcc-14-dev amd64 14.2.0-19 [2672 kB]
+2026-10-08T12:58:01.4239317Z #7 2.762 Get:40 http://deb.debian.org/debian trixie/main amd64 gcc-14-x86-64-linux-gnu amd64 14.2.0-19 [21.4 MB]
+2026-10-08T12:58:01.4240854Z #7 2.827 Get:41 http://deb.debian.org/debian trixie/main amd64 gcc-14 amd64 14.2.0-19 [540 kB]
+2026-10-08T12:58:01.5826027Z #7 2.830 Get:42 http://deb.debian.org/debian trixie/main amd64 gcc-x86-64-linux-gnu amd64 4:14.2.0-1 [1436 B]
+2026-10-08T12:58:01.5828521Z #7 2.830 Get:43 http://deb.debian.org/debian trixie/main amd64 gcc amd64 4:14.2.0-1 [5136 B]
+2026-10-08T12:58:01.5829996Z #7 2.830 Get:44 http://deb.debian.org/debian trixie/main amd64 libstdc++-14-dev amd64 14.2.0-19 [2376 kB]
+2026-10-08T12:58:01.5835198Z #7 2.838 Get:45 http://deb.debian.org/debian trixie/main amd64 g++-14-x86-64-linux-gnu amd64 14.2.0-19 [12.1 MB]
+2026-10-08T12:58:01.5836433Z #7 2.874 Get:46 http://deb.debian.org/debian trixie/main amd64 g++-14 amd64 14.2.0-19 [22.5 kB]
+2026-10-08T12:58:01.5837617Z #7 2.875 Get:47 http://deb.debian.org/debian trixie/main amd64 g++-x86-64-linux-gnu amd64 4:14.2.0-1 [1200 B]
+2026-10-08T12:58:01.5839269Z #7 2.875 Get:48 http://deb.debian.org/debian trixie/main amd64 g++ amd64 4:14.2.0-1 [1344 B]
+2026-10-08T12:58:01.5840714Z #7 2.876 Get:49 http://deb.debian.org/debian trixie/main amd64 make amd64 4.4.1-2 [463 kB]
+2026-10-08T12:58:01.5841822Z #7 2.877 Get:50 http://deb.debian.org/debian trixie/main amd64 libdpkg-perl all 1.22.22 [651 kB]
+2026-10-08T12:58:01.5842895Z #7 2.879 Get:51 http://deb.debian.org/debian trixie/main amd64 patch amd64 2.8-2 [134 kB]
+2026-10-08T12:58:01.5843943Z #7 2.880 Get:52 http://deb.debian.org/debian trixie/main amd64 dpkg-dev all 1.22.22 [1337 kB]
+2026-10-08T12:58:01.5845095Z #7 2.884 Get:53 http://deb.debian.org/debian trixie/main amd64 build-essential amd64 12.12 [4624 B]
+2026-10-08T12:58:01.5846074Z #7 2.989 debconf: unable to initialize frontend: Dialog
+2026-10-08T12:58:01.5846882Z #7 2.989 debconf: (TERM is not set, so the dialog frontend is not usable.)
+2026-10-08T12:58:01.5847731Z #7 2.989 debconf: falling back to frontend: Readline
+2026-10-08T12:58:01.7409458Z #7 2.989 debconf: unable to initialize frontend: Readline
+2026-10-08T12:58:01.7421379Z #7 2.989 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 53.)
+2026-10-08T12:58:01.7424831Z #7 2.989 debconf: falling back to frontend: Teletype
+2026-10-08T12:58:01.7425620Z #7 2.995 debconf: unable to initialize frontend: Teletype
+2026-10-08T12:58:01.7426427Z #7 2.995 debconf: (This frontend requires a controlling tty.)
+2026-10-08T12:58:01.7427186Z #7 2.995 debconf: falling back to frontend: Noninteractive
+2026-10-08T12:58:02.7085992Z #7 4.115 Fetched 82.9 MB in 0s (289 MB/s)
+2026-10-08T12:58:02.9384468Z #7 4.126 (Reading database ... 
+2026-10-08T12:58:02.9388776Z (Reading database ... 5%
+2026-10-08T12:58:02.9394591Z (Reading database ... 10%
+2026-10-08T12:58:02.9395253Z (Reading database ... 15%
+2026-10-08T12:58:02.9396051Z (Reading database ... 20%
+2026-10-08T12:58:02.9396648Z (Reading database ... 25%
+2026-10-08T12:58:02.9397380Z (Reading database ... 30%
+2026-10-08T12:58:02.9398884Z (Reading database ... 35%
+2026-10-08T12:58:02.9399585Z (Reading database ... 40%
+2026-10-08T12:58:02.9404447Z (Reading database ... 45%
+2026-10-08T12:58:02.9405178Z (Reading database ... 50%
+2026-10-08T12:58:02.9405980Z (Reading database ... 55%
+2026-10-08T12:58:02.9406575Z (Reading database ... 60%
+2026-10-08T12:58:02.9428503Z (Reading database ... 65%
+2026-10-08T12:58:02.9429180Z (Reading database ... 70%
+2026-10-08T12:58:02.9429960Z (Reading database ... 75%
+2026-10-08T12:58:02.9430565Z (Reading database ... 80%
+2026-10-08T12:58:02.9431332Z (Reading database ... 85%
+2026-10-08T12:58:02.9431949Z (Reading database ... 90%
+2026-10-08T12:58:02.9432717Z (Reading database ... 95%
+2026-10-08T12:58:02.9433338Z (Reading database ... 100%
+2026-10-08T12:58:02.9434252Z (Reading database ... 5660 files and directories currently installed.)
+2026-10-08T12:58:02.9435257Z #7 4.132 Preparing to unpack .../liblzma5_5.8.1-1+deb13u2_amd64.deb ...
+2026-10-08T12:58:02.9436426Z #7 4.135 Unpacking liblzma5:amd64 (5.8.1-1+deb13u2) over (5.8.1-1+deb13u1) ...
+2026-10-08T12:58:02.9438584Z #7 4.160 Setting up liblzma5:amd64 (5.8.1-1+deb13u2) ...
+2026-10-08T12:58:02.9439788Z #7 4.173 Selecting previously unselected package bzip2.
+2026-10-08T12:58:02.9440346Z #7 4.173 (Reading database ... 
+2026-10-08T12:58:02.9440765Z (Reading database ... 5%
+2026-10-08T12:58:02.9441157Z (Reading database ... 10%
+2026-10-08T12:58:02.9441551Z (Reading database ... 15%
+2026-10-08T12:58:02.9441953Z (Reading database ... 20%
+2026-10-08T12:58:02.9442348Z (Reading database ... 25%
+2026-10-08T12:58:02.9442749Z (Reading database ... 30%
+2026-10-08T12:58:02.9443150Z (Reading database ... 35%
+2026-10-08T12:58:02.9443557Z (Reading database ... 40%
+2026-10-08T12:58:02.9443949Z (Reading database ... 45%
+2026-10-08T12:58:02.9444352Z (Reading database ... 50%
+2026-10-08T12:58:02.9444748Z (Reading database ... 55%
+2026-10-08T12:58:02.9445135Z (Reading database ... 60%
+2026-10-08T12:58:02.9445534Z (Reading database ... 65%
+2026-10-08T12:58:02.9445919Z (Reading database ... 70%
+2026-10-08T12:58:02.9446308Z (Reading database ... 75%
+2026-10-08T12:58:02.9446690Z (Reading database ... 80%
+2026-10-08T12:58:02.9447105Z (Reading database ... 85%
+2026-10-08T12:58:02.9447503Z (Reading database ... 90%
+2026-10-08T12:58:02.9447910Z (Reading database ... 95%
+2026-10-08T12:58:02.9448430Z (Reading database ... 100%
+2026-10-08T12:58:02.9449033Z (Reading database ... 5660 files and directories currently installed.)
+2026-10-08T12:58:02.9449711Z #7 4.178 Preparing to unpack .../00-bzip2_1.0.8-6_amd64.deb ...
+2026-10-08T12:58:02.9450303Z #7 4.179 Unpacking bzip2 (1.0.8-6) ...
+2026-10-08T12:58:02.9451279Z #7 4.193 Selecting previously unselected package perl-modules-5.40.
+2026-10-08T12:58:02.9452130Z #7 4.194 Preparing to unpack .../01-perl-modules-5.40_5.40.1-6+deb13u1_all.deb ...
+2026-10-08T12:58:02.9452910Z #7 4.195 Unpacking perl-modules-5.40 (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:03.0063995Z #7 4.412 Selecting previously unselected package libgdbm-compat4t64:amd64.
+2026-10-08T12:58:03.1789224Z #7 4.414 Preparing to unpack .../02-libgdbm-compat4t64_1.24-2_amd64.deb ...
+2026-10-08T12:58:03.1790004Z #7 4.416 Unpacking libgdbm-compat4t64:amd64 (1.24-2) ...
+2026-10-08T12:58:03.1790969Z #7 4.433 Selecting previously unselected package libperl5.40:amd64.
+2026-10-08T12:58:03.1791784Z #7 4.434 Preparing to unpack .../03-libperl5.40_5.40.1-6+deb13u1_amd64.deb ...
+2026-10-08T12:58:03.1792539Z #7 4.435 Unpacking libperl5.40:amd64 (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:03.2695359Z #7 4.675 Selecting previously unselected package perl.
+2026-10-08T12:58:03.4680726Z #7 4.676 Preparing to unpack .../04-perl_5.40.1-6+deb13u1_amd64.deb ...
+2026-10-08T12:58:03.4681664Z #7 4.677 Unpacking perl (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:03.4683205Z #7 4.707 Selecting previously unselected package xz-utils.
+2026-10-08T12:58:03.4683795Z #7 4.708 Preparing to unpack .../05-xz-utils_5.8.1-1+deb13u2_amd64.deb ...
+2026-10-08T12:58:03.4684350Z #7 4.709 Unpacking xz-utils (5.8.1-1+deb13u2) ...
+2026-10-08T12:58:03.4684872Z #7 4.740 Selecting previously unselected package libsframe1:amd64.
+2026-10-08T12:58:03.4685468Z #7 4.741 Preparing to unpack .../06-libsframe1_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.4686004Z #7 4.741 Unpacking libsframe1:amd64 (2.44-3) ...
+2026-10-08T12:58:03.4686545Z #7 4.755 Selecting previously unselected package binutils-common:amd64.
+2026-10-08T12:58:03.4687184Z #7 4.756 Preparing to unpack .../07-binutils-common_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.4687746Z #7 4.756 Unpacking binutils-common:amd64 (2.44-3) ...
+2026-10-08T12:58:03.4688560Z #7 4.874 Selecting previously unselected package libbinutils:amd64.
+2026-10-08T12:58:03.5792809Z #7 4.876 Preparing to unpack .../08-libbinutils_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.5793942Z #7 4.877 Unpacking libbinutils:amd64 (2.44-3) ...
+2026-10-08T12:58:03.5809623Z #7 4.914 Selecting previously unselected package libgprofng0:amd64.
+2026-10-08T12:58:03.5816651Z #7 4.916 Preparing to unpack .../09-libgprofng0_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.5817867Z #7 4.917 Unpacking libgprofng0:amd64 (2.44-3) ...
+2026-10-08T12:58:03.5819058Z #7 4.966 Selecting previously unselected package libctf-nobfd0:amd64.
+2026-10-08T12:58:03.5820650Z #7 4.968 Preparing to unpack .../10-libctf-nobfd0_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.5821676Z #7 4.968 Unpacking libctf-nobfd0:amd64 (2.44-3) ...
+2026-10-08T12:58:03.5822446Z #7 4.985 Selecting previously unselected package libctf0:amd64.
+2026-10-08T12:58:03.6853026Z #7 4.988 Preparing to unpack .../11-libctf0_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.6854209Z #7 4.989 Unpacking libctf0:amd64 (2.44-3) ...
+2026-10-08T12:58:03.6855214Z #7 5.005 Selecting previously unselected package libjansson4:amd64.
+2026-10-08T12:58:03.6856013Z #7 5.006 Preparing to unpack .../12-libjansson4_2.14-2+b3_amd64.deb ...
+2026-10-08T12:58:03.6856665Z #7 5.007 Unpacking libjansson4:amd64 (2.14-2+b3) ...
+2026-10-08T12:58:03.6857308Z #7 5.018 Selecting previously unselected package binutils-x86-64-linux-gnu.
+2026-10-08T12:58:03.6858095Z #7 5.020 Preparing to unpack .../13-binutils-x86-64-linux-gnu_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.6859000Z #7 5.020 Unpacking binutils-x86-64-linux-gnu (2.44-3) ...
+2026-10-08T12:58:03.6859661Z #7 5.091 Selecting previously unselected package binutils.
+2026-10-08T12:58:03.8790027Z #7 5.092 Preparing to unpack .../14-binutils_2.44-3_amd64.deb ...
+2026-10-08T12:58:03.8791691Z #7 5.094 Unpacking binutils (2.44-3) ...
+2026-10-08T12:58:03.8792511Z #7 5.120 Selecting previously unselected package libc-dev-bin.
+2026-10-08T12:58:03.8793464Z #7 5.120 Preparing to unpack .../15-libc-dev-bin_2.41-12+deb13u4_amd64.deb ...
+2026-10-08T12:58:03.8794377Z #7 5.120 Unpacking libc-dev-bin (2.41-12+deb13u4) ...
+2026-10-08T12:58:03.8795633Z #7 5.133 Selecting previously unselected package linux-libc-dev.
+2026-10-08T12:58:03.8796439Z #7 5.134 Preparing to unpack .../16-linux-libc-dev_6.12.111-1_all.deb ...
+2026-10-08T12:58:03.8797293Z #7 5.135 Unpacking linux-libc-dev (6.12.111-1) ...
+2026-10-08T12:58:03.9280358Z #7 5.334 Selecting previously unselected package libcrypt-dev:amd64.
+2026-10-08T12:58:04.0927067Z #7 5.336 Preparing to unpack .../17-libcrypt-dev_1%3a4.4.38-1_amd64.deb ...
+2026-10-08T12:58:04.0928069Z #7 5.340 Unpacking libcrypt-dev:amd64 (1:4.4.38-1) ...
+2026-10-08T12:58:04.0928879Z #7 5.356 Selecting previously unselected package rpcsvc-proto.
+2026-10-08T12:58:04.0929508Z #7 5.357 Preparing to unpack .../18-rpcsvc-proto_1.4.3-1_amd64.deb ...
+2026-10-08T12:58:04.0930051Z #7 5.358 Unpacking rpcsvc-proto (1.4.3-1) ...
+2026-10-08T12:58:04.0930572Z #7 5.373 Selecting previously unselected package libc6-dev:amd64.
+2026-10-08T12:58:04.0931232Z #7 5.374 Preparing to unpack .../19-libc6-dev_2.41-12+deb13u4_amd64.deb ...
+2026-10-08T12:58:04.0931814Z #7 5.375 Unpacking libc6-dev:amd64 (2.41-12+deb13u4) ...
+2026-10-08T12:58:04.0932338Z #7 5.499 Selecting previously unselected package libisl23:amd64.
+2026-10-08T12:58:04.3345660Z #7 5.501 Preparing to unpack .../20-libisl23_0.27-1_amd64.deb ...
+2026-10-08T12:58:04.3359137Z #7 5.502 Unpacking libisl23:amd64 (0.27-1) ...
+2026-10-08T12:58:04.3361619Z #7 5.543 Selecting previously unselected package libmpfr6:amd64.
+2026-10-08T12:58:04.3362778Z #7 5.544 Preparing to unpack .../21-libmpfr6_4.2.2-1_amd64.deb ...
+2026-10-08T12:58:04.3363588Z #7 5.545 Unpacking libmpfr6:amd64 (4.2.2-1) ...
+2026-10-08T12:58:04.3364430Z #7 5.574 Selecting previously unselected package libmpc3:amd64.
+2026-10-08T12:58:04.3365327Z #7 5.575 Preparing to unpack .../22-libmpc3_1.3.1-1+b3_amd64.deb ...
+2026-10-08T12:58:04.3366314Z #7 5.575 Unpacking libmpc3:amd64 (1.3.1-1+b3) ...
+2026-10-08T12:58:04.3374399Z #7 5.588 Selecting previously unselected package cpp-14-x86-64-linux-gnu.
+2026-10-08T12:58:04.3375678Z #7 5.589 Preparing to unpack .../23-cpp-14-x86-64-linux-gnu_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.3376723Z #7 5.590 Unpacking cpp-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:04.6375360Z #7 6.044 Selecting previously unselected package cpp-14.
+2026-10-08T12:58:04.7410670Z #7 6.044 Preparing to unpack .../24-cpp-14_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.7411636Z #7 6.045 Unpacking cpp-14 (14.2.0-19) ...
+2026-10-08T12:58:04.7412242Z #7 6.056 Selecting previously unselected package cpp-x86-64-linux-gnu.
+2026-10-08T12:58:04.7413808Z #7 6.056 Preparing to unpack .../25-cpp-x86-64-linux-gnu_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:04.7417610Z #7 6.057 Unpacking cpp-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:04.7420527Z #7 6.068 Selecting previously unselected package cpp.
+2026-10-08T12:58:04.7421382Z #7 6.069 Preparing to unpack .../26-cpp_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:04.7422104Z #7 6.073 Unpacking cpp (4:14.2.0-1) ...
+2026-10-08T12:58:04.7422809Z #7 6.084 Selecting previously unselected package libcc1-0:amd64.
+2026-10-08T12:58:04.7423637Z #7 6.085 Preparing to unpack .../27-libcc1-0_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.7424390Z #7 6.086 Unpacking libcc1-0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:04.7425161Z #7 6.098 Selecting previously unselected package libgomp1:amd64.
+2026-10-08T12:58:04.7425982Z #7 6.100 Preparing to unpack .../28-libgomp1_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.7426722Z #7 6.100 Unpacking libgomp1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:04.7427499Z #7 6.118 Selecting previously unselected package libitm1:amd64.
+2026-10-08T12:58:04.7428496Z #7 6.119 Preparing to unpack .../29-libitm1_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.7429256Z #7 6.120 Unpacking libitm1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:04.7430043Z #7 6.132 Selecting previously unselected package libatomic1:amd64.
+2026-10-08T12:58:04.7430885Z #7 6.133 Preparing to unpack .../30-libatomic1_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.7431835Z #7 6.134 Unpacking libatomic1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:04.7432587Z #7 6.146 Selecting previously unselected package libasan8:amd64.
+2026-10-08T12:58:04.8795728Z #7 6.148 Preparing to unpack .../31-libasan8_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:04.8796839Z #7 6.148 Unpacking libasan8:amd64 (14.2.0-19) ...
+2026-10-08T12:58:04.8797588Z #7 6.286 Selecting previously unselected package liblsan0:amd64.
+2026-10-08T12:58:05.0768124Z #7 6.288 Preparing to unpack .../32-liblsan0_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.0770046Z #7 6.288 Unpacking liblsan0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.0770829Z #7 6.356 Selecting previously unselected package libtsan2:amd64.
+2026-10-08T12:58:05.0771574Z #7 6.358 Preparing to unpack .../33-libtsan2_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.0772208Z #7 6.358 Unpacking libtsan2:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.0772842Z #7 6.483 Selecting previously unselected package libubsan1:amd64.
+2026-10-08T12:58:05.2223455Z #7 6.485 Preparing to unpack .../34-libubsan1_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.2224408Z #7 6.485 Unpacking libubsan1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.2226437Z #7 6.548 Selecting previously unselected package libhwasan0:amd64.
+2026-10-08T12:58:05.2227280Z #7 6.548 Preparing to unpack .../35-libhwasan0_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.2228008Z #7 6.549 Unpacking libhwasan0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.2228931Z #7 6.629 Selecting previously unselected package libquadmath0:amd64.
+2026-10-08T12:58:05.2229728Z #7 6.629 Preparing to unpack .../36-libquadmath0_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.3664070Z #7 6.629 Unpacking libquadmath0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.3752648Z #7 6.645 Selecting previously unselected package libgcc-14-dev:amd64.
+2026-10-08T12:58:05.3753542Z #7 6.646 Preparing to unpack .../37-libgcc-14-dev_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.3757750Z #7 6.647 Unpacking libgcc-14-dev:amd64 (14.2.0-19) ...
+2026-10-08T12:58:05.3807673Z #7 6.771 Selecting previously unselected package gcc-14-x86-64-linux-gnu.
+2026-10-08T12:58:05.5199993Z #7 6.773 Preparing to unpack .../38-gcc-14-x86-64-linux-gnu_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:05.5201078Z #7 6.774 Unpacking gcc-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:06.0950056Z #7 7.501 Selecting previously unselected package gcc-14.
+2026-10-08T12:58:06.2934101Z #7 7.503 Preparing to unpack .../39-gcc-14_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:06.2935011Z #7 7.503 Unpacking gcc-14 (14.2.0-19) ...
+2026-10-08T12:58:06.2935701Z #7 7.523 Selecting previously unselected package gcc-x86-64-linux-gnu.
+2026-10-08T12:58:06.2936552Z #7 7.523 Preparing to unpack .../40-gcc-x86-64-linux-gnu_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:06.2937291Z #7 7.524 Unpacking gcc-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:06.2937855Z #7 7.536 Selecting previously unselected package gcc.
+2026-10-08T12:58:06.2938648Z #7 7.536 Preparing to unpack .../41-gcc_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:06.2939280Z #7 7.536 Unpacking gcc (4:14.2.0-1) ...
+2026-10-08T12:58:06.2941887Z #7 7.548 Selecting previously unselected package libstdc++-14-dev:amd64.
+2026-10-08T12:58:06.2959129Z #7 7.549 Preparing to unpack .../42-libstdc++-14-dev_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:06.2960000Z #7 7.549 Unpacking libstdc++-14-dev:amd64 (14.2.0-19) ...
+2026-10-08T12:58:06.2960759Z #7 7.701 Selecting previously unselected package g++-14-x86-64-linux-gnu.
+2026-10-08T12:58:06.4492751Z #7 7.704 Preparing to unpack .../43-g++-14-x86-64-linux-gnu_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:06.4493862Z #7 7.705 Unpacking g++-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:06.7796459Z #7 8.186 Selecting previously unselected package g++-14.
+2026-10-08T12:58:06.8842481Z #7 8.186 Preparing to unpack .../44-g++-14_14.2.0-19_amd64.deb ...
+2026-10-08T12:58:06.8858687Z #7 8.187 Unpacking g++-14 (14.2.0-19) ...
+2026-10-08T12:58:06.8859226Z #7 8.198 Selecting previously unselected package g++-x86-64-linux-gnu.
+2026-10-08T12:58:06.8859908Z #7 8.200 Preparing to unpack .../45-g++-x86-64-linux-gnu_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:06.8860328Z #7 8.202 Unpacking g++-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:06.8860666Z #7 8.212 Selecting previously unselected package g++.
+2026-10-08T12:58:06.8861023Z #7 8.214 Preparing to unpack .../46-g++_4%3a14.2.0-1_amd64.deb ...
+2026-10-08T12:58:06.8861350Z #7 8.214 Unpacking g++ (4:14.2.0-1) ...
+2026-10-08T12:58:06.8861638Z #7 8.224 Selecting previously unselected package make.
+2026-10-08T12:58:06.8862075Z #7 8.226 Preparing to unpack .../47-make_4.4.1-2_amd64.deb ...
+2026-10-08T12:58:06.8862383Z #7 8.226 Unpacking make (4.4.1-2) ...
+2026-10-08T12:58:06.8862709Z #7 8.255 Selecting previously unselected package libdpkg-perl.
+2026-10-08T12:58:06.8863092Z #7 8.256 Preparing to unpack .../48-libdpkg-perl_1.22.22_all.deb ...
+2026-10-08T12:58:06.8863439Z #7 8.258 Unpacking libdpkg-perl (1.22.22) ...
+2026-10-08T12:58:06.8863752Z #7 8.291 Selecting previously unselected package patch.
+2026-10-08T12:58:06.9851780Z #7 8.293 Preparing to unpack .../49-patch_2.8-2_amd64.deb ...
+2026-10-08T12:58:06.9852378Z #7 8.294 Unpacking patch (2.8-2) ...
+2026-10-08T12:58:06.9852893Z #7 8.311 Selecting previously unselected package dpkg-dev.
+2026-10-08T12:58:06.9853549Z #7 8.312 Preparing to unpack .../50-dpkg-dev_1.22.22_all.deb ...
+2026-10-08T12:58:06.9854137Z #7 8.312 Unpacking dpkg-dev (1.22.22) ...
+2026-10-08T12:58:06.9854736Z #7 8.359 Selecting previously unselected package build-essential.
+2026-10-08T12:58:06.9855464Z #7 8.361 Preparing to unpack .../51-build-essential_12.12_amd64.deb ...
+2026-10-08T12:58:06.9856110Z #7 8.361 Unpacking build-essential (12.12) ...
+2026-10-08T12:58:06.9856717Z #7 8.382 Setting up libgdbm-compat4t64:amd64 (1.24-2) ...
+2026-10-08T12:58:06.9857389Z #7 8.383 Setting up binutils-common:amd64 (2.44-3) ...
+2026-10-08T12:58:06.9857916Z #7 8.385 Setting up linux-libc-dev (6.12.111-1) ...
+2026-10-08T12:58:06.9858606Z #7 8.386 Setting up libctf-nobfd0:amd64 (2.44-3) ...
+2026-10-08T12:58:06.9859450Z #7 8.387 Setting up libgomp1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:06.9859849Z #7 8.389 Setting up bzip2 (1.0.8-6) ...
+2026-10-08T12:58:06.9860127Z #7 8.390 Setting up libsframe1:amd64 (2.44-3) ...
+2026-10-08T12:58:06.9860848Z #7 8.392 Setting up libjansson4:amd64 (2.14-2+b3) ...
+2026-10-08T12:58:07.2327485Z #7 8.394 Setting up rpcsvc-proto (1.4.3-1) ...
+2026-10-08T12:58:07.2328070Z #7 8.395 Setting up make (4.4.1-2) ...
+2026-10-08T12:58:07.2328680Z #7 8.397 Setting up libmpfr6:amd64 (4.2.2-1) ...
+2026-10-08T12:58:07.2329094Z #7 8.398 Setting up xz-utils (5.8.1-1+deb13u2) ...
+2026-10-08T12:58:07.2329523Z #7 8.401 update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+2026-10-08T12:58:07.2330322Z #7 8.402 update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2331373Z #7 8.402 update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2332414Z #7 8.402 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2333452Z #7 8.402 update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2334498Z #7 8.402 update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2335530Z #7 8.403 update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2336849Z #7 8.403 update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2337892Z #7 8.404 update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2339113Z #7 8.404 update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2340287Z #7 8.404 update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+2026-10-08T12:58:07.2340990Z #7 8.405 Setting up libquadmath0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2341305Z #7 8.407 Setting up libmpc3:amd64 (1.3.1-1+b3) ...
+2026-10-08T12:58:07.2341609Z #7 8.408 Setting up libatomic1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2341905Z #7 8.410 Setting up patch (2.8-2) ...
+2026-10-08T12:58:07.2342182Z #7 8.412 Setting up libubsan1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2342503Z #7 8.413 Setting up perl-modules-5.40 (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:07.2342831Z #7 8.415 Setting up libhwasan0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2343147Z #7 8.416 Setting up libcrypt-dev:amd64 (1:4.4.38-1) ...
+2026-10-08T12:58:07.2343450Z #7 8.421 Setting up libasan8:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2343739Z #7 8.423 Setting up libtsan2:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2344033Z #7 8.424 Setting up libbinutils:amd64 (2.44-3) ...
+2026-10-08T12:58:07.2344321Z #7 8.426 Setting up libisl23:amd64 (0.27-1) ...
+2026-10-08T12:58:07.2344626Z #7 8.427 Setting up libc-dev-bin (2.41-12+deb13u4) ...
+2026-10-08T12:58:07.2345076Z #7 8.429 Setting up libcc1-0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2345368Z #7 8.430 Setting up liblsan0:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2345662Z #7 8.432 Setting up libitm1:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2345950Z #7 8.433 Setting up libctf0:amd64 (2.44-3) ...
+2026-10-08T12:58:07.2346268Z #7 8.435 Setting up libperl5.40:amd64 (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:07.2346581Z #7 8.436 Setting up perl (5.40.1-6+deb13u1) ...
+2026-10-08T12:58:07.2346867Z #7 8.440 Setting up libgprofng0:amd64 (2.44-3) ...
+2026-10-08T12:58:07.2347193Z #7 8.442 Setting up cpp-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:07.2347513Z #7 8.443 Setting up libdpkg-perl (1.22.22) ...
+2026-10-08T12:58:07.2347795Z #7 8.445 Setting up cpp-14 (14.2.0-19) ...
+2026-10-08T12:58:07.2348089Z #7 8.446 Setting up libc6-dev:amd64 (2.41-12+deb13u4) ...
+2026-10-08T12:58:07.2348502Z #7 8.448 Setting up libgcc-14-dev:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2348819Z #7 8.449 Setting up libstdc++-14-dev:amd64 (14.2.0-19) ...
+2026-10-08T12:58:07.2349153Z #7 8.451 Setting up binutils-x86-64-linux-gnu (2.44-3) ...
+2026-10-08T12:58:07.2349486Z #7 8.453 Setting up cpp-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:07.2349777Z #7 8.455 Setting up binutils (2.44-3) ...
+2026-10-08T12:58:07.2350043Z #7 8.458 Setting up dpkg-dev (1.22.22) ...
+2026-10-08T12:58:07.2350303Z #7 8.460 Setting up cpp (4:14.2.0-1) ...
+2026-10-08T12:58:07.2350597Z #7 8.467 Setting up gcc-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:07.2350933Z #7 8.468 Setting up gcc-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:07.2351222Z #7 8.469 Setting up gcc-14 (14.2.0-19) ...
+2026-10-08T12:58:07.2351511Z #7 8.471 Setting up g++-14-x86-64-linux-gnu (14.2.0-19) ...
+2026-10-08T12:58:07.2351837Z #7 8.473 Setting up g++-x86-64-linux-gnu (4:14.2.0-1) ...
+2026-10-08T12:58:07.2352126Z #7 8.475 Setting up g++-14 (14.2.0-19) ...
+2026-10-08T12:58:07.2352380Z #7 8.476 Setting up gcc (4:14.2.0-1) ...
+2026-10-08T12:58:07.2352628Z #7 8.482 Setting up g++ (4:14.2.0-1) ...
+2026-10-08T12:58:07.2353008Z #7 8.485 update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+2026-10-08T12:58:07.2353434Z #7 8.486 Setting up build-essential (12.12) ...
+2026-10-08T12:58:07.2353889Z #7 8.489 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+2026-10-08T12:58:08.4914526Z #7 DONE 9.9s
+2026-10-08T12:58:08.6703682Z 
+2026-10-08T12:58:08.6704217Z #8 [3/9] WORKDIR /app
+2026-10-08T12:58:08.6704634Z #8 DONE 0.0s
+2026-10-08T12:58:08.6704932Z 
+2026-10-08T12:58:08.6705239Z #9 [4/9] COPY requirements.txt .
+2026-10-08T12:58:08.6705643Z #9 DONE 0.0s
+2026-10-08T12:58:08.6705837Z 
+2026-10-08T12:58:08.6706208Z #10 [5/9] RUN pip install --upgrade pip && pip install -r requirements.txt
+2026-10-08T12:58:09.8029311Z #10 1.283 Requirement already satisfied: pip in /usr/local/lib/python3.11/site-packages (24.0)
+2026-10-08T12:58:09.9348107Z #10 1.373 Collecting pip
+2026-10-08T12:58:09.9349674Z #10 1.415   Downloading pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+2026-10-08T12:58:10.0574244Z #10 1.428 Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+2026-10-08T12:58:10.0576347Z #10 1.494    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 28.7 MB/s eta 0:00:00
+2026-10-08T12:58:10.0577394Z #10 1.537 Installing collected packages: pip
+2026-10-08T12:58:10.2475026Z #10 1.537   Attempting uninstall: pip
+2026-10-08T12:58:10.2476290Z #10 1.540     Found existing installation: pip 24.0
+2026-10-08T12:58:10.2477083Z #10 1.570     Uninstalling pip-24.0:
+2026-10-08T12:58:10.2477731Z #10 1.577       Successfully uninstalled pip-24.0
+2026-10-08T12:58:10.7686193Z #10 2.248 Successfully installed pip-26.2.1
+2026-10-08T12:58:10.9194427Z #10 2.249 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+2026-10-08T12:58:11.6378074Z #10 3.118 Collecting aiohappyeyeballs==2.6.1 (from -r requirements.txt (line 1))
+2026-10-08T12:58:11.8353552Z #10 3.165   Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
+2026-10-08T12:58:12.1179411Z #10 3.598 Collecting aiohttp==3.13.5 (from -r requirements.txt (line 2))
+2026-10-08T12:58:12.2187898Z #10 3.609   Downloading aiohttp-3.13.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+2026-10-08T12:58:12.2189610Z #10 3.623 Collecting aiosignal==1.4.0 (from -r requirements.txt (line 3))
+2026-10-08T12:58:12.2190488Z #10 3.633   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+2026-10-08T12:58:12.2191399Z #10 3.647 Collecting annotated-doc==0.0.4 (from -r requirements.txt (line 4))
+2026-10-08T12:58:12.2192232Z #10 3.657   Downloading annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+2026-10-08T12:58:12.2193091Z #10 3.670 Collecting annotated-types==0.7.0 (from -r requirements.txt (line 5))
+2026-10-08T12:58:12.2193987Z #10 3.680   Downloading annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-10-08T12:58:12.2194503Z #10 3.699 Collecting anyio==4.13.0 (from -r requirements.txt (line 6))
+2026-10-08T12:58:12.3250171Z #10 3.709   Downloading anyio-4.13.0-py3-none-any.whl.metadata (4.5 kB)
+2026-10-08T12:58:12.3251289Z #10 3.725 Collecting attrs==26.1.0 (from -r requirements.txt (line 7))
+2026-10-08T12:58:12.3252247Z #10 3.735   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-08T12:58:12.3253118Z #10 3.767 Collecting bcrypt==5.0.0 (from -r requirements.txt (line 8))
+2026-10-08T12:58:12.3254026Z #10 3.778   Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl.metadata (10 kB)
+2026-10-08T12:58:12.3255033Z #10 3.794 Collecting build==1.5.0 (from -r requirements.txt (line 9))
+2026-10-08T12:58:12.3255930Z #10 3.805   Downloading build-1.5.0-py3-none-any.whl.metadata (5.7 kB)
+2026-10-08T12:58:12.4447752Z #10 3.823 Collecting certifi==2026.4.22 (from -r requirements.txt (line 10))
+2026-10-08T12:58:12.4449477Z #10 3.833   Downloading certifi-2026.4.22-py3-none-any.whl.metadata (2.5 kB)
+2026-10-08T12:58:12.4450626Z #10 3.925 Collecting charset-normalizer==3.4.7 (from -r requirements.txt (line 11))
+2026-10-08T12:58:12.5506653Z #10 3.935   Downloading charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-10-08T12:58:12.5509540Z #10 3.967 Collecting chromadb==1.5.9 (from -r requirements.txt (line 12))
+2026-10-08T12:58:12.5510948Z #10 3.977   Downloading chromadb-1.5.9-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.0 kB)
+2026-10-08T12:58:12.5512219Z #10 3.995 Collecting click==8.3.3 (from -r requirements.txt (line 13))
+2026-10-08T12:58:12.5513089Z #10 4.005   Downloading click-8.3.3-py3-none-any.whl.metadata (2.6 kB)
+2026-10-08T12:58:12.5514020Z #10 4.021 Collecting colorama==0.4.6 (from -r requirements.txt (line 14))
+2026-10-08T12:58:12.5515261Z #10 4.031   Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+2026-10-08T12:58:12.6589002Z #10 4.050 Collecting dataclasses-json==0.6.7 (from -r requirements.txt (line 15))
+2026-10-08T12:58:12.6590870Z #10 4.060   Downloading dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+2026-10-08T12:58:12.6592017Z #10 4.074 Collecting distro==1.9.0 (from -r requirements.txt (line 16))
+2026-10-08T12:58:12.6592963Z #10 4.084   Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-10-08T12:58:12.6593874Z #10 4.097 Collecting durationpy==0.10 (from -r requirements.txt (line 17))
+2026-10-08T12:58:12.6594649Z #10 4.107   Downloading durationpy-0.10-py3-none-any.whl.metadata (340 bytes)
+2026-10-08T12:58:12.6595486Z #10 4.139 Collecting fastapi==0.136.1 (from -r requirements.txt (line 18))
+2026-10-08T12:58:12.7780529Z #10 4.149   Downloading fastapi-0.136.1-py3-none-any.whl.metadata (28 kB)
+2026-10-08T12:58:12.7781665Z #10 4.171 Collecting filelock==3.29.0 (from -r requirements.txt (line 19))
+2026-10-08T12:58:12.7782777Z #10 4.182   Downloading filelock-3.29.0-py3-none-any.whl.metadata (2.0 kB)
+2026-10-08T12:58:12.7783828Z #10 4.196 Collecting flatbuffers==25.12.19 (from -r requirements.txt (line 20))
+2026-10-08T12:58:12.7784840Z #10 4.206   Downloading flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+2026-10-08T12:58:12.7785951Z #10 4.258 Collecting frozenlist==1.8.0 (from -r requirements.txt (line 21))
+2026-10-08T12:58:12.8790750Z #10 4.269   Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+2026-10-08T12:58:12.8792318Z #10 4.308 Collecting fsspec==2026.4.0 (from -r requirements.txt (line 22))
+2026-10-08T12:58:12.8793536Z #10 4.320   Downloading fsspec-2026.4.0-py3-none-any.whl.metadata (10 kB)
+2026-10-08T12:58:12.8794653Z #10 4.348 Collecting googleapis-common-protos==1.75.0 (from -r requirements.txt (line 23))
+2026-10-08T12:58:12.8796016Z #10 4.359   Downloading googleapis_common_protos-1.75.0-py3-none-any.whl.metadata (8.6 kB)
+2026-10-08T12:58:12.9904515Z #10 4.470 Collecting greenlet==3.5.0 (from -r requirements.txt (line 24))
+2026-10-08T12:58:13.1518047Z #10 4.481   Downloading greenlet-3.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.7 kB)
+2026-10-08T12:58:13.3953389Z #10 4.875 Collecting grpcio==1.80.0 (from -r requirements.txt (line 25))
+2026-10-08T12:58:13.5017198Z #10 4.886   Downloading grpcio-1.80.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+2026-10-08T12:58:13.5019403Z #10 4.900 Collecting h11==0.16.0 (from -r requirements.txt (line 26))
+2026-10-08T12:58:13.5020492Z #10 4.910   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-08T12:58:13.5021520Z #10 4.945 Collecting hf-xet==1.5.0 (from -r requirements.txt (line 27))
+2026-10-08T12:58:13.5022731Z #10 4.955   Downloading hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+2026-10-08T12:58:13.5023886Z #10 4.972 Collecting httpcore==1.0.9 (from -r requirements.txt (line 28))
+2026-10-08T12:58:13.5024788Z #10 4.982   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-10-08T12:58:13.6285924Z #10 5.011 Collecting httptools==0.7.1 (from -r requirements.txt (line 29))
+2026-10-08T12:58:13.6287976Z #10 5.021   Downloading httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-10-08T12:58:13.6289994Z #10 5.039 Collecting httpx==0.28.1 (from -r requirements.txt (line 30))
+2026-10-08T12:58:13.6290918Z #10 5.049   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-10-08T12:58:13.6291688Z #10 5.063 Collecting httpx-sse==0.4.3 (from -r requirements.txt (line 31))
+2026-10-08T12:58:13.6292502Z #10 5.073   Downloading httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+2026-10-08T12:58:13.6293243Z #10 5.109 Collecting huggingface_hub==1.14.0 (from -r requirements.txt (line 32))
+2026-10-08T12:58:13.7322988Z #10 5.119   Downloading huggingface_hub-1.14.0-py3-none-any.whl.metadata (14 kB)
+2026-10-08T12:58:13.7324474Z #10 5.142 Collecting idna==3.13 (from -r requirements.txt (line 33))
+2026-10-08T12:58:13.7325347Z #10 5.152   Downloading idna-3.13-py3-none-any.whl.metadata (8.0 kB)
+2026-10-08T12:58:13.7326210Z #10 5.173 Collecting importlib_metadata==8.7.1 (from -r requirements.txt (line 34))
+2026-10-08T12:58:13.7327156Z #10 5.183   Downloading importlib_metadata-8.7.1-py3-none-any.whl.metadata (4.7 kB)
+2026-10-08T12:58:13.7328115Z #10 5.202 Collecting importlib_resources==7.1.0 (from -r requirements.txt (line 35))
+2026-10-08T12:58:13.7329245Z #10 5.212   Downloading importlib_resources-7.1.0-py3-none-any.whl.metadata (4.0 kB)
+2026-10-08T12:58:13.8834783Z #10 5.227 Collecting iniconfig==2.3.0 (from -r requirements.txt (line 36))
+2026-10-08T12:58:13.8836164Z #10 5.237   Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-10-08T12:58:13.8837251Z #10 5.252 Collecting Jinja2==3.1.6 (from -r requirements.txt (line 37))
+2026-10-08T12:58:13.8838318Z #10 5.262   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-10-08T12:58:13.8839136Z #10 5.363 Collecting jiter==0.14.0 (from -r requirements.txt (line 38))
+2026-10-08T12:58:13.9917503Z #10 5.374   Downloading jiter-0.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-10-08T12:58:13.9918700Z #10 5.393 Collecting joblib==1.5.3 (from -r requirements.txt (line 39))
+2026-10-08T12:58:13.9925508Z #10 5.403   Downloading joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+2026-10-08T12:58:13.9926489Z #10 5.418 Collecting jsonpatch==1.33 (from -r requirements.txt (line 40))
+2026-10-08T12:58:13.9927415Z #10 5.428   Downloading jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-10-08T12:58:13.9928559Z #10 5.442 Collecting jsonpointer==3.1.1 (from -r requirements.txt (line 41))
+2026-10-08T12:58:13.9929221Z #10 5.452   Downloading jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+2026-10-08T12:58:13.9929704Z #10 5.472 Collecting jsonschema==4.26.0 (from -r requirements.txt (line 42))
+2026-10-08T12:58:14.1025021Z #10 5.482   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-08T12:58:14.1026330Z #10 5.497 Collecting jsonschema-specifications==2025.9.1 (from -r requirements.txt (line 43))
+2026-10-08T12:58:14.1027754Z #10 5.507   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-10-08T12:58:14.1028989Z #10 5.528 Collecting kubernetes==35.0.0 (from -r requirements.txt (line 44))
+2026-10-08T12:58:14.1029925Z #10 5.538   Downloading kubernetes-35.0.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-10-08T12:58:14.1030777Z #10 5.582 Collecting langchain==1.2.17 (from -r requirements.txt (line 45))
+2026-10-08T12:58:14.2110335Z #10 5.593   Downloading langchain-1.2.17-py3-none-any.whl.metadata (5.8 kB)
+2026-10-08T12:58:14.2112254Z #10 5.608 Collecting langchain-classic==1.0.7 (from -r requirements.txt (line 46))
+2026-10-08T12:58:14.2113436Z #10 5.618   Downloading langchain_classic-1.0.7-py3-none-any.whl.metadata (5.1 kB)
+2026-10-08T12:58:14.2114562Z #10 5.638 Collecting langchain-community==0.4.1 (from -r requirements.txt (line 47))
+2026-10-08T12:58:14.2115738Z #10 5.648   Downloading langchain_community-0.4.1-py3-none-any.whl.metadata (3.0 kB)
+2026-10-08T12:58:14.2116777Z #10 5.680 Collecting langchain-core==1.3.3 (from -r requirements.txt (line 48))
+2026-10-08T12:58:14.2117799Z #10 5.691   Downloading langchain_core-1.3.3-py3-none-any.whl.metadata (4.5 kB)
+2026-10-08T12:58:14.3231918Z #10 5.713 Collecting langchain-openai==1.2.1 (from -r requirements.txt (line 49))
+2026-10-08T12:58:14.3233726Z #10 5.724   Downloading langchain_openai-1.2.1-py3-none-any.whl.metadata (3.1 kB)
+2026-10-08T12:58:14.3234896Z #10 5.737 Collecting langchain-protocol==0.0.15 (from -r requirements.txt (line 50))
+2026-10-08T12:58:14.3235926Z #10 5.748   Downloading langchain_protocol-0.0.15-py3-none-any.whl.metadata (2.4 kB)
+2026-10-08T12:58:14.3236794Z #10 5.762 Collecting langchain-text-splitters==1.1.2 (from -r requirements.txt (line 51))
+2026-10-08T12:58:14.3238098Z #10 5.773   Downloading langchain_text_splitters-1.1.2-py3-none-any.whl.metadata (3.3 kB)
+2026-10-08T12:58:14.3239358Z #10 5.803 Collecting langgraph==1.1.10 (from -r requirements.txt (line 52))
+2026-10-08T12:58:14.4630423Z #10 5.814   Downloading langgraph-1.1.10-py3-none-any.whl.metadata (8.0 kB)
+2026-10-08T12:58:14.4632366Z #10 5.831 Collecting langgraph-checkpoint==4.0.3 (from -r requirements.txt (line 53))
+2026-10-08T12:58:14.4633717Z #10 5.841   Downloading langgraph_checkpoint-4.0.3-py3-none-any.whl.metadata (5.2 kB)
+2026-10-08T12:58:14.4634817Z #10 5.857 Collecting langgraph-prebuilt==1.0.13 (from -r requirements.txt (line 54))
+2026-10-08T12:58:14.4635674Z #10 5.867   Downloading langgraph_prebuilt-1.0.13-py3-none-any.whl.metadata (5.2 kB)
+2026-10-08T12:58:14.4636603Z #10 5.887 Collecting langgraph-sdk==0.3.14 (from -r requirements.txt (line 55))
+2026-10-08T12:58:14.4637420Z #10 5.897   Downloading langgraph_sdk-0.3.14-py3-none-any.whl.metadata (1.7 kB)
+2026-10-08T12:58:14.4638028Z #10 5.943 Collecting langsmith==0.8.3 (from -r requirements.txt (line 56))
+2026-10-08T12:58:14.5844623Z #10 5.954   Downloading langsmith-0.8.3-py3-none-any.whl.metadata (15 kB)
+2026-10-08T12:58:14.5845907Z #10 5.972 Collecting markdown-it-py==4.2.0 (from -r requirements.txt (line 57))
+2026-10-08T12:58:14.5846987Z #10 5.982   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-08T12:58:14.5847984Z #10 6.029 Collecting MarkupSafe==3.0.3 (from -r requirements.txt (line 58))
+2026-10-08T12:58:14.5849459Z #10 6.040   Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-10-08T12:58:14.5850675Z #10 6.064 Collecting marshmallow==3.26.2 (from -r requirements.txt (line 59))
+2026-10-08T12:58:14.7148720Z #10 6.075   Downloading marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
+2026-10-08T12:58:14.7150484Z #10 6.088 Collecting mdurl==0.1.2 (from -r requirements.txt (line 60))
+2026-10-08T12:58:14.7151654Z #10 6.098   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+2026-10-08T12:58:14.7152571Z #10 6.195 Collecting mmh3==5.2.1 (from -r requirements.txt (line 61))
+2026-10-08T12:58:14.9029445Z #10 6.206   Downloading mmh3-5.2.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (14 kB)
+2026-10-08T12:58:14.9031310Z #10 6.222 Collecting mpmath==1.3.0 (from -r requirements.txt (line 62))
+2026-10-08T12:58:14.9032434Z #10 6.232   Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+2026-10-08T12:58:14.9404123Z #10 6.420 Collecting multidict==6.7.1 (from -r requirements.txt (line 63))
+2026-10-08T12:58:15.1540901Z #10 6.431   Downloading multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+2026-10-08T12:58:15.1542988Z #10 6.444 Collecting mypy_extensions==1.1.0 (from -r requirements.txt (line 64))
+2026-10-08T12:58:15.1544303Z #10 6.454   Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-10-08T12:58:15.1545407Z #10 6.473 Collecting networkx==3.6.1 (from -r requirements.txt (line 65))
+2026-10-08T12:58:15.1546428Z #10 6.483   Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+2026-10-08T12:58:15.2191213Z #10 6.699 Collecting numpy==2.4.4 (from -r requirements.txt (line 66))
+2026-10-08T12:58:15.3336350Z #10 6.709   Downloading numpy-2.4.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-10-08T12:58:15.3338533Z #10 6.724 Collecting oauthlib==3.3.1 (from -r requirements.txt (line 67))
+2026-10-08T12:58:15.3339842Z #10 6.734   Downloading oauthlib-3.3.1-py3-none-any.whl.metadata (7.9 kB)
+2026-10-08T12:58:15.3340678Z #10 6.750 Collecting ollama==0.6.2 (from -r requirements.txt (line 68))
+2026-10-08T12:58:15.3341534Z #10 6.761   Downloading ollama-0.6.2-py3-none-any.whl.metadata (5.8 kB)
+2026-10-08T12:58:15.3342295Z #10 6.814 Collecting onnxruntime==1.25.1 (from -r requirements.txt (line 69))
+2026-10-08T12:58:15.4379407Z #10 6.824   Downloading onnxruntime-1.25.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+2026-10-08T12:58:15.4380379Z #10 6.862 Collecting openai==2.36.0 (from -r requirements.txt (line 70))
+2026-10-08T12:58:15.4380939Z #10 6.872   Downloading openai-2.36.0-py3-none-any.whl.metadata (31 kB)
+2026-10-08T12:58:15.4381469Z #10 6.893 Collecting opentelemetry-api==1.41.1 (from -r requirements.txt (line 71))
+2026-10-08T12:58:15.4382055Z #10 6.903   Downloading opentelemetry_api-1.41.1-py3-none-any.whl.metadata (1.5 kB)
+2026-10-08T12:58:15.4382867Z #10 6.918 Collecting opentelemetry-exporter-otlp-proto-common==1.41.1 (from -r requirements.txt (line 72))
+2026-10-08T12:58:15.5489289Z #10 6.929   Downloading opentelemetry_exporter_otlp_proto_common-1.41.1-py3-none-any.whl.metadata (1.9 kB)
+2026-10-08T12:58:15.5490476Z #10 6.946 Collecting opentelemetry-exporter-otlp-proto-grpc==1.41.1 (from -r requirements.txt (line 73))
+2026-10-08T12:58:15.5491379Z #10 6.956   Downloading opentelemetry_exporter_otlp_proto_grpc-1.41.1-py3-none-any.whl.metadata (2.6 kB)
+2026-10-08T12:58:15.5492175Z #10 6.974 Collecting opentelemetry-proto==1.41.1 (from -r requirements.txt (line 74))
+2026-10-08T12:58:15.5492753Z #10 6.984   Downloading opentelemetry_proto-1.41.1-py3-none-any.whl.metadata (2.4 kB)
+2026-10-08T12:58:15.5493318Z #10 7.002 Collecting opentelemetry-sdk==1.41.1 (from -r requirements.txt (line 75))
+2026-10-08T12:58:15.5501166Z #10 7.012   Downloading opentelemetry_sdk-1.41.1-py3-none-any.whl.metadata (1.7 kB)
+2026-10-08T12:58:15.5501874Z #10 7.029 Collecting opentelemetry-semantic-conventions==0.62b1 (from -r requirements.txt (line 76))
+2026-10-08T12:58:15.7105338Z #10 7.040   Downloading opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl.metadata (2.5 kB)
+2026-10-08T12:58:15.8094438Z #10 7.289 Collecting orjson==3.11.9 (from -r requirements.txt (line 77))
+2026-10-08T12:58:15.9128557Z #10 7.299   Downloading orjson-3.11.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-10-08T12:58:15.9130303Z #10 7.342 Collecting ormsgpack==1.12.2 (from -r requirements.txt (line 78))
+2026-10-08T12:58:15.9131368Z #10 7.352   Downloading ormsgpack-1.12.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+2026-10-08T12:58:15.9132353Z #10 7.367 Collecting overrides==7.7.0 (from -r requirements.txt (line 79))
+2026-10-08T12:58:15.9132875Z #10 7.377   Downloading overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+2026-10-08T12:58:15.9133399Z #10 7.393 Collecting packaging==26.2 (from -r requirements.txt (line 80))
+2026-10-08T12:58:16.1317820Z #10 7.403   Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+2026-10-08T12:58:16.1319169Z #10 7.417 Collecting pluggy==1.6.0 (from -r requirements.txt (line 81))
+2026-10-08T12:58:16.1320077Z #10 7.427   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-10-08T12:58:16.1320932Z #10 7.482 Collecting propcache==0.4.1 (from -r requirements.txt (line 82))
+2026-10-08T12:58:16.1322222Z #10 7.493   Downloading propcache-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+2026-10-08T12:58:16.1323320Z #10 7.612 Collecting protobuf==6.33.6 (from -r requirements.txt (line 83))
+2026-10-08T12:58:16.2907525Z #10 7.622   Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+2026-10-08T12:58:16.2909554Z #10 7.676 Collecting psycopg2-binary==2.9.12 (from -r requirements.txt (line 84))
+2026-10-08T12:58:16.2911274Z #10 7.686   Downloading psycopg2_binary-2.9.12-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+2026-10-08T12:58:16.2912556Z #10 7.771 Collecting pybase64==1.4.3 (from -r requirements.txt (line 85))
+2026-10-08T12:58:16.4473234Z #10 7.782   Downloading pybase64-1.4.3-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl.metadata (8.7 kB)
+2026-10-08T12:58:16.4474564Z #10 7.927 Collecting pydantic==2.13.4 (from -r requirements.txt (line 86))
+2026-10-08T12:58:16.6469677Z #10 7.938   Downloading pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+2026-10-08T12:58:16.6471362Z #10 7.964 Collecting pydantic-settings==2.14.0 (from -r requirements.txt (line 87))
+2026-10-08T12:58:16.6489469Z #10 7.975   Downloading pydantic_settings-2.14.0-py3-none-any.whl.metadata (3.4 kB)
+2026-10-08T12:58:17.0886056Z #10 8.569 Collecting pydantic_core==2.46.4 (from -r requirements.txt (line 88))
+2026-10-08T12:58:17.1904753Z #10 8.579   Downloading pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-10-08T12:58:17.1906558Z #10 8.598 Collecting Pygments==2.20.0 (from -r requirements.txt (line 89))
+2026-10-08T12:58:17.1907606Z #10 8.608   Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+2026-10-08T12:58:17.1908810Z #10 8.629 Collecting pypdf==6.12.2 (from -r requirements.txt (line 90))
+2026-10-08T12:58:17.1909784Z #10 8.640   Downloading pypdf-6.12.2-py3-none-any.whl.metadata (7.2 kB)
+2026-10-08T12:58:17.1910766Z #10 8.660 Collecting PyPika==0.51.1 (from -r requirements.txt (line 91))
+2026-10-08T12:58:17.1911773Z #10 8.670   Downloading pypika-0.51.1-py2.py3-none-any.whl.metadata (51 kB)
+2026-10-08T12:58:17.2927956Z #10 8.687 Collecting pyproject_hooks==1.2.0 (from -r requirements.txt (line 92))
+2026-10-08T12:58:17.2929898Z #10 8.697   Downloading pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)
+2026-10-08T12:58:17.2930978Z #10 8.721 Collecting pytest==9.0.3 (from -r requirements.txt (line 93))
+2026-10-08T12:58:17.2931828Z #10 8.731   Downloading pytest-9.0.3-py3-none-any.whl.metadata (7.6 kB)
+2026-10-08T12:58:17.2932713Z #10 8.746 Collecting python-dateutil==2.9.0.post0 (from -r requirements.txt (line 94))
+2026-10-08T12:58:17.2934239Z #10 8.757   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-10-08T12:58:17.2935240Z #10 8.773 Collecting python-dotenv==1.2.2 (from -r requirements.txt (line 95))
+2026-10-08T12:58:17.4014829Z #10 8.783   Downloading python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+2026-10-08T12:58:17.4016238Z #10 8.800 Collecting python-multipart==0.0.29 (from -r requirements.txt (line 96))
+2026-10-08T12:58:17.4017532Z #10 8.810   Downloading python_multipart-0.0.29-py3-none-any.whl.metadata (2.1 kB)
+2026-10-08T12:58:17.4018801Z #10 8.842 Collecting PyYAML==6.0.3 (from -r requirements.txt (line 97))
+2026-10-08T12:58:17.4020022Z #10 8.852   Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-10-08T12:58:17.4021478Z #10 8.871 Collecting referencing==0.37.0 (from -r requirements.txt (line 98))
+2026-10-08T12:58:17.4022526Z #10 8.881   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-10-08T12:58:17.7606564Z #10 9.241 Collecting regex==2026.4.4 (from -r requirements.txt (line 99))
+2026-10-08T12:58:17.8790597Z #10 9.251   Downloading regex-2026.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-10-08T12:58:17.8792369Z #10 9.273 Collecting requests==2.33.1 (from -r requirements.txt (line 100))
+2026-10-08T12:58:17.8793544Z #10 9.283   Downloading requests-2.33.1-py3-none-any.whl.metadata (4.8 kB)
+2026-10-08T12:58:17.8794454Z #10 9.298 Collecting requests-oauthlib==2.0.0 (from -r requirements.txt (line 101))
+2026-10-08T12:58:17.8795410Z #10 9.308   Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+2026-10-08T12:58:17.8796294Z #10 9.322 Collecting requests-toolbelt==1.0.0 (from -r requirements.txt (line 102))
+2026-10-08T12:58:17.8797414Z #10 9.333   Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-10-08T12:58:17.8798033Z #10 9.359 Collecting rich==15.0.0 (from -r requirements.txt (line 103))
+2026-10-08T12:58:18.0399232Z #10 9.369   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+2026-10-08T12:58:18.0849041Z #10 9.565 Collecting rpds-py==0.30.0 (from -r requirements.txt (line 104))
+2026-10-08T12:58:18.1869821Z #10 9.575   Downloading rpds_py-0.30.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-08T12:58:18.1871944Z #10 9.667 Collecting safetensors==0.7.0 (from -r requirements.txt (line 105))
+2026-10-08T12:58:18.3429313Z #10 9.678   Downloading safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-08T12:58:18.3431341Z #10 9.823 Collecting scikit-learn==1.8.0 (from -r requirements.txt (line 106))
+2026-10-08T12:58:18.4554261Z #10 9.833   Downloading scikit_learn-1.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (11 kB)
+2026-10-08T12:58:18.4556286Z #10 9.935 Collecting scipy==1.17.1 (from -r requirements.txt (line 107))
+2026-10-08T12:58:18.5669419Z #10 9.946   Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-10-08T12:58:18.5670593Z #10 9.972 Collecting sentence-transformers==5.5.1 (from -r requirements.txt (line 108))
+2026-10-08T12:58:18.5671571Z #10 9.983   Downloading sentence_transformers-5.5.1-py3-none-any.whl.metadata (18 kB)
+2026-10-08T12:58:18.5672506Z #10 9.999 Collecting shellingham==1.5.4 (from -r requirements.txt (line 109))
+2026-10-08T12:58:18.5673373Z #10 10.01   Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+2026-10-08T12:58:18.5674154Z #10 10.02 Collecting six==1.17.0 (from -r requirements.txt (line 110))
+2026-10-08T12:58:18.5674839Z #10 10.03   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-10-08T12:58:18.5675543Z #10 10.05 Collecting sniffio==1.3.1 (from -r requirements.txt (line 111))
+2026-10-08T12:58:18.7277817Z #10 10.06   Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-10-08T12:58:18.7921431Z #10 10.27 Collecting SQLAlchemy==2.0.49 (from -r requirements.txt (line 112))
+2026-10-08T12:58:18.8943987Z #10 10.28   Downloading sqlalchemy-2.0.49-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+2026-10-08T12:58:18.8946038Z #10 10.31 Collecting starlette==1.0.0 (from -r requirements.txt (line 113))
+2026-10-08T12:58:18.8947049Z #10 10.32   Downloading starlette-1.0.0-py3-none-any.whl.metadata (6.3 kB)
+2026-10-08T12:58:18.8948071Z #10 10.34 Collecting sympy==1.14.0 (from -r requirements.txt (line 114))
+2026-10-08T12:58:18.8949206Z #10 10.35   Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+2026-10-08T12:58:18.8950208Z #10 10.36 Collecting tenacity==9.1.4 (from -r requirements.txt (line 115))
+2026-10-08T12:58:18.8951138Z #10 10.37   Downloading tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+2026-10-08T12:58:19.1142216Z #10 10.39 Collecting threadpoolctl==3.6.0 (from -r requirements.txt (line 116))
+2026-10-08T12:58:19.1144008Z #10 10.40   Downloading threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+2026-10-08T12:58:19.1145118Z #10 10.43 Collecting tiktoken==0.12.0 (from -r requirements.txt (line 117))
+2026-10-08T12:58:19.1146241Z #10 10.44   Downloading tiktoken-0.12.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (6.7 kB)
+2026-10-08T12:58:19.1673311Z #10 10.65 Collecting tokenizers==0.22.2 (from -r requirements.txt (line 118))
+2026-10-08T12:58:19.2974992Z #10 10.66   Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-10-08T12:58:19.2984361Z #10 10.70 Collecting torch==2.12.0 (from -r requirements.txt (line 119))
+2026-10-08T12:58:19.2985230Z #10 10.71   Downloading torch-2.12.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (31 kB)
+2026-10-08T12:58:19.2986101Z #10 10.74 Collecting tqdm==4.67.3 (from -r requirements.txt (line 120))
+2026-10-08T12:58:19.2987109Z #10 10.75   Downloading tqdm-4.67.3-py3-none-any.whl.metadata (57 kB)
+2026-10-08T12:58:19.2987845Z #10 10.78 Collecting transformers==5.9.0 (from -r requirements.txt (line 121))
+2026-10-08T12:58:19.4089723Z #10 10.79   Downloading transformers-5.9.0-py3-none-any.whl.metadata (33 kB)
+2026-10-08T12:58:19.4090549Z #10 10.84 Collecting typer==0.25.1 (from -r requirements.txt (line 122))
+2026-10-08T12:58:19.4091316Z #10 10.85   Downloading typer-0.25.1-py3-none-any.whl.metadata (15 kB)
+2026-10-08T12:58:19.4092447Z #10 10.87 Collecting typing-inspect==0.9.0 (from -r requirements.txt (line 123))
+2026-10-08T12:58:19.4093277Z #10 10.88   Downloading typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+2026-10-08T12:58:19.4094114Z #10 10.89 Collecting typing-inspection==0.4.2 (from -r requirements.txt (line 124))
+2026-10-08T12:58:19.5644699Z #10 10.90   Downloading typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-10-08T12:58:19.5645951Z #10 10.92 Collecting typing_extensions==4.15.0 (from -r requirements.txt (line 125))
+2026-10-08T12:58:19.5647071Z #10 10.93   Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-08T12:58:19.5648063Z #10 10.95 Collecting urllib3==2.7.0 (from -r requirements.txt (line 126))
+2026-10-08T12:58:19.5649394Z #10 10.96   Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+2026-10-08T12:58:19.5650255Z #10 11.04 Collecting uuid_utils==0.14.1 (from -r requirements.txt (line 127))
+2026-10-08T12:58:19.6664670Z #10 11.05   Downloading uuid_utils-0.14.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.8 kB)
+2026-10-08T12:58:19.6666584Z #10 11.08 Collecting uvicorn==0.46.0 (from -r requirements.txt (line 128))
+2026-10-08T12:58:19.6667691Z #10 11.09   Downloading uvicorn-0.46.0-py3-none-any.whl.metadata (6.7 kB)
+2026-10-08T12:58:19.6668805Z #10 11.15 Collecting watchfiles==1.1.1 (from -r requirements.txt (line 129))
+2026-10-08T12:58:19.7924889Z #10 11.16   Downloading watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-10-08T12:58:19.7926865Z #10 11.17 Collecting websocket-client==1.9.0 (from -r requirements.txt (line 130))
+2026-10-08T12:58:19.7927955Z #10 11.18   Downloading websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-08T12:58:19.7929139Z #10 11.27 Collecting websockets==16.0 (from -r requirements.txt (line 131))
+2026-10-08T12:58:19.9050994Z #10 11.28   Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-10-08T12:58:19.9052893Z #10 11.39 Collecting xxhash==3.7.0 (from -r requirements.txt (line 132))
+2026-10-08T12:58:20.0662749Z #10 11.40   Downloading xxhash-3.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+2026-10-08T12:58:20.2116906Z #10 11.69 Collecting yarl==1.23.0 (from -r requirements.txt (line 133))
+2026-10-08T12:58:20.3177774Z #10 11.70   Downloading yarl-1.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+2026-10-08T12:58:20.3179682Z #10 11.72 Collecting zipp==3.23.1 (from -r requirements.txt (line 134))
+2026-10-08T12:58:20.3180613Z #10 11.73   Downloading zipp-3.23.1-py3-none-any.whl.metadata (3.6 kB)
+2026-10-08T12:58:20.3181423Z #10 11.79 Collecting zstandard==0.25.0 (from -r requirements.txt (line 135))
+2026-10-08T12:58:20.3182589Z #10 11.80   Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-10-08T12:58:20.5671703Z #10 12.05 Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.11/site-packages (from torch==2.12.0->-r requirements.txt (line 119)) (79.0.1)
+2026-10-08T12:58:20.6678921Z #10 12.06 Collecting cuda-toolkit==13.0.2 (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.6680742Z #10 12.07   Downloading cuda_toolkit-13.0.2-py2.py3-none-any.whl.metadata (9.4 kB)
+2026-10-08T12:58:20.6682295Z #10 12.10 Collecting nvidia-cublas<=13.1.1.3,>=13.1.0.3 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.6683473Z #10 12.11   Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+2026-10-08T12:58:20.6684694Z #10 12.14 Collecting cuda-bindings<14,>=13.0.3 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.6685897Z #10 12.15   Downloading cuda_bindings-13.4.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-10-08T12:58:20.7689325Z #10 12.17 Collecting nvidia-cudnn-cu13==9.20.0.48 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.7690808Z #10 12.18   Downloading nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+2026-10-08T12:58:20.7691979Z #10 12.19 Collecting nvidia-cusparselt-cu13==0.8.1 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.7693327Z #10 12.20   Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+2026-10-08T12:58:20.7694445Z #10 12.21 Collecting nvidia-nccl-cu13==2.29.7 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.7695585Z #10 12.23   Downloading nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl.metadata (2.1 kB)
+2026-10-08T12:58:20.7696815Z #10 12.24 Collecting nvidia-nvshmem-cu13==3.4.5 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.7698401Z #10 12.25   Downloading nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.1 kB)
+2026-10-08T12:58:20.8824691Z #10 12.27 Collecting triton==3.7.0 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.8826114Z #10 12.28   Downloading triton-3.7.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:20.8828323Z #10 12.31 Collecting nvidia-cuda-runtime==13.0.96.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.8830366Z #10 12.32   Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:20.8831619Z #10 12.34 Collecting nvidia-cufft==12.0.0.61.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.8832723Z #10 12.35   Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+2026-10-08T12:58:20.8833828Z #10 12.36 Collecting nvidia-cufile==1.15.1.6.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.9903960Z #10 12.37   Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:20.9909306Z #10 12.39 Collecting nvidia-cuda-cupti==13.0.85.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.9911739Z #10 12.40   Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:20.9913984Z #10 12.41 Collecting nvidia-curand==10.4.0.35.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.9916073Z #10 12.42   Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:20.9918930Z #10 12.44 Collecting nvidia-cusolver==12.0.4.66.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.9921323Z #10 12.45   Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+2026-10-08T12:58:20.9923539Z #10 12.46 Collecting nvidia-cusparse==12.6.3.3.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:20.9925962Z #10 12.47   Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+2026-10-08T12:58:21.1003140Z #10 12.49 Collecting nvidia-nvjitlink==13.0.88.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:21.1006275Z #10 12.50   Downloading nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:21.1008827Z #10 12.51 Collecting nvidia-cuda-nvrtc==13.0.88.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:21.1011009Z #10 12.52   Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+2026-10-08T12:58:21.1012979Z #10 12.54 Collecting nvidia-nvtx==13.0.85.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:21.1014800Z #10 12.55   Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.8 kB)
+2026-10-08T12:58:21.1016164Z #10 12.57 Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch==2.12.0->-r requirements.txt (line 119))
+2026-10-08T12:58:21.1017270Z #10 12.58   Downloading cuda_pathfinder-1.8.3-py3-none-any.whl.metadata (1.9 kB)
+2026-10-08T12:58:21.2314694Z #10 12.63 Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.18.3->chromadb==1.5.9->-r requirements.txt (line 12))
+2026-10-08T12:58:21.2316939Z #10 12.64   Downloading uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+2026-10-08T12:58:21.2318416Z #10 12.66 Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+2026-10-08T12:58:21.2319537Z #10 12.67 Downloading aiohttp-3.13.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+2026-10-08T12:58:21.2321257Z #10 12.71    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 58.5 MB/s  0:00:00
+2026-10-08T12:58:21.3336274Z #10 12.72 Downloading multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (246 kB)
+2026-10-08T12:58:21.3338942Z #10 12.73 Downloading yarl-1.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (102 kB)
+2026-10-08T12:58:21.3340191Z #10 12.74 Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+2026-10-08T12:58:21.3340984Z #10 12.75 Downloading annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+2026-10-08T12:58:21.3341874Z #10 12.76 Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-10-08T12:58:21.3342645Z #10 12.77 Downloading anyio-4.13.0-py3-none-any.whl (114 kB)
+2026-10-08T12:58:21.3343395Z #10 12.78 Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-10-08T12:58:21.3344144Z #10 12.79 Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl (278 kB)
+2026-10-08T12:58:21.3345060Z #10 12.80 Downloading build-1.5.0-py3-none-any.whl (26 kB)
+2026-10-08T12:58:21.3345733Z #10 12.81 Downloading certifi-2026.4.22-py3-none-any.whl (135 kB)
+2026-10-08T12:58:21.4373866Z #10 12.82 Downloading charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (214 kB)
+2026-10-08T12:58:21.4378079Z #10 12.84 Downloading chromadb-1.5.9-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (23.3 MB)
+2026-10-08T12:58:21.4380145Z #10 12.90    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.3/23.3 MB 391.6 MB/s  0:00:00
+2026-10-08T12:58:21.4381094Z #10 12.91 Downloading click-8.3.3-py3-none-any.whl (110 kB)
+2026-10-08T12:58:21.4381956Z #10 12.92 Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+2026-10-08T12:58:21.5378885Z #10 12.93 Downloading dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+2026-10-08T12:58:21.5380489Z #10 12.94 Downloading marshmallow-3.26.2-py3-none-any.whl (50 kB)
+2026-10-08T12:58:21.5381823Z #10 12.95 Downloading typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+2026-10-08T12:58:21.5382652Z #10 12.96 Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+2026-10-08T12:58:21.5383423Z #10 12.97 Downloading durationpy-0.10-py3-none-any.whl (3.9 kB)
+2026-10-08T12:58:21.5384232Z #10 12.98 Downloading fastapi-0.136.1-py3-none-any.whl (117 kB)
+2026-10-08T12:58:21.5385103Z #10 12.99 Downloading filelock-3.29.0-py3-none-any.whl (39 kB)
+2026-10-08T12:58:21.5385903Z #10 13.00 Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+2026-10-08T12:58:21.5387081Z #10 13.01 Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+2026-10-08T12:58:21.5387752Z #10 13.02 Downloading fsspec-2026.4.0-py3-none-any.whl (203 kB)
+2026-10-08T12:58:21.6475722Z #10 13.03 Downloading googleapis_common_protos-1.75.0-py3-none-any.whl (300 kB)
+2026-10-08T12:58:21.6476737Z #10 13.04 Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+2026-10-08T12:58:21.6477810Z #10 13.05 Downloading greenlet-3.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (615 kB)
+2026-10-08T12:58:21.6479209Z #10 13.05    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 615.2/615.2 kB 599.9 MB/s  0:00:00
+2026-10-08T12:58:21.6479753Z #10 13.06 Downloading grpcio-1.80.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.8 MB)
+2026-10-08T12:58:21.6480356Z #10 13.08    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 583.3 MB/s  0:00:00
+2026-10-08T12:58:21.6480798Z #10 13.09 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-10-08T12:58:21.6481195Z #10 13.10 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-10-08T12:58:21.6481658Z #10 13.11 Downloading hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+2026-10-08T12:58:21.6557487Z #10 13.12    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 974.7 MB/s  0:00:00
+2026-10-08T12:58:21.6558349Z #10 13.13 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-10-08T12:58:21.7552232Z #10 13.14 Downloading httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (456 kB)
+2026-10-08T12:58:21.7553290Z #10 13.15 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-10-08T12:58:21.7554610Z #10 13.16 Downloading httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+2026-10-08T12:58:21.7555258Z #10 13.17 Downloading huggingface_hub-1.14.0-py3-none-any.whl (661 kB)
+2026-10-08T12:58:21.7556356Z #10 13.17    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 661.5/661.5 kB 998.6 MB/s  0:00:00
+2026-10-08T12:58:21.7557016Z #10 13.18 Downloading idna-3.13-py3-none-any.whl (68 kB)
+2026-10-08T12:58:21.7557656Z #10 13.19 Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+2026-10-08T12:58:21.7558511Z #10 13.20 Downloading importlib_resources-7.1.0-py3-none-any.whl (37 kB)
+2026-10-08T12:58:21.7559195Z #10 13.21 Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-10-08T12:58:21.7559932Z #10 13.23 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-10-08T12:58:21.7560741Z #10 13.24 Downloading jiter-0.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (358 kB)
+2026-10-08T12:58:21.8578816Z #10 13.25 Downloading joblib-1.5.3-py3-none-any.whl (309 kB)
+2026-10-08T12:58:21.8579664Z #10 13.26 Downloading jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-10-08T12:58:21.8580324Z #10 13.27 Downloading jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+2026-10-08T12:58:21.8581036Z #10 13.28 Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-10-08T12:58:21.8582032Z #10 13.29 Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-10-08T12:58:21.8582758Z #10 13.30 Downloading kubernetes-35.0.0-py2.py3-none-any.whl (2.0 MB)
+2026-10-08T12:58:21.8583615Z #10 13.30    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 685.5 MB/s  0:00:00
+2026-10-08T12:58:21.8584021Z #10 13.31 Downloading langchain-1.2.17-py3-none-any.whl (113 kB)
+2026-10-08T12:58:21.8584414Z #10 13.32 Downloading langchain_core-1.3.3-py3-none-any.whl (543 kB)
+2026-10-08T12:58:21.8585068Z #10 13.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 543.9/543.9 kB 868.0 MB/s  0:00:00
+2026-10-08T12:58:21.8585465Z #10 13.34 Downloading langgraph-1.1.10-py3-none-any.whl (173 kB)
+2026-10-08T12:58:21.9572158Z #10 13.35 Downloading langgraph_checkpoint-4.0.3-py3-none-any.whl (51 kB)
+2026-10-08T12:58:21.9573707Z #10 13.36 Downloading langgraph_prebuilt-1.0.13-py3-none-any.whl (37 kB)
+2026-10-08T12:58:21.9574697Z #10 13.37 Downloading langgraph_sdk-0.3.14-py3-none-any.whl (97 kB)
+2026-10-08T12:58:21.9575690Z #10 13.38 Downloading langsmith-0.8.3-py3-none-any.whl (399 kB)
+2026-10-08T12:58:21.9576596Z #10 13.39 Downloading pydantic-2.13.4-py3-none-any.whl (472 kB)
+2026-10-08T12:58:21.9577877Z #10 13.40 Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-10-08T12:58:21.9579321Z #10 13.40    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 1.1 GB/s  0:00:00
+2026-10-08T12:58:21.9580005Z #10 13.41 Downloading tenacity-9.1.4-py3-none-any.whl (28 kB)
+2026-10-08T12:58:21.9581028Z #10 13.42 Downloading uuid_utils-0.14.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (345 kB)
+2026-10-08T12:58:21.9581811Z #10 13.43 Downloading langchain_classic-1.0.7-py3-none-any.whl (1.0 MB)
+2026-10-08T12:58:21.9582644Z #10 13.44    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:22.0581393Z #10 13.45 Downloading langchain_text_splitters-1.1.2-py3-none-any.whl (35 kB)
+2026-10-08T12:58:22.0583491Z #10 13.46 Downloading requests-2.33.1-py3-none-any.whl (64 kB)
+2026-10-08T12:58:22.0584631Z #10 13.47 Downloading sqlalchemy-2.0.49-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+2026-10-08T12:58:22.0586062Z #10 13.47    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 826.3 MB/s  0:00:00
+2026-10-08T12:58:22.0586896Z #10 13.48 Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+2026-10-08T12:58:22.0587593Z #10 13.49 Downloading langchain_community-0.4.1-py3-none-any.whl (2.5 MB)
+2026-10-08T12:58:22.0588570Z #10 13.50    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 MB 398.4 MB/s  0:00:00
+2026-10-08T12:58:22.0589261Z #10 13.51 Downloading pydantic_settings-2.14.0-py3-none-any.whl (60 kB)
+2026-10-08T12:58:22.0589940Z #10 13.52 Downloading langchain_openai-1.2.1-py3-none-any.whl (98 kB)
+2026-10-08T12:58:22.0590593Z #10 13.53 Downloading openai-2.36.0-py3-none-any.whl (1.3 MB)
+2026-10-08T12:58:22.1612409Z #10 13.54    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 498.2 MB/s  0:00:00
+2026-10-08T12:58:22.1615140Z #10 13.55 Downloading tiktoken-0.12.0-cp311-cp311-manylinux_2_28_x86_64.whl (1.2 MB)
+2026-10-08T12:58:22.1619333Z #10 13.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 799.0 MB/s  0:00:00
+2026-10-08T12:58:22.1620301Z #10 13.56 Downloading langchain_protocol-0.0.15-py3-none-any.whl (7.0 kB)
+2026-10-08T12:58:22.1621029Z #10 13.57 Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+2026-10-08T12:58:22.1621852Z #10 13.58 Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-10-08T12:58:22.1622702Z #10 13.59 Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-10-08T12:58:22.1623802Z #10 13.60 Downloading mmh3-5.2.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (103 kB)
+2026-10-08T12:58:22.1624492Z #10 13.61 Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+2026-10-08T12:58:22.1625299Z #10 13.62    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 797.1 MB/s  0:00:00
+2026-10-08T12:58:22.1625894Z #10 13.63 Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-10-08T12:58:22.1626519Z #10 13.64 Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+2026-10-08T12:58:22.2756560Z #10 13.64    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.0 GB/s  0:00:00
+2026-10-08T12:58:22.2758817Z #10 13.65 Downloading numpy-2.4.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+2026-10-08T12:58:22.2760220Z #10 13.67    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 833.1 MB/s  0:00:00
+2026-10-08T12:58:22.2761043Z #10 13.69 Downloading oauthlib-3.3.1-py3-none-any.whl (160 kB)
+2026-10-08T12:58:22.2761829Z #10 13.70 Downloading ollama-0.6.2-py3-none-any.whl (15 kB)
+2026-10-08T12:58:22.2762866Z #10 13.71 Downloading onnxruntime-1.25.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.0 MB)
+2026-10-08T12:58:22.3799107Z #10 13.76    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.0/18.0 MB 378.7 MB/s  0:00:00
+2026-10-08T12:58:22.3800770Z #10 13.77 Downloading opentelemetry_api-1.41.1-py3-none-any.whl (69 kB)
+2026-10-08T12:58:22.3802038Z #10 13.78 Downloading opentelemetry_exporter_otlp_proto_common-1.41.1-py3-none-any.whl (18 kB)
+2026-10-08T12:58:22.3803221Z #10 13.79 Downloading opentelemetry_exporter_otlp_proto_grpc-1.41.1-py3-none-any.whl (20 kB)
+2026-10-08T12:58:22.3804216Z #10 13.80 Downloading opentelemetry_sdk-1.41.1-py3-none-any.whl (180 kB)
+2026-10-08T12:58:22.3805024Z #10 13.81 Downloading opentelemetry_proto-1.41.1-py3-none-any.whl (72 kB)
+2026-10-08T12:58:22.3805858Z #10 13.82 Downloading opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl (231 kB)
+2026-10-08T12:58:22.3806548Z #10 13.83 Downloading orjson-3.11.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (133 kB)
+2026-10-08T12:58:22.3807272Z #10 13.84 Downloading ormsgpack-1.12.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+2026-10-08T12:58:22.3807871Z #10 13.85 Downloading overrides-7.7.0-py3-none-any.whl (17 kB)
+2026-10-08T12:58:22.3808717Z #10 13.86 Downloading packaging-26.2-py3-none-any.whl (100 kB)
+2026-10-08T12:58:22.4828785Z #10 13.87 Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-10-08T12:58:22.4830429Z #10 13.88 Downloading propcache-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (210 kB)
+2026-10-08T12:58:22.4832174Z #10 13.89 Downloading psycopg2_binary-2.9.12-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.3 MB)
+2026-10-08T12:58:22.4833635Z #10 13.90    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 428.8 MB/s  0:00:00
+2026-10-08T12:58:22.4834684Z #10 13.91 Downloading pybase64-1.4.3-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (71 kB)
+2026-10-08T12:58:22.4835555Z #10 13.92 Downloading pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-10-08T12:58:22.4836279Z #10 13.93    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:22.4836994Z #10 13.94 Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+2026-10-08T12:58:22.4837553Z #10 13.94    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:22.4838019Z #10 13.95 Downloading pypdf-6.12.2-py3-none-any.whl (343 kB)
+2026-10-08T12:58:22.4838959Z #10 13.96 Downloading pypika-0.51.1-py2.py3-none-any.whl (60 kB)
+2026-10-08T12:58:22.5899424Z #10 13.97 Downloading pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)
+2026-10-08T12:58:22.5900469Z #10 13.98 Downloading pytest-9.0.3-py3-none-any.whl (375 kB)
+2026-10-08T12:58:22.5901238Z #10 13.99 Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-10-08T12:58:22.5901982Z #10 14.00 Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+2026-10-08T12:58:22.5902709Z #10 14.01 Downloading python_multipart-0.0.29-py3-none-any.whl (29 kB)
+2026-10-08T12:58:22.5903353Z #10 14.02 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-10-08T12:58:22.5904200Z #10 14.04 Downloading regex-2026.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (799 kB)
+2026-10-08T12:58:22.5905214Z #10 14.04    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 799.8/799.8 kB 581.4 MB/s  0:00:00
+2026-10-08T12:58:22.5905841Z #10 14.05 Downloading requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+2026-10-08T12:58:22.5906511Z #10 14.06 Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-10-08T12:58:22.5907100Z #10 14.07 Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+2026-10-08T12:58:22.6896117Z #10 14.08 Downloading rpds_py-0.30.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+2026-10-08T12:58:22.6898331Z #10 14.09 Downloading safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+2026-10-08T12:58:22.6901691Z #10 14.10 Downloading scikit_learn-1.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.1 MB)
+2026-10-08T12:58:22.6902562Z #10 14.12    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.1/9.1 MB 765.1 MB/s  0:00:00
+2026-10-08T12:58:22.6903210Z #10 14.13 Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-10-08T12:58:22.7985302Z #10 14.17    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 863.8 MB/s  0:00:00
+2026-10-08T12:58:22.7985807Z #10 14.18 Downloading sentence_transformers-5.5.1-py3-none-any.whl (588 kB)
+2026-10-08T12:58:22.7986334Z #10 14.18    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 588.9/588.9 kB 902.9 MB/s  0:00:00
+2026-10-08T12:58:22.7986786Z #10 14.19 Downloading transformers-5.9.0-py3-none-any.whl (10.8 MB)
+2026-10-08T12:58:22.7987266Z #10 14.22    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.8/10.8 MB 441.2 MB/s  0:00:00
+2026-10-08T12:58:22.7987777Z #10 14.23 Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+2026-10-08T12:58:22.7988631Z #10 14.24    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:22.7989280Z #10 14.25 Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+2026-10-08T12:58:22.7989689Z #10 14.26 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-10-08T12:58:22.7990054Z #10 14.27 Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-10-08T12:58:22.7990421Z #10 14.28 Downloading starlette-1.0.0-py3-none-any.whl (72 kB)
+2026-10-08T12:58:22.9910558Z #10 14.29 Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+2026-10-08T12:58:22.9911642Z #10 14.30    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 915.5 MB/s  0:00:00
+2026-10-08T12:58:22.9912493Z #10 14.31 Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+2026-10-08T12:58:22.9912949Z #10 14.32 Downloading torch-2.12.0-cp311-cp311-manylinux_2_28_x86_64.whl (532.2 MB)
+2026-10-08T12:58:24.3329602Z #10 15.71    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 532.2/532.2 MB 368.8 MB/s  0:00:01
+2026-10-08T12:58:24.3330371Z #10 15.72 Downloading tqdm-4.67.3-py3-none-any.whl (78 kB)
+2026-10-08T12:58:24.3331001Z #10 15.73 Downloading typer-0.25.1-py3-none-any.whl (58 kB)
+2026-10-08T12:58:24.3331750Z #10 15.74 Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-10-08T12:58:24.3332467Z #10 15.75 Downloading uvicorn-0.46.0-py3-none-any.whl (70 kB)
+2026-10-08T12:58:24.3333285Z #10 15.76 Downloading watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+2026-10-08T12:58:24.3334162Z #10 15.77 Downloading websocket_client-1.9.0-py3-none-any.whl (82 kB)
+2026-10-08T12:58:24.3334916Z #10 15.78 Downloading websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (184 kB)
+2026-10-08T12:58:24.3335683Z #10 15.79 Downloading xxhash-3.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (193 kB)
+2026-10-08T12:58:24.3336230Z #10 15.80 Downloading zipp-3.23.1-py3-none-any.whl (10 kB)
+2026-10-08T12:58:24.3336718Z #10 15.81 Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-10-08T12:58:24.5109377Z #10 15.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 750.5 MB/s  0:00:00
+2026-10-08T12:58:24.5110327Z #10 15.83 Downloading cuda_toolkit-13.0.2-py2.py3-none-any.whl (2.4 kB)
+2026-10-08T12:58:24.5112432Z #10 15.84 Downloading nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl (366.2 MB)
+2026-10-08T12:58:25.1862546Z #10 16.67    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 366.2/366.2 MB 544.4 MB/s  0:00:00
+2026-10-08T12:58:25.1863300Z #10 16.67 Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+2026-10-08T12:58:25.4002949Z #10 16.72    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.1/170.1 MB 820.6 MB/s  0:00:00
+2026-10-08T12:58:25.4007548Z #10 16.73 Downloading nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl (206.0 MB)
+2026-10-08T12:58:26.0506396Z #10 17.37    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.0/206.0 MB 323.2 MB/s  0:00:00
+2026-10-08T12:58:26.0507434Z #10 17.38 Downloading nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+2026-10-08T12:58:26.2971796Z #10 17.62    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 256.7 MB/s  0:00:00
+2026-10-08T12:58:26.2972521Z #10 17.63 Downloading triton-3.7.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (201.4 MB)
+2026-10-08T12:58:27.2708830Z #10 18.54    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 201.4/201.4 MB 219.7 MB/s  0:00:00
+2026-10-08T12:58:27.2709570Z #10 18.56 Downloading cuda_bindings-13.4.3-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (7.2 MB)
+2026-10-08T12:58:27.2710369Z #10 18.59    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 230.6 MB/s  0:00:00
+2026-10-08T12:58:27.2711160Z #10 18.60 Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+2026-10-08T12:58:29.4971844Z #10 20.78    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 423.1/423.1 MB 205.5 MB/s  0:00:02
+2026-10-08T12:58:29.4972981Z #10 20.79 Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+2026-10-08T12:58:29.4974558Z #10 20.81    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.7/10.7 MB 471.8 MB/s  0:00:00
+2026-10-08T12:58:29.4975718Z #10 20.82 Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+2026-10-08T12:58:29.9090358Z #10 21.21    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.2/90.2 MB 232.5 MB/s  0:00:00
+2026-10-08T12:58:29.9091273Z #10 21.22 Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+2026-10-08T12:58:29.9092573Z #10 21.23    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:29.9093400Z #10 21.24 Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+2026-10-08T12:58:30.8839912Z #10 22.19    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 MB 226.0 MB/s  0:00:00
+2026-10-08T12:58:30.8841146Z #10 22.20 Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+2026-10-08T12:58:30.8842544Z #10 22.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 842.3 MB/s  0:00:00
+2026-10-08T12:58:30.8843493Z #10 22.21 Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+2026-10-08T12:58:31.1322950Z #10 22.45    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 252.4 MB/s  0:00:00
+2026-10-08T12:58:31.1323499Z #10 22.46 Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+2026-10-08T12:58:32.0898223Z #10 23.41    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 212.9 MB/s  0:00:00
+2026-10-08T12:58:32.0898918Z #10 23.42 Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+2026-10-08T12:58:32.7560394Z #10 24.07    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.9/145.9 MB 223.3 MB/s  0:00:00
+2026-10-08T12:58:32.7561461Z #10 24.09 Downloading nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.7 MB)
+2026-10-08T12:58:32.9695429Z #10 24.26    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 MB 235.8 MB/s  0:00:00
+2026-10-08T12:58:32.9696664Z #10 24.27 Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+2026-10-08T12:58:32.9697831Z #10 24.28 Downloading cuda_pathfinder-1.8.3-py3-none-any.whl (62 kB)
+2026-10-08T12:58:32.9699362Z #10 24.29 Downloading uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.0 MB)
+2026-10-08T12:58:32.9700890Z #10 24.30    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/4.0 MB 1.1 GB/s  0:00:00
+2026-10-08T12:58:36.0992813Z #10 27.58 Installing collected packages: PyPika, nvidia-cusparselt-cu13, mpmath, flatbuffers, durationpy, cuda-toolkit, zstandard, zipp, xxhash, websockets, websocket-client, uvloop, uuid_utils, urllib3, typing_extensions, triton, tqdm, threadpoolctl, tenacity, sympy, sniffio, six, shellingham, safetensors, rpds-py, regex, PyYAML, python-multipart, python-dotenv, pyproject_hooks, pypdf, Pygments, pybase64, psycopg2-binary, protobuf, propcache, pluggy, packaging, overrides, ormsgpack, orjson, oauthlib, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, numpy, networkx, mypy_extensions, multidict, mmh3, mdurl, MarkupSafe, jsonpointer, joblib, jiter, iniconfig, importlib_resources, idna, httpx-sse, httptools, hf-xet, h11, greenlet, fsspec, frozenlist, filelock, distro, cuda-pathfinder, colorama, click, charset-normalizer, certifi, bcrypt, attrs, annotated-types, annotated-doc, aiohappyeyeballs, yarl, uvicorn, typing-inspection, typing-inspect, SQLAlchemy, scipy, requests, referencing, python-dateutil, pytest, pydantic_core, opentelemetry-proto, onnxruntime, nvidia-cusparse, nvidia-cufft, nvidia-cublas, marshmallow, markdown-it-py, langchain-protocol, jsonpatch, Jinja2, importlib_metadata, httpcore, grpcio, googleapis-common-protos, cuda-bindings, build, anyio, aiosignal, watchfiles, tiktoken, starlette, scikit-learn, rich, requests-toolbelt, requests-oauthlib, pydantic, opentelemetry-exporter-otlp-proto-common, opentelemetry-api, nvidia-cusolver, nvidia-cudnn-cu13, jsonschema-specifications, httpx, dataclasses-json, aiohttp, typer, pydantic-settings, opentelemetry-semantic-conventions, openai, ollama, langsmith, langgraph-sdk, kubernetes, jsonschema, fastapi, torch, opentelemetry-sdk, langchain-core, huggingface_hub, tokenizers, opentelemetry-exporter-otlp-proto-grpc, langgraph-checkpoint, langchain-text-splitters, langchain-openai, transformers, langgraph-prebuilt, langchain-classic, chromadb, sentence-transformers, langgraph, langchain-community, langchain
+2026-10-08T12:58:48.6543048Z #10 40.13   Attempting uninstall: packaging
+2026-10-08T12:58:48.8109586Z #10 40.14     Found existing installation: packaging 26.3
+2026-10-08T12:58:48.8110790Z #10 40.14     Uninstalling packaging-26.3:
+2026-10-08T12:58:48.8111640Z #10 40.14       Successfully uninstalled packaging-26.3
+2026-10-08T12:59:16.5712369Z ##[error]The operation was canceled.
+2026-10-08T12:59:16.5929367Z Post job cleanup.
+2026-10-08T12:59:16.9079565Z [command]/usr/bin/git version
+2026-10-08T12:59:16.9289358Z git version 2.55.0
+2026-10-08T12:59:16.9479984Z Temporarily overriding HOME='/home/runner/work/_temp/984f503b-95ac-4f48-b624-7e25c546fc76' before making global git config changes
+2026-10-08T12:59:16.9522893Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-08T12:59:16.9578979Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-10-08T12:59:16.9679377Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-08T12:59:16.9862747Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-08T12:59:17.1339436Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-08T12:59:17.1399286Z http.https://github.com/.extraheader
+2026-10-08T12:59:17.1471502Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-08T12:59:17.1556013Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-08T12:59:17.2050137Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-08T12:59:17.2099699Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-08T12:59:18.0755503Z Cleaning up orphan processes
+2026-10-08T12:59:18.1037762Z Terminate orphan process: pid (2055) (docker)
+2026-10-08T12:59:18.1126460Z Terminate orphan process: pid (2075) (docker-buildx)

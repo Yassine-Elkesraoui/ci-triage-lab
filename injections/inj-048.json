@@ -1,0 +1,45 @@
+{
+  "id": "inj-048",
+  "category": "timeout",
+  "commit": "436d1a8",
+  "run_id": "37793574922",
+  "job_id": "113367044641",
+  "target_file": "tests/test_app.py",
+  "mutation": "from api.main import app -> from api.main import app\n__import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-048.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T14:34:28Z",
+    "job_completed_at": "2026-10-08T14:41:37Z",
+    "duration_s": 429,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37793574922",
+        "commit": "436d1a8",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-048.log"
+      }
+    ]
+  },
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. The module-level sleep runs while pytest imports the module during collection. Verified locally (pytest -v, 30 s timeout): the last line is 'collecting ... ' with no 'collected N items' and no test lines. The log does not name the module that hangs, and it looks identical to inj-047 (test_behaviour.py)."
+}

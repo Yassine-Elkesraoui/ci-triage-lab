@@ -1,0 +1,43 @@
+{
+  "id": "inj-040",
+  "category": "timeout",
+  "commit": "a5d99be",
+  "run_id": "37780257400",
+  "job_id": "113322650889",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "    needs: smoke ->     needs: smoke\n    timeout-minutes: 1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-040.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "cancelled",
+    "job_started_at": "2026-10-08T12:57:48Z",
+    "job_completed_at": "2026-10-08T12:59:21Z",
+    "duration_s": 93,
+    "jobs": {
+      "smoke": "success",
+      "docker": "cancelled"
+    },
+    "runs": [
+      {
+        "run_id": "37780257400",
+        "commit": "a5d99be",
+        "conclusion": "cancelled",
+        "jobs": {
+          "smoke": "success",
+          "docker": "cancelled"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-040.log"
+      }
+    ]
+  },
+  "notes": "Job-level 1-minute limit on docker. Smoke passes (13 passed). The image build runs apt-get and a full uncached pip install of requirements.txt; docker jobs in inj-025.log and inj-028.log ran 2-2.5 min before failing, so 'Build image' is killed mid-build. Code and Dockerfile are unchanged; the fix is the timeout-minutes line in ci.yml. The exact GitHub kill message is not yet observed; check it in the saved log."
+}

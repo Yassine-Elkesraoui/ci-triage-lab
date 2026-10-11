@@ -1,0 +1,45 @@
+{
+  "id": "inj-046",
+  "category": "timeout",
+  "commit": "65bb825",
+  "run_id": "37789648867",
+  "job_id": "113353307156",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "            if the input text is empty or contains only whitespace.\n        \"\"\" ->             if the input text is empty or contains only whitespace.\n        \"\"\"\n        __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-046.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T14:05:44Z",
+    "job_completed_at": "2026-10-08T14:11:26Z",
+    "duration_s": 342,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37789648867",
+        "commit": "65bb825",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-046.log"
+      }
+    ]
+  },
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. The sleep is in application code, placed before chunk()'s blank-text early return, so the first test that calls chunk() hangs. 'App imports on a clean machine' still passes, because chunk() is not called at import. Verified locally (pytest -v, 30 s timeout): 8 tests PASSED, then the last line is 'tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text' with no outcome. The test is unchanged. The name points at chunking, but the fix is in api/services/chunking_service.py, not the test."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "inj-043",
+  "category": "timeout",
+  "description": "test_app_constructs sleeps 600 s",
+  "target_file": "tests/test_app.py",
+  "find": "def test_app_constructs() -> None:\n    \"\"\"The application object exists and carries metadata.\"\"\"",
+  "replace": "def test_app_constructs() -> None:\n    \"\"\"The application object exists and carries metadata.\"\"\"\n    __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. Verified locally (pytest -v, 30 s timeout): 'collecting ... collected 13 items', then the last line is 'tests/test_app.py::test_app_constructs' with no PASSED/FAILED after it. pytest -v prints the node id before running the test, so the unfinished line names the hanging test. That is the first test, so nothing passes first."
+}

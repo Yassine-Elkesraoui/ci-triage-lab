@@ -1,0 +1,45 @@
+{
+  "id": "inj-043",
+  "category": "timeout",
+  "commit": "e862268",
+  "run_id": "37784359621",
+  "job_id": "113335178039",
+  "target_file": "tests/test_app.py",
+  "mutation": "def test_app_constructs() -> None:\n    \"\"\"The application object exists and carries metadata.\"\"\" -> def test_app_constructs() -> None:\n    \"\"\"The application object exists and carries metadata.\"\"\"\n    __import__(\"time\").sleep(600)",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-043.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-08T13:26:32Z",
+    "job_completed_at": "2026-10-08T13:32:05Z",
+    "duration_s": 333,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "37784359621",
+        "commit": "e862268",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-043.log"
+      }
+    ]
+  },
+  "notes": "The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step, so pytest never prints a summary and docker (needs: smoke) is skipped. Verified locally (pytest -v, 30 s timeout): 'collecting ... collected 13 items', then the last line is 'tests/test_app.py::test_app_constructs' with no PASSED/FAILED after it. pytest -v prints the node id before running the test, so the unfinished line names the hanging test. That is the first test, so nothing passes first."
+}
