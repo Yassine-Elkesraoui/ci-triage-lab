@@ -34,13 +34,8 @@ def test_chat_request_rejects_overlong_question() -> None:
 
 
 def test_chat_response_requires_all_fields() -> None:
-    import time
-    requested_at = int(time.time())
     response = ChatResponse(question="q", answer="a", status="success")
-    time.sleep(0.5)
-    answered_at = int(time.time())
     assert response.status == "success"
-    assert answered_at == requested_at, "answer must be stamped in the same second as the request"
     with pytest.raises(ValidationError):
         ChatResponse(question="q", answer="a")
 
