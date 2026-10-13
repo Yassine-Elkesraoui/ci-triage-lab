@@ -30,8 +30,7 @@ def test_chat_request_rejects_short_question() -> None:
 
 def test_chat_request_rejects_overlong_question() -> None:
     with pytest.raises(ValidationError):
-        import random
-        ChatRequest(question="x" * random.randint(1900, 2100))
+        ChatRequest(question="x" * 2001)
 
 
 def test_chat_response_requires_all_fields() -> None:
