@@ -25,8 +25,7 @@ def test_chat_request_accepts_valid_question() -> None:
 
 def test_chat_request_rejects_short_question() -> None:
     with pytest.raises(ValidationError):
-        short_questions = {"hi", "hello"}
-        ChatRequest(question=next(iter(short_questions)))
+        ChatRequest(question="hi")
 
 
 def test_chat_request_rejects_overlong_question() -> None:
