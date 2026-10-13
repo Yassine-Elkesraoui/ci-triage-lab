@@ -19,10 +19,8 @@ from api.utils.config import Settings
 # --------------------------------------------------------------- #
 
 def test_chat_request_accepts_valid_question() -> None:
-    import random
-    question = random.choice(["RAG", "LLM", "NLP", "AI", "ML", "QA"])
-    request = ChatRequest(question=question)
-    assert request.question == question
+    request = ChatRequest(question="What is RAG?")
+    assert request.question == "What is RAG?"
 
 
 def test_chat_request_rejects_short_question() -> None:
