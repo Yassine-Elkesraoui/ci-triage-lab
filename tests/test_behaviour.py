@@ -50,19 +50,7 @@ def _service(chunk_size: int = 100, chunk_overlap: int = 20) -> ChunkingService:
 
 
 def test_chunking_returns_empty_list_for_blank_text() -> None:
-    import random
-    import threading
-    import time
-
-    service, result = _service(), {}
-
-    def worker() -> None:
-        time.sleep(random.uniform(0.0, 0.4))
-        result["chunks"] = service.chunk(uuid4(), "   ")
-
-    threading.Thread(target=worker, daemon=True).start()
-    time.sleep(0.2)
-    assert result.get("chunks") == []
+    assert _service().chunk(uuid4(), "   ") == []
 
 
 def test_chunking_splits_long_text_into_multiple_chunks() -> None:
