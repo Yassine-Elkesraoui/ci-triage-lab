@@ -1,0 +1,16 @@
+{
+  "id": "inj-050",
+  "category": "flaky",
+  "description": "test_chat_request_rejects_overlong_question uses a random length around the 2000-char limit",
+  "target_file": "tests/test_behaviour.py",
+  "find": "        ChatRequest(question=\"x\" * 2001)",
+  "replace": "        import random\n        ChatRequest(question=\"x\" * random.randint(1900, 2100))",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "notes": "randomness: the 'overlong' question has a random length in [1900, 2100] checked against the fixed max_length=2000; lengths <= 2000 (101 of 201 values, ~50%) are valid, so pytest.raises reports DID NOT RAISE. Product code is correct."
+}

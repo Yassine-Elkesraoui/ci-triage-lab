@@ -1,0 +1,16 @@
+{
+  "id": "inj-052",
+  "category": "flaky",
+  "description": "test_chat_response_requires_all_fields asserts request and answer fall in the same second",
+  "target_file": "tests/test_behaviour.py",
+  "find": "    response = ChatResponse(question=\"q\", answer=\"a\", status=\"success\")\n    assert response.status == \"success\"",
+  "replace": "    import time\n    requested_at = int(time.time())\n    response = ChatResponse(question=\"q\", answer=\"a\", status=\"success\")\n    time.sleep(0.5)\n    answered_at = int(time.time())\n    assert response.status == \"success\"\n    assert answered_at == requested_at, \"answer must be stamped in the same second as the request\"",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "notes": "time: two wall-clock timestamps truncated to whole seconds are taken ~0.5 s apart and asserted equal. They differ whenever a second boundary falls inside the 0.5 s sleep, i.e. ~50% of runs depending only on the clock phase at start, not on machine speed."
+}

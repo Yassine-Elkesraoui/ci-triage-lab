@@ -1,0 +1,16 @@
+{
+  "id": "inj-054",
+  "category": "flaky",
+  "description": "test_chunking_char_count_matches_content_length sums char counts from two threads without a lock",
+  "target_file": "tests/test_behaviour.py",
+  "find": "    chunks = _service().chunk(uuid4(), text)\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks)",
+  "replace": "    import random\n    import threading\n    import time\n\n    chunks = _service().chunk(uuid4(), text)\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks)\n\n    totals = {\"chars\": 0}\n\n    def add(batch) -> None:\n        time.sleep(random.uniform(0.0, 0.1))\n        current = totals[\"chars\"]\n        time.sleep(random.uniform(0.0, 0.067))\n        totals[\"chars\"] = current + sum(chunk.char_count for chunk in batch)\n\n    halves = [chunks[: len(chunks) // 2], chunks[len(chunks) // 2 :]]\n    threads = [threading.Thread(target=add, args=(half,)) for half in halves]\n    for thread in threads:\n        thread.start()\n    for thread in threads:\n        thread.join()\n    assert totals[\"chars\"] == sum(len(chunk.content) for chunk in chunks)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "notes": "concurrency: two threads do an unsynchronised read-modify-write on a shared total, each with a random delay before the read and another between read and write. When the two read-write windows overlap, one update is lost and the total comes up short (~50% of runs, set by the ratio of the random delays rather than by CPU speed)."
+}

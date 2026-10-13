@@ -1,0 +1,16 @@
+{
+  "id": "inj-049",
+  "category": "flaky",
+  "description": "test_chat_request_accepts_valid_question uses a random acronym as the question",
+  "target_file": "tests/test_behaviour.py",
+  "find": "    request = ChatRequest(question=\"What is RAG?\")\n    assert request.question == \"What is RAG?\"",
+  "replace": "    import random\n    question = random.choice([\"RAG\", \"LLM\", \"NLP\", \"AI\", \"ML\", \"QA\"])\n    request = ChatRequest(question=question)\n    assert request.question == question",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_accepts_valid_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "notes": "randomness: the 'valid' question is drawn at random from six acronyms, but three of them (AI, ML, QA) are 2 characters and violate min_length=3, so ChatRequest raises ValidationError in ~50% of runs. Product code is correct; the random test data is sometimes invalid."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "inj-051",
+  "category": "flaky",
+  "description": "test_chat_request_rejects_short_question takes the first element of a set of greetings",
+  "target_file": "tests/test_behaviour.py",
+  "find": "        ChatRequest(question=\"hi\")",
+  "replace": "        short_questions = {\"hi\", \"hello\"}\n        ChatRequest(question=next(iter(short_questions)))",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "notes": "unordered collection: the question is next(iter({'hi', 'hello'})). Set iteration order of strings depends on per-process hash randomization (PYTHONHASHSEED unset), so roughly half the processes pick 'hello' (5 chars, valid) and pytest.raises reports DID NOT RAISE."
+}
