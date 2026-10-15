@@ -69,8 +69,28 @@ def test_chunking_attaches_sequential_indexes_and_document_id() -> None:
 
 def test_chunking_char_count_matches_content_length() -> None:
     text = "Vector databases store embeddings for similarity search. " * 20
+    import random
+    import threading
+    import time
+
     chunks = _service().chunk(uuid4(), text)
     assert all(chunk.char_count == len(chunk.content) for chunk in chunks)
+
+    totals = {"chars": 0}
+
+    def add(batch) -> None:
+        time.sleep(random.uniform(0.0, 0.1))
+        current = totals["chars"]
+        time.sleep(random.uniform(0.0, 0.067))
+        totals["chars"] = current + sum(chunk.char_count for chunk in batch)
+
+    halves = [chunks[: len(chunks) // 2], chunks[len(chunks) // 2 :]]
+    threads = [threading.Thread(target=add, args=(half,)) for half in halves]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    assert totals["chars"] == sum(len(chunk.content) for chunk in chunks)
 
 
 # --------------------------------------------------------------- #
