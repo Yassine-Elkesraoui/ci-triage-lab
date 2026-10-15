@@ -1,0 +1,107 @@
+{
+  "id": "inj-055",
+  "category": "flaky",
+  "commit": "1b62e13",
+  "run_id": "38749144498",
+  "job_id": "116470608804",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "    settings = Settings()\n    assert settings.chunk_overlap < settings.chunk_size ->     import random\n    import time\n\n    started = time.perf_counter()\n    time.sleep(random.uniform(0.0, 0.6))\n    settings = Settings()\n    elapsed = time.perf_counter() - started\n    assert elapsed < 0.3, f\"loading settings took {elapsed:.3f}s (budget 0.3s)\"\n    assert settings.chunk_overlap < settings.chunk_size",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_settings_defaults_are_sane"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-055.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-15T14:11:16Z",
+    "job_completed_at": "2026-10-15T14:14:36Z",
+    "duration_s": 200,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38745732732",
+        "commit": "1b62e13",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38746581397",
+        "commit": "39df6d0",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38747373411",
+        "commit": "66f086d",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38748336412",
+        "commit": "f2fe7a2",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38749144498",
+        "commit": "f5e3ff0",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-055.log"
+      },
+      {
+        "run_id": "38749711979",
+        "commit": "b2226af",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "performance threshold: the test asserts elapsed < 0.3 s around work that takes a random 0-0.6 s, so the limit sits at the median and ~50% of runs fail an assertion. It reads like a timeout but nothing is killed: the job ends normally with an AssertionError. Settings() itself takes ~1 ms, so machine speed barely moves the rate."
+}

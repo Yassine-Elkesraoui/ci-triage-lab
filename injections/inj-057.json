@@ -1,0 +1,107 @@
+{
+  "id": "inj-057",
+  "category": "flaky",
+  "commit": "8223d7d",
+  "run_id": "38757220073",
+  "job_id": "116498703294",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "                document_id=document_id, ->                 # chunk ids are persisted as signed 128-bit integers\n                document_id=UUID(int=document_id.int & ((1 << 127) - 1)),",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-057.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-15T15:05:23Z",
+    "job_completed_at": "2026-10-15T15:08:24Z",
+    "duration_s": 181,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38757220073",
+        "commit": "8223d7d",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-057.log"
+      },
+      {
+        "run_id": "38757731725",
+        "commit": "071f836",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38758651705",
+        "commit": "c177538",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38759516486",
+        "commit": "dcc8703",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-057.run4.log"
+      },
+      {
+        "run_id": "38760036599",
+        "commit": "b0c0704",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-057.run5.log"
+      },
+      {
+        "run_id": "38760599106",
+        "commit": "ffe8afb",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "product-code flake (randomness, input-dependent bug in api/services/chunking_service.py): chunk() clears the top bit of document_id. The test is correct, but it uses uuid4(), whose top bit is random, so the id is corrupted for ~50% of documents and only this test (the one that checks document_id) fails."
+}

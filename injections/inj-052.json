@@ -1,0 +1,107 @@
+{
+  "id": "inj-052",
+  "category": "flaky",
+  "commit": "68d662e",
+  "run_id": "38395918252",
+  "job_id": "115290971029",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "    response = ChatResponse(question=\"q\", answer=\"a\", status=\"success\")\n    assert response.status == \"success\" ->     import time\n    requested_at = int(time.time())\n    response = ChatResponse(question=\"q\", answer=\"a\", status=\"success\")\n    time.sleep(0.5)\n    answered_at = int(time.time())\n    assert response.status == \"success\"\n    assert answered_at == requested_at, \"answer must be stamped in the same second as the request\"",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-052.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-13T12:15:09Z",
+    "job_completed_at": "2026-10-13T12:17:48Z",
+    "duration_s": 159,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38395249295",
+        "commit": "68d662e",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38395918252",
+        "commit": "6fec315",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-052.log"
+      },
+      {
+        "run_id": "38396303632",
+        "commit": "d00739e",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38397013737",
+        "commit": "408c8c0",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-052.run4.log"
+      },
+      {
+        "run_id": "38397482228",
+        "commit": "5b196f4",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-052.run5.log"
+      },
+      {
+        "run_id": "38397835001",
+        "commit": "f2bfe94",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-052.run6.log"
+      }
+    ]
+  },
+  "notes": "time: two wall-clock timestamps truncated to whole seconds are taken ~0.5 s apart and asserted equal. They differ whenever a second boundary falls inside the 0.5 s sleep, i.e. ~50% of runs depending only on the clock phase at start, not on machine speed."
+}

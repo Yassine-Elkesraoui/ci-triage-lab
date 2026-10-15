@@ -1,0 +1,107 @@
+{
+  "id": "inj-054",
+  "category": "flaky",
+  "commit": "76922c2",
+  "run_id": "38742533553",
+  "job_id": "116447641506",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "    chunks = _service().chunk(uuid4(), text)\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks) ->     import random\n    import threading\n    import time\n\n    chunks = _service().chunk(uuid4(), text)\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks)\n\n    totals = {\"chars\": 0}\n\n    def add(batch) -> None:\n        time.sleep(random.uniform(0.0, 0.1))\n        current = totals[\"chars\"]\n        time.sleep(random.uniform(0.0, 0.067))\n        totals[\"chars\"] = current + sum(chunk.char_count for chunk in batch)\n\n    halves = [chunks[: len(chunks) // 2], chunks[len(chunks) // 2 :]]\n    threads = [threading.Thread(target=add, args=(half,)) for half in halves]\n    for thread in threads:\n        thread.start()\n    for thread in threads:\n        thread.join()\n    assert totals[\"chars\"] == sum(len(chunk.content) for chunk in chunks)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-054.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-15T13:25:17Z",
+    "job_completed_at": "2026-10-15T13:28:21Z",
+    "duration_s": 184,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38740558077",
+        "commit": "76922c2",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38741608509",
+        "commit": "186177a",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38742533553",
+        "commit": "d285262",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-054.log"
+      },
+      {
+        "run_id": "38743029742",
+        "commit": "a3b716e",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38743880850",
+        "commit": "748cc41",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-054.run5.log"
+      },
+      {
+        "run_id": "38744379117",
+        "commit": "fffbef3",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-054.run6.log"
+      }
+    ]
+  },
+  "notes": "concurrency: two threads do an unsynchronised read-modify-write on a shared total, each with a random delay before the read and another between read and write. When the two read-write windows overlap, one update is lost and the total comes up short (~50% of runs, set by the ratio of the random delays rather than by CPU speed)."
+}

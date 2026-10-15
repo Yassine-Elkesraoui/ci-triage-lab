@@ -1,0 +1,107 @@
+{
+  "id": "inj-049",
+  "category": "flaky",
+  "commit": "0f7e001",
+  "run_id": "38382413638",
+  "job_id": "115245832416",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "    request = ChatRequest(question=\"What is RAG?\")\n    assert request.question == \"What is RAG?\" ->     import random\n    question = random.choice([\"RAG\", \"LLM\", \"NLP\", \"AI\", \"ML\", \"QA\"])\n    request = ChatRequest(question=question)\n    assert request.question == question",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_accepts_valid_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-049.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-13T10:18:10Z",
+    "job_completed_at": "2026-10-13T10:21:18Z",
+    "duration_s": 188,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38382413638",
+        "commit": "0f7e001",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-049.log"
+      },
+      {
+        "run_id": "38382812962",
+        "commit": "e4cb5bf",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38383710572",
+        "commit": "3c6c225",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38384393956",
+        "commit": "1e5d4c0",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-049.run4.log"
+      },
+      {
+        "run_id": "38384828404",
+        "commit": "6f14a56",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-049.run5.log"
+      },
+      {
+        "run_id": "38385228270",
+        "commit": "cd17b49",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "randomness: the 'valid' question is drawn at random from six acronyms, but three of them (AI, ML, QA) are 2 characters and violate min_length=3, so ChatRequest raises ValidationError in ~50% of runs. Product code is correct; the random test data is sometimes invalid."
+}

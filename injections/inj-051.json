@@ -1,0 +1,107 @@
+{
+  "id": "inj-051",
+  "category": "flaky",
+  "commit": "7e5abcf",
+  "run_id": "38390329770",
+  "job_id": "115272262733",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "        ChatRequest(question=\"hi\") ->         short_questions = {\"hi\", \"hello\"}\n        ChatRequest(question=next(iter(short_questions)))",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-051.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-13T11:27:26Z",
+    "job_completed_at": "2026-10-13T11:30:48Z",
+    "duration_s": 202,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38390329770",
+        "commit": "7e5abcf",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-051.log"
+      },
+      {
+        "run_id": "38390785207",
+        "commit": "77684a8",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38391496510",
+        "commit": "e23b7d2",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38392250238",
+        "commit": "58d4ce3",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38393012630",
+        "commit": "5eda749",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38393774679",
+        "commit": "f15bdb0",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "unordered collection: the question is next(iter({'hi', 'hello'})). Set iteration order of strings depends on per-process hash randomization (PYTHONHASHSEED unset), so roughly half the processes pick 'hello' (5 chars, valid) and pytest.raises reports DID NOT RAISE."
+}

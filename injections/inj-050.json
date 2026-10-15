@@ -1,0 +1,107 @@
+{
+  "id": "inj-050",
+  "category": "flaky",
+  "commit": "231467e",
+  "run_id": "38387219609",
+  "job_id": "115261860338",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "        ChatRequest(question=\"x\" * 2001) ->         import random\n        ChatRequest(question=\"x\" * random.randint(1900, 2100))",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-050.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-13T11:00:22Z",
+    "job_completed_at": "2026-10-13T11:03:06Z",
+    "duration_s": 164,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38386586802",
+        "commit": "231467e",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38387219609",
+        "commit": "dd36f73",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-050.log"
+      },
+      {
+        "run_id": "38387588530",
+        "commit": "b7b9392",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-050.run3.log"
+      },
+      {
+        "run_id": "38387949457",
+        "commit": "ee8c4b4",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-050.run4.log"
+      },
+      {
+        "run_id": "38388307190",
+        "commit": "78ce2aa",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-050.run5.log"
+      },
+      {
+        "run_id": "38388669242",
+        "commit": "cfde89c",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "randomness: the 'overlong' question has a random length in [1900, 2100] checked against the fixed max_length=2000; lengths <= 2000 (101 of 201 values, ~50%) are valid, so pytest.raises reports DID NOT RAISE. Product code is correct."
+}

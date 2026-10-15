@@ -1,0 +1,107 @@
+{
+  "id": "inj-053",
+  "category": "flaky",
+  "commit": "28bce89",
+  "run_id": "38398996403",
+  "job_id": "115301452873",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "    assert _service().chunk(uuid4(), \"   \") == [] ->     import random\n    import threading\n    import time\n\n    service, result = _service(), {}\n\n    def worker() -> None:\n        time.sleep(random.uniform(0.0, 0.4))\n        result[\"chunks\"] = service.chunk(uuid4(), \"   \")\n\n    threading.Thread(target=worker, daemon=True).start()\n    time.sleep(0.2)\n    assert result.get(\"chunks\") == []",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-053.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-13T12:40:14Z",
+    "job_completed_at": "2026-10-13T12:42:58Z",
+    "duration_s": 164,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38398996403",
+        "commit": "28bce89",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-053.log"
+      },
+      {
+        "run_id": "38399389353",
+        "commit": "9a3fda4",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38400130114",
+        "commit": "01fd797",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38400955788",
+        "commit": "c01e4de",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38401853892",
+        "commit": "1e7007a",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38402607691",
+        "commit": "3bdfeae",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  },
+  "notes": "async wait: a background thread sets the result after a random 0-0.4 s delay, but the test sleeps a fixed 0.2 s instead of joining the thread, so ~50% of runs read the result before it exists (assert None == []). The work in the thread takes microseconds, so the rate does not depend on machine speed."
+}

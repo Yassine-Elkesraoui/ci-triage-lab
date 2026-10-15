@@ -1,0 +1,107 @@
+{
+  "id": "inj-058",
+  "category": "flaky",
+  "commit": "d998193",
+  "run_id": "38763144157",
+  "job_id": "116519374703",
+  "target_file": "api/models/schemas.py",
+  "mutation": "        max_length=2000, ->         # Portuguese questions run ~20% longer; use the default language's limit.\n        max_length={\"en\": 2000, \"pt\": 2400}[next(iter({\"en\", \"pt\"}))],",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-058.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-15T15:45:37Z",
+    "job_completed_at": "2026-10-15T15:48:05Z",
+    "duration_s": 148,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "38762333218",
+        "commit": "d998193",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38763144157",
+        "commit": "f48415f",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-058.log"
+      },
+      {
+        "run_id": "38763554113",
+        "commit": "9272f1b",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38764400398",
+        "commit": "4b7d6ba",
+        "conclusion": "success",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "run_id": "38765296665",
+        "commit": "d12eca3",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-058.run5.log"
+      },
+      {
+        "run_id": "38765809994",
+        "commit": "8b1fc2a",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-058.run6.log"
+      }
+    ]
+  },
+  "notes": "product-code flake (unordered collection in api/models/schemas.py): the question length limit is looked up for the 'default' language next(iter({'en', 'pt'})). Set order depends on per-process hash randomization, so in ~50% of processes the limit is 2400 instead of 2000 and a 2001-char question is accepted (DID NOT RAISE). The test is correct."
+}
