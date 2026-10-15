@@ -86,8 +86,7 @@ class ChunkingService:
 
         chunks = [
             DocumentChunk(
-                # chunk ids are persisted as signed 128-bit integers
-                document_id=UUID(int=document_id.int & ((1 << 127) - 1)),
+                document_id=document_id,
                 index=position,
                 content=content,
                 char_count=len(content),
