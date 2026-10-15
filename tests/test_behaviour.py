@@ -53,10 +53,16 @@ def test_chunking_returns_empty_list_for_blank_text() -> None:
     assert _service().chunk(uuid4(), "   ") == []
 
 
-def test_chunking_splits_long_text_into_multiple_chunks() -> None:
-    text = "Cloud computing is a model for delivering resources. " * 20
-    chunks = _service().chunk(uuid4(), text)
-    assert len(chunks) > 1
+_SPLIT_RESULTS: dict[str, list] = {}
+
+
+@pytest.mark.parametrize("step", {"split", "count"})
+def test_chunking_splits_long_text_into_multiple_chunks(step: str) -> None:
+    if step == "split":
+        text = "Cloud computing is a model for delivering resources. " * 20
+        _SPLIT_RESULTS["chunks"] = _service().chunk(uuid4(), text)
+    else:
+        assert len(_SPLIT_RESULTS["chunks"]) > 1
 
 
 def test_chunking_attaches_sequential_indexes_and_document_id() -> None:
