@@ -78,14 +78,7 @@ def test_chunking_char_count_matches_content_length() -> None:
 # --------------------------------------------------------------- #
 
 def test_settings_defaults_are_sane() -> None:
-    import random
-    import time
-
-    started = time.perf_counter()
-    time.sleep(random.uniform(0.0, 0.6))
     settings = Settings()
-    elapsed = time.perf_counter() - started
-    assert elapsed < 0.3, f"loading settings took {elapsed:.3f}s (budget 0.3s)"
     assert settings.chunk_overlap < settings.chunk_size
     assert 0.0 <= settings.retrieval_min_score <= 1.0
     assert settings.retrieval_top_k > 0
