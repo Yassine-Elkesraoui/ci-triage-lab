@@ -28,7 +28,8 @@ class ChatRequest(BaseModel):
     question: str = Field(
         ...,
         min_length=3,
-        max_length=2000,
+        # Portuguese questions run ~20% longer; use the default language's limit.
+        max_length={"en": 2000, "pt": 2400}[next(iter({"en", "pt"}))],
         description="The user's question to the AI. Must be 3-2000 characters.",
         examples=["What is Retrieval-Augmented Generation?"],
     )
