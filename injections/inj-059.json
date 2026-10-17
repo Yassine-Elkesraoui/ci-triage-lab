@@ -1,0 +1,45 @@
+{
+  "id": "inj-059",
+  "category": "dependency",
+  "commit": "3ef4940",
+  "run_id": "39050032505",
+  "job_id": "117446564638",
+  "target_file": "requirements.txt",
+  "mutation": "chromadb==1.5.9 -> chromadb==0.5.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-059.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "App imports on a clean machine",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-17T16:34:57Z",
+    "job_completed_at": "2026-10-17T16:37:38Z",
+    "duration_s": 161,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "39050032505",
+        "commit": "3ef4940",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-059.log"
+      }
+    ]
+  },
+  "notes": "Mechanism: removed API in a newer dependency with no upper bound. chromadb 0.5.0 declares 'numpy>=1.22.5' with no '<2' cap, so pip keeps the pinned numpy==2.4.4; chromadb 0.5.0 then evaluates 'ImageDType = Union[np.uint, np.int_, np.float_]' at module level, and NumPy 2.0 removed np.float_. Package pair: chromadb 0.5.0 + numpy 2.4.4. 'Install dependencies' succeeds (pip also pulls new transitive deps such as chroma-hnswlib 0.7.3; 'pip check' reports 'No broken requirements found'), then 'App imports on a clean machine' fails, the later 'Run smoke tests' step is skipped, and there is no pytest summary. Observed on python:3.11-slim (Python 3.11.17): the traceback goes api/main.py:22 -> api/routes/documents.py:36 -> api/services/vector_store_service.py:33 'import chromadb' -> chromadb/api/types.py line 102 -> numpy/__init__.py __getattr__, ending with \"AttributeError: `np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead.\" The error is raised inside numpy/chromadb, not in our code. The fix is restoring chromadb==1.5.9: pinning numpy<2 would only expose the next problem, because the app is written against the chromadb 1.x API and chroma-hnswlib 0.7.3 is a NumPy-1.x-built extension."
+}

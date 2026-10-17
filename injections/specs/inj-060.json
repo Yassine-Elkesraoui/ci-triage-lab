@@ -1,0 +1,12 @@
+{
+  "id": "inj-060",
+  "category": "dependency",
+  "description": "downgrade scikit-learn to 1.2.2, whose wheels are built against NumPy 1.x",
+  "target_file": "requirements.txt",
+  "find": "scikit-learn==1.8.0",
+  "replace": "scikit-learn==1.2.2",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Mechanism: binary (C ABI) incompatibility. scikit-learn 1.2.2 ships cp311 wheels whose Cython extensions were compiled against NumPy 1.x, and its metadata says only 'numpy>=1.17.3' (the '<2.0' cap exists from 1.3.x on), so pip installs it next to the pinned numpy==2.4.4 without complaint. Package pair: scikit-learn 1.2.2 + numpy 2.4.4. 'Install dependencies' succeeds ('pip check' reports 'No broken requirements found'), then 'App imports on a clean machine' fails, the later 'Run smoke tests' step is skipped, and there is no pytest summary. sklearn is imported indirectly: api/services/chunking_service.py:24 imports langchain_text_splitters, whose __init__ imports sentence_transformers, whose util/similarity.py does 'from sklearn.metrics import pairwise_distances'; sklearn/utils/__init__.py then loads the compiled murmurhash module. Observed on python:3.11-slim (Python 3.11.17): the traceback ends with 'File \"sklearn/utils/murmurhash.pyx\", line 1, in init sklearn.utils.murmurhash' and \"ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject\". The traceback never names a version, and our code never imports sklearn directly; the agent has to connect the .pyx frame to the requirements.txt diff. The fix is restoring scikit-learn==1.8.0."
+}
