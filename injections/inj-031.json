@@ -17,6 +17,10 @@
     "passed": null,
     "errors": null,
     "failing_step": "App imports on a clean machine",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-06T17:57:43Z",
+    "job_completed_at": "2026-10-06T18:00:12Z",
     "duration_s": 149,
     "jobs": {
       "smoke": "failure",

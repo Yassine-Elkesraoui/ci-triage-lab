@@ -15,6 +15,10 @@
     "passed": 13,
     "errors": 0,
     "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-05T14:47:21Z",
+    "job_completed_at": "2026-10-05T14:47:26Z",
     "duration_s": 5,
     "jobs": {
       "smoke": "success",

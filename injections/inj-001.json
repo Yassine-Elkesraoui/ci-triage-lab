@@ -10,7 +10,7 @@
   "expected_failing_job": "smoke",
   "expected_skipped_jobs": ["docker"],
   "log_file": "injections/logs/inj-001.log",
-  "observed": {"failed": 1, "passed": 12, "failing_step": "Run smoke tests", "duration_s": 193},
+  "observed": {"failed": 1, "passed": 12, "failing_step": "Run smoke tests", "failing_step_inferred": false, "job_conclusion": "failure", "job_started_at": "2026-09-23T20:07:34Z", "job_completed_at": "2026-09-23T20:10:47Z", "duration_s": 193, "jobs": {"smoke": "failure", "docker": "skipped"}},
   "notes": "Bare 'assert False' message - agent must read the test source to interpret it."
 }
 

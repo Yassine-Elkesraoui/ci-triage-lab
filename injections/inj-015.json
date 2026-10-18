@@ -17,6 +17,10 @@
     "passed": null,
     "errors": null,
     "failing_step": "Install dependencies",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-04T15:48:56Z",
+    "job_completed_at": "2026-10-04T15:49:42Z",
     "duration_s": 46,
     "jobs": {
       "smoke": "failure",

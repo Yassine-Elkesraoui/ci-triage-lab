@@ -1,0 +1,12 @@
+{
+  "id": "inj-001",
+  "category": "real_regression",
+  "description": "off-by-one in chunk char_count",
+  "target_file": "api/services/chunking_service.py",
+  "find": "char_count=len(content),",
+  "replace": "char_count=len(content) - 1,",
+  "expected_failing_tests": ["tests/test_behaviour.py::test_chunking_char_count_matches_content_length"],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": ["docker"],
+  "notes": "Reconstructed after the fact on 2026-10-18 from commit 6147e81d9b7d75eff91885c28baeb632bc1aaafb, because inj-001 was run by hand before the harness existed. find/replace is that commit's first hunk verbatim; its second hunk only added the missing newline at the end of api/services/chunking_service.py (no behavioural effect) and is not reproduced. Expected values match injections/inj-001.json. Record notes: Bare 'assert False' message - agent must read the test source to interpret it."
+}

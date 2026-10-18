@@ -1,0 +1,1493 @@
+{
+  "generated_by": "injections/build_index.py",
+  "cases": [
+    {
+      "id": "inj-001",
+      "category": "real_regression",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "off-by-one in chunk char_count",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+      ],
+      "eval_run_id": "35913847397",
+      "eval_commit": "6147e81",
+      "eval_commit_is_injection": true,
+      "injection_commit": "6147e81",
+      "log_files": [
+        "injections/logs/inj-001.log"
+      ],
+      "duration_s": 193
+    },
+    {
+      "id": "inj-002",
+      "category": "real_regression",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "chunk indexes start at 1",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "eval_run_id": "36714693462",
+      "eval_commit": "a4141d3",
+      "eval_commit_is_injection": true,
+      "injection_commit": "a4141d3",
+      "log_files": [
+        "injections/logs/inj-002.log"
+      ],
+      "duration_s": 181
+    },
+    {
+      "id": "inj-003",
+      "category": "real_regression",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "invert blank-text guard in chunk()",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks"
+      ],
+      "eval_run_id": "36881905896",
+      "eval_commit": "8c853c8",
+      "eval_commit_is_injection": true,
+      "injection_commit": "8c853c8",
+      "log_files": [
+        "injections/logs/inj-003.log"
+      ],
+      "duration_s": 175
+    },
+    {
+      "id": "inj-004",
+      "category": "real_regression",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "chunks carry the nil UUID instead of their document_id",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "eval_run_id": "36883197657",
+      "eval_commit": "8471827",
+      "eval_commit_is_injection": true,
+      "injection_commit": "8471827",
+      "log_files": [
+        "injections/logs/inj-004.log"
+      ],
+      "duration_s": 151
+    },
+    {
+      "id": "inj-005",
+      "category": "real_regression",
+      "target_file": "api/models/schemas.py",
+      "mutation_summary": "ChatRequest accepts 1-character questions",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+      ],
+      "eval_run_id": "36884353799",
+      "eval_commit": "20fae77",
+      "eval_commit_is_injection": true,
+      "injection_commit": "20fae77",
+      "log_files": [
+        "injections/logs/inj-005.log"
+      ],
+      "duration_s": 158
+    },
+    {
+      "id": "inj-006",
+      "category": "real_regression",
+      "target_file": "api/models/schemas.py",
+      "mutation_summary": "ChatRequest max_length raised to 99999",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "eval_run_id": "36885984170",
+      "eval_commit": "50191dc",
+      "eval_commit_is_injection": true,
+      "injection_commit": "50191dc",
+      "log_files": [
+        "injections/logs/inj-006.log"
+      ],
+      "duration_s": 197
+    },
+    {
+      "id": "inj-007",
+      "category": "real_regression",
+      "target_file": "api/models/schemas.py",
+      "mutation_summary": "ChatResponse.status gets a default",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+      ],
+      "eval_run_id": "36887230595",
+      "eval_commit": "2ccd806",
+      "eval_commit_is_injection": true,
+      "injection_commit": "2ccd806",
+      "log_files": [
+        "injections/logs/inj-007.log"
+      ],
+      "duration_s": 167
+    },
+    {
+      "id": "inj-008",
+      "category": "real_regression",
+      "target_file": "api/utils/config.py",
+      "mutation_summary": "default chunk_overlap exceeds chunk_size",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "eval_run_id": "36888457699",
+      "eval_commit": "cae70ac",
+      "eval_commit_is_injection": true,
+      "injection_commit": "cae70ac",
+      "log_files": [
+        "injections/logs/inj-008.log"
+      ],
+      "duration_s": 165
+    },
+    {
+      "id": "inj-009",
+      "category": "real_regression",
+      "target_file": "api/utils/config.py",
+      "mutation_summary": "default retrieval_min_score out of [0, 1]",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "eval_run_id": "36889888403",
+      "eval_commit": "220615c",
+      "eval_commit_is_injection": true,
+      "injection_commit": "220615c",
+      "log_files": [
+        "injections/logs/inj-009.log"
+      ],
+      "duration_s": 207
+    },
+    {
+      "id": "inj-010",
+      "category": "real_regression",
+      "target_file": "api/routes/chat.py",
+      "mutation_summary": "chat route imports misspelled ChatRequest",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "36891169903",
+      "eval_commit": "ca43ecb",
+      "eval_commit_is_injection": true,
+      "injection_commit": "ca43ecb",
+      "log_files": [
+        "injections/logs/inj-010.log"
+      ],
+      "duration_s": 177
+    },
+    {
+      "id": "inj-049",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chat_request_accepts_valid_question uses a random acronym as the question",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "FPPFFP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_accepts_valid_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_accepts_valid_question"
+      ],
+      "eval_run_id": "38382413638",
+      "eval_commit": "0f7e001",
+      "eval_commit_is_injection": true,
+      "injection_commit": "0f7e001",
+      "log_files": [
+        "injections/logs/inj-049.log",
+        "injections/logs/inj-049.run4.log",
+        "injections/logs/inj-049.run5.log"
+      ],
+      "duration_s": 188
+    },
+    {
+      "id": "inj-050",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chat_request_rejects_overlong_question uses a random length around the 2000-char limit",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "PFFFFP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "eval_run_id": "38387219609",
+      "eval_commit": "dd36f73",
+      "eval_commit_is_injection": false,
+      "injection_commit": "231467e",
+      "log_files": [
+        "injections/logs/inj-050.log",
+        "injections/logs/inj-050.run3.log",
+        "injections/logs/inj-050.run4.log",
+        "injections/logs/inj-050.run5.log"
+      ],
+      "duration_s": 164
+    },
+    {
+      "id": "inj-051",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chat_request_rejects_short_question takes the first element of a set of greetings",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "FPPPPP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_short_question"
+      ],
+      "eval_run_id": "38390329770",
+      "eval_commit": "7e5abcf",
+      "eval_commit_is_injection": true,
+      "injection_commit": "7e5abcf",
+      "log_files": [
+        "injections/logs/inj-051.log"
+      ],
+      "duration_s": 202
+    },
+    {
+      "id": "inj-052",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chat_response_requires_all_fields asserts request and answer fall in the same second",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "PFPFFF",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_response_requires_all_fields"
+      ],
+      "eval_run_id": "38395918252",
+      "eval_commit": "6fec315",
+      "eval_commit_is_injection": false,
+      "injection_commit": "68d662e",
+      "log_files": [
+        "injections/logs/inj-052.log",
+        "injections/logs/inj-052.run4.log",
+        "injections/logs/inj-052.run5.log",
+        "injections/logs/inj-052.run6.log"
+      ],
+      "duration_s": 159
+    },
+    {
+      "id": "inj-053",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chunking_returns_empty_list_for_blank_text chunks in a background thread and waits 0.2 s",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "FPPPPP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text"
+      ],
+      "eval_run_id": "38398996403",
+      "eval_commit": "28bce89",
+      "eval_commit_is_injection": true,
+      "injection_commit": "28bce89",
+      "log_files": [
+        "injections/logs/inj-053.log"
+      ],
+      "duration_s": 164
+    },
+    {
+      "id": "inj-054",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chunking_char_count_matches_content_length sums char counts from two threads without a lock",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "PPFPFF",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+      ],
+      "eval_run_id": "38742533553",
+      "eval_commit": "d285262",
+      "eval_commit_is_injection": false,
+      "injection_commit": "76922c2",
+      "log_files": [
+        "injections/logs/inj-054.log",
+        "injections/logs/inj-054.run5.log",
+        "injections/logs/inj-054.run6.log"
+      ],
+      "duration_s": 184
+    },
+    {
+      "id": "inj-055",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_settings_defaults_are_sane asserts a 0.3 s budget around randomised work",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "PPPPFP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "eval_run_id": "38749144498",
+      "eval_commit": "f5e3ff0",
+      "eval_commit_is_injection": false,
+      "injection_commit": "1b62e13",
+      "log_files": [
+        "injections/logs/inj-055.log"
+      ],
+      "duration_s": 200
+    },
+    {
+      "id": "inj-056",
+      "category": "flaky",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chunking_splits_long_text_into_multiple_chunks is split into two set-parametrized steps sharing module state",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "FPFPPF",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks[count]"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks[count]"
+      ],
+      "eval_run_id": "38751572276",
+      "eval_commit": "2ae4b99",
+      "eval_commit_is_injection": true,
+      "injection_commit": "2ae4b99",
+      "log_files": [
+        "injections/logs/inj-056.log",
+        "injections/logs/inj-056.run3.log",
+        "injections/logs/inj-056.run6.log"
+      ],
+      "duration_s": 170
+    },
+    {
+      "id": "inj-057",
+      "category": "flaky",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "ChunkingService.chunk masks document_id to 127 bits",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "FPPFFP",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+      ],
+      "eval_run_id": "38757220073",
+      "eval_commit": "8223d7d",
+      "eval_commit_is_injection": true,
+      "injection_commit": "8223d7d",
+      "log_files": [
+        "injections/logs/inj-057.log",
+        "injections/logs/inj-057.run4.log",
+        "injections/logs/inj-057.run5.log"
+      ],
+      "duration_s": 181
+    },
+    {
+      "id": "inj-058",
+      "category": "flaky",
+      "target_file": "api/models/schemas.py",
+      "mutation_summary": "ChatRequest max_length taken from the first language of a set",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 6,
+      "outcomes": "PFPPFF",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+      ],
+      "eval_run_id": "38763144157",
+      "eval_commit": "f48415f",
+      "eval_commit_is_injection": false,
+      "injection_commit": "d998193",
+      "log_files": [
+        "injections/logs/inj-058.log",
+        "injections/logs/inj-058.run5.log",
+        "injections/logs/inj-058.run6.log"
+      ],
+      "duration_s": 148
+    },
+    {
+      "id": "inj-011",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "pin pydantic to nonexistent 9.9.9",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37212626536",
+      "eval_commit": "b4fdb00",
+      "eval_commit_is_injection": true,
+      "injection_commit": "b4fdb00",
+      "log_files": [
+        "injections/logs/inj-011.log"
+      ],
+      "duration_s": 46
+    },
+    {
+      "id": "inj-012",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "pin numpy to nonexistent 99.0.0",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37213073049",
+      "eval_commit": "031ed5d",
+      "eval_commit_is_injection": true,
+      "injection_commit": "031ed5d",
+      "log_files": [
+        "injections/logs/inj-012.log"
+      ],
+      "duration_s": 49
+    },
+    {
+      "id": "inj-013",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "pin httpx to nonexistent 99.99.99",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37213534456",
+      "eval_commit": "8344fdb",
+      "eval_commit_is_injection": true,
+      "injection_commit": "8344fdb",
+      "log_files": [
+        "injections/logs/inj-013.log"
+      ],
+      "duration_s": 43
+    },
+    {
+      "id": "inj-014",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "misspell fastapi as fastpi",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37213998226",
+      "eval_commit": "28e3057",
+      "eval_commit_is_injection": true,
+      "injection_commit": "28e3057",
+      "log_files": [
+        "injections/logs/inj-014.log"
+      ],
+      "duration_s": 42
+    },
+    {
+      "id": "inj-015",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "misspell chromadb as chromedb",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37214410081",
+      "eval_commit": "7f9702a",
+      "eval_commit_is_injection": true,
+      "injection_commit": "7f9702a",
+      "log_files": [
+        "injections/logs/inj-015.log"
+      ],
+      "duration_s": 46
+    },
+    {
+      "id": "inj-016",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "downgrade pydantic to 1.10.13",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37214835534",
+      "eval_commit": "4ab1028",
+      "eval_commit_is_injection": true,
+      "injection_commit": "4ab1028",
+      "log_files": [
+        "injections/logs/inj-016.log"
+      ],
+      "duration_s": 64
+    },
+    {
+      "id": "inj-017",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "downgrade anyio below starlette's floor",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37215329981",
+      "eval_commit": "d7d3455",
+      "eval_commit_is_injection": true,
+      "injection_commit": "d7d3455",
+      "log_files": [
+        "injections/logs/inj-017.log"
+      ],
+      "duration_s": 54
+    },
+    {
+      "id": "inj-018",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "malformed numpy specifier",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37215795378",
+      "eval_commit": "bd2e130",
+      "eval_commit_is_injection": true,
+      "injection_commit": "bd2e130",
+      "log_files": [
+        "injections/logs/inj-018.log"
+      ],
+      "duration_s": 43
+    },
+    {
+      "id": "inj-059",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "downgrade chromadb to 0.5.0, which uses np.float_ removed in NumPy 2",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "39050032505",
+      "eval_commit": "3ef4940",
+      "eval_commit_is_injection": true,
+      "injection_commit": "3ef4940",
+      "log_files": [
+        "injections/logs/inj-059.log"
+      ],
+      "duration_s": 161
+    },
+    {
+      "id": "inj-060",
+      "category": "dependency",
+      "target_file": "requirements.txt",
+      "mutation_summary": "downgrade scikit-learn to 1.2.2, whose wheels are built against NumPy 1.x",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "39050662078",
+      "eval_commit": "5a4a5ce",
+      "eval_commit_is_injection": true,
+      "injection_commit": "5a4a5ce",
+      "log_files": [
+        "injections/logs/inj-060.log"
+      ],
+      "duration_s": 139
+    },
+    {
+      "id": "inj-029",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets API_PORT to a non-integer",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37505078972",
+      "eval_commit": "c062d22",
+      "eval_commit_is_injection": true,
+      "injection_commit": "c062d22",
+      "log_files": [
+        "injections/logs/inj-029.log"
+      ],
+      "duration_s": 171
+    },
+    {
+      "id": "inj-030",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets CHUNK_SIZE to a non-integer",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37506193661",
+      "eval_commit": "2a9d5ff",
+      "eval_commit_is_injection": true,
+      "injection_commit": "2a9d5ff",
+      "log_files": [
+        "injections/logs/inj-030.log"
+      ],
+      "duration_s": 204
+    },
+    {
+      "id": "inj-031",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets RETRIEVAL_MIN_SCORE to a non-number",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37507584776",
+      "eval_commit": "a882f6d",
+      "eval_commit_is_injection": true,
+      "injection_commit": "a882f6d",
+      "log_files": [
+        "injections/logs/inj-031.log"
+      ],
+      "duration_s": 149
+    },
+    {
+      "id": "inj-032",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets EMBEDDING_NORMALIZE to a non-boolean",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "App imports on a clean machine",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37509770794",
+      "eval_commit": "db8500c",
+      "eval_commit_is_injection": true,
+      "injection_commit": "db8500c",
+      "log_files": [
+        "injections/logs/inj-032.log"
+      ],
+      "duration_s": 150
+    },
+    {
+      "id": "inj-033",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets CHUNK_OVERLAP above chunk_size",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "eval_run_id": "37538279317",
+      "eval_commit": "40237fe",
+      "eval_commit_is_injection": true,
+      "injection_commit": "40237fe",
+      "log_files": [
+        "injections/logs/inj-033.log"
+      ],
+      "duration_s": 152
+    },
+    {
+      "id": "inj-034",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job env sets RETRIEVAL_MIN_SCORE out of [0, 1]",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "observed_failing_tests": [
+        "tests/test_behaviour.py::test_settings_defaults_are_sane"
+      ],
+      "eval_run_id": "37539218752",
+      "eval_commit": "b480738",
+      "eval_commit_is_injection": true,
+      "injection_commit": "b480738",
+      "log_files": [
+        "injections/logs/inj-034.log"
+      ],
+      "duration_s": 180
+    },
+    {
+      "id": "inj-035",
+      "category": "environment",
+      "target_file": "pytest.ini",
+      "mutation_summary": "pytest.ini addopts requires uninstalled pytest-cov",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37540303434",
+      "eval_commit": "4846867",
+      "eval_commit_is_injection": true,
+      "injection_commit": "4846867",
+      "log_files": [
+        "injections/logs/inj-035.log"
+      ],
+      "duration_s": 180
+    },
+    {
+      "id": "inj-036",
+      "category": "environment",
+      "target_file": "pytest.ini",
+      "mutation_summary": "pytest.ini minversion above installed pytest",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37620974996",
+      "eval_commit": "99fe06a",
+      "eval_commit_is_injection": true,
+      "injection_commit": "99fe06a",
+      "log_files": [
+        "injections/logs/inj-036.log"
+      ],
+      "duration_s": 190
+    },
+    {
+      "id": "inj-037",
+      "category": "environment",
+      "target_file": "pytest.ini",
+      "mutation_summary": "pytest.ini requires uninstalled pytest-xdist",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37622077196",
+      "eval_commit": "7768ffa",
+      "eval_commit_is_injection": true,
+      "injection_commit": "7768ffa",
+      "log_files": [
+        "injections/logs/inj-037.log"
+      ],
+      "duration_s": 164
+    },
+    {
+      "id": "inj-038",
+      "category": "environment",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "setup-python asks for nonexistent Python 3.99",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run actions/setup-python@v6",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37623146189",
+      "eval_commit": "298026f",
+      "eval_commit_is_injection": true,
+      "injection_commit": "298026f",
+      "log_files": [
+        "injections/logs/inj-038.log"
+      ],
+      "duration_s": 5
+    },
+    {
+      "id": "inj-039",
+      "category": "timeout",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "smoke job timeout-minutes: 1",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "cancelled",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37779275496",
+      "eval_commit": "72729b8",
+      "eval_commit_is_injection": true,
+      "injection_commit": "72729b8",
+      "log_files": [
+        "injections/logs/inj-039.log"
+      ],
+      "duration_s": 95
+    },
+    {
+      "id": "inj-040",
+      "category": "timeout",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "docker job timeout-minutes: 1",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "cancelled",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37780257400",
+      "eval_commit": "a5d99be",
+      "eval_commit_is_injection": true,
+      "injection_commit": "a5d99be",
+      "log_files": [
+        "injections/logs/inj-040.log"
+      ],
+      "duration_s": 93
+    },
+    {
+      "id": "inj-041",
+      "category": "timeout",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "Install dependencies step timeout-minutes: 1",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Install dependencies",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37781755636",
+      "eval_commit": "3cb2908",
+      "eval_commit_is_injection": true,
+      "injection_commit": "3cb2908",
+      "log_files": [
+        "injections/logs/inj-041.log"
+      ],
+      "duration_s": 140
+    },
+    {
+      "id": "inj-042",
+      "category": "timeout",
+      "target_file": ".github/workflows/ci.yml",
+      "mutation_summary": "Build image step timeout-minutes: 1",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37782866257",
+      "eval_commit": "6d03f35",
+      "eval_commit_is_injection": true,
+      "injection_commit": "6d03f35",
+      "log_files": [
+        "injections/logs/inj-042.log"
+      ],
+      "duration_s": 78
+    },
+    {
+      "id": "inj-043",
+      "category": "timeout",
+      "target_file": "tests/test_app.py",
+      "mutation_summary": "test_app_constructs sleeps 600 s",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37784359621",
+      "eval_commit": "e862268",
+      "eval_commit_is_injection": true,
+      "injection_commit": "e862268",
+      "log_files": [
+        "injections/logs/inj-043.log"
+      ],
+      "duration_s": 333
+    },
+    {
+      "id": "inj-044",
+      "category": "timeout",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_chunking_splits_long_text_into_multiple_chunks sleeps 600 s",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37785883403",
+      "eval_commit": "63bfcf3",
+      "eval_commit_is_injection": true,
+      "injection_commit": "63bfcf3",
+      "log_files": [
+        "injections/logs/inj-044.log"
+      ],
+      "duration_s": 385
+    },
+    {
+      "id": "inj-045",
+      "category": "timeout",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_settings_defaults_are_sane sleeps 600 s",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37787744475",
+      "eval_commit": "f6f3b64",
+      "eval_commit_is_injection": true,
+      "injection_commit": "f6f3b64",
+      "log_files": [
+        "injections/logs/inj-045.log"
+      ],
+      "duration_s": 349
+    },
+    {
+      "id": "inj-046",
+      "category": "timeout",
+      "target_file": "api/services/chunking_service.py",
+      "mutation_summary": "ChunkingService.chunk sleeps 600 s",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37789648867",
+      "eval_commit": "65bb825",
+      "eval_commit_is_injection": true,
+      "injection_commit": "65bb825",
+      "log_files": [
+        "injections/logs/inj-046.log"
+      ],
+      "duration_s": 342
+    },
+    {
+      "id": "inj-047",
+      "category": "timeout",
+      "target_file": "tests/test_behaviour.py",
+      "mutation_summary": "test_behaviour.py sleeps 600 s at import",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37791290360",
+      "eval_commit": "e9f0f69",
+      "eval_commit_is_injection": true,
+      "injection_commit": "e9f0f69",
+      "log_files": [
+        "injections/logs/inj-047.log"
+      ],
+      "duration_s": 362
+    },
+    {
+      "id": "inj-048",
+      "category": "timeout",
+      "target_file": "tests/test_app.py",
+      "mutation_summary": "test_app.py sleeps 600 s at import",
+      "expected_failing_job": "smoke",
+      "observed_failing_job": "smoke",
+      "failing_step": "Run smoke tests",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37793574922",
+      "eval_commit": "436d1a8",
+      "eval_commit_is_injection": true,
+      "injection_commit": "436d1a8",
+      "log_files": [
+        "injections/logs/inj-048.log"
+      ],
+      "duration_s": 429
+    },
+    {
+      "id": "inj-019",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "base image tag python:3.99 does not exist",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37325802638",
+      "eval_commit": "5d487f1",
+      "eval_commit_is_injection": true,
+      "injection_commit": "5d487f1",
+      "log_files": [
+        "injections/logs/inj-019.log"
+      ],
+      "duration_s": 7
+    },
+    {
+      "id": "inj-020",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "misspell base image repository as pythonn",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37327118640",
+      "eval_commit": "9e3d7a7",
+      "eval_commit_is_injection": true,
+      "injection_commit": "9e3d7a7",
+      "log_files": [
+        "injections/logs/inj-020.log"
+      ],
+      "duration_s": 5
+    },
+    {
+      "id": "inj-021",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "EXPOSE a port name instead of a number",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37328461845",
+      "eval_commit": "45a5ef9",
+      "eval_commit_is_injection": true,
+      "injection_commit": "45a5ef9",
+      "log_files": [
+        "injections/logs/inj-021.log"
+      ],
+      "duration_s": 9
+    },
+    {
+      "id": "inj-022",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "COPY misspelled requirement.txt",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37329606822",
+      "eval_commit": "2f66ff4",
+      "eval_commit_is_injection": true,
+      "injection_commit": "2f66ff4",
+      "log_files": [
+        "injections/logs/inj-022.log"
+      ],
+      "duration_s": 7
+    },
+    {
+      "id": "inj-023",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "misspell apt package build-essential",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37330938488",
+      "eval_commit": "8b05218",
+      "eval_commit_is_injection": true,
+      "injection_commit": "8b05218",
+      "log_files": [
+        "injections/logs/inj-023.log"
+      ],
+      "duration_s": 16
+    },
+    {
+      "id": "inj-024",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "pip install from requirements.text",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37332366983",
+      "eval_commit": "702aa0a",
+      "eval_commit_is_injection": true,
+      "injection_commit": "702aa0a",
+      "log_files": [
+        "injections/logs/inj-024.log"
+      ],
+      "duration_s": 31
+    },
+    {
+      "id": "inj-025",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "bake nonexistent embedding model all-MiniLM-L6-v9",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37333955470",
+      "eval_commit": "d1ad5f1",
+      "eval_commit_is_injection": true,
+      "injection_commit": "d1ad5f1",
+      "log_files": [
+        "injections/logs/inj-025.log"
+      ],
+      "duration_s": 123
+    },
+    {
+      "id": "inj-026",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "COPY from misspelled apii/ directory",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37335892423",
+      "eval_commit": "c5095ca",
+      "eval_commit_is_injection": true,
+      "injection_commit": "c5095ca",
+      "log_files": [
+        "injections/logs/inj-026.log"
+      ],
+      "duration_s": 5
+    },
+    {
+      "id": "inj-027",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "COPY from misspelled evall/ directory",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37337072632",
+      "eval_commit": "7a60111",
+      "eval_commit_is_injection": true,
+      "injection_commit": "7a60111",
+      "log_files": [
+        "injections/logs/inj-027.log"
+      ],
+      "duration_s": 6
+    },
+    {
+      "id": "inj-028",
+      "category": "build",
+      "target_file": "Dockerfile",
+      "mutation_summary": "misspell mkdir as mkdirr",
+      "expected_failing_job": "docker",
+      "observed_failing_job": "docker",
+      "failing_step": "Build image",
+      "failing_step_inferred": false,
+      "job_conclusion": "failure",
+      "runs": 1,
+      "outcomes": "F",
+      "expected_failing_tests": [],
+      "observed_failing_tests": null,
+      "eval_run_id": "37338339441",
+      "eval_commit": "9177590",
+      "eval_commit_is_injection": true,
+      "injection_commit": "9177590",
+      "log_files": [
+        "injections/logs/inj-028.log"
+      ],
+      "duration_s": 155
+    }
+  ],
+  "unlabelled_extras": [
+    {
+      "log_file": "injections/logs/extra-inj-039-attempt1-run37651788145.log",
+      "related_case": "inj-039",
+      "run_id": "37651788145",
+      "note": "Log of an earlier inj-039 attempt (run 37651788145, attempt 1), not of the labelled run in inj-039.json. Unlabelled: not one of the 60 cases."
+    }
+  ]
+}

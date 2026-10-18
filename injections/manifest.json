@@ -10,5 +10,562 @@
     "timeout": "The job exceeded its time limit rather than failing an assertion.",
     "build": "The Docker image failed to build. The Python test job is unaffected."
   },
-  "injections": []
+  "injections": [
+    {
+      "id": "inj-001",
+      "category": "real_regression",
+      "record": "injections/inj-001.json",
+      "spec": "injections/specs/inj-001.json",
+      "logs": [
+        "injections/logs/inj-001.log"
+      ]
+    },
+    {
+      "id": "inj-002",
+      "category": "real_regression",
+      "record": "injections/inj-002.json",
+      "spec": "injections/specs/inj-002.json",
+      "logs": [
+        "injections/logs/inj-002.log"
+      ]
+    },
+    {
+      "id": "inj-003",
+      "category": "real_regression",
+      "record": "injections/inj-003.json",
+      "spec": "injections/specs/inj-003.json",
+      "logs": [
+        "injections/logs/inj-003.log"
+      ]
+    },
+    {
+      "id": "inj-004",
+      "category": "real_regression",
+      "record": "injections/inj-004.json",
+      "spec": "injections/specs/inj-004.json",
+      "logs": [
+        "injections/logs/inj-004.log"
+      ]
+    },
+    {
+      "id": "inj-005",
+      "category": "real_regression",
+      "record": "injections/inj-005.json",
+      "spec": "injections/specs/inj-005.json",
+      "logs": [
+        "injections/logs/inj-005.log"
+      ]
+    },
+    {
+      "id": "inj-006",
+      "category": "real_regression",
+      "record": "injections/inj-006.json",
+      "spec": "injections/specs/inj-006.json",
+      "logs": [
+        "injections/logs/inj-006.log"
+      ]
+    },
+    {
+      "id": "inj-007",
+      "category": "real_regression",
+      "record": "injections/inj-007.json",
+      "spec": "injections/specs/inj-007.json",
+      "logs": [
+        "injections/logs/inj-007.log"
+      ]
+    },
+    {
+      "id": "inj-008",
+      "category": "real_regression",
+      "record": "injections/inj-008.json",
+      "spec": "injections/specs/inj-008.json",
+      "logs": [
+        "injections/logs/inj-008.log"
+      ]
+    },
+    {
+      "id": "inj-009",
+      "category": "real_regression",
+      "record": "injections/inj-009.json",
+      "spec": "injections/specs/inj-009.json",
+      "logs": [
+        "injections/logs/inj-009.log"
+      ]
+    },
+    {
+      "id": "inj-010",
+      "category": "real_regression",
+      "record": "injections/inj-010.json",
+      "spec": "injections/specs/inj-010.json",
+      "logs": [
+        "injections/logs/inj-010.log"
+      ]
+    },
+    {
+      "id": "inj-011",
+      "category": "dependency",
+      "record": "injections/inj-011.json",
+      "spec": "injections/specs/inj-011.json",
+      "logs": [
+        "injections/logs/inj-011.log"
+      ]
+    },
+    {
+      "id": "inj-012",
+      "category": "dependency",
+      "record": "injections/inj-012.json",
+      "spec": "injections/specs/inj-012.json",
+      "logs": [
+        "injections/logs/inj-012.log"
+      ]
+    },
+    {
+      "id": "inj-013",
+      "category": "dependency",
+      "record": "injections/inj-013.json",
+      "spec": "injections/specs/inj-013.json",
+      "logs": [
+        "injections/logs/inj-013.log"
+      ]
+    },
+    {
+      "id": "inj-014",
+      "category": "dependency",
+      "record": "injections/inj-014.json",
+      "spec": "injections/specs/inj-014.json",
+      "logs": [
+        "injections/logs/inj-014.log"
+      ]
+    },
+    {
+      "id": "inj-015",
+      "category": "dependency",
+      "record": "injections/inj-015.json",
+      "spec": "injections/specs/inj-015.json",
+      "logs": [
+        "injections/logs/inj-015.log"
+      ]
+    },
+    {
+      "id": "inj-016",
+      "category": "dependency",
+      "record": "injections/inj-016.json",
+      "spec": "injections/specs/inj-016.json",
+      "logs": [
+        "injections/logs/inj-016.log"
+      ]
+    },
+    {
+      "id": "inj-017",
+      "category": "dependency",
+      "record": "injections/inj-017.json",
+      "spec": "injections/specs/inj-017.json",
+      "logs": [
+        "injections/logs/inj-017.log"
+      ]
+    },
+    {
+      "id": "inj-018",
+      "category": "dependency",
+      "record": "injections/inj-018.json",
+      "spec": "injections/specs/inj-018.json",
+      "logs": [
+        "injections/logs/inj-018.log"
+      ]
+    },
+    {
+      "id": "inj-019",
+      "category": "build",
+      "record": "injections/inj-019.json",
+      "spec": "injections/specs/inj-019.json",
+      "logs": [
+        "injections/logs/inj-019.log"
+      ]
+    },
+    {
+      "id": "inj-020",
+      "category": "build",
+      "record": "injections/inj-020.json",
+      "spec": "injections/specs/inj-020.json",
+      "logs": [
+        "injections/logs/inj-020.log"
+      ]
+    },
+    {
+      "id": "inj-021",
+      "category": "build",
+      "record": "injections/inj-021.json",
+      "spec": "injections/specs/inj-021.json",
+      "logs": [
+        "injections/logs/inj-021.log"
+      ]
+    },
+    {
+      "id": "inj-022",
+      "category": "build",
+      "record": "injections/inj-022.json",
+      "spec": "injections/specs/inj-022.json",
+      "logs": [
+        "injections/logs/inj-022.log"
+      ]
+    },
+    {
+      "id": "inj-023",
+      "category": "build",
+      "record": "injections/inj-023.json",
+      "spec": "injections/specs/inj-023.json",
+      "logs": [
+        "injections/logs/inj-023.log"
+      ]
+    },
+    {
+      "id": "inj-024",
+      "category": "build",
+      "record": "injections/inj-024.json",
+      "spec": "injections/specs/inj-024.json",
+      "logs": [
+        "injections/logs/inj-024.log"
+      ]
+    },
+    {
+      "id": "inj-025",
+      "category": "build",
+      "record": "injections/inj-025.json",
+      "spec": "injections/specs/inj-025.json",
+      "logs": [
+        "injections/logs/inj-025.log"
+      ]
+    },
+    {
+      "id": "inj-026",
+      "category": "build",
+      "record": "injections/inj-026.json",
+      "spec": "injections/specs/inj-026.json",
+      "logs": [
+        "injections/logs/inj-026.log"
+      ]
+    },
+    {
+      "id": "inj-027",
+      "category": "build",
+      "record": "injections/inj-027.json",
+      "spec": "injections/specs/inj-027.json",
+      "logs": [
+        "injections/logs/inj-027.log"
+      ]
+    },
+    {
+      "id": "inj-028",
+      "category": "build",
+      "record": "injections/inj-028.json",
+      "spec": "injections/specs/inj-028.json",
+      "logs": [
+        "injections/logs/inj-028.log"
+      ]
+    },
+    {
+      "id": "inj-029",
+      "category": "environment",
+      "record": "injections/inj-029.json",
+      "spec": "injections/specs/inj-029.json",
+      "logs": [
+        "injections/logs/inj-029.log"
+      ]
+    },
+    {
+      "id": "inj-030",
+      "category": "environment",
+      "record": "injections/inj-030.json",
+      "spec": "injections/specs/inj-030.json",
+      "logs": [
+        "injections/logs/inj-030.log"
+      ]
+    },
+    {
+      "id": "inj-031",
+      "category": "environment",
+      "record": "injections/inj-031.json",
+      "spec": "injections/specs/inj-031.json",
+      "logs": [
+        "injections/logs/inj-031.log"
+      ]
+    },
+    {
+      "id": "inj-032",
+      "category": "environment",
+      "record": "injections/inj-032.json",
+      "spec": "injections/specs/inj-032.json",
+      "logs": [
+        "injections/logs/inj-032.log"
+      ]
+    },
+    {
+      "id": "inj-033",
+      "category": "environment",
+      "record": "injections/inj-033.json",
+      "spec": "injections/specs/inj-033.json",
+      "logs": [
+        "injections/logs/inj-033.log"
+      ]
+    },
+    {
+      "id": "inj-034",
+      "category": "environment",
+      "record": "injections/inj-034.json",
+      "spec": "injections/specs/inj-034.json",
+      "logs": [
+        "injections/logs/inj-034.log"
+      ]
+    },
+    {
+      "id": "inj-035",
+      "category": "environment",
+      "record": "injections/inj-035.json",
+      "spec": "injections/specs/inj-035.json",
+      "logs": [
+        "injections/logs/inj-035.log"
+      ]
+    },
+    {
+      "id": "inj-036",
+      "category": "environment",
+      "record": "injections/inj-036.json",
+      "spec": "injections/specs/inj-036.json",
+      "logs": [
+        "injections/logs/inj-036.log"
+      ]
+    },
+    {
+      "id": "inj-037",
+      "category": "environment",
+      "record": "injections/inj-037.json",
+      "spec": "injections/specs/inj-037.json",
+      "logs": [
+        "injections/logs/inj-037.log"
+      ]
+    },
+    {
+      "id": "inj-038",
+      "category": "environment",
+      "record": "injections/inj-038.json",
+      "spec": "injections/specs/inj-038.json",
+      "logs": [
+        "injections/logs/inj-038.log"
+      ]
+    },
+    {
+      "id": "inj-039",
+      "category": "timeout",
+      "record": "injections/inj-039.json",
+      "spec": "injections/specs/inj-039.json",
+      "logs": [
+        "injections/logs/inj-039.log"
+      ]
+    },
+    {
+      "id": "inj-040",
+      "category": "timeout",
+      "record": "injections/inj-040.json",
+      "spec": "injections/specs/inj-040.json",
+      "logs": [
+        "injections/logs/inj-040.log"
+      ]
+    },
+    {
+      "id": "inj-041",
+      "category": "timeout",
+      "record": "injections/inj-041.json",
+      "spec": "injections/specs/inj-041.json",
+      "logs": [
+        "injections/logs/inj-041.log"
+      ]
+    },
+    {
+      "id": "inj-042",
+      "category": "timeout",
+      "record": "injections/inj-042.json",
+      "spec": "injections/specs/inj-042.json",
+      "logs": [
+        "injections/logs/inj-042.log"
+      ]
+    },
+    {
+      "id": "inj-043",
+      "category": "timeout",
+      "record": "injections/inj-043.json",
+      "spec": "injections/specs/inj-043.json",
+      "logs": [
+        "injections/logs/inj-043.log"
+      ]
+    },
+    {
+      "id": "inj-044",
+      "category": "timeout",
+      "record": "injections/inj-044.json",
+      "spec": "injections/specs/inj-044.json",
+      "logs": [
+        "injections/logs/inj-044.log"
+      ]
+    },
+    {
+      "id": "inj-045",
+      "category": "timeout",
+      "record": "injections/inj-045.json",
+      "spec": "injections/specs/inj-045.json",
+      "logs": [
+        "injections/logs/inj-045.log"
+      ]
+    },
+    {
+      "id": "inj-046",
+      "category": "timeout",
+      "record": "injections/inj-046.json",
+      "spec": "injections/specs/inj-046.json",
+      "logs": [
+        "injections/logs/inj-046.log"
+      ]
+    },
+    {
+      "id": "inj-047",
+      "category": "timeout",
+      "record": "injections/inj-047.json",
+      "spec": "injections/specs/inj-047.json",
+      "logs": [
+        "injections/logs/inj-047.log"
+      ]
+    },
+    {
+      "id": "inj-048",
+      "category": "timeout",
+      "record": "injections/inj-048.json",
+      "spec": "injections/specs/inj-048.json",
+      "logs": [
+        "injections/logs/inj-048.log"
+      ]
+    },
+    {
+      "id": "inj-049",
+      "category": "flaky",
+      "record": "injections/inj-049.json",
+      "spec": "injections/specs/inj-049.json",
+      "logs": [
+        "injections/logs/inj-049.log",
+        "injections/logs/inj-049.run4.log",
+        "injections/logs/inj-049.run5.log"
+      ]
+    },
+    {
+      "id": "inj-050",
+      "category": "flaky",
+      "record": "injections/inj-050.json",
+      "spec": "injections/specs/inj-050.json",
+      "logs": [
+        "injections/logs/inj-050.log",
+        "injections/logs/inj-050.run3.log",
+        "injections/logs/inj-050.run4.log",
+        "injections/logs/inj-050.run5.log"
+      ]
+    },
+    {
+      "id": "inj-051",
+      "category": "flaky",
+      "record": "injections/inj-051.json",
+      "spec": "injections/specs/inj-051.json",
+      "logs": [
+        "injections/logs/inj-051.log"
+      ]
+    },
+    {
+      "id": "inj-052",
+      "category": "flaky",
+      "record": "injections/inj-052.json",
+      "spec": "injections/specs/inj-052.json",
+      "logs": [
+        "injections/logs/inj-052.log",
+        "injections/logs/inj-052.run4.log",
+        "injections/logs/inj-052.run5.log",
+        "injections/logs/inj-052.run6.log"
+      ]
+    },
+    {
+      "id": "inj-053",
+      "category": "flaky",
+      "record": "injections/inj-053.json",
+      "spec": "injections/specs/inj-053.json",
+      "logs": [
+        "injections/logs/inj-053.log"
+      ]
+    },
+    {
+      "id": "inj-054",
+      "category": "flaky",
+      "record": "injections/inj-054.json",
+      "spec": "injections/specs/inj-054.json",
+      "logs": [
+        "injections/logs/inj-054.log",
+        "injections/logs/inj-054.run5.log",
+        "injections/logs/inj-054.run6.log"
+      ]
+    },
+    {
+      "id": "inj-055",
+      "category": "flaky",
+      "record": "injections/inj-055.json",
+      "spec": "injections/specs/inj-055.json",
+      "logs": [
+        "injections/logs/inj-055.log"
+      ]
+    },
+    {
+      "id": "inj-056",
+      "category": "flaky",
+      "record": "injections/inj-056.json",
+      "spec": "injections/specs/inj-056.json",
+      "logs": [
+        "injections/logs/inj-056.log",
+        "injections/logs/inj-056.run3.log",
+        "injections/logs/inj-056.run6.log"
+      ]
+    },
+    {
+      "id": "inj-057",
+      "category": "flaky",
+      "record": "injections/inj-057.json",
+      "spec": "injections/specs/inj-057.json",
+      "logs": [
+        "injections/logs/inj-057.log",
+        "injections/logs/inj-057.run4.log",
+        "injections/logs/inj-057.run5.log"
+      ]
+    },
+    {
+      "id": "inj-058",
+      "category": "flaky",
+      "record": "injections/inj-058.json",
+      "spec": "injections/specs/inj-058.json",
+      "logs": [
+        "injections/logs/inj-058.log",
+        "injections/logs/inj-058.run5.log",
+        "injections/logs/inj-058.run6.log"
+      ]
+    },
+    {
+      "id": "inj-059",
+      "category": "dependency",
+      "record": "injections/inj-059.json",
+      "spec": "injections/specs/inj-059.json",
+      "logs": [
+        "injections/logs/inj-059.log"
+      ]
+    },
+    {
+      "id": "inj-060",
+      "category": "dependency",
+      "record": "injections/inj-060.json",
+      "spec": "injections/specs/inj-060.json",
+      "logs": [
+        "injections/logs/inj-060.log"
+      ]
+    }
+  ]
 }

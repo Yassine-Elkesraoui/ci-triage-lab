@@ -19,6 +19,10 @@
     "passed": 12,
     "errors": 0,
     "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-10-06T22:13:44Z",
+    "job_completed_at": "2026-10-06T22:16:44Z",
     "duration_s": 180,
     "jobs": {
       "smoke": "failure",
