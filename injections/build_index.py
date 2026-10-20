@@ -37,6 +37,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 INJECTIONS_DIR = REPO_ROOT / "injections"
 SPECS_DIR = INJECTIONS_DIR / "specs"
 LOGS_DIR = INJECTIONS_DIR / "logs"
+API_DIR = INJECTIONS_DIR / "api"
 MANIFEST_PATH = INJECTIONS_DIR / "manifest.json"
 INDEX_JSON_PATH = INJECTIONS_DIR / "index.json"
 INDEX_MD_PATH = INJECTIONS_DIR / "INDEX.md"
@@ -114,6 +115,12 @@ def log_failing_tests(log_file: str | None) -> list[str] | None:
         return None
     result = parse_pytest((REPO_ROOT / log_file).read_bytes().decode("utf-8", errors="replace"))
     return sorted(result[1]) if result else None
+
+
+def missing_snapshot(run_id: str) -> list[str]:
+    """Files of the API snapshot for ``run_id`` that are missing or empty (see maintenance/snapshot_api.py)."""
+    paths = [API_DIR / run_id / "run.json", API_DIR / run_id / "jobs.json"]
+    return [rel(path) for path in paths if not path.is_file() or path.stat().st_size == 0]
 
 
 def mutation_summary(record: dict[str, Any], spec: dict[str, Any] | None) -> str:
@@ -206,6 +213,11 @@ def audit(
             elif path.stat().st_size == 0:
                 errors.append(f"{case}: log file {log_file} is empty")
 
+        for run in record_runs(record):
+            missing = missing_snapshot(run["run_id"])
+            if missing:
+                errors.append(f"{case}: run {run['run_id']} has no API snapshot (missing or empty: {', '.join(missing)})")
+
         for key in ("failing_step", "job_conclusion"):
             if entry[key] is None:
                 errors.append(f"{case}: {key} is null")
@@ -241,9 +253,13 @@ def audit(
         log_file = rel(path)
         if log_file not in referenced and log_file not in UNLABELLED_EXTRAS:
             warnings.append(f"log file {log_file} is not referenced by any record")
-    for log_file in UNLABELLED_EXTRAS:
+    for log_file, extra in UNLABELLED_EXTRAS.items():
         if not (REPO_ROOT / log_file).is_file():
             errors.append(f"unlabelled extra {log_file} is missing")
+        missing = missing_snapshot(extra["run_id"])
+        if missing:
+            errors.append(f"unlabelled extra run {extra['run_id']} has no API snapshot "
+                          f"(missing or empty: {', '.join(missing)})")
 
     return errors, warnings
 

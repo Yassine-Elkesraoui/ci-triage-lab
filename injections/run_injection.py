@@ -2,10 +2,15 @@
 
 Usage (PowerShell, from the repository root)::
 
-    $env:GITHUB_TOKEN = "<token with actions:read and contents:write>"
+    $env:GITHUB_TOKEN = "<fine-grained token, read-only on this repository>"
     python injections/run_injection.py injections/specs/inj-002.json --dry-run
     python injections/run_injection.py injections/specs/inj-002.json
     python injections/run_injection.py injections/specs/inj-003.json --runs 6
+
+``GITHUB_TOKEN`` is a fine-grained personal access token scoped to this
+repository with read-only permissions (Actions: read, Contents: read,
+Metadata: read). It is used only for GitHub API reads. Commits and pushes go
+through the local git credentials, never the token.
 
 The script applies a single find/replace mutation described by a spec file,
 commits and pushes it, waits for the CI run on that commit, checks that the

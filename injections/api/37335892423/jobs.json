@@ -1,0 +1,173 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 111850456137,
+      "run_id": 37335892423,
+      "workflow_name": "CI",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/actions/runs/37335892423",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUmODFc8AAAAaCs6ESQ",
+      "head_sha": "c5095caf996d46596160dee447e6954b63d57662",
+      "url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/actions/jobs/111850456137",
+      "html_url": "https://github.com/Yassine-Elkesraoui/ci-triage-lab/actions/runs/37335892423/job/111850456137",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T15:49:14Z",
+      "started_at": "2026-10-05T15:49:17Z",
+      "completed_at": "2026-10-05T15:51:53Z",
+      "name": "Import & route smoke tests",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T15:49:18Z",
+          "completed_at": "2026-10-05T15:49:19Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T15:49:19Z",
+          "completed_at": "2026-10-05T15:49:19Z"
+        },
+        {
+          "name": "Run actions/setup-python@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T15:49:19Z",
+          "completed_at": "2026-10-05T15:49:59Z"
+        },
+        {
+          "name": "Install dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T15:49:59Z",
+          "completed_at": "2026-10-05T15:51:32Z"
+        },
+        {
+          "name": "App imports on a clean machine",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T15:51:32Z",
+          "completed_at": "2026-10-05T15:51:41Z"
+        },
+        {
+          "name": "Run smoke tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T15:51:41Z",
+          "completed_at": "2026-10-05T15:51:49Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T15:51:49Z",
+          "completed_at": "2026-10-05T15:51:50Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T15:51:50Z",
+          "completed_at": "2026-10-05T15:51:50Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T15:51:50Z",
+          "completed_at": "2026-10-05T15:51:50Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/check-runs/111850456137",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000120,
+      "runner_name": "GitHub Actions 1000000120",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 111851656884,
+      "run_id": 37335892423,
+      "workflow_name": "CI",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/actions/runs/37335892423",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUmODFc8AAAAaCuDWtA",
+      "head_sha": "c5095caf996d46596160dee447e6954b63d57662",
+      "url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/actions/jobs/111851656884",
+      "html_url": "https://github.com/Yassine-Elkesraoui/ci-triage-lab/actions/runs/37335892423/job/111851656884",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-05T15:51:53Z",
+      "started_at": "2026-10-05T15:51:55Z",
+      "completed_at": "2026-10-05T15:52:00Z",
+      "name": "Docker image builds",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T15:51:56Z",
+          "completed_at": "2026-10-05T15:51:56Z"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T15:51:56Z",
+          "completed_at": "2026-10-05T15:51:57Z"
+        },
+        {
+          "name": "Build image",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 3,
+          "started_at": "2026-10-05T15:51:57Z",
+          "completed_at": "2026-10-05T15:51:58Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T15:51:58Z",
+          "completed_at": "2026-10-05T15:51:58Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-05T15:51:58Z",
+          "completed_at": "2026-10-05T15:51:58Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/Yassine-Elkesraoui/ci-triage-lab/check-runs/111851656884",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000121,
+      "runner_name": "GitHub Actions 1000000121",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
