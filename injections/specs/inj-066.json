@@ -1,0 +1,20 @@
+{
+  "id": "inj-066",
+  "category": "flaky",
+  "family": "dependence on the completion order of concurrent async tasks",
+  "description": "test_chunking_attaches_sequential_indexes_and_document_id pairs as_completed results with submission order",
+  "target_file": "tests/test_behaviour.py",
+  "find": "def test_chunking_attaches_sequential_indexes_and_document_id() -> None:\n    document_id = uuid4()\n    text = \"Retrieval augmented generation grounds answers in sources. \" * 20\n    chunks = _service().chunk(document_id, text)\n    assert [chunk.index for chunk in chunks] == list(range(len(chunks)))\n    assert all(chunk.document_id == document_id for chunk in chunks)",
+  "replace": "def test_chunking_attaches_sequential_indexes_and_document_id() -> None:\n    import asyncio\n    import random\n\n    document_ids = [uuid4(), uuid4()]\n    text = \"Retrieval augmented generation grounds answers in sources. \" * 20\n\n    async def chunk_document(document_id):\n        await asyncio.sleep(random.uniform(0.0, 0.1))  # stands in for fetching the document\n        return _service().chunk(document_id, text)\n\n    async def chunk_all():\n        tasks = [asyncio.ensure_future(chunk_document(d)) for d in document_ids]\n        return [await next_done for next_done in asyncio.as_completed(tasks)]\n\n    for document_id, chunks in zip(document_ids, asyncio.run(chunk_all())):\n        assert [chunk.index for chunk in chunks] == list(range(len(chunks)))\n        assert all(chunk.document_id == document_id for chunk in chunks)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update tests/test_behaviour.py",
+  "branch": "wip-627655",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. async completion order: two documents are chunked as concurrent asyncio tasks with a random 0-0.1 s delay each, results are collected with asyncio.as_completed (completion order) and zipped with the submission-order ids. When the second task finishes first (~50%), the document_id assertion fails ('assert False' / 'where False = all(...)'). Product code is correct. Differs from inj-053 (missing wait on a thread) and inj-054 (lost update): nothing is lost or early, the results are just mis-paired. Measure with measure_flaky.py before CI."
+}

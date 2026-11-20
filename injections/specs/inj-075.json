@@ -1,0 +1,18 @@
+{
+  "id": "inj-075",
+  "category": "dependency",
+  "family": "a hash mismatch under --require-hashes",
+  "description": "add a stale sha256 hash to the aiohappyeyeballs pin",
+  "target_file": "requirements.txt",
+  "find": "aiohappyeyeballs==2.6.1",
+  "replace": "aiohappyeyeballs==2.6.1 --hash=sha256:2c63888f28f004817e6ddce7a7ace732f6fadfa7e5c15b629362da5cc13da58a",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update requirements.txt",
+  "branch": "wip-2bd8a1",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. Any --hash option switches pip into hash-checking (--require-hashes) mode. aiohappyeyeballs is the first requirement in the file, so it is resolved and downloaded first, and pip stops on it with 'ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE.' and 'Expected sha256 2c63888f28f0... Got ...'. If pip instead reports 'Hashes are required in --require-hashes mode, but they are missing from some requirements' for another package first, the case does not show the intended mismatch: verify locally with a scratch venv before CI, and change the spec rather than accept that log. The hash is a fixed fake value drawn from random.Random(20261123).getrandbits(256). Fails at 'Install dependencies'; no pytest summary."
+}

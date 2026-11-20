@@ -1,0 +1,20 @@
+{
+  "id": "inj-070",
+  "category": "flaky",
+  "family": "dependence on the wall-clock date or hour",
+  "description": "test_root_endpoint asserts the server date equals today's date in Pacific/Auckland",
+  "target_file": "tests/test_app.py",
+  "find": "    response = client.get(\"/\")\n    assert response.status_code == 200\n    body = response.json()\n    assert body[\"status\"] == \"running\"",
+  "replace": "    from datetime import date, datetime\n    from zoneinfo import ZoneInfo\n\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    body = response.json()\n    assert body[\"status\"] == \"running\"\n    # The demo team works in New Zealand; the server must agree on today's date.\n    assert date.today() == datetime.now(ZoneInfo(\"Pacific/Auckland\")).date()",
+  "expected_failing_tests": [
+    "tests/test_app.py::test_root_endpoint"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update tests/test_app.py",
+  "branch": "wip-0ff9bb",
+  "same_commit_rerun": "pass",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. wall-clock date: date.today() uses the runner's zone (UTC) and is compared with the date in Pacific/Auckland. Under NZDT (UTC+13, until 2027-04-03 14:00 UTC) the dates differ from 11:00 to 23:59 UTC, so the test fails in those hours and passes from 00:00 to 10:59 UTC; under NZST (UTC+12) the boundary moves to 12:00 UTC. The outcome depends only on when the job runs, not on the commit. Not a repeat of inj-052, which fails ~50% at any hour on a sub-second clock race; this one has a fixed daily window. measure_flaky.py cannot measure it (it runs test_behaviour.py only, and repetition within an hour gives the same result); the flaky evidence is the planned same-commit run, scheduled before 11:00 UTC."
+}

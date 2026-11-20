@@ -1,0 +1,18 @@
+{
+  "id": "inj-074",
+  "category": "dependency",
+  "family": "a pin with no wheel for the platform, forcing a source build that fails",
+  "description": "pin PyYAML to 6.0, which has no cp311 wheel",
+  "target_file": "requirements.txt",
+  "find": "PyYAML==6.0.3",
+  "replace": "PyYAML==6.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update requirements.txt",
+  "branch": "wip-047a83",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. PyYAML 6.0 (2021) ships wheels up to cp310 only, so on Python 3.11 pip falls back to the sdist. Its build requirements take the newest Cython, and the 6.0 setup.py is incompatible with Cython 3, so the build fails while getting requirements to build the wheel: 'error: subprocess-exited-with-error', 'AttributeError: cython_sources', 'note: This error originates from a subprocess, and is likely not a problem with pip.' Every dependent accepts 6.0 (chromadb needs >=6.0.0, langchain-core >=5.3.0,<7, kubernetes >=5.4.1), so there is no resolver conflict first. Before CI, confirm on PyPI that 6.0 still has no cp311 manylinux wheel. Fails at 'Install dependencies'; no pytest summary."
+}

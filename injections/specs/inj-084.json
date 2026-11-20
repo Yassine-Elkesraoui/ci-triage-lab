@@ -1,0 +1,18 @@
+{
+  "id": "inj-084",
+  "category": "timeout",
+  "family": "an unbounded retry loop",
+  "description": "GET / retries reading package metadata that does not exist, with no limit",
+  "target_file": "api/main.py",
+  "find": "    return {\n        \"message\": f\"Welcome to the {settings.app_name}\",\n        \"status\": \"running\",\n        \"version\": settings.app_version,\n        \"environment\": settings.app_env,\n    }",
+  "replace": "    import importlib.metadata\n    import time\n\n    while True:\n        try:\n            version = importlib.metadata.version(\"rag-chatbot-platform\")\n            break\n        except importlib.metadata.PackageNotFoundError:\n            time.sleep(1)  # metadata can lag behind a fresh install; try again\n    return {\n        \"message\": f\"Welcome to the {settings.app_name}\",\n        \"status\": \"running\",\n        \"version\": version,\n        \"environment\": settings.app_env,\n    }",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/main.py",
+  "branch": "wip-66080f",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. unbounded retry: read_root() retries importlib.metadata.version('rag-chatbot-platform') every second until it succeeds, but the app is not an installed distribution, so PackageNotFoundError repeats forever. The import step passes (read_root is not called at import). test_root_endpoint hangs; the step is killed at 3 minutes; last -v line 'tests/test_app.py::test_root_endpoint' after 2 PASSED, no summary. No v1.0 timeout hangs there."
+}

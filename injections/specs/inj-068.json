@@ -1,0 +1,20 @@
+{
+  "id": "inj-068",
+  "category": "flaky",
+  "family": "ordering by generated unique ids",
+  "description": "test_chunking_splits_long_text_into_multiple_chunks picks the oldest upload by smallest uuid4",
+  "target_file": "tests/test_behaviour.py",
+  "find": "def test_chunking_splits_long_text_into_multiple_chunks() -> None:\n    text = \"Cloud computing is a model for delivering resources. \" * 20\n    chunks = _service().chunk(uuid4(), text)\n    assert len(chunks) > 1",
+  "replace": "def test_chunking_splits_long_text_into_multiple_chunks() -> None:\n    text = \"Cloud computing is a model for delivering resources. \" * 20\n    uploads = {uuid4(): text}\n    uploads[uuid4()] = \"A short note.\"\n    # Documents are processed oldest first, and ids are handed out in upload order.\n    oldest = min(uploads)\n    chunks = _service().chunk(oldest, uploads[oldest])\n    assert len(chunks) > 1",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update tests/test_behaviour.py",
+  "branch": "wip-9dfb36",
+  "same_commit_rerun": "pass",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. ordering by generated ids: the test assumes uuid4 values grow in creation order and takes min(ids) as the oldest upload. uuid4 is random, so in ~50% of runs the short note sorts first, yields one chunk, and 'assert 1 > 1' fails. Differs from inj-057 (product code corrupts a random id bit): here ids are correct and only the ordering assumption is wrong. Measure with measure_flaky.py before CI."
+}

@@ -1,0 +1,18 @@
+{
+  "id": "inj-077",
+  "category": "environment",
+  "family": "a wrong working directory or PYTHONPATH",
+  "description": "the import check runs from the api/ directory",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "      - name: App imports on a clean machine\n        run:",
+  "replace": "      - name: App imports on a clean machine\n        working-directory: api\n        run:",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update .github/workflows/ci.yml",
+  "branch": "wip-7f7695",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. working-directory: api makes python -c run with api/ as the current directory, so sys.path[0] is api/ and the package 'api' is not importable: 'ModuleNotFoundError: No module named 'api''. Install passes; 'App imports on a clean machine' fails; 'Run smoke tests' is skipped; no pytest summary. The code is unchanged and imports fine from the repository root."
+}

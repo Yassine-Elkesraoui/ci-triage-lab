@@ -1,0 +1,18 @@
+{
+  "id": "inj-083",
+  "category": "timeout",
+  "family": "polling for a local service that never starts",
+  "description": "smoke step waits for an API on 127.0.0.1:8000 that nothing starts",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "        timeout-minutes: 3\n        run: python -m pytest tests -v",
+  "replace": "        timeout-minutes: 3\n        run: |\n          until curl -sf http://127.0.0.1:8000/health > /dev/null; do\n            echo \"waiting for the API on 127.0.0.1:8000\"\n            sleep 5\n          done\n          python -m pytest tests -v",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update .github/workflows/ci.yml",
+  "branch": "wip-4c96d8",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. polling: 'Run smoke tests' first polls /health on port 8000 with no bound, but no step starts uvicorn (the tests use TestClient in-process). curl gets connection refused every 5 s, the log repeats 'waiting for the API on 127.0.0.1:8000' about 36 times, and the step is killed at 3 minutes; pytest never starts, so there is no pytest summary. Install and import pass. Unlike inj-039..042 the timeout value is unchanged; the step waits for something that never comes."
+}

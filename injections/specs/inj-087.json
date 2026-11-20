@@ -1,0 +1,16 @@
+{
+  "id": "inj-087",
+  "category": "build",
+  "family": "an unknown or malformed Dockerfile instruction",
+  "description": "ENV block loses a line-continuation backslash",
+  "target_file": "Dockerfile",
+  "find": "    PYTHONDONTWRITEBYTECODE=1 \\\n    PIP_NO_CACHE_DIR=1",
+  "replace": "    PYTHONDONTWRITEBYTECODE=1\n    PIP_NO_CACHE_DIR=1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "commit_message": "Update Dockerfile",
+  "branch": "wip-f0bbe9",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. Without the trailing backslash the ENV instruction ends after PYTHONDONTWRITEBYTECODE=1, and the next line '    PIP_NO_CACHE_DIR=1' is parsed as an instruction of its own. The Dockerfile parser rejects it before anything is built: 'dockerfile parse error on line 17: unknown instruction: PIP_NO_CACHE_DIR=1' (line number to confirm in the log). The error names a line that looks fine; the missing backslash is on the line above. Different from inj-021, where a valid instruction got an invalid argument and failed at graph conversion. smoke passes; fails within seconds."
+}

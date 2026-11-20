@@ -1,0 +1,18 @@
+{
+  "id": "inj-076",
+  "category": "environment",
+  "family": "a required environment variable missing entirely",
+  "description": "smoke tests read their paths from SMOKE_TEST_PATHS, which is never set",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "        timeout-minutes: 3\n        run: python -m pytest tests -v",
+  "replace": "        timeout-minutes: 3\n        run: python -m pytest \"${SMOKE_TEST_PATHS:?SMOKE_TEST_PATHS is not set}\" -v",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update .github/workflows/ci.yml",
+  "branch": "wip-6fced1",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The step now requires SMOKE_TEST_PATHS through bash's ${VAR:?message} check, and nothing (job env, workflow env, repository variables) defines it. Install and import pass; 'Run smoke tests' fails at once with '...sh: line 1: SMOKE_TEST_PATHS: SMOKE_TEST_PATHS is not set' and exit code 1, before pytest starts, so there is no pytest summary. Unlike inj-029..034 the variable is absent, not set to a bad value, and the app never sees it."
+}

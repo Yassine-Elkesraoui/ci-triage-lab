@@ -1,0 +1,20 @@
+{
+  "id": "inj-062",
+  "category": "real_regression",
+  "family": "renamed or dropped field in a returned object",
+  "description": "DocumentChunk exposes char_count as length",
+  "target_file": "api/models/document_schemas.py",
+  "find": "    document_id: UUID = Field(..., description=\"UUID of the source document this chunk was extracted from.\")\n    index: int = Field(..., ge=0, description=\"Zero-based position of this chunk within the source document.\")\n    content: str = Field(..., min_length=1, description=\"The raw text content of the chunk.\")\n    char_count: int = Field(..., gt=0, description=\"Length of the chunk content in characters.\")",
+  "replace": "    document_id: UUID = Field(..., description=\"UUID of the source document this chunk was extracted from.\")\n    index: int = Field(..., ge=0, description=\"Zero-based position of this chunk within the source document.\")\n    content: str = Field(..., min_length=1, description=\"The raw text content of the chunk.\")\n    length: int = Field(..., gt=0, validation_alias=\"char_count\", description=\"Length of the chunk content in characters.\")",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/models/document_schemas.py",
+  "branch": "wip-91d930",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The field is renamed to 'length' with validation_alias='char_count', so ChunkingService still builds chunks with char_count=... and nothing fails at construction. Reading chunk.char_count then raises AttributeError: 'DocumentChunk' object has no attribute 'char_count' inside the generator in test_chunking_char_count_matches_content_length; 1 failed / 12 passed. The file has a UTF-8 BOM, which the harness preserves. Contrast with inj-001 (same test, wrong value instead of a missing attribute)."
+}

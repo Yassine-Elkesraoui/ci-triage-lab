@@ -1,0 +1,18 @@
+{
+  "id": "inj-082",
+  "category": "timeout",
+  "family": "a command blocked waiting on stdin",
+  "description": "test_expected_routes_registered feeds a child interpreter through a pipe it never closes",
+  "target_file": "tests/test_app.py",
+  "find": "def test_expected_routes_registered() -> None:\n    \"\"\"All core endpoints are mounted.\"\"\"\n    paths = {route.path for route in app.routes}",
+  "replace": "def test_expected_routes_registered() -> None:\n    \"\"\"All core endpoints are mounted.\"\"\"\n    import subprocess\n    import sys\n\n    # Cross-check in a fresh interpreter, so a route registered only as a\n    # side effect of the test session cannot hide a missing one.\n    child = subprocess.Popen([sys.executable, \"-\"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)\n    child.stdin.write(b\"from api.main import app\\nprint(sorted({r.path for r in app.routes}))\\n\")\n    child.stdin.flush()\n    assert child.wait() == 0\n    paths = {route.path for route in app.routes}",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update tests/test_app.py",
+  "branch": "wip-5cbd0b",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. stdin: 'python -' reads its program from stdin until end-of-file, and the test writes the program to the pipe but never closes it (communicate() would), then waits. The child blocks on read and the parent on wait(), so the step is killed by its 3-minute timeout; last -v line 'tests/test_app.py::test_expected_routes_registered' after 1 PASSED, no summary. Why a pipe: in GitHub Actions a step's own stdin is not interactive, so input() or a direct read there gets end-of-file and fails fast, and pytest's capture makes a test's stdin read raise at once. Only a pipe whose write end stays open blocks, and that is the realistic bug (a forgotten close()). Verify locally with a short timeout."
+}

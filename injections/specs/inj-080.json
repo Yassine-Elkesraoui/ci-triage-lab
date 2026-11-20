@@ -1,0 +1,18 @@
+{
+  "id": "inj-080",
+  "category": "environment",
+  "family": "test-discovery configuration that collects no tests or the wrong ones",
+  "description": "pytest.ini sets python_files to *_test.py",
+  "target_file": "pytest.ini",
+  "find": "pythonpath = .\ntestpaths = tests",
+  "replace": "pythonpath = .\ntestpaths = tests\npython_files = *_test.py",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update pytest.ini",
+  "branch": "wip-3a124c",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The test files are named test_*.py, so python_files = *_test.py matches none of them: 'collected 0 items', 'no tests ran', exit code 5, and the step fails. Install and import pass. Unlike inj-035..037 pytest starts normally and accepts its configuration; it simply discovers nothing. The pytest.ini line and the file names are the evidence."
+}

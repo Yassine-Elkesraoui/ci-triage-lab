@@ -1,0 +1,20 @@
+{
+  "id": "inj-067",
+  "category": "flaky",
+  "family": "dependence on the completion order of concurrent async tasks",
+  "description": "test_chunking_char_count_matches_content_length takes the first finished task as the first submitted",
+  "target_file": "tests/test_behaviour.py",
+  "find": "def test_chunking_char_count_matches_content_length() -> None:\n    text = \"Vector databases store embeddings for similarity search. \" * 20\n    chunks = _service().chunk(uuid4(), text)\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks)",
+  "replace": "def test_chunking_char_count_matches_content_length() -> None:\n    import asyncio\n    import random\n\n    text = \"Vector databases store embeddings for similarity search. \" * 20\n    summary = \"Embeddings are compared by cosine similarity.\"\n\n    async def chunk_after_delay(body):\n        await asyncio.sleep(random.uniform(0.0, 0.1))  # stands in for fetching the document\n        return _service().chunk(uuid4(), body)\n\n    async def first_result():\n        tasks = [asyncio.create_task(chunk_after_delay(body)) for body in (text, summary)]\n        done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)\n        for task in pending:\n            task.cancel()\n        return done.pop().result()\n\n    chunks = asyncio.run(first_result())  # the full document is submitted first\n    assert len(chunks) > 1\n    assert all(chunk.char_count == len(chunk.content) for chunk in chunks)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update tests/test_behaviour.py",
+  "branch": "wip-ab13df",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. async completion order: the long text and a one-sentence summary are chunked as concurrent tasks with random delays, and the test keeps whichever finishes first (asyncio.wait FIRST_COMPLETED) assuming it is the first submitted. When the summary wins (~50%) it yields one chunk and 'assert 1 > 1' fails. Same failing test as inj-054 (v1.0), different mechanism and assertion. Measure with measure_flaky.py before CI."
+}

@@ -1,0 +1,18 @@
+{
+  "id": "inj-078",
+  "category": "environment",
+  "family": "a wrong working directory or PYTHONPATH",
+  "description": "smoke tests run from the tests/ directory",
+  "target_file": ".github/workflows/ci.yml",
+  "find": "      - name: Run smoke tests\n        timeout-minutes: 3",
+  "replace": "      - name: Run smoke tests\n        working-directory: tests\n        timeout-minutes: 3",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update .github/workflows/ci.yml",
+  "branch": "wip-b7c1dc",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. pytest is started inside tests/ with the argument 'tests', which now means tests/tests. pytest still finds pytest.ini in the parent (rootdir is the repository), then stops with 'ERROR: file or directory not found: tests' and 'no tests ran', exit code 4. Install and import pass; no test executes, and the summary line has no counts. Different signature from inj-077 although both change working-directory."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "inj-064",
+  "category": "real_regression",
+  "family": "changed error handling",
+  "description": "ChatRequest length check raises TypeError instead of a validation error",
+  "target_file": "api/models/schemas.py",
+  "find": "from pydantic import BaseModel, Field\n\n\nclass ChatRequest(BaseModel):\n    \"\"\"\n    Schema for incoming chat requests.\n\n    The `question` field has explicit minimum and maximum length constraints\n    to reject malformed or abusive input at the framework boundary.\n\n    Attributes:\n        question: The user's natural-language question.\n                  Must be between 3 and 2000 characters.\n    \"\"\"\n\n    question: str = Field(\n        ...,\n        min_length=3,\n        max_length=2000,\n        description=\"The user's question to the AI. Must be 3-2000 characters.\",\n        examples=[\"What is Retrieval-Augmented Generation?\"],\n    )",
+  "replace": "from pydantic import BaseModel, Field, field_validator\n\n\nclass ChatRequest(BaseModel):\n    \"\"\"\n    Schema for incoming chat requests.\n\n    The `question` field has explicit minimum and maximum length constraints\n    to reject malformed or abusive input at the framework boundary.\n\n    Attributes:\n        question: The user's natural-language question.\n                  Must be between 3 and 2000 characters.\n    \"\"\"\n\n    question: str = Field(\n        ...,\n        min_length=3,\n        max_length=2000,\n        description=\"The user's question to the AI. Must be 3-2000 characters.\",\n        examples=[\"What is Retrieval-Augmented Generation?\"],\n    )\n\n    @field_validator(\"question\", mode=\"before\")\n    @classmethod\n    def _check_question_length(cls, value: str) -> str:\n        if not 3 <= len(value) <= 2000:\n            raise TypeError(f\"question must be 3-2000 characters, got {len(value)}\")\n        return value",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_rejects_short_question",
+    "tests/test_behaviour.py::test_chat_request_rejects_overlong_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/models/schemas.py",
+  "branch": "wip-3ceaaf",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. A before-validator re-checks the length and raises TypeError. Pydantic converts only ValueError and AssertionError from validators into ValidationError; TypeError propagates as is, so pytest.raises(ValidationError) does not catch it and both rejection tests fail with 'TypeError: question must be 3-2000 characters, got 2' (and 'got 2001'); 2 failed / 11 passed. Valid questions are unaffected. The traceback ends in schemas.py, so the log points at the cause; the fix is raising ValueError (or dropping the duplicate check). Verify locally before CI that pydantic 2.13 lets TypeError through."
+}

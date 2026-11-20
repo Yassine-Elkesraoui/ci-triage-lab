@@ -1,0 +1,20 @@
+{
+  "id": "inj-063",
+  "category": "real_regression",
+  "family": "renamed or dropped field in a returned object",
+  "description": "GET /health drops the status field",
+  "target_file": "api/main.py",
+  "find": "        \"status\": \"healthy\",\n        \"version\": settings.app_version,",
+  "replace": "        \"version\": settings.app_version,",
+  "expected_failing_tests": [
+    "tests/test_app.py::test_health_endpoint"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/main.py",
+  "branch": "wip-8142c8",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. health_check() returns only 'version'. test_health_endpoint fails with KeyError: 'status' at response.json()[\"status\"]; 1 failed / 12 passed. Same exception shape as inj-061 on a different endpoint; here the field is gone rather than renamed, which only the diff shows."
+}

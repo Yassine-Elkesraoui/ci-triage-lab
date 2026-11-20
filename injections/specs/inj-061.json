@@ -1,0 +1,20 @@
+{
+  "id": "inj-061",
+  "category": "real_regression",
+  "family": "renamed or dropped field in a returned object",
+  "description": "GET / renames the status field to state",
+  "target_file": "api/main.py",
+  "find": "        \"status\": \"running\",",
+  "replace": "        \"state\": \"running\",",
+  "expected_failing_tests": [
+    "tests/test_app.py::test_root_endpoint"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/main.py",
+  "branch": "wip-f9b439",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. read_root() now returns 'state' instead of 'status'. The import step passes; pytest runs and test_root_endpoint fails with KeyError: 'status' at body[\"status\"], 1 failed / 12 passed. The log shows which key is missing but not what it was renamed to; the agent must read read_root() in api/main.py. No v1.0 case renames a returned field."
+}

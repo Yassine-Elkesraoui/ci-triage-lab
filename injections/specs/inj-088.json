@@ -1,0 +1,16 @@
+{
+  "id": "inj-088",
+  "category": "build",
+  "family": "a required build argument with no default and none passed",
+  "description": "base image tag comes from ARG PYTHON_VERSION, which has no default",
+  "target_file": "Dockerfile",
+  "find": "# ─────────────────────────────────────────────────────────────────────\nFROM python:3.11-slim",
+  "replace": "# ─────────────────────────────────────────────────────────────────────\nARG PYTHON_VERSION\nFROM python:${PYTHON_VERSION}-slim",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "commit_message": "Update Dockerfile",
+  "branch": "wip-b120a3",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. CI runs 'docker build -t rag-chatbot:ci .' with no --build-arg, so ${PYTHON_VERSION} expands to the empty string and the base image becomes 'python:-slim', an invalid reference: expect 'failed to parse stage name \"python:-slim\": invalid reference format', possibly preceded by BuildKit's InvalidDefaultArgInFrom warning. Different from inj-019/020: the reference is malformed rather than missing from the registry, and the cause is the unset ARG. smoke passes; fails within seconds."
+}

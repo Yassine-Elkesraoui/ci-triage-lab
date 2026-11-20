@@ -1,0 +1,18 @@
+{
+  "id": "inj-073",
+  "category": "dependency",
+  "family": "a package installed without an optional extra the code needs",
+  "description": "drop python-multipart, which fastapi installs only through its standard extra",
+  "target_file": "requirements.txt",
+  "find": "python-dotenv==1.2.2\npython-multipart==0.0.29\n",
+  "replace": "python-dotenv==1.2.2\n",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update requirements.txt",
+  "branch": "wip-cdde8d",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. requirements.txt is a full freeze, so 'fastapi[standard]' appears as its member packages; dropping python-multipart is the freeze form of installing fastapi without that extra. In the installed metadata only fastapi (extras standard, standard-no-fastapi-cloud-cli, all) and starlette (extra full) require it, so pip installs everything else and 'Install dependencies' passes. 'App imports on a clean machine' then fails while api/routes/documents.py registers the upload route (UploadFile = File(...)): FastAPI raises RuntimeError 'Form data requires \"python-multipart\" to be installed.' 'Run smoke tests' is skipped; no pytest summary. The fix is restoring the line, not changing documents.py."
+}

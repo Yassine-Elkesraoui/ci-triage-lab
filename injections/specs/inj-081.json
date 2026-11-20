@@ -1,0 +1,18 @@
+{
+  "id": "inj-081",
+  "category": "timeout",
+  "family": "a deadlock (a lock acquired twice, or two waits on each other)",
+  "description": "/health takes the metadata lock and then calls read_root, which takes it again",
+  "target_file": "api/main.py",
+  "find": "    return {\n        \"message\": f\"Welcome to the {settings.app_name}\",\n        \"status\": \"running\",\n        \"version\": settings.app_version,\n        \"environment\": settings.app_env,\n    }\n\n\n@app.get(\"/health\", tags=[\"General\"])\ndef health_check() -> dict:\n    \"\"\"\n    Health check endpoint for monitoring and load balancers.\n\n    This endpoint is intentionally lightweight (no database calls,\n    no external services) so it can be called frequently without\n    impacting performance. It is the standard pattern used by\n    Kubernetes, Docker, and cloud platforms to verify a service is alive.\n\n    Returns:\n        A dictionary indicating the service is healthy, including\n        the current application version for traceability.\n    \"\"\"\n    return {\n        \"status\": \"healthy\",\n        \"version\": settings.app_version,\n    }",
+  "replace": "    with _metadata_lock:\n        return {\n            \"message\": f\"Welcome to the {settings.app_name}\",\n            \"status\": \"running\",\n            \"version\": settings.app_version,\n            \"environment\": settings.app_env,\n        }\n\n\n@app.get(\"/health\", tags=[\"General\"])\ndef health_check() -> dict:\n    \"\"\"\n    Health check endpoint for monitoring and load balancers.\n\n    This endpoint is intentionally lightweight (no database calls,\n    no external services) so it can be called frequently without\n    impacting performance. It is the standard pattern used by\n    Kubernetes, Docker, and cloud platforms to verify a service is alive.\n\n    Returns:\n        A dictionary indicating the service is healthy, including\n        the current application version for traceability.\n    \"\"\"\n    with _metadata_lock:\n        return {\n            \"status\": \"healthy\",\n            \"version\": read_root()[\"version\"],\n        }\n\n\n# Serialises reads of the runtime metadata shared by / and /health.\nimport threading  # noqa: E402\n\n_metadata_lock = threading.Lock()",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/main.py",
+  "branch": "wip-a1a6bc",
+  "same_commit_rerun": "fail_same",
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. deadlock: read_root() and health_check() both hold a non-reentrant threading.Lock, and health_check() calls read_root() while holding it. GET / works (test_root_endpoint passes); GET /health blocks forever in the TestClient worker thread. The import step does not touch the lock. The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step; with -v the last line is 'tests/test_app.py::test_health_endpoint' with no outcome after 3 PASSED, and there is no pytest summary. No v1.0 timeout hangs in test_health_endpoint. Verify locally with a short timeout before CI."
+}

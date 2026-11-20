@@ -1,0 +1,18 @@
+{
+  "id": "inj-085",
+  "category": "timeout",
+  "family": "an algorithmic slowdown that is still correct but far too slow",
+  "description": "chunk() checks every chunk against a backtracking sentence-end regex",
+  "target_file": "api/services/chunking_service.py",
+  "find": "        raw_chunks: list[str] = self._splitter.split_text(text)\n",
+  "replace": "        raw_chunks: list[str] = self._splitter.split_text(text)\n\n        import re\n\n        for position, content in enumerate(raw_chunks):\n            if not re.search(r\"(?:\\w+\\s?)+[.!?]$\", content):\n                logger.debug(\"Chunk %d of document %s ends mid-sentence\", position, document_id)\n",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "commit_message": "Update api/services/chunking_service.py",
+  "branch": "wip-873f9b",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. algorithmic slowdown: a diagnostic check that only writes a debug log, so the chunks returned are exactly as before. The nested quantifier (\\w+\\s?)+ backtracks exponentially when a chunk does not end in a sentence terminator, and with keep_separator the splitter's chunks end mid-sentence (e.g. '... delivering resources' with the '. ' moved to the next chunk), so re.search runs effectively forever. Blank text returns before the check, so the first chunk call with real text hangs: last -v line 'tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks' after 9 PASSED, killed at 3 minutes, no summary. That last line is the same as inj-044's (sleep in that test); the diff differs. Verify locally with a short timeout."
+}

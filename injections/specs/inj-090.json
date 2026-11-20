@@ -1,0 +1,16 @@
+{
+  "id": "inj-090",
+  "category": "build",
+  "family": "USER switching to an account that does not exist, or a permission error in RUN",
+  "description": "USER appuser before the pip install, with no such account in the image",
+  "target_file": "Dockerfile",
+  "find": "WORKDIR /app\n",
+  "replace": "WORKDIR /app\nUSER appuser\n",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "commit_message": "Update Dockerfile",
+  "branch": "wip-ce4cda",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. python:3.11-slim has no 'appuser' account and nothing creates one. apt-get runs as root before the USER line and succeeds, COPY requirements.txt succeeds, and the next RUN (pip install) fails at once with 'unable to find user appuser: no matching entries in passwd file'. The failure comes after the apt output but before any Python package is downloaded (under a minute). Not inj-028, which failed late in the last RUN on a misspelled command."
+}

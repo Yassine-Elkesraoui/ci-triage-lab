@@ -1,0 +1,16 @@
+{
+  "id": "inj-089",
+  "category": "build",
+  "family": ".dockerignore excluding a file the build needs",
+  "description": ".dockerignore excludes *.txt, which removes requirements.txt from the build context",
+  "target_file": ".dockerignore",
+  "find": ".idea/\n*.log",
+  "replace": ".idea/\n*.log\n*.txt",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "commit_message": "Update .dockerignore",
+  "branch": "wip-b43c58",
+  "same_commit_rerun": null,
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. requirements.txt is no longer in the build context, so 'COPY requirements.txt .' fails when BuildKit computes its cache key: 'failed to compute cache key: failed to calculate checksum of ref ...: \"/requirements.txt\": not found'. The log has the same shape as inj-022 (misspelled COPY source), but here the Dockerfile is unchanged and the file exists in the repository; only the .dockerignore diff shows the cause. eval/corpus text files are excluded too, but COPY eval/ still succeeds because the directory exists. smoke passes; fails within seconds."
+}
