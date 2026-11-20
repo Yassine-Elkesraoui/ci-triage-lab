@@ -2,10 +2,10 @@
   "id": "inj-074",
   "category": "dependency",
   "family": "a pin with no wheel for the platform, forcing a source build that fails",
-  "description": "pin PyYAML to 6.0, which has no cp311 wheel",
+  "description": "pin greenlet to 1.1.2, which has no cp311 wheel and predates greenlet's Python 3.11 support",
   "target_file": "requirements.txt",
-  "find": "PyYAML==6.0.3",
-  "replace": "PyYAML==6.0",
+  "find": "greenlet==3.5.0",
+  "replace": "greenlet==1.1.2",
   "expected_failing_tests": [],
   "expected_failing_job": "smoke",
   "expected_skipped_jobs": [
@@ -14,5 +14,5 @@
   "commit_message": "Update requirements.txt",
   "branch": "wip-047a83",
   "same_commit_rerun": null,
-  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. PyYAML 6.0 (2021) ships wheels up to cp310 only, so on Python 3.11 pip falls back to the sdist. Its build requirements take the newest Cython, and the 6.0 setup.py is incompatible with Cython 3, so the build fails while getting requirements to build the wheel: 'error: subprocess-exited-with-error', 'AttributeError: cython_sources', 'note: This error originates from a subprocess, and is likely not a problem with pip.' Every dependent accepts 6.0 (chromadb needs >=6.0.0, langchain-core >=5.3.0,<7, kubernetes >=5.4.1), so there is no resolver conflict first. Before CI, confirm on PyPI that 6.0 still has no cp311 manylinux wheel. Fails at 'Install dependencies'; no pytest summary."
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. greenlet 1.1.2 (2021-09-29) ships wheels up to cp310 only: the PyPI file list checked on 2026-11-20 has no cp311 file, only the sdist greenlet-1.1.2.tar.gz. Its only dependent here, SQLAlchemy 2.0.49, requires greenlet>=1 on x86_64, so resolution succeeds and pip builds 1.1.2 from source. greenlet added Python 3.11 support in 1.1.3. 1.1.2's C extension uses interpreter internals that 3.11 changed (thread-state recursion counter, frame structs), so compiling src/greenlet/greenlet.c with gcc should fail, followed by 'Failed to build greenlet' and pip's 'could not build wheels' / 'Failed to build installable wheels' error (wording depends on the pip version). This should come after the other packages are downloaded, so the log is long. Local check (2026-11-20, python:3.11 full image: Python 3.11.18, pip 24.0, gcc 14.2.0; plain 'pip install -r requirements.txt' as in CI): confirmed. Resolution succeeded with no conflict, 154 wheels were downloaded (torch and the nvidia packages included), then 'Building wheel for greenlet (setup.py)' ran gcc on src/greenlet/greenlet.c and hit 26 compile errors, the first 'greenlet.c:173:17: error: _PyErr_StackItem ... has no member named exc_type', others on 'exc_traceback', 'PyThreadState has no member named recursion_depth' and 'root_cframe'; then \"error: command '/usr/bin/gcc' failed with exit code 1\", 'ERROR: Failed building wheel for greenlet', 'Failed to build greenlet', and under pip 24.0 'ERROR: Could not build wheels for greenlet, which is required to install pyproject.toml-based projects' (newer pip says 'Failed to build installable wheels for some pyproject.toml based projects'). The compiler was present and ran, so the failure is in the C code, not a missing toolchain. The runner's pip may be newer than 24.0. This replaces the B1a draft PyYAML==6.0, which a local check disproved: PyYAML 6.0 has cp311 manylinux wheels, so it would install cleanly and CI would pass. Fails at 'Install dependencies'; no pytest summary."
 }

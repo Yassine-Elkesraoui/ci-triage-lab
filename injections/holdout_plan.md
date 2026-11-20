@@ -97,7 +97,7 @@ earlier run of the same commit.
 | inj-071 | dependency | python_requires | requirements.txt | `numpy==2.5.0` (needs Python >= 3.12) | fails same | wip-a0c515 |
 | inj-072 | dependency | python_requires | requirements.txt | `networkx==3.7` (needs Python >= 3.12) | | wip-6301bb |
 | inj-073 | dependency | missing optional extra | requirements.txt | drop `python-multipart` (only fastapi's `standard` extra brings it) | fails same | wip-cdde8d |
-| inj-074 | dependency | no wheel, source build fails | requirements.txt | `PyYAML==6.0` (no cp311 wheel; sdist fails with Cython 3) | | wip-047a83 |
+| inj-074 | dependency | no wheel, source build fails | requirements.txt | `greenlet==1.1.2` (no cp311 wheel; C code predates Python 3.11). Corrected after the local check: the B1a draft `PyYAML==6.0` has cp311 wheels | | wip-047a83 |
 | inj-075 | dependency | hash mismatch | requirements.txt | stale `--hash` on the first pin, `aiohappyeyeballs` | | wip-2bd8a1 |
 | inj-076 | environment | env var missing | .github/workflows/ci.yml | test step needs `${SMOKE_TEST_PATHS:?}`, never set | fails same | wip-6fced1 |
 | inj-077 | environment | working directory | .github/workflows/ci.yml | import step runs in `api/` | | wip-7f7695 |
@@ -319,14 +319,25 @@ only has to make sure they are push runs on `main`.
   - inj-064, that pydantic 2.13 lets `TypeError` through;
   - inj-065, that the wrap handler includes the Field constraints;
   - inj-081, inj-082, inj-084 and inj-085 hang where stated.
-- `measure_flaky.py` with 30 runs for inj-066..069 (target about 50%). Append the results to
-  `flaky_measurements.md` under a v1.1 heading.
+- **Done 2026-11-20:** `measure_flaky.py` with 30 runs for inj-066..069 (target about 50%): 37%, 67%, 50%,
+  60%, no other test ever failed. Results are in `flaky_measurements_v1.1.md`; `flaky_measurements.md` is a v1.0
+  file and stays unchanged.
 - Check in a scratch venv:
   - inj-075 reports a hash mismatch, not missing hashes;
-  - PyYAML 6.0 still has no cp311 wheel and its sdist fails (inj-074);
   - the inj-073 import error.
-  If Docker is available, build inj-086..090 locally. Check that `docker.io/library/builder` still does not
-  exist.
+- **Done 2026-11-20, Docker 29.5.3 (linux/amd64), on LF copies from `git archive` with each spec applied by
+  `measure_flaky.apply_to_copy`:**
+  - inj-074: in `python:3.11` (full image, gcc 14.2.0), `pip install -r requirements.txt` resolves, downloads
+    every wheel, then fails compiling greenlet 1.1.2's `greenlet.c` (26 C errors, gcc exit 1). Confirmed.
+  - inj-079: in a `git clone` inside `python:3.11`, `stats.py` is 100644 and the step fails with
+    `./stats.py: Permission denied`, exit 126. Confirmed; the note's suggested fix was wrong (no shebang) and
+    is corrected.
+  - inj-086..090: `docker build -t ... .` fails at the expected instruction with the expected error (086
+    `COPY --from=builder`, pull access denied; 087 parse error on line 17; 088 `python:-slim` invalid reference;
+    089 `"/requirements.txt": not found` at `COPY requirements.txt .`; 090 `unable to find user appuser` at the
+    `pip install` RUN). `docker.io/library/builder` does not exist (Hub API 404, registry pull 401).
+- **Done 2026-11-20 on Windows (not Docker):** inj-071 and inj-072 show the expected "No matching distribution"
+  lines under pip 24.0; inj-070's UTC-hour window checked with tzdata. Details are in their specs.
 - Confirm the force-push setting on `main`.
 
 ## 7. Known residual signals

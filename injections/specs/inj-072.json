@@ -14,5 +14,5 @@
   "commit_message": "Update requirements.txt",
   "branch": "wip-6301bb",
   "same_commit_rerun": null,
-  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. networkx 3.7 is a real release with Requires-Python >=3.12,!=3.14.1 (seen in the v1.0 logs). Same pip failure shape as inj-071 on a package the app never imports directly (torch depends on it): the 'Ignored ...' line names 3.7 and its Requires-Python, then 'No matching distribution found for networkx==3.7'. Fails at 'Install dependencies'; no pytest summary."
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. networkx 3.7 is a real release with Requires-Python >=3.12,!=3.14.1 (seen in the v1.0 logs). Same pip failure shape as inj-071 on a package the app never imports directly (torch depends on it): the 'Ignored ...' line names 3.7 and its Requires-Python, then 'No matching distribution found for networkx==3.7'. Fails at 'Install dependencies'; no pytest summary. Local check with pip 24.0 (2026-11-20): confirmed, preceded by 'ERROR: Ignored the following yanked versions: 2.6, 2.6.1'; the runner's pip version may word these lines slightly differently."
 }
