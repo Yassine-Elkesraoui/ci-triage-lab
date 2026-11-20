@@ -64,6 +64,17 @@ case. On 2026-11-20 the lab owner chose to keep all five cases novel and put 3 i
 rather than keep a repeat family or shrink the holdout to 29. This is outside section 1's swap rule, so it is
 reported as a **v3 change** alongside the results. The six other swaps follow the rule and are not v3 changes.
 
+**Label convention for timeouts (as in v1.0).** A job stopped by its time limit is labelled `timeout`, whatever
+layer caused the hang:
+- application code: inj-081 (deadlock), inj-084 (retry loop), inj-085 (regex backtracking);
+- test code: inj-082 (stdin pipe);
+- the workflow: inj-083 (polling).
+
+The label follows the failure mode (the job was killed at its limit, with no assertion failure), not the file
+that has to change. inj-083's cause is in `.github/workflows/ci.yml`, like v1.0's `timeout-minutes` cases
+inj-039..042, and is still `timeout`, not `environment`. The fix location is what the diagnosis's file and fix
+fields are scored against; the category is not.
+
 ## 2. Cases
 
 IDs are grouped by category for readability. Run order is shuffled separately (section 4). Every commit message
@@ -103,6 +114,12 @@ earlier run of the same commit.
 | inj-088 | build | required build arg | Dockerfile | `ARG PYTHON_VERSION` with no default, used in `FROM` | fails same | wip-b120a3 |
 | inj-089 | build | .dockerignore | .dockerignore | `*.txt` excludes `requirements.txt` | | wip-b43c58 |
 | inj-090 | build | USER | Dockerfile | `USER appuser` (no such account) before `pip install` | | wip-ce4cda |
+
+**inj-079 and stats.py.** `stats.py` is already tracked: it came in with the baseline import (`077ff39`, mode
+`100644`) and is not git-ignored. The inj-079 commit changes only `ci.yml`; it neither adds nor touches
+`stats.py`. The checkout therefore has the file without its execute bit, and the step fails with
+`./stats.py: Permission denied` (exit 126), not `No such file or directory` (exit 127). Before running the
+case, the harness's dry run should confirm `git ls-files -s stats.py` still shows `100644`.
 
 Specs use the v1.0 format. They add four keys that `load_spec()` ignores: `family`, `commit_message`, `branch`,
 `same_commit_rerun` (`"fail_same"`, `"pass"` or `null`).
@@ -169,7 +186,42 @@ as an earlier run of the same code. That gives the predictor rerun evidence in a
 have none, and it also makes the triaged commit's own diff empty, which happens only in flaky cases. Discarding
 keeps the triaged commit equal to the injection commit in all 30 cases.
 
-**All other cases (15)** run once, as in v1.0.
+**All other cases** run once, as in v1.0, except for the decoys below.
+
+**Decoy discards (10 non-flaky cases).** Discarded attempts leave two marks in the run history: a gap in run
+numbers, and an extra green run on the baseline commit (from the force-back). Without decoys, both would appear
+only in flaky cases. Two non-flaky cases per category therefore get one decoy discard each. The draw uses
+`random.Random(20261120 + 4)`, categories in the order real_regression, dependency, environment, timeout,
+build, with `r.sample(pool, 2)` from each category's cases without a rerun (3 per category, so no rerun case was
+needed):
+
+| category | decoy cases |
+|---|---|
+| real_regression | inj-061, inj-064 |
+| dependency | inj-072, inj-075 |
+| environment | inj-079, inj-080 |
+| timeout | inj-083, inj-084 |
+| build | inj-089, inj-090 |
+
+Procedure:
+1. Push the injection commit X and let its run complete. That run is the decoy attempt.
+2. `git push --force origin X~1:main`, which gives a green run on the parent.
+3. Recreate the commit with the same tree and message and a new committer date (X′), push it, and continue as
+   planned. X′'s run is the triaged run.
+
+The decoy run is judged like any run of the spec. If it does not fail as expected, the case aborts (the spec is
+wrong), exactly as a mismatching triaged run would. X is not an ancestor of X′, so the replay never shows the
+decoy run.
+
+**Audit of these marks.** For each case, the audit counts:
+- (a) **extra baseline runs**: runs on the baseline commit created after the previous case's revert run and
+  before the triaged run, beyond the first;
+- (b) **run-number gaps**: runs on `main` between the previous case's last run and this case's triaged run that
+  are outside the case's visible scope.
+
+It reports both per category, with the 12 planned reruns shown separately, since each of those adds one parent
+run by design. Expected result: every category has non-zero counts. Flaky counts depend on how many attempts
+are discarded, and the report states them as observed.
 
 **Unverified assumptions, to check on the first rerun case before relying on them:**
 - GitHub starts a new push run when `main` is moved back to a sha it has already run. If no run B appears within
@@ -231,6 +283,8 @@ next case starts, and the retry is reported.
 7. `RecoveryState` and `print_recovery()` must cover the force-pushed states (`main` at P, X not re-pushed).
 8. `--runs N` (empty rerun commits) is not used for v1.1; refuse it for ids above 060.
 9. A time gate for inj-070, or do that case by hand: run A before 10:50 UTC, run B at 11:00 UTC or later.
+10. Decoy mode for the 10 cases in section 3: one discarded attempt of X, judged against the spec and recorded,
+    then X′. It can reuse the discard code from item 5.
 
 `injections/build_index.py`:
 1. `EXPECTED_IDS` becomes inj-001..inj-090.
@@ -240,6 +294,8 @@ next case starts, and the retry is reported.
    - the other 18 have none;
    - `eval_commit_is_injection` is true for all 30;
    - every discarded or verification run is listed with an API snapshot.
+   - the per-case and per-category counts of extra baseline runs and run-number gaps (section 3, decoy
+     discards), reported rather than required to be zero.
 3. `UNLABELLED_EXTRAS` is a hand-written dict. Discarded and verification runs need entries, or the list should
    be derived from the records.
 4. Show `family` and the rerun marker in `index.json` and `INDEX.md`.
@@ -277,8 +333,10 @@ only has to make sure they are push runs on `main`.
 
 - In the 12 rerun cases, the baseline run is created after run A. This is the same for every category, so it says
   nothing about the category, but a predictor can see it.
-- Discarded attempts use up run numbers. Each force-back creates the baseline run just before the next push, so
-  the runs a predictor sees should stay consecutive. The audit should check this.
+- Discarded attempts use up run numbers and add an extra baseline run. Each force-back creates the baseline run
+  just before the next push, so the runs a predictor sees should stay consecutive. The marks remain in the full
+  run history, and the decoy discards (section 3) put them in every category. The audit counts them per
+  category.
 - Some logs resemble v1.0 logs although the mechanism differs:
   - inj-071/072 vs inj-012 (last pip lines);
   - inj-086 vs inj-020 (`pull access denied`);
