@@ -312,33 +312,54 @@ cannot be measured by repetition, since its outcome is set by the hour.
 Agent repo: no change. The sealed replay already reads same-commit runs from `runs-main.json`; the design above
 only has to make sure they are push runs on `main`.
 
-## 6. Before the first CI run (B1b; each item runs something, so each needs a go)
+## 6. Before the first CI run (B1b): complete, 2026-11-20
 
-- Run each spec locally on a temporary copy with pytest and a short timeout (as v1.0 did for 043..048), and
-  correct any `expected_failing_tests` or notes that are wrong. Especially:
-  - inj-064, that pydantic 2.13 lets `TypeError` through;
-  - inj-065, that the wrap handler includes the Field constraints;
-  - inj-081, inj-082, inj-084 and inj-085 hang where stated.
-- **Done 2026-11-20:** `measure_flaky.py` with 30 runs for inj-066..069 (target about 50%): 37%, 67%, 50%,
-  60%, no other test ever failed. Results are in `flaky_measurements_v1.1.md`; `flaky_measurements.md` is a v1.0
-  file and stays unchanged.
-- Check in a scratch venv:
-  - inj-075 reports a hash mismatch, not missing hashes;
-  - the inj-073 import error.
-- **Done 2026-11-20, Docker 29.5.3 (linux/amd64), on LF copies from `git archive` with each spec applied by
-  `measure_flaky.apply_to_copy`:**
-  - inj-074: in `python:3.11` (full image, gcc 14.2.0), `pip install -r requirements.txt` resolves, downloads
-    every wheel, then fails compiling greenlet 1.1.2's `greenlet.c` (26 C errors, gcc exit 1). Confirmed.
-  - inj-079: in a `git clone` inside `python:3.11`, `stats.py` is 100644 and the step fails with
-    `./stats.py: Permission denied`, exit 126. Confirmed; the note's suggested fix was wrong (no shebang) and
-    is corrected.
-  - inj-086..090: `docker build -t ... .` fails at the expected instruction with the expected error (086
-    `COPY --from=builder`, pull access denied; 087 parse error on line 17; 088 `python:-slim` invalid reference;
-    089 `"/requirements.txt": not found` at `COPY requirements.txt .`; 090 `unable to find user appuser` at the
-    `pip install` RUN). `docker.io/library/builder` does not exist (Hub API 404, registry pull 401).
-- **Done 2026-11-20 on Windows (not Docker):** inj-071 and inj-072 show the expected "No matching distribution"
-  lines under pip 24.0; inj-070's UTC-hour window checked with tzdata. Details are in their specs.
-- Confirm the force-push setting on `main`.
+Every item below was run locally or in Docker; nothing ran in CI. Docker 29.5.3 (linux/amd64). Linux runs use LF
+copies from `git archive` with the spec applied by `measure_flaky.apply_to_copy`, in `python:3.11` (the full
+image, Python 3.11.18, pip 24.0, gcc 14.2.0), with `requirements.txt` installed as CI installs it. Workflow
+cases run the smoke job's `run` steps with `bash --noprofile --norc -eo pipefail`, honouring
+`working-directory` and `timeout-minutes`. Hangs were killed at 330 s and timestamped per output line.
+Linux = `python:3.11` container as above; Win = the project `.venv` on Windows 11 (Python 3.11.9).
+
+| case | check | expected | observed | corrected? |
+|---|---|---|---|---|
+| inj-061 | pytest, Linux | `test_root_endpoint` `KeyError: 'status'`, 1 failed / 12 passed | as expected | no |
+| inj-062 | pytest, Linux | `test_chunking_char_count_matches_content_length` `AttributeError: ... 'char_count'`, 1/12 | as expected | no |
+| inj-063 | pytest, Linux | `test_health_endpoint` `KeyError: 'status'`, 1/12 | as expected | no |
+| inj-064 | pytest, Linux + Win | `TypeError` passes through pydantic 2.13, both rejection tests fail, 2/11 | `TypeError: ... got 2` / `got 2001` (pydantic 2.13.4), 2/11, both platforms | no |
+| inj-065 | pytest, Linux + Win | `DID NOT RAISE ... ValidationError`, both rejection tests, 2/11 | as expected, both platforms | no |
+| inj-066 | `measure_flaky.py` 30 runs, Win | about 50%, only the expected test | 11/30 = 37%, no other test | no |
+| inj-067 | same | same | 20/30 = 67%, no other test | no |
+| inj-068 | same | same | 15/30 = 50%, no other test | no |
+| inj-069 | same | same | 18/30 = 60%, no other test | no |
+| inj-070 | pytest, Linux at 23:55 UTC; window computed with tzdata, Win | fails 11:00-23:59 UTC (NZDT), 12:00-23:59 (NZST) | failed: `assert date(2026, 11, 20) == date(2026, 11, 21)`, 1/12; window as stated | note added (Windows needs `tzdata`) |
+| inj-071 | pip 24.0, Win | `No matching distribution found for numpy==2.5.0` after the Ignored line | as expected, plus a yanked-versions line | note added |
+| inj-072 | pip 24.0, Win | same shape, `networkx==3.7` | as expected, plus a yanked-versions line | note added |
+| inj-073 | install + import step, Linux | install passes; import fails `RuntimeError: Form data requires "python-multipart"` | as expected; raised from `api/routes/documents.py` line 46; `pip check` clean | no |
+| inj-074 | full `pip install`, Linux (gcc present) | greenlet 1.1.2 C build fails | resolution and 154 downloads succeed, then 26 C errors, gcc exit 1, `Failed to build greenlet` | **yes**: pin `PyYAML==6.0` (has cp311 wheels, would pass) replaced by `greenlet==1.1.2` |
+| inj-075 | `pip install`, Linux, pip 24.0 and 26.3 | hash mismatch on aiohappyeyeballs, not missing hashes | `THESE PACKAGES DO NOT MATCH THE HASHES`, Expected/Got, under both | no |
+| inj-076 | smoke steps, Linux | `SMOKE_TEST_PATHS is not set`, exit 1, before pytest | as expected | no |
+| inj-077 | smoke steps, Linux | `ModuleNotFoundError: No module named 'api'` at the import step | as expected | no |
+| inj-078 | smoke steps, Linux | `file or directory not found: tests`, `no tests ran`, exit 4 | as expected | no |
+| inj-079 | smoke steps in a `git clone`, Linux | 13 passed, then `./stats.py: Permission denied`, exit 126 | as expected; `stats.py` 100644 | **yes**, note: the suggested `chmod +x` fix fails without a shebang |
+| inj-080 | smoke steps, Linux | `collected 0 items`, exit 5 | as expected | no |
+| inj-081 | pytest, Linux + Win, killed at 330 s | hangs in `test_health_endpoint` after 3 PASSED | as expected, both platforms | no |
+| inj-082 | same | hangs in `test_expected_routes_registered` after 1 PASSED | as expected, both platforms | no |
+| inj-083 | smoke steps with `timeout-minutes`, Linux | about 36 `waiting for the API` lines, killed at 3 min | 36 lines, killed at 180 s | no |
+| inj-084 | pytest, Linux + Win, killed at 330 s | hangs in `test_root_endpoint` after 2 PASSED | as expected, both platforms | no |
+| inj-085 | same | hangs in `test_chunking_splits_long_text_into_multiple_chunks` after 9 PASSED | as expected, both platforms | no |
+| inj-086 | `docker build`, Linux | `COPY --from=builder`: pull access denied for `docker.io/library/builder` | as expected, Dockerfile:28 | no |
+| inj-087 | `docker build` | `dockerfile parse error on line 17: unknown instruction: PIP_NO_CACHE_DIR=1` | as expected | no |
+| inj-088 | `docker build` | `failed to parse stage name "python:-slim": invalid reference format` | as expected, after an `InvalidDefaultArgInFrom` warning | no |
+| inj-089 | `docker build` | `"/requirements.txt": not found` at `COPY requirements.txt .` | as expected, step 4/9 | no |
+| inj-090 | `docker build` | `unable to find user appuser` at the `pip install` RUN | as expected, step 5/9 | no |
+
+`docker.io/library/builder` does not exist (Hub API 404, registry pull 401).
+
+- **Spec corrections from these checks:** inj-074 (PyYAML 6.0 replaced by greenlet 1.1.2: PyYAML 6.0 has cp311
+  wheels) and inj-079 (suggested fix wrong: stats.py has no shebang). No other check contradicted a spec.
+- **Force-push on `main`:** allowed. The repository has no branch protection rules and no rulesets (checked by
+  the lab owner in Settings, 2026-11-20).
 
 ## 7. Known residual signals
 
