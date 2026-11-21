@@ -26,6 +26,15 @@ mix of expected failures and fully green runs.
 A wrong label is worse than a missing one: any mismatch between expected and
 observed aborts without writing a record. If the abort happens after the
 injection was pushed, the exact commands to restore ``main`` are printed.
+
+v1.1 holdout specs (inj-061..inj-090) are handed to ``holdout_runner.py``:
+commit on the spec's branch, same-commit reruns, decoys, flaky discards and
+verification runs (holdout_plan.md sections 3 and 5). ``--runs`` is refused
+for them. Their ``--dry-run`` needs no token and makes no request: it prints
+every git command and API request against a simulated GitHub::
+
+    python injections/run_injection.py injections/specs/inj-069.json --dry-run
+    python injections/run_injection.py injections/specs/inj-069.json --dry-run --simulate F,P
 """
 
 from __future__ import annotations
@@ -86,6 +95,12 @@ class RecoveryState:
     injection_pushed: bool = False
     revert_committed: bool = False
     revert_pushed: bool = False
+    # v1.1 holdout cases only (holdout_runner.py); all stay None/False for v1.0 runs.
+    branch: str | None = None
+    parent_sha: str | None = None
+    target_file: str | None = None
+    remote_main: str | None = None  # what origin/main points to after our last successful push
+    on_branch: bool = False
 
     def instructions(self) -> list[str]:
         """Return the git commands needed to restore ``main`` to green.
@@ -93,6 +108,8 @@ class RecoveryState:
         Empty re-trigger commits pushed after the injection touch no files,
         so reverting the injection commit alone restores the code.
         """
+        if self.branch is not None:
+            return self.holdout_instructions()
         if not self.injection_pushed or self.revert_pushed:
             return []
         if self.revert_committed:
@@ -103,6 +120,43 @@ class RecoveryState:
             f"git revert --no-edit {self.injection_sha}",
             f"git push {REMOTE} {BRANCH}",
         ]
+
+    def main_broken(self) -> bool:
+        """v1.1: True if origin/main holds an injection commit that is not yet reverted."""
+        return (self.remote_main is not None and self.remote_main != self.parent_sha and not self.revert_pushed)
+
+    def holdout_instructions(self) -> list[str]:
+        """v1.1: commands that restore ``main`` and the local repository from any state the holdout runner leaves.
+
+        The runner commits on ``branch`` and pushes ``<branch>:main`` or forces main back to the parent, so
+        the remote is at the parent (green), at an injection commit (broken) or at the pushed revert.
+        Local ``main`` is never moved until the end, so it is always at the parent or later.
+        """
+        if not self.on_branch and self.remote_main is None:
+            return []
+        expect = self.remote_main or self.parent_sha
+        commands = [f"git fetch {REMOTE} {BRANCH}",
+                    f"git rev-parse {REMOTE}/{BRANCH}   # must print {expect}; if not, stop and inspect"]
+        if self.injection_sha is None and self.target_file:
+            commands.append(f"git checkout -- {self.target_file}")
+        if self.revert_committed and not self.revert_pushed:
+            commands.append(f"git push {REMOTE} {self.branch}:{BRANCH}")
+        commands += [f"git checkout {BRANCH}", f"git pull --ff-only {REMOTE} {BRANCH}"]
+        if self.main_broken() and not self.revert_committed:
+            commands += [f"git revert --no-edit {self.remote_main}", f"git push {REMOTE} {BRANCH}"]
+        commands.append(f"git branch -D {self.branch}")
+        return commands
+
+    def holdout_headline(self) -> str:
+        """v1.1: one line saying whether main is broken."""
+        if self.main_broken():
+            if self.revert_committed:
+                return f"Injection {self.remote_main} is on {REMOTE}/{BRANCH}; its revert is committed but not pushed."
+            return f"Injection {self.remote_main} is on {REMOTE}/{BRANCH} and main is BROKEN."
+        where = ("the pushed revert" if self.revert_pushed
+                 else f"the parent {self.parent_sha}, the last commit that was green before this case")
+        return (f"{REMOTE}/{BRANCH} is at {where}; no revert is needed, only the local branch "
+                f"{self.branch} needs cleaning up.")
 
 
 @dataclass
@@ -580,10 +634,13 @@ def push_rerun_commit(spec: Spec, index: int, total: int) -> str:
     return sha
 
 
-def wait_for_run(gh: GitHub, workflow_file: str, sha: str, timeout_s: int = POLL_TIMEOUT_S) -> dict[str, Any]:
+def wait_for_run(gh: GitHub, workflow_file: str, sha: str, timeout_s: int = POLL_TIMEOUT_S,
+                 exclude: frozenset[int] = frozenset()) -> dict[str, Any]:
     """Step 6: poll until the run for ``sha`` completes.
 
     A missing run is normal for the first ``RUN_CREATION_GRACE_S`` seconds.
+    Runs whose ids are in ``exclude`` (runs already seen for ``sha`` before
+    a re-push, v1.1) are ignored; v1.0 callers pass nothing.
 
     Raises:
         Abort: If no run appears within the grace period, or the run does
@@ -594,7 +651,7 @@ def wait_for_run(gh: GitHub, workflow_file: str, sha: str, timeout_s: int = POLL
     while True:
         elapsed = time.monotonic() - start
         if run_id is None:
-            run = latest_run(gh.runs_for_sha(workflow_file, sha))
+            run = latest_run([r for r in gh.runs_for_sha(workflow_file, sha) if r["id"] not in exclude])
             if run is None:
                 if elapsed > RUN_CREATION_GRACE_S:
                     raise Abort(f"no CI run was created for {sha[:7]} within {RUN_CREATION_GRACE_S}s")
@@ -847,6 +904,21 @@ def revert_and_push(sha: str, state: RecoveryState) -> None:
 def run(args: argparse.Namespace, state: RecoveryState) -> int:
     """Execute the injection pipeline. Returns the process exit code."""
     spec = load_spec(Path(args.spec))
+    if int(spec.id.split("-")[1]) > 60:
+        # v1.1 holdout (inj-061..inj-090): holdout_plan.md sections 3 and 5, in holdout_runner.py.
+        if args.runs is not None:
+            raise Abort("--runs (empty rerun commits) is not used for v1.1 cases (ids above 060); "
+                        "reruns follow the spec's same_commit_rerun instead")
+        sys.modules.setdefault("run_injection", sys.modules[__name__])  # one module object when run as a script
+        from holdout_runner import is_holdout, run_holdout
+
+        if not is_holdout(spec.id):
+            raise Abort(f"{spec.id} is outside v1.0 (001-060) and the v1.1 holdout (061-090)")
+        return run_holdout(spec, args, state)
+    if args.simulate:
+        raise Abort("--simulate is only for v1.1 dry runs")
+    if args.runs is None:
+        args.runs = 1
     if args.runs < 1:
         raise Abort("--runs must be at least 1")
     if spec.category == FLAKY and args.runs < 2:
@@ -905,8 +977,12 @@ def main() -> int:
     parser.add_argument("spec", help="path to the injection spec JSON")
     parser.add_argument("--dry-run", action="store_true", help="check preconditions and show the diff; change nothing")
     parser.add_argument("--workflow", default="ci.yml", help="workflow file under .github/workflows (default: ci.yml)")
-    parser.add_argument("--runs", type=int, default=1,
-                        help="CI runs on the injected code, re-triggered by empty commits (default: 1; flaky needs >= 2)")
+    parser.add_argument("--runs", type=int, default=None,
+                        help="CI runs on the injected code, re-triggered by empty commits (default: 1; flaky needs >= 2); "
+                             "v1.0 only, refused for ids above 060")
+    parser.add_argument("--simulate", default=None, metavar="OUTCOMES",
+                        help="v1.1 --dry-run only: simulated outcomes of the injection pushes, e.g. P,F "
+                             "(F expected failure, P green, X other failure, none = no run)")
     parser.add_argument("--wait-for-green", type=int, default=DEFAULT_WAIT_FOR_GREEN_MIN, metavar="MINUTES",
                         help="wait this long for HEAD's in-progress CI run before starting; 0 = don't wait "
                              f"(default: {DEFAULT_WAIT_FOR_GREEN_MIN})")
@@ -931,6 +1007,11 @@ def print_recovery(state: RecoveryState) -> None:
     """Print the commands to restore main, if the injection reached the remote."""
     commands = state.instructions()
     if not commands:
+        return
+    if state.branch is not None:
+        print(f"\n!!! {state.holdout_headline()} Restore it with:\n", file=sys.stderr)
+        for command in commands:
+            print(f"    {command}", file=sys.stderr)
         return
     print(
         f"\n!!! Injection {state.injection_sha} is on {REMOTE}/{BRANCH} and main is BROKEN. "

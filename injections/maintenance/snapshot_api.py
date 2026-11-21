@@ -12,7 +12,16 @@ resolving. This script saves the API responses while they still exist:
 
 Runs covered: every run id referenced by a record (top-level ``run_id`` and
 every entry of ``observed.runs``, including flaky reruns) plus the unlabelled
-extra inj-039 attempt, run 37651788145.
+extra inj-039 attempt, run 37651788145. For v1.1 holdout records (inj-061..090)
+also every run in ``holdout.extra_runs``: decoy attempts, discarded attempts,
+the parent runs from each force-back, and verification runs. The replay maps
+saved logs to jobs through ``jobs.json``, so each of these needs a snapshot.
+
+v1.1 listing: ``runs-main.json`` is a v1.0 file and is never rewritten. Once all
+30 v1.1 records exist, the same paged listing is saved once to
+``injections/api/runs-main-v1.1.json`` (holdout runs, their reverts and every
+force-back run included). Before that it is not fetched, so a partial listing
+can never be frozen by the no-overwrite rule.
 
 Each response body is saved exactly as returned (same keys, order and values),
 pretty-printed with two-space indentation. ``runs-main.json`` wraps the raw
@@ -77,14 +86,32 @@ class GitHubReadOnly:
         return response.json()
 
 
+V11_IDS = [f"inj-{n:03d}" for n in range(61, 91)]
+
+
 def referenced_run_ids() -> list[str]:
-    """Every run id in every record, plus the extras, sorted numerically."""
+    """Every run id in every record (v1.1 extra runs included), plus the extras, sorted numerically."""
     ids = set(EXTRA_RUN_IDS)
     for path in sorted(INJECTIONS_DIR.glob("inj-*.json")):
         record = json.loads(path.read_text(encoding="utf-8"))
         ids.add(record["run_id"])
         ids.update(run["run_id"] for run in record["observed"].get("runs") or [])
+        ids.update(run["run_id"] for run in (record.get("holdout") or {}).get("extra_runs", []))
     return sorted(ids, key=int)
+
+
+def save_listing(gh: "GitHubReadOnly", path: Path) -> str:
+    """Fetch every page of the main-branch run listing and save it to ``path`` (never overwritten)."""
+    params = {"branch": "main", "per_page": PER_PAGE}
+    pages = []
+    while True:
+        page = gh.get("/actions/runs", params={**params, "page": len(pages) + 1})
+        pages.append(page)
+        listed = sum(len(p["workflow_runs"]) for p in pages)
+        if not page["workflow_runs"] or listed >= page["total_count"]:
+            break
+    save(path, {"endpoint": "GET /repos/{owner}/{repo}/actions/runs", "params": params, "pages": pages})
+    return f"{path.name}: {listed} runs in {len(pages)} page(s), total_count {pages[-1]['total_count']}"
 
 
 def save(path: Path, data: Any) -> None:
@@ -94,11 +121,12 @@ def save(path: Path, data: Any) -> None:
         handle.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
 
-def main() -> int:
-    token = os.environ.get("GITHUB_TOKEN")
-    if not token:
-        raise SystemExit("GITHUB_TOKEN environment variable is not set")
-    gh = GitHubReadOnly(token, repo_slug())
+def main(gh: "GitHubReadOnly | None" = None) -> int:
+    if gh is None:
+        token = os.environ.get("GITHUB_TOKEN")
+        if not token:
+            raise SystemExit("GITHUB_TOKEN environment variable is not set")
+        gh = GitHubReadOnly(token, repo_slug())
 
     run_ids = referenced_run_ids()
     saved, present, missing = [], [], []
@@ -137,6 +165,15 @@ def main() -> int:
                 break
         save(list_path, {"endpoint": "GET /repos/{owner}/{repo}/actions/runs", "params": params, "pages": pages})
         print(f"runs-main.json: {listed} runs in {len(pages)} page(s), total_count {pages[-1]['total_count']}")
+
+    v11_path = API_DIR / "runs-main-v1.1.json"
+    v11_recorded = sum(1 for case in V11_IDS if (INJECTIONS_DIR / f"{case}.json").exists())
+    if v11_path.exists():
+        print(f"{v11_path.relative_to(REPO_ROOT).as_posix()} already exists; not refetched")
+    elif v11_recorded == len(V11_IDS):
+        print(save_listing(gh, v11_path))
+    elif v11_recorded:
+        print(f"runs-main-v1.1.json not fetched: {v11_recorded}/30 v1.1 records (fetched once all 30 exist)")
 
     print(f"referenced runs: {len(run_ids)} (records + {len(EXTRA_RUN_IDS)} extra)")
     print(f"snapshotted now: {len(saved)}; already present: {len(present)}")
