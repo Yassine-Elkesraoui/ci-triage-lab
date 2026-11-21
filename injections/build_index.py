@@ -21,8 +21,9 @@ their own rules (holdout_plan.md section 5): planned same-commit runs, decoys, d
 parent and verification runs (``holdout.extra_runs``), and the per-category counts of extra
 baseline runs and run-number gaps. They are appended after the v1.0 entries, so with no v1.1
 record present every output is byte-identical to the v1.0 build. Run-number gaps need the
-v1.1 main-branch listing ``api/runs-main-v1.1.json`` (written by ``maintenance/snapshot_api.py``
-once all 30 cases are recorded); until then they are reported as not available.
+v1.1 runs appended to ``api/runs-main.json`` (by ``maintenance/snapshot_api.py`` once all 30
+cases are recorded); until then they are reported as not available. Every audit checks that
+the v1.0 part of ``runs-main.json`` is byte-identical (``runs_listing.v10_problems``).
 
 Per-run outcomes are derived from each run's job conclusions with the same
 rule as ``run_injection.compare()`` at job level: F = only the expected job
@@ -40,6 +41,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import runs_listing
 from holdout_runner import DECOY_CASES
 from run_injection import FAILED_CONCLUSIONS, FLAKY, parse_pytest
 
@@ -57,7 +59,7 @@ V11_IDS = [f"inj-{n:03d}" for n in range(61, 91)]
 EXPECTED_IDS = V10_IDS + V11_IDS
 CASES_PER_CATEGORY = 10
 V11_CASES_PER_CATEGORY = 5
-V11_LISTING_PATH = API_DIR / "runs-main-v1.1.json"
+RUNS_MAIN_PATH = API_DIR / "runs-main.json"
 EXTRA_LOG_NAME = re.compile(r"extra-(inj-\d{3})-(decoy|discarded|parent|verification)(\d+)-run(\d+)\.log")
 
 # Logs kept on purpose that belong to no labelled case.
@@ -285,6 +287,10 @@ def audit(
                     errors.append(f"{case}: run {index} ({run['run_id']}) failing tests {observed_tests} "
                                   f"differ from expected {expected_tests}")
 
+    if RUNS_MAIN_PATH.is_file():
+        errors += [f"{problem}" for problem in runs_listing.v10_problems(load_json(RUNS_MAIN_PATH))]
+    else:
+        errors.append(f"{rel(RUNS_MAIN_PATH)} is missing")
     holdout_errors, holdout_warnings, holdout_logs = audit_holdout(records, specs, entries, categories)
     errors += holdout_errors
     warnings += holdout_warnings
@@ -334,10 +340,13 @@ def failed_job_count(run_id: str) -> int | None:
 
 
 def v11_listing() -> list[dict[str, Any]] | None:
-    """Runs on main from ``api/runs-main-v1.1.json``, or None if it has not been fetched."""
-    if not V11_LISTING_PATH.is_file():
+    """Every run on main in ``api/runs-main.json`` once the v1.1 runs are appended, else None."""
+    if not RUNS_MAIN_PATH.is_file():
         return None
-    return [run for page in load_json(V11_LISTING_PATH)["pages"] for run in page["workflow_runs"]]
+    listing = load_json(RUNS_MAIN_PATH)
+    if not runs_listing.is_appended(listing):
+        return None
+    return [run for page in listing["pages"] for run in page["workflow_runs"]]
 
 
 def holdout_marks(record: dict[str, Any], listing: list[dict[str, Any]] | None) -> dict[str, Any]:
@@ -399,8 +408,8 @@ def audit_holdout(
                 errors.append(f"v1.1 category {category} has {count} cases, expected {V11_CASES_PER_CATEGORY}")
     listing = v11_listing()
     if recorded and listing is None:
-        warnings.append(f"v1.1: {rel(V11_LISTING_PATH)} is not fetched yet, so run-number gaps and the "
-                        "listing cross-checks are not available")
+        warnings.append(f"v1.1: the v1.1 runs are not appended to {rel(RUNS_MAIN_PATH)} yet, so run-number gaps "
+                        "and the listing cross-checks are not available")
 
     by_id = {entry["id"]: entry for entry in entries}
     for case in recorded:
@@ -554,7 +563,8 @@ def holdout_summary(records: dict[str, dict[str, Any]], categories: list[str]) -
             "planned_rerun_extra_baseline_runs": total(reruns, "extra_baseline_runs"),
             "planned_rerun_run_number_gaps": total(reruns, "run_number_gaps"),
         }
-    return {"listing": rel(V11_LISTING_PATH) if listing is not None else None, "recorded": len(cases),
+    return {"listing": f"{rel(RUNS_MAIN_PATH)} (appended v1.1 page)" if listing is not None else None,
+            "recorded": len(cases),
             "per_category": per_category, "cases": cases}
 
 

@@ -17,11 +17,15 @@ also every run in ``holdout.extra_runs``: decoy attempts, discarded attempts,
 the parent runs from each force-back, and verification runs. The replay maps
 saved logs to jobs through ``jobs.json``, so each of these needs a snapshot.
 
-v1.1 listing: ``runs-main.json`` is a v1.0 file and is never rewritten. Once all
-30 v1.1 records exist, the same paged listing is saved once to
-``injections/api/runs-main-v1.1.json`` (holdout runs, their reverts and every
-force-back run included). Before that it is not fetched, so a partial listing
-can never be frozen by the no-overwrite rule.
+v1.1 listing (decision of 2026-11-21, ``injections/holdout_log.md``): the sealed
+replay reads only ``runs-main.json``. Once all 30 v1.1 records exist, the listing
+is fetched again and every run not already in the v1.0 pages (holdout runs,
+their reverts, every force-back run) is appended to ``runs-main.json`` as one
+extra page, with a ``v1_1_append`` section saying how. The v1.0 part stays
+byte-identical: ``runs_listing.v10_problems`` is checked before and after, and
+nothing is written if it fails. This is the one write to an existing snapshot
+file, and it happens once. Before all 30 records exist nothing is fetched, so a
+partial listing can never be appended.
 
 Each response body is saved exactly as returned (same keys, order and values),
 pretty-printed with two-space indentation. ``runs-main.json`` wraps the raw
@@ -55,6 +59,7 @@ INJECTIONS_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = INJECTIONS_DIR.parent
 API_DIR = INJECTIONS_DIR / "api"
 sys.path.insert(0, str(INJECTIONS_DIR))
+import runs_listing  # noqa: E402
 from run_injection import repo_slug  # noqa: E402
 
 EXTRA_RUN_IDS = ["37651788145"]  # first inj-039 attempt, see build_index.UNLABELLED_EXTRAS
@@ -100,9 +105,11 @@ def referenced_run_ids() -> list[str]:
     return sorted(ids, key=int)
 
 
-def save_listing(gh: "GitHubReadOnly", path: Path) -> str:
-    """Fetch every page of the main-branch run listing and save it to ``path`` (never overwritten)."""
-    params = {"branch": "main", "per_page": PER_PAGE}
+def append_v11_listing(gh: "GitHubReadOnly", path: Path, listing: dict[str, Any]) -> str:
+    """Fetch the main-branch listing again and append the runs that are new since v1.0 (see the docstring)."""
+    from datetime import datetime, timezone
+
+    params = listing["params"]
     pages = []
     while True:
         page = gh.get("/actions/runs", params={**params, "page": len(pages) + 1})
@@ -110,8 +117,21 @@ def save_listing(gh: "GitHubReadOnly", path: Path) -> str:
         listed = sum(len(p["workflow_runs"]) for p in pages)
         if not page["workflow_runs"] or listed >= page["total_count"]:
             break
-    save(path, {"endpoint": "GET /repos/{owner}/{repo}/actions/runs", "params": params, "pages": pages})
-    return f"{path.name}: {listed} runs in {len(pages)} page(s), total_count {pages[-1]['total_count']}"
+    fetched_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    try:
+        result = runs_listing.append_v11(listing, pages, fetched_at)
+    except ValueError as exc:
+        raise SystemExit(f"runs-main.json: {exc}") from exc
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(runs_listing.dumps(result), encoding="utf-8")
+    if runs_listing.v10_problems(json.loads(tmp.read_text(encoding="utf-8"))):
+        tmp.unlink()
+        raise SystemExit("runs-main.json: the written file fails the v1.0 check; nothing replaced")
+    tmp.replace(path)
+    info = result[runs_listing.APPEND_KEY]
+    return (f"runs-main.json: appended {info['runs_appended']} v1.1 runs as one page "
+            f"({info['runs_fetched']} fetched, {info['v1_0_runs_refetched_not_stored']} already in v1.0); "
+            "v1.0 part byte-identical")
 
 
 def save(path: Path, data: Any) -> None:
@@ -166,14 +186,18 @@ def main(gh: "GitHubReadOnly | None" = None) -> int:
         save(list_path, {"endpoint": "GET /repos/{owner}/{repo}/actions/runs", "params": params, "pages": pages})
         print(f"runs-main.json: {listed} runs in {len(pages)} page(s), total_count {pages[-1]['total_count']}")
 
-    v11_path = API_DIR / "runs-main-v1.1.json"
     v11_recorded = sum(1 for case in V11_IDS if (INJECTIONS_DIR / f"{case}.json").exists())
-    if v11_path.exists():
-        print(f"{v11_path.relative_to(REPO_ROOT).as_posix()} already exists; not refetched")
-    elif v11_recorded == len(V11_IDS):
-        print(save_listing(gh, v11_path))
-    elif v11_recorded:
-        print(f"runs-main-v1.1.json not fetched: {v11_recorded}/30 v1.1 records (fetched once all 30 exist)")
+    if list_path.exists() and v11_recorded:
+        listing = json.loads(list_path.read_text(encoding="utf-8"))
+        problems = runs_listing.v10_problems(listing)
+        if problems:
+            raise SystemExit("runs-main.json: " + "; ".join(problems) + "; nothing appended")
+        if runs_listing.is_appended(listing):
+            print("runs-main.json: v1.1 runs already appended; not refetched")
+        elif v11_recorded < len(V11_IDS):
+            print(f"runs-main.json: v1.1 runs not appended yet ({v11_recorded}/30 v1.1 records; appended once all 30 exist)")
+        else:
+            print(append_v11_listing(gh, list_path, listing))
 
     print(f"referenced runs: {len(run_ids)} (records + {len(EXTRA_RUN_IDS)} extra)")
     print(f"snapshotted now: {len(saved)}; already present: {len(present)}")

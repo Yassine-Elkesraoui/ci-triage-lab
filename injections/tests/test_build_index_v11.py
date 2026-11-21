@@ -11,6 +11,7 @@ import pytest
 
 import build_index
 import holdout_runner as hr
+import runs_listing
 import snapshot_api
 from conftest import LAB, Lab
 from test_holdout_runner import PLAN_RUN_ORDER
@@ -35,7 +36,7 @@ def point_build_index_at(monkeypatch: pytest.MonkeyPatch, root: Path) -> None:
         "REPO_ROOT": root, "INJECTIONS_DIR": injections, "SPECS_DIR": injections / "specs",
         "LOGS_DIR": injections / "logs", "API_DIR": injections / "api", "MANIFEST_PATH": injections / "manifest.json",
         "INDEX_JSON_PATH": injections / "index.json", "INDEX_MD_PATH": injections / "INDEX.md",
-        "V11_LISTING_PATH": injections / "api" / "runs-main-v1.1.json",
+        "RUNS_MAIN_PATH": injections / "api" / "runs-main.json",
     }.items():
         monkeypatch.setattr(build_index, name, value)
 
@@ -72,7 +73,10 @@ def holdout_lab(lab: Lab, monkeypatch: pytest.MonkeyPatch) -> Lab:
 
 def test_full_simulated_holdout_passes_the_v11_audit(holdout_lab: Lab, capsys: pytest.CaptureFixture[str]) -> None:
     lab = holdout_lab
-    assert (lab.root / "injections/api/runs-main-v1.1.json").is_file()
+    listing = json.loads((lab.root / "injections/api/runs-main.json").read_text(encoding="utf-8"))
+    assert runs_listing.is_appended(listing) and runs_listing.v10_problems(listing) == []
+    assert runs_listing.v10_bytes(listing) == committed("api/runs-main.json")
+    assert len(listing["pages"]) == 3 and listing["v1_1_append"]["runs_appended"] == len(lab.gh.runs)
     assert build_index.main() == 0
     out = capsys.readouterr().out
     assert "audit: 0 error(s), 0 warning(s)" in out, out
@@ -89,7 +93,7 @@ def test_full_simulated_holdout_passes_the_v11_audit(holdout_lab: Lab, capsys: p
 
     audit = index["holdout_audit"]
     cases = audit["cases"]
-    assert audit["recorded"] == 30 and audit["listing"] == "injections/api/runs-main-v1.1.json"
+    assert audit["recorded"] == 30 and audit["listing"] == "injections/api/runs-main.json (appended v1.1 page)"
     reruns = [c for c, v in cases.items() if v["planned_rerun"]]
     assert len(reruns) == 12 and all(cases[c]["earlier_same_commit_runs"] == 1 for c in reruns)
     assert all(v["earlier_same_commit_runs"] == 0 for c, v in cases.items() if c not in reruns)
@@ -117,11 +121,11 @@ def test_audit_flags_a_missing_extra_run_snapshot(holdout_lab: Lab, capsys: pyte
 
 def test_audit_flags_an_extra_earlier_run_of_the_eval_commit(holdout_lab: Lab,
                                                              capsys: pytest.CaptureFixture[str]) -> None:
-    path = holdout_lab.root / "injections/api/runs-main-v1.1.json"
+    path = holdout_lab.root / "injections/api/runs-main.json"
     listing = json.loads(path.read_text(encoding="utf-8"))
     record = json.loads((holdout_lab.root / "injections/inj-063.json").read_text(encoding="utf-8"))
     eval_run = next(run for page in listing["pages"] for run in page["workflow_runs"] if str(run["id"]) == record["run_id"])
-    listing["pages"][0]["workflow_runs"].append(eval_run | {"id": 1, "created_at": "2000-01-01T00:00:00Z"})
+    listing["pages"][-1]["workflow_runs"].append(eval_run | {"id": 1, "created_at": "2000-01-01T00:00:00Z"})
     path.write_text(json.dumps(listing), encoding="utf-8")
     assert build_index.main() == 1
     assert "inj-063: 1 earlier run(s) of the eval commit before the eval run; planned 0" in capsys.readouterr().out
@@ -136,6 +140,32 @@ def test_snapshot_api_does_not_fetch_a_partial_v11_listing(lab: Lab, monkeypatch
     monkeypatch.setattr(snapshot_api, "REPO_ROOT", lab.root)
     before = (lab.root / "injections/api/runs-main.json").read_bytes()
     assert snapshot_api.main(gh=lab.gh) == 0
-    assert "runs-main-v1.1.json not fetched: 1/30 v1.1 records" in capsys.readouterr().out
-    assert not (lab.root / "injections/api/runs-main-v1.1.json").exists()
+    assert "v1.1 runs not appended yet (1/30 v1.1 records" in capsys.readouterr().out
     assert (lab.root / "injections/api/runs-main.json").read_bytes() == before
+
+
+def test_lab_check_flags_a_changed_v10_entry(lab: Lab, monkeypatch: pytest.MonkeyPatch,
+                                             capsys: pytest.CaptureFixture[str]) -> None:
+    path = lab.root / "injections/api/runs-main.json"
+    listing = json.loads(path.read_text(encoding="utf-8"))
+    listing["pages"][1]["workflow_runs"][0]["conclusion"] = "failure"
+    path.write_text(runs_listing.dumps(listing), encoding="utf-8")
+    point_build_index_at(monkeypatch, lab.root)
+    assert build_index.main() == 1
+    assert "the v1.0 part of injections/api/runs-main.json changed" in capsys.readouterr().out
+
+
+def test_append_refuses_to_shadow_or_change_v10(lab: Lab) -> None:
+    listing = json.loads(committed("api/runs-main.json"))
+    assert runs_listing.v10_problems(listing) == []
+    old_run = listing["pages"][0]["workflow_runs"][0]
+    new_run = dict(old_run, id=1, run_number=99999)
+    fetched = [{"total_count": 2, "workflow_runs": [new_run, dict(old_run, conclusion="failure")]}]
+    result = runs_listing.append_v11(listing, fetched, "2027-01-01T00:00:00Z")
+    assert result["pages"][2]["workflow_runs"] == [new_run]  # the re-fetched v1.0 run is not stored
+    assert result["v1_1_append"]["v1_0_runs_refetched_not_stored"] == 1
+    assert runs_listing.v10_bytes(result) == committed("api/runs-main.json")
+    with pytest.raises(ValueError, match="already appended"):
+        runs_listing.append_v11(result, fetched, "2027-01-01T00:00:00Z")
+    shadowed = dict(result, pages=result["pages"][:2] + [{"total_count": 1, "workflow_runs": [old_run]}])
+    assert any("override v1.0 replay data" in p for p in runs_listing.v10_problems(shadowed))
