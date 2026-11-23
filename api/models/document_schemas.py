@@ -62,7 +62,7 @@ class DocumentChunk(BaseModel):
     document_id: UUID = Field(..., description="UUID of the source document this chunk was extracted from.")
     index: int = Field(..., ge=0, description="Zero-based position of this chunk within the source document.")
     content: str = Field(..., min_length=1, description="The raw text content of the chunk.")
-    char_count: int = Field(..., gt=0, description="Length of the chunk content in characters.")
+    length: int = Field(..., gt=0, validation_alias="char_count", description="Length of the chunk content in characters.")
 
 
 class ProcessedDocumentResponse(BaseModel):
