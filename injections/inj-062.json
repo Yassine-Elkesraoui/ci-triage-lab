@@ -1,0 +1,100 @@
+{
+  "id": "inj-062",
+  "category": "real_regression",
+  "commit": "2d710d7",
+  "run_id": "45283114753",
+  "job_id": "138072406660",
+  "target_file": "api/models/document_schemas.py",
+  "mutation": "    document_id: UUID = Field(..., description=\"UUID of the source document this chunk was extracted from.\")\n    index: int = Field(..., ge=0, description=\"Zero-based position of this chunk within the source document.\")\n    content: str = Field(..., min_length=1, description=\"The raw text content of the chunk.\")\n    char_count: int = Field(..., gt=0, description=\"Length of the chunk content in characters.\") ->     document_id: UUID = Field(..., description=\"UUID of the source document this chunk was extracted from.\")\n    index: int = Field(..., ge=0, description=\"Zero-based position of this chunk within the source document.\")\n    content: str = Field(..., min_length=1, description=\"The raw text content of the chunk.\")\n    length: int = Field(..., gt=0, validation_alias=\"char_count\", description=\"Length of the chunk content in characters.\")",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_char_count_matches_content_length"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-062.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-23T22:48:18Z",
+    "job_completed_at": "2026-11-23T22:50:09Z",
+    "duration_s": 111,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45281723668",
+        "commit": "2d710d7",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-062.run1.log"
+      },
+      {
+        "run_id": "45283114753",
+        "commit": "2d710d7",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-062.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The field is renamed to 'length' with validation_alias='char_count', so ChunkingService still builds chunks with char_count=... and nothing fails at construction. Reading chunk.char_count then raises AttributeError: 'DocumentChunk' object has no attribute 'char_count' inside the generator in test_chunking_char_count_matches_content_length; 1 failed / 12 passed. The file has a UTF-8 BOM, which the harness preserves. Contrast with inj-001 (same test, wrong value instead of a missing attribute).",
+  "holdout": {
+    "version": "1.1",
+    "family": "renamed or dropped field in a returned object",
+    "mode": "fail_same",
+    "branch": "wip-91d930",
+    "commit_message": "Update api/models/document_schemas.py",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "b98078372e61b1e167295ffa7e4f6e2e41d93a3f",
+    "injection_commit_full": "2d710d7bf7db10ccf1099858b2dbadf2b609ab7f",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "========================= # failed, # passed in #.#s =========================",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "========================= # failed, # passed in #.#s =========================",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45282098318",
+        "commit": "b980783",
+        "commit_full": "b98078372e61b1e167295ffa7e4f6e2e41d93a3f",
+        "created_at": "2026-11-23T22:41:42Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

@@ -69,3 +69,28 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   failure. That is GitHub's run status at the `needs: smoke` hand-off, not a rerun: `smoke` finished at
   21:52:29, `docker` was created at 21:52:29 and waited for a runner until 21:52:31, and the run reports queued
   while its only pending job waits. `run_attempt` is 1 and the run has exactly two jobs.
+
+## 2026-11-23 22:39 UTC: slot 2/30, inj-062 [real_regression], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-062.json` (default
+  `--wait-for-green 15`; command form as for slot 1, console output not attached to the session that wrote this
+  entry); harness commit `b980783` (harness code unchanged since `bd588d8`)
+- Commits: injection `2d710d7` (parent `b980783`); discarded/recreated none; revert `42e3a28`
+- Runs: triaged (run B) 45283114753 F; run A 45281723668 F; decoy none; discarded none; parent (force-back)
+  45282098318 P; verification none. Revert run 45283445453 P.
+- Result: match=Y, outcomes=F, extras=parent:P, same_commit=fail_same (A F, B F), attempts=1. Exit 0.
+- Unexpected: nothing. Both logs fail as the spec notes predict: `smoke` job ("Import & route smoke tests"),
+  step 6 `Run smoke tests`, `tests/test_behaviour.py::test_chunking_char_count_matches_content_length` with
+  `AttributeError: 'DocumentChunk' object has no attribute 'char_count'`, 1 failed / 12 passed; `docker` skipped.
+  The harness's `same_commit_signatures` hold only the masked pytest summary and exit-code lines; the
+  `AttributeError` line was compared by hand and is identical in both logs. With timestamps stripped, the two logs
+  differ only in runner worker id, region, temp paths, the test's random document UUID and the pytest duration
+  (4.34 s vs 5.62 s). Run A's log is 853 bytes (10 lines) longer: in setup-python's pip-cache restore
+  (2,856,191,359 bytes) run A printed 22 progress lines at about 125 MB/s (westus3), run B 12 at about 235 MB/s
+  (eastus), 852 bytes; the last byte is the region name. The target file keeps its UTF-8 BOM; git stores it with
+  LF (`i/lf`; the CRLF seen on Windows is `core.autocrlf=true` at checkout), and `2d710d7` changes line 65 only,
+  with no line-ending change. The revert restores the parent tree exactly. Run order A (22:39:15), P (22:41:42),
+  B (22:48:15) as planned.
+- Open question closed (plan section 3, "Unverified assumptions"): a re-pushed commit to `main` starts a new run.
+  Run B 45283114753 is a new run id on the same sha as run A (`2d710d7bf7db10ccf1099858b2dbadf2b609ab7f`), with
+  `run_attempt` 1 and event `push`. The force-back also confirms the second assumption: `main` accepted the force
+  push, and it started a new run (45282098318) on `b980783`, which already had run 45276287232.
