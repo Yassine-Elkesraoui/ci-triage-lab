@@ -22,6 +22,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+USER appuser
 
 # Install Python dependencies first (cached layer; only re-runs when
 # requirements.txt changes), before copying source for fast rebuilds.
