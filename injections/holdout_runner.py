@@ -55,6 +55,8 @@ MAX_ATTEMPTS = 10
 MAX_VERIFICATION_RUNS = 10
 BRANCH_PATTERN = re.compile(r"wip-[0-9a-f]{6}")
 RERUN_VALUES = ("fail_same", "pass", None)
+# Per-run wait for holdout pushes only; v1.0 keeps run_injection.POLL_TIMEOUT_S (15 min). v1.0's slowest green run took 16.2.
+HOLDOUT_POLL_TIMEOUT_S = 25 * 60
 
 # holdout_plan.md section 3: random.Random(SEED + 4), r.sample(pool, 2) per category from the cases without a
 # planned rerun. tests/test_holdout_runner.py recomputes the draw and checks it against this set.
@@ -611,7 +613,7 @@ class HoldoutCase:
         self.actions.push_branch(sha)
         self.state.remote_main = sha
         try:
-            run = wait_for_run(self.gh, self.workflow, sha, exclude=seen)
+            run = wait_for_run(self.gh, self.workflow, sha, timeout_s=HOLDOUT_POLL_TIMEOUT_S, exclude=seen)
         except Abort as exc:
             raise Abort(f"{label}: {exc}") from exc
         self.index += 1
@@ -628,7 +630,7 @@ class HoldoutCase:
         self.actions.force_main(self.parent, expected_remote)
         self.state.remote_main = self.parent
         try:
-            run = wait_for_run(self.gh, self.workflow, self.parent, exclude=seen)
+            run = wait_for_run(self.gh, self.workflow, self.parent, timeout_s=HOLDOUT_POLL_TIMEOUT_S, exclude=seen)
         except Abort as exc:
             raise Abort(f"{label}: no new run on the parent after the force-back: {exc}") from exc
         result = observe(self.gh, run, self.keys, 0, self.parent)
