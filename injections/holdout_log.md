@@ -51,3 +51,21 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   failure means we stop. Whether a test that compares only the 60 v1.0 cases counts as "the existing test
   passing" is a decision for when the submodule moves; it is not made here.
 - **Status:** B1b-1 tooling at `b5ff756`; no case has been run.
+
+## 2026-11-23 21:40 UTC: slot 1/30, inj-090 [build], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-090.json` (default
+  `--wait-for-green 15`); harness commit `bd588d8`
+- Commits: injection `7122823` (parent `bd588d8`); discarded/recreated `a8d0a3b` (decoy attempt), recreated as
+  `7122823` with the same tree (`9228bc1`) and message and a new committer date (21:40:20 to 21:50:25); revert
+  `c6fc6fd`
+- Runs: triaged 45273725947 F; decoy 45272047624 F; discarded none; parent (force-back) 45272459413 P;
+  verification none. Revert run 45274127808 P.
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Exit 0.
+- Unexpected: nothing. Both logs fail as the spec notes predict: `docker` job, step `Build image`, at
+  `[5/9] RUN pip install ...` with `unable to find user appuser: no matching entries in passwd file`, after the
+  apt layer succeeded and before any Python package was downloaded (Build image step 14 s; docker job 19 s).
+  `smoke` passed (13 tests) in both. The harness reported run 45273725947 as in_progress, then queued, then
+  failure. That is GitHub's run status at the `needs: smoke` hand-off, not a rerun: `smoke` finished at
+  21:52:29, `docker` was created at 21:52:29 and waited for a runner until 21:52:31, and the run reports queued
+  while its only pending job waits. `run_attempt` is 1 and the run has exactly two jobs.

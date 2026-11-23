@@ -1,0 +1,92 @@
+{
+  "id": "inj-090",
+  "category": "build",
+  "commit": "7122823",
+  "run_id": "45273725947",
+  "job_id": "138041073319",
+  "target_file": "Dockerfile",
+  "mutation": "WORKDIR /app\n -> WORKDIR /app\nUSER appuser\n",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-090.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-23T21:52:31Z",
+    "job_completed_at": "2026-11-23T21:52:50Z",
+    "duration_s": 19,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "45273725947",
+        "commit": "7122823",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-090.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. python:3.11-slim has no 'appuser' account and nothing creates one. apt-get runs as root before the USER line and succeeds, COPY requirements.txt succeeds, and the next RUN (pip install) fails at once with 'unable to find user appuser: no matching entries in passwd file'. The failure comes after the apt output but before any Python package is downloaded (under a minute). Not inj-028, which failed late in the last RUN on a misspelled command.",
+  "holdout": {
+    "version": "1.1",
+    "family": "USER switching to an account that does not exist, or a permission error in RUN",
+    "mode": "decoy",
+    "branch": "wip-ce4cda",
+    "commit_message": "Update Dockerfile",
+    "same_commit_rerun": null,
+    "decoy": true,
+    "parent_commit": "bd588d8a5e200913b23556bbb32ae284b994f76c",
+    "injection_commit_full": "7122823dc442de8cc3bcc75571d9a236999d2e1f",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "decoy",
+        "attempt": 1,
+        "run_id": "45272047624",
+        "commit": "a8d0a3b",
+        "commit_full": "a8d0a3b5acc50c4f412e85ea713324a8f1f627e5",
+        "created_at": "2026-11-23T21:40:24Z",
+        "conclusion": "failure",
+        "outcome": "F",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/extra-inj-090-decoy1-run45272047624.log"
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45272459413",
+        "commit": "bd588d8",
+        "commit_full": "bd588d8a5e200913b23556bbb32ae284b994f76c",
+        "created_at": "2026-11-23T21:42:53Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
