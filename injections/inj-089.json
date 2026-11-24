@@ -1,0 +1,92 @@
+{
+  "id": "inj-089",
+  "category": "build",
+  "commit": "0f82875",
+  "run_id": "45499287478",
+  "job_id": "138819055905",
+  "target_file": ".dockerignore",
+  "mutation": ".idea/\n*.log -> .idea/\n*.log\n*.txt",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-089.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-24T22:18:02Z",
+    "job_completed_at": "2026-11-24T22:18:16Z",
+    "duration_s": 14,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "45499287478",
+        "commit": "0f82875",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-089.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. requirements.txt is no longer in the build context, so 'COPY requirements.txt .' fails when BuildKit computes its cache key: 'failed to compute cache key: failed to calculate checksum of ref ...: \"/requirements.txt\": not found'. The log has the same shape as inj-022 (misspelled COPY source), but here the Dockerfile is unchanged and the file exists in the repository; only the .dockerignore diff shows the cause. eval/corpus text files are excluded too, but COPY eval/ still succeeds because the directory exists. smoke passes; fails within seconds.",
+  "holdout": {
+    "version": "1.1",
+    "family": ".dockerignore excluding a file the build needs",
+    "mode": "decoy",
+    "branch": "wip-b43c58",
+    "commit_message": "Update .dockerignore",
+    "same_commit_rerun": null,
+    "decoy": true,
+    "parent_commit": "65a33529932c2d541c796099309aaa100f4a8ff3",
+    "injection_commit_full": "0f828757118c658bd52df3d00f3c14b055a820d8",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "decoy",
+        "attempt": 1,
+        "run_id": "45497666802",
+        "commit": "544090f",
+        "commit_full": "544090f2ae252d59c2ed67bed38da16a4525c944",
+        "created_at": "2026-11-24T22:06:14Z",
+        "conclusion": "failure",
+        "outcome": "F",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/extra-inj-089-decoy1-run45497666802.log"
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45498082081",
+        "commit": "65a3352",
+        "commit_full": "65a33529932c2d541c796099309aaa100f4a8ff3",
+        "created_at": "2026-11-24T22:08:44Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

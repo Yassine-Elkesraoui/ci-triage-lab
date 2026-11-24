@@ -134,3 +134,49 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   entry. `same_commit_signatures` alone is not enough: it holds only the masked pytest summary and exit-code
   lines (see slot 2), so it cannot show that the two runs failed on the same error.
 - An offline check over all 12 rerun cases runs after slot 30.
+
+## 2026-11-24 22:06 UTC: slot 4/30, inj-089 [build], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-089.json` (default
+  `--wait-for-green 15`), confirmed from the console transcript the operator saved outside the repo in
+  `C:\Users\Pitbull\Documents\holdout-console\`. It is saved under a mangled file name, not the `inj-089.txt`
+  that was announced. Harness commit `65a3352` (harness code unchanged since `bd588d8`).
+- Commits: injection `0f82875` (parent `65a3352`); discarded/recreated `544090f` (decoy attempt), recreated as
+  `0f82875` with the same tree (`9a8df58`), message and author date, and a new committer date (22:06:08 to
+  22:15:56); revert `76ab099`
+- Runs: triaged 45499287478 F; decoy 45497666802 F; discarded none; parent (force-back) 45498082081 P;
+  verification none. Revert run 45499686936 P (smoke and docker both success, docker done 22:25:54).
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Console summary `inj-089 build mode=decoy outcomes=F extras=decoy:F,parent:P
+  attempts=2 match=Y`, exit 0.
+- Unexpected: nothing. Both logs fail as the spec notes predict. In each run, `smoke` passed (all six steps
+  succeeded; 13 passed, 0 failed, parsed by the harness from the smoke log) and `docker` ("Docker image builds")
+  failed at step 3 `Build image`, so no job was skipped. The error is at `#8 [4/9] COPY requirements.txt .`
+  (Dockerfile:28): `failed to calculate checksum of ref ...: "/requirements.txt": not found`, then
+  `ERROR: failed to build: failed to solve: failed to compute cache key: ...`, exit code 1. The concurrent
+  `[2/9] RUN apt-get ...` was CANCELED. Lines compared by hand: identical in both logs apart from the BuildKit
+  ref ids. Docker job 14 s triaged (22:18:02 to 22:18:16), 6 s decoy; from the start of `docker build` to the
+  error took 5.5 s triaged and 2.0 s decoy. With timestamps stripped, the two logs also differ in worker id, region and cloud (decoy
+  southcentralus/Azure, triaged us-east-1/AWS), runner image build (20261116.202.1 vs 20261116.88.1, same
+  image version), temp paths, the checked-out sha, the metadata-load time and the order in which BuildKit
+  printed `[internal] load build context` and `[1/9] FROM`.
+  The saved log is 12,837 bytes (decoy 12,852) because `observe()` saves only the failing job's log
+  (`run_injection.py`, the failing-job log comes first and is kept as evidence). Here that is the docker job:
+  checkout plus a build that stops at its fourth step, with no setup-python, no pip-cache restore progress lines
+  and no `pip install` output. The smoke log is read only for the pytest counts and is not saved. inj-072's
+  28,390-byte log was a smoke job.
+  `0f82875` adds one line, `*.txt`, at the end of `.dockerignore` (line 51, after `*.log`) and changes nothing
+  else: ASCII, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 940 to 946 bytes. The revert
+  restores the parent tree exactly. `main` and `origin/main` are both at `76ab099`; no `wip-` branch is left
+  locally or on origin.
+
+## 2026-11-24 22:34 UTC: correction to the slot 3 entry (inj-072), command and exit confirmed
+- The slot 3 entry gives the command only as "command form as for slots 1 and 2" and says it was not confirmed
+  from console output. The operator confirms the command was exactly
+  `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-072.json`, that it ended with
+  `inj-072 dependency mode=decoy outcomes=F extras=decoy:F,parent:P attempts=2 match=Y`, and that it exited 0.
+  The console transcript saved for slot 4 also covers the slot 3 run and shows the same command, summary line
+  and `$LASTEXITCODE` 0.
+
+## 2026-11-24 22:34 UTC: follow-up to the slot 3 entry (inj-072), revert run completed
+- The slot 3 entry says revert run 45485754207 (`3a18f29`) had `smoke` passed and `docker` still in progress at
+  21:01. It completed P: `smoke` success (20:55:15 to 20:57:21) and `docker` success (20:57:24 to 21:02:29).
