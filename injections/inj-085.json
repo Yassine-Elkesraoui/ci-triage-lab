@@ -1,0 +1,59 @@
+{
+  "id": "inj-085",
+  "category": "timeout",
+  "commit": "f8510f7",
+  "run_id": "45505927824",
+  "job_id": "138841033226",
+  "target_file": "api/services/chunking_service.py",
+  "mutation": "        raw_chunks: list[str] = self._splitter.split_text(text)\n ->         raw_chunks: list[str] = self._splitter.split_text(text)\n\n        import re\n\n        for position, content in enumerate(raw_chunks):\n            if not re.search(r\"(?:\\w+\\s?)+[.!?]$\", content):\n                logger.debug(\"Chunk %d of document %s ends mid-sentence\", position, document_id)\n",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-085.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-24T22:59:14Z",
+    "job_completed_at": "2026-11-24T23:04:12Z",
+    "duration_s": 298,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45505927824",
+        "commit": "f8510f7",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-085.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. algorithmic slowdown: a diagnostic check that only writes a debug log, so the chunks returned are exactly as before. The nested quantifier (\\w+\\s?)+ backtracks exponentially when a chunk does not end in a sentence terminator, and with keep_separator the splitter's chunks end mid-sentence (e.g. '... delivering resources' with the '. ' moved to the next chunk), so re.search runs effectively forever. Blank text returns before the check, so the first chunk call with real text hangs: last -v line 'tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks' after 9 PASSED, killed at 3 minutes, no summary. That last line is the same as inj-044's (sleep in that test); the diff differs. Verify locally with a short timeout.",
+  "holdout": {
+    "version": "1.1",
+    "family": "an algorithmic slowdown that is still correct but far too slow",
+    "mode": "single",
+    "branch": "wip-873f9b",
+    "commit_message": "Update api/services/chunking_service.py",
+    "same_commit_rerun": null,
+    "decoy": false,
+    "parent_commit": "7d58553cc5c047d266163a55275b4ffdee432d02",
+    "injection_commit_full": "f8510f7a568b5be439ead2bd88be712365a96fe0",
+    "attempts": 1,
+    "same_commit_signatures": null,
+    "extra_runs": []
+  }
+}

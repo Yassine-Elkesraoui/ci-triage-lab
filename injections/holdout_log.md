@@ -180,3 +180,54 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
 ## 2026-11-24 22:34 UTC: follow-up to the slot 3 entry (inj-072), revert run completed
 - The slot 3 entry says revert run 45485754207 (`3a18f29`) had `smoke` passed and `docker` still in progress at
   21:01. It completed P: `smoke` success (20:55:15 to 20:57:21) and `docker` success (20:57:24 to 21:02:29).
+
+## 2026-11-24 22:59 UTC: slot 5/30, inj-085 [timeout], single, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-085.json` (default
+  `--wait-for-green 15`), confirmed from the console output in
+  `C:\Users\Pitbull\Documents\holdout-console\inj-085.txt` (outside the repo; the first export under that name
+  was the wrong terminal tab and was replaced at 23:52); harness commit `7d58553` (harness code unchanged since
+  `bd588d8`)
+- Commits: injection `f8510f7` (parent `7d58553`); discarded/recreated none; revert `7ee4466`
+- Runs: triaged 45505927824 F; decoy none; discarded none; parent (force-back) none; verification none. Revert
+  run 45506721670 P. One push: 45505927824 is the only run on `f8510f7`.
+- Result: match=Y, outcomes=F, extras=none, attempts=1. Console summary `inj-085 timeout mode=single outcomes=F
+  extras=none attempts=1 match=Y`, exit 0.
+- Unexpected: one departure from the spec notes (plan vs reality, below); otherwise as predicted. `smoke` job,
+  step 6 `Run smoke tests` failed: `##[error]The action 'Run smoke tests' has timed out after 3 minutes.`, which
+  is also the job's only annotation; `docker` skipped. Steps 1-5 succeeded (setup-python restored the pip cache,
+  install and clean import passed). pytest collected 13 items, and 9 PASSED by 23:01:04. The log is then silent
+  until the timeout at 23:04:10 (step 23:00:57 to 23:04:10, about 3 m 12 s). There is no pytest summary, and
+  cleanup ends with `Terminate orphan process: pid (2518) (python)`, so pytest was still running when the step
+  was stopped: the step's timeout, not a crash or a runner problem. Job 298 s.
+  **Plan vs reality.** The spec notes predict that the last `-v` line is
+  `tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks`. That line is not in the log:
+  the last pytest line is `tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text PASSED [ 69%]`,
+  followed directly by the timeout line. The hanging test is identified only by inference: it is the 10th of the
+  13 collected tests, and the plan's local check (section 6, inj-085 row) saw it hang. v1.0 inj-044's log has the
+  same shape (9th PASSED, then the timeout line), so the inj-085 vs inj-044 resemblance in plan section 7 holds,
+  but the text the two logs share is the last PASSED line and the timeout line, not the hanging test's name.
+  *Hypothesis, not verified:* `pytest -v` writes the test id without a newline and finishes the line only when
+  the test ends; the runner records complete lines, so the unfinished line was lost when the step was killed.
+  **Effect on the label and grader (checked):** none depends on the test name appearing in the log. The lab's
+  label fields come from the spec and the API: `category` from the spec; `failing_step` and the failing job from
+  the job's step conclusions (`failing_step_inferred` false); `expected_failing_tests` is empty, so
+  `build_index.py` skips the failing-tests check. The agent repo's ground truth (`evaluation/ground_truth.py`)
+  reads category, target file, find/replace, failing job and step from `index.json` and the spec, and the
+  restored/removed lines from the revert; it does not read `notes`. The grader (`evaluation/grader.py`) scores
+  category, step, job, file, fix match and action against those, and grounds quotes only against the text the
+  tools actually returned, so a quote of the missing line would be ungrounded, which is correct.
+  Also found: the harness's own match check (`run_injection.py` `compare`) checks the failing job, skipped jobs
+  and the failing-test set, and that a failing step exists. It does not check that the failure is a timeout, so
+  for inj-085 match=Y would also hold for any other failure of that step that leaves no pytest summary. The
+  timeout itself was confirmed by hand, above.
+  `f8510f7` adds the spec's six lines after line 86 of `api/services/chunking_service.py` and changes nothing
+  else: UTF-8 without BOM, stored with LF (`i/lf`), 4,356 to 4,590 bytes. The revert restores the parent tree
+  exactly. `main` and `origin/main` are both at `7ee4466`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-24 23:55 UTC: standing procedure extended, spec predictions in the offline check
+- Extends the standing procedure entry of 2026-11-24 21:01 UTC (error lines in rerun cases). The offline check
+  after slot 30 also verifies that each case's failing log contains the error text its spec notes predict
+  ("has timed out after" for timeout cases), and records every spec prediction that turned out wrong (slot 5,
+  inj-085: the hanging test's `-v` line, see that entry).
+- Reason: the harness's match check (`compare`) checks jobs, skipped jobs, failing tests and that a failing step
+  exists, not the error text, so a case can match with a different failure than the one its notes describe.
