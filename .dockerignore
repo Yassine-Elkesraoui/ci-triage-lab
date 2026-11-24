@@ -48,3 +48,4 @@ tests/
 .vscode/
 .idea/
 *.log
+*.txt
