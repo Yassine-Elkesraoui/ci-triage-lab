@@ -84,12 +84,6 @@ class ChunkingService:
 
         raw_chunks: list[str] = self._splitter.split_text(text)
 
-        import re
-
-        for position, content in enumerate(raw_chunks):
-            if not re.search(r"(?:\w+\s?)+[.!?]$", content):
-                logger.debug("Chunk %d of document %s ends mid-sentence", position, document_id)
-
         chunks = [
             DocumentChunk(
                 document_id=document_id,
