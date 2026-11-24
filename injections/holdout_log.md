@@ -94,3 +94,43 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   Run B 45283114753 is a new run id on the same sha as run A (`2d710d7bf7db10ccf1099858b2dbadf2b609ab7f`), with
   `run_attempt` 1 and event `push`. The force-back also confirms the second assumption: `main` accepted the force
   push, and it started a new run (45282098318) on `b980783`, which already had run 45276287232.
+
+## 2026-11-24 20:45 UTC: slot 3/30, inj-072 [dependency], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-072.json` (default
+  `--wait-for-green 15`; command form as for slots 1 and 2. The operator reported exit 0, but the console output
+  was not attached to the session that wrote this entry, so the command is not confirmed from it); harness commit
+  `01ea7a6` (harness code unchanged since `bd588d8`)
+- Commits: injection `9739013` (parent `01ea7a6`); discarded/recreated `45c6533` (decoy attempt), recreated as
+  `9739013` with the same tree (`e7771c4`), message and author date, and a new committer date (20:45:39 to
+  20:54:01); revert `3a18f29`
+- Runs: triaged 45485565146 F; decoy 45484139250 F; discarded none; parent (force-back) 45484275547 P (13 passed);
+  verification none. Revert run 45485754207: `smoke` passed and `docker` was still in progress when this entry
+  was written (21:01).
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Exit 0 (operator's report).
+- Unexpected: nothing. Both logs fail as the spec notes predict: `smoke` job, step `Install dependencies`
+  (`pip install -r requirements.txt`), with `ERROR: Ignored the following yanked versions: 2.6, 2.6.1`, then
+  `ERROR: Ignored the following versions that require a different python version: 3.7 Requires-Python
+  >=3.12,!=3.14.1; 3.7rc0 Requires-Python >=3.12,!=3.14.1`, then `Could not find a version ...` and
+  `ERROR: No matching distribution found for networkx==3.7`, exit code 1; no pytest summary; `docker` skipped.
+  These four lines were compared by hand and are identical in both logs, and match the local pip 24.0 check
+  word for word. The quick failure is that pip error, not a setup or runner problem: in both runs checkout
+  succeeded, setup-python set up CPython 3.11.18 and restored the pip cache, and the failure comes after that, in
+  `Install dependencies`. Triaged job 43 s (20:54:08 to 20:54:51), most of it the 2,856,191,359-byte pip-cache
+  restore; decoy job about 27 s from first to last log line. With timestamps stripped, the two logs differ only
+  in worker id, region (decoy eastus, triaged westus), temp paths, the checked-out sha and the number of
+  cache-restore progress lines (13 vs 26). `9739013` changes line 65 of `requirements.txt` only
+  (`networkx==3.6.1` to `networkx==3.7`): ASCII, LF, no BOM, 2,616 to 2,614 bytes. The revert restores the
+  parent tree exactly. `main` and `origin/main` are both at `3a18f29`; no `wip-` branch is left locally or on
+  origin.
+
+## 2026-11-24 21:01 UTC: correction to the slot 2 entry (inj-062), command confirmed
+- The slot 2 entry says the console output was not attached and gives the command only "as for slot 1". The
+  operator confirms the slot 2 command was exactly:
+  `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-062.json`
+
+## 2026-11-24 21:01 UTC: standing procedure, error lines in rerun cases
+- For every rerun case, compare the error lines of both runs (run A and run B) by hand and record them in the
+  entry. `same_commit_signatures` alone is not enough: it holds only the masked pytest summary and exit-code
+  lines (see slot 2), so it cannot show that the two runs failed on the same error.
+- An offline check over all 12 rerun cases runs after slot 30.

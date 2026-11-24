@@ -1,0 +1,94 @@
+{
+  "id": "inj-072",
+  "category": "dependency",
+  "commit": "9739013",
+  "run_id": "45485565146",
+  "job_id": "138769887199",
+  "target_file": "requirements.txt",
+  "mutation": "networkx==3.6.1 -> networkx==3.7",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-072.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-24T20:54:08Z",
+    "job_completed_at": "2026-11-24T20:54:51Z",
+    "duration_s": 43,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45485565146",
+        "commit": "9739013",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-072.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. networkx 3.7 is a real release with Requires-Python >=3.12,!=3.14.1 (seen in the v1.0 logs). Same pip failure shape as inj-071 on a package the app never imports directly (torch depends on it): the 'Ignored ...' line names 3.7 and its Requires-Python, then 'No matching distribution found for networkx==3.7'. Fails at 'Install dependencies'; no pytest summary. Local check with pip 24.0 (2026-11-20): confirmed, preceded by 'ERROR: Ignored the following yanked versions: 2.6, 2.6.1'; the runner's pip version may word these lines slightly differently.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a pin to a release whose python_requires excludes the runner's Python",
+    "mode": "decoy",
+    "branch": "wip-6301bb",
+    "commit_message": "Update requirements.txt",
+    "same_commit_rerun": null,
+    "decoy": true,
+    "parent_commit": "01ea7a6ee39e47a2c43af7609e8841c1525918fe",
+    "injection_commit_full": "9739013b1867b95c56f196b88875c95cfab872df",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "decoy",
+        "attempt": 1,
+        "run_id": "45484139250",
+        "commit": "45c6533",
+        "commit_full": "45c6533f3c8a8f92be343424a9a1e2cf49d7083a",
+        "created_at": "2026-11-24T20:45:44Z",
+        "conclusion": "failure",
+        "outcome": "F",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/extra-inj-072-decoy1-run45484139250.log"
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45484275547",
+        "commit": "01ea7a6",
+        "commit_full": "01ea7a6ee39e47a2c43af7609e8841c1525918fe",
+        "created_at": "2026-11-24T20:46:30Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
