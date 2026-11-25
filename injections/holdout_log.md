@@ -262,3 +262,31 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   cache-restore lines in run B). `3fb69f0` changes line 66 of `requirements.txt` only (`numpy==2.4.4` to
   `numpy==2.5.0`): ASCII, stored with LF (`i/lf`), 2,616 bytes before and after. The revert restores the parent
   tree exactly. `main` and `origin/main` are both at `d028ae5`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-25 17:49 UTC: slot 7/30, inj-061 [real_regression], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-061.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-061.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `9ab6293` (harness code unchanged since `bd588d8`).
+- Commits: injection `918da45` (parent `9ab6293`); discarded/recreated `ba13849` (decoy attempt), recreated as
+  `918da45` with the same tree (`6ffcfb8`), message and author date, and a new committer date (17:49:48 to
+  18:00:10); revert `7adf517`
+- Runs: triaged 45670616233 F; decoy 45668849388 F; discarded none; parent (force-back) 45669337564 P (13 passed);
+  verification none. Revert run 45671000212 P (smoke and docker both success, docker done 18:08:21).
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Console summary `inj-061 real_regression mode=decoy outcomes=F extras=decoy:F,parent:P
+  attempts=2 match=Y`, exit 0.
+- Unexpected: nothing. Both logs fail as the spec notes predict: `smoke` job, steps 1-5 succeeded (the import
+  step printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  `tests/test_app.py::test_root_endpoint` fails at `assert body["status"] == "running"` (tests/test_app.py:40) with
+  `KeyError: 'status'`, `1 failed, 12 passed`, then `##[error]Process completed with exit code 1.`
+  Lines compared by hand (decoy vs triaged; `##[error]`, `E`, `KeyError`, `FAILED` and summary lines, timestamps
+  stripped): identical apart from the pytest duration (3.67 s triaged, 4.57 s decoy). Smoke job 104 s triaged
+  (18:00:17 to 18:02:01), 147 s decoy (17:49:54 to 17:52:21). Logs 74,020 bytes / 697 lines triaged and 73,936
+  bytes / 696 lines decoy. As the notes say, the log names the missing key but not the new one.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: `KeyError: 'status'` at
+  `body["status"]`, 1 failed / 12 passed, import step passes. No spec prediction turned out wrong.
+  `918da45` changes line 92 of `api/main.py` only (`"status": "running",` to `"state": "running",`): UTF-8
+  without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 3,738 to 3,737 bytes. The revert
+  restores the parent tree exactly (`4734709`). `main` and `origin/main` are both at `7adf517`; no `wip-` branch
+  is left locally or on origin.

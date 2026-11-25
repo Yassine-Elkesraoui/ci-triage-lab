@@ -1,0 +1,697 @@
+﻿2026-11-25T18:00:18.2254476Z Current runner version: '2.338.2'
+2026-11-25T18:00:18.2281904Z ##[group]Runner Image Provisioner
+2026-11-25T18:00:18.2282706Z Hosted Compute Agent
+2026-11-25T18:00:18.2283335Z Version: 20261111.635
+2026-11-25T18:00:18.2283912Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-25T18:00:18.2284600Z Build Date: 2026-11-11T01:49:01Z
+2026-11-25T18:00:18.2285279Z Worker ID: {5400c936-cb14-4736-8bd2-5bc6104c10f1}
+2026-11-25T18:00:18.2285977Z Region: us-east-1
+2026-11-25T18:00:18.2286521Z Cloud: AWS
+2026-11-25T18:00:18.2287020Z ##[endgroup]
+2026-11-25T18:00:18.2289230Z ##[group]Operating System
+2026-11-25T18:00:18.2289864Z Ubuntu
+2026-11-25T18:00:18.2290399Z 26.04.1
+2026-11-25T18:00:18.2290936Z LTS
+2026-11-25T18:00:18.2291406Z ##[endgroup]
+2026-11-25T18:00:18.2291906Z ##[group]Runner Image
+2026-11-25T18:00:18.2292466Z Image: ubuntu-26.04
+2026-11-25T18:00:18.2292987Z Version: 20261116.88.1
+2026-11-25T18:00:18.2294366Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-25T18:00:18.2295781Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+2026-11-25T18:00:18.2296668Z ##[endgroup]
+2026-11-25T18:00:18.2298133Z ##[group]GITHUB_TOKEN Permissions
+2026-11-25T18:00:18.2300595Z Contents: read
+2026-11-25T18:00:18.2301320Z Metadata: read
+2026-11-25T18:00:18.2301858Z Packages: read
+2026-11-25T18:00:18.2302389Z ##[endgroup]
+2026-11-25T18:00:18.2304844Z Secret source: Actions
+2026-11-25T18:00:18.2305791Z Cache mode: write
+2026-11-25T18:00:18.2306567Z Prepare workflow directory
+2026-11-25T18:00:18.2643879Z Prepare all required actions
+2026-11-25T18:00:18.2696267Z Getting action download info
+2026-11-25T18:00:18.4880115Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-11-25T18:00:19.9757444Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-11-25T18:00:20.2614814Z Complete job name: Import & route smoke tests
+2026-11-25T18:00:20.3252202Z ##[group]Run actions/checkout@v5
+2026-11-25T18:00:20.3252920Z with:
+2026-11-25T18:00:20.3253383Z   repository: Yassine-Elkesraoui/ci-triage-lab
+2026-11-25T18:00:20.3256599Z   token: ***
+2026-11-25T18:00:20.3257091Z   ssh-strict: true
+2026-11-25T18:00:20.3257520Z   ssh-user: git
+2026-11-25T18:00:20.3258214Z   persist-credentials: true
+2026-11-25T18:00:20.3258696Z   clean: true
+2026-11-25T18:00:20.3259150Z   sparse-checkout-cone-mode: true
+2026-11-25T18:00:20.3259693Z   fetch-depth: 1
+2026-11-25T18:00:20.3260111Z   fetch-tags: false
+2026-11-25T18:00:20.3260542Z   show-progress: true
+2026-11-25T18:00:20.3260988Z   lfs: false
+2026-11-25T18:00:20.3261437Z   submodules: false
+2026-11-25T18:00:20.3261872Z   set-safe-directory: true
+2026-11-25T18:00:20.3262338Z   allow-unsafe-pr-checkout: false
+2026-11-25T18:00:20.3263027Z ##[endgroup]
+2026-11-25T18:00:23.4975157Z Syncing repository: Yassine-Elkesraoui/ci-triage-lab
+2026-11-25T18:00:23.4976458Z ##[group]Getting Git version info
+2026-11-25T18:00:23.4977129Z Working directory is '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-11-25T18:00:23.4978050Z [command]/usr/bin/git version
+2026-11-25T18:00:23.4978428Z git version 2.56.1
+2026-11-25T18:00:23.4989411Z ##[endgroup]
+2026-11-25T18:00:23.4997595Z Temporarily overriding HOME='/home/runner/work/_temp/34618809-aa6c-4cd2-84f9-a0fc7e2c065e' before making global git config changes
+2026-11-25T18:00:23.4998639Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-25T18:00:23.5001450Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-25T18:00:23.5422538Z Deleting the contents of '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-11-25T18:00:23.5425481Z ##[group]Initializing the repository
+2026-11-25T18:00:23.5430378Z [command]/usr/bin/git init /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-25T18:00:23.5993386Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-25T18:00:23.5994363Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-25T18:00:23.5994975Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-25T18:00:23.5995444Z hint: call:
+2026-11-25T18:00:23.5995843Z hint:
+2026-11-25T18:00:23.5996248Z hint: 	git config --global init.defaultBranch <name>
+2026-11-25T18:00:23.5996574Z hint:
+2026-11-25T18:00:23.5996904Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-25T18:00:23.5997392Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-25T18:00:23.5997919Z hint:
+2026-11-25T18:00:23.5998215Z hint: 	git branch -m <name>
+2026-11-25T18:00:23.5998500Z hint:
+2026-11-25T18:00:23.5998837Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-25T18:00:23.6015982Z Initialized empty Git repository in /home/runner/work/ci-triage-lab/ci-triage-lab/.git/
+2026-11-25T18:00:23.6025646Z [command]/usr/bin/git remote add origin https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-11-25T18:00:23.6089704Z ##[endgroup]
+2026-11-25T18:00:23.6090198Z ##[group]Disabling automatic garbage collection
+2026-11-25T18:00:23.6091996Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-25T18:00:23.6114060Z ##[endgroup]
+2026-11-25T18:00:23.6114549Z ##[group]Setting up auth
+2026-11-25T18:00:23.6118679Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-25T18:00:23.6140879Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-25T18:00:23.9063782Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-25T18:00:23.9090644Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-25T18:00:23.9273863Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-25T18:00:23.9296059Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-25T18:00:23.9474596Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-25T18:00:23.9500225Z ##[endgroup]
+2026-11-25T18:00:23.9500928Z ##[group]Fetching the repository
+2026-11-25T18:00:23.9506418Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +918da45b505326286255f26469c7982e112f1e43:refs/remotes/origin/main
+2026-11-25T18:00:24.4011535Z From https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-11-25T18:00:24.4012246Z  * [new ref]         918da45b505326286255f26469c7982e112f1e43 -> origin/main
+2026-11-25T18:00:24.4031525Z ##[endgroup]
+2026-11-25T18:00:24.4032345Z ##[group]Determining the checkout info
+2026-11-25T18:00:24.4032912Z ##[endgroup]
+2026-11-25T18:00:24.4033338Z [command]/usr/bin/git sparse-checkout disable
+2026-11-25T18:00:24.4081438Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-25T18:00:24.4103042Z ##[group]Checking out the ref
+2026-11-25T18:00:24.4108818Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-25T18:00:24.4486308Z Switched to a new branch 'main'
+2026-11-25T18:00:24.4493176Z branch 'main' set up to track 'origin/main'.
+2026-11-25T18:00:24.4501576Z ##[endgroup]
+2026-11-25T18:00:24.4551126Z [command]/usr/bin/git log -1 --format=%H
+2026-11-25T18:00:24.4569500Z 918da45b505326286255f26469c7982e112f1e43
+2026-11-25T18:00:24.4785254Z ##[group]Run actions/setup-python@v6
+2026-11-25T18:00:24.4785534Z with:
+2026-11-25T18:00:24.4785769Z   python-version: 3.11
+2026-11-25T18:00:24.4785996Z   cache: pip
+2026-11-25T18:00:24.4786202Z   check-latest: false
+2026-11-25T18:00:24.4788109Z   token: ***
+2026-11-25T18:00:24.4788506Z   update-environment: true
+2026-11-25T18:00:24.4788780Z   allow-prereleases: false
+2026-11-25T18:00:24.4789022Z   freethreaded: false
+2026-11-25T18:00:24.4789252Z ##[endgroup]
+2026-11-25T18:00:24.6205217Z ##[group]Installed versions
+2026-11-25T18:00:25.0201251Z Successfully set up CPython (3.11.18)
+2026-11-25T18:00:25.0202074Z ##[endgroup]
+2026-11-25T18:00:25.3497439Z [command]/opt/hostedtoolcache/Python/3.11.18/x64/bin/pip cache dir
+2026-11-25T18:00:28.0306676Z /home/runner/.cache/pip
+2026-11-25T18:00:28.1642744Z Cache hit for: setup-python-Linux-x64-26.04-Ubuntu-python-3.11.18-pip-dbe230f9d87a6d91083b6af49d38f9640cb454cc41da5faa8c543f0cf86b9093
+2026-11-25T18:00:29.2203510Z Received 226492416 of 2856191359 (7.9%), 215.8 MBs/sec
+2026-11-25T18:00:30.2459214Z Received 536870912 of 2856191359 (18.8%), 252.8 MBs/sec
+2026-11-25T18:00:31.2443354Z Received 671088640 of 2856191359 (23.5%), 211.6 MBs/sec
+2026-11-25T18:00:32.2479471Z Received 931135488 of 2856191359 (32.6%), 220.6 MBs/sec
+2026-11-25T18:00:33.2437008Z Received 1207959552 of 2856191359 (42.3%), 229.3 MBs/sec
+2026-11-25T18:00:34.2473828Z Received 1459617792 of 2856191359 (51.1%), 230.9 MBs/sec
+2026-11-25T18:00:35.2475969Z Received 1740636160 of 2856191359 (60.9%), 236.2 MBs/sec
+2026-11-25T18:00:36.2480675Z Received 2013265920 of 2856191359 (70.5%), 239.1 MBs/sec
+2026-11-25T18:00:37.2497123Z Received 2281701376 of 2856191359 (79.9%), 240.9 MBs/sec
+2026-11-25T18:00:38.2503171Z Received 2550136832 of 2856191359 (89.3%), 242.4 MBs/sec
+2026-11-25T18:00:39.2514840Z Received 2818572288 of 2856191359 (98.7%), 243.6 MBs/sec
+2026-11-25T18:00:39.3720945Z Received 2856191359 of 2856191359 (100.0%), 244.2 MBs/sec
+2026-11-25T18:00:39.3721651Z Cache Size: ~2724 MB (2856191359 B)
+2026-11-25T18:00:39.3746812Z [command]/usr/bin/tar -xf /home/runner/work/_temp/30a03901-2662-488e-b33b-a57a5892d62f/cache.tzst -P -C /home/runner/work/ci-triage-lab/ci-triage-lab --use-compress-program unzstd
+2026-11-25T18:00:48.1962307Z Cache restored successfully
+2026-11-25T18:00:48.2805386Z Cache restored from key: setup-python-Linux-x64-26.04-Ubuntu-python-3.11.18-pip-dbe230f9d87a6d91083b6af49d38f9640cb454cc41da5faa8c543f0cf86b9093
+2026-11-25T18:00:48.3034077Z ##[group]Run pip install -r requirements.txt
+2026-11-25T18:00:48.3034613Z [36;1mpip install -r requirements.txt[0m
+2026-11-25T18:00:48.3058929Z shell: /usr/bin/bash -e {0}
+2026-11-25T18:00:48.3059242Z env:
+2026-11-25T18:00:48.3059518Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:00:48.3059965Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-25T18:00:48.3060352Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:00:48.3060713Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:00:48.3062840Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:00:48.3063421Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-25T18:00:48.3063865Z ##[endgroup]
+2026-11-25T18:00:49.8550879Z Collecting aiohappyeyeballs==2.6.1 (from -r requirements.txt (line 1))
+2026-11-25T18:00:49.8563359Z   Using cached aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
+2026-11-25T18:00:50.1583929Z Collecting aiohttp==3.13.5 (from -r requirements.txt (line 2))
+2026-11-25T18:00:50.1596057Z   Using cached aiohttp-3.13.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+2026-11-25T18:00:50.1748733Z Collecting aiosignal==1.4.0 (from -r requirements.txt (line 3))
+2026-11-25T18:00:50.1758270Z   Using cached aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+2026-11-25T18:00:50.1896399Z Collecting annotated-doc==0.0.4 (from -r requirements.txt (line 4))
+2026-11-25T18:00:50.1906211Z   Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+2026-11-25T18:00:50.2045983Z Collecting annotated-types==0.7.0 (from -r requirements.txt (line 5))
+2026-11-25T18:00:50.2054804Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-11-25T18:00:50.2224114Z Collecting anyio==4.13.0 (from -r requirements.txt (line 6))
+2026-11-25T18:00:50.2233437Z   Using cached anyio-4.13.0-py3-none-any.whl.metadata (4.5 kB)
+2026-11-25T18:00:50.2393337Z Collecting attrs==26.1.0 (from -r requirements.txt (line 7))
+2026-11-25T18:00:50.2402358Z   Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-11-25T18:00:50.2669623Z Collecting bcrypt==5.0.0 (from -r requirements.txt (line 8))
+2026-11-25T18:00:50.2678104Z   Using cached bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl.metadata (10 kB)
+2026-11-25T18:00:50.2841390Z Collecting build==1.5.0 (from -r requirements.txt (line 9))
+2026-11-25T18:00:50.2850643Z   Using cached build-1.5.0-py3-none-any.whl.metadata (5.7 kB)
+2026-11-25T18:00:50.3224360Z Collecting certifi==2026.4.22 (from -r requirements.txt (line 10))
+2026-11-25T18:00:50.3234023Z   Using cached certifi-2026.4.22-py3-none-any.whl.metadata (2.5 kB)
+2026-11-25T18:00:50.4175942Z Collecting charset-normalizer==3.4.7 (from -r requirements.txt (line 11))
+2026-11-25T18:00:50.4188785Z   Using cached charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-11-25T18:00:50.4457411Z Collecting chromadb==1.5.9 (from -r requirements.txt (line 12))
+2026-11-25T18:00:50.4468611Z   Using cached chromadb-1.5.9-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.0 kB)
+2026-11-25T18:00:50.4645326Z Collecting click==8.3.3 (from -r requirements.txt (line 13))
+2026-11-25T18:00:50.4655006Z   Using cached click-8.3.3-py3-none-any.whl.metadata (2.6 kB)
+2026-11-25T18:00:50.4833089Z Collecting colorama==0.4.6 (from -r requirements.txt (line 14))
+2026-11-25T18:00:50.4842091Z   Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+2026-11-25T18:00:50.5033836Z Collecting dataclasses-json==0.6.7 (from -r requirements.txt (line 15))
+2026-11-25T18:00:50.5043719Z   Using cached dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+2026-11-25T18:00:50.5208292Z Collecting distro==1.9.0 (from -r requirements.txt (line 16))
+2026-11-25T18:00:50.5217517Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-11-25T18:00:50.5356463Z Collecting durationpy==0.10 (from -r requirements.txt (line 17))
+2026-11-25T18:00:50.5365968Z   Using cached durationpy-0.10-py3-none-any.whl.metadata (340 bytes)
+2026-11-25T18:00:50.5647694Z Collecting fastapi==0.136.1 (from -r requirements.txt (line 18))
+2026-11-25T18:00:50.5655879Z   Using cached fastapi-0.136.1-py3-none-any.whl.metadata (28 kB)
+2026-11-25T18:00:50.5870652Z Collecting filelock==3.29.0 (from -r requirements.txt (line 19))
+2026-11-25T18:00:50.5880644Z   Using cached filelock-3.29.0-py3-none-any.whl.metadata (2.0 kB)
+2026-11-25T18:00:50.6025221Z Collecting flatbuffers==25.12.19 (from -r requirements.txt (line 20))
+2026-11-25T18:00:50.6034962Z   Using cached flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+2026-11-25T18:00:50.6618494Z Collecting frozenlist==1.8.0 (from -r requirements.txt (line 21))
+2026-11-25T18:00:50.6626888Z   Using cached frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+2026-11-25T18:00:50.6810563Z Collecting fsspec==2026.4.0 (from -r requirements.txt (line 22))
+2026-11-25T18:00:50.6817349Z   Using cached fsspec-2026.4.0-py3-none-any.whl.metadata (10 kB)
+2026-11-25T18:00:50.7041314Z Collecting googleapis-common-protos==1.75.0 (from -r requirements.txt (line 23))
+2026-11-25T18:00:50.7050796Z   Using cached googleapis_common_protos-1.75.0-py3-none-any.whl.metadata (8.6 kB)
+2026-11-25T18:00:50.7894494Z Collecting greenlet==3.5.0 (from -r requirements.txt (line 24))
+2026-11-25T18:00:50.7906380Z   Using cached greenlet-3.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.7 kB)
+2026-11-25T18:00:51.1047347Z Collecting grpcio==1.80.0 (from -r requirements.txt (line 25))
+2026-11-25T18:00:51.1059148Z   Using cached grpcio-1.80.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+2026-11-25T18:00:51.1210938Z Collecting h11==0.16.0 (from -r requirements.txt (line 26))
+2026-11-25T18:00:51.1219765Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-11-25T18:00:51.1546182Z Collecting hf-xet==1.5.0 (from -r requirements.txt (line 27))
+2026-11-25T18:00:51.1555049Z   Using cached hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+2026-11-25T18:00:51.1718019Z Collecting httpcore==1.0.9 (from -r requirements.txt (line 28))
+2026-11-25T18:00:51.1724959Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-11-25T18:00:51.2007904Z Collecting httptools==0.7.1 (from -r requirements.txt (line 29))
+2026-11-25T18:00:51.2017154Z   Using cached httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-11-25T18:00:51.2177456Z Collecting httpx==0.28.1 (from -r requirements.txt (line 30))
+2026-11-25T18:00:51.2186793Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-11-25T18:00:51.2324673Z Collecting httpx-sse==0.4.3 (from -r requirements.txt (line 31))
+2026-11-25T18:00:51.2334465Z   Using cached httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+2026-11-25T18:00:51.2632977Z Collecting huggingface_hub==1.14.0 (from -r requirements.txt (line 32))
+2026-11-25T18:00:51.2643513Z   Using cached huggingface_hub-1.14.0-py3-none-any.whl.metadata (14 kB)
+2026-11-25T18:00:51.2854837Z Collecting idna==3.13 (from -r requirements.txt (line 33))
+2026-11-25T18:00:51.2864572Z   Using cached idna-3.13-py3-none-any.whl.metadata (8.0 kB)
+2026-11-25T18:00:51.3348810Z Collecting importlib_metadata==8.7.1 (from -r requirements.txt (line 34))
+2026-11-25T18:00:51.3359501Z   Using cached importlib_metadata-8.7.1-py3-none-any.whl.metadata (4.7 kB)
+2026-11-25T18:00:51.3539278Z Collecting importlib_resources==7.1.0 (from -r requirements.txt (line 35))
+2026-11-25T18:00:51.3548206Z   Using cached importlib_resources-7.1.0-py3-none-any.whl.metadata (4.0 kB)
+2026-11-25T18:00:51.3689710Z Collecting iniconfig==2.3.0 (from -r requirements.txt (line 36))
+2026-11-25T18:00:51.3699013Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-25T18:00:51.3853496Z Collecting Jinja2==3.1.6 (from -r requirements.txt (line 37))
+2026-11-25T18:00:51.3863992Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-11-25T18:00:51.4482143Z Collecting jiter==0.14.0 (from -r requirements.txt (line 38))
+2026-11-25T18:00:51.4494606Z   Using cached jiter-0.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-11-25T18:00:51.4672812Z Collecting joblib==1.5.3 (from -r requirements.txt (line 39))
+2026-11-25T18:00:51.4681579Z   Using cached joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+2026-11-25T18:00:51.4838493Z Collecting jsonpatch==1.33 (from -r requirements.txt (line 40))
+2026-11-25T18:00:51.4846261Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-11-25T18:00:51.4997894Z Collecting jsonpointer==3.1.1 (from -r requirements.txt (line 41))
+2026-11-25T18:00:51.5007977Z   Using cached jsonpointer-3.1.1-py3-none-any.whl.metadata (2.4 kB)
+2026-11-25T18:00:51.5190409Z Collecting jsonschema==4.26.0 (from -r requirements.txt (line 42))
+2026-11-25T18:00:51.5200584Z   Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-11-25T18:00:51.5356082Z Collecting jsonschema-specifications==2025.9.1 (from -r requirements.txt (line 43))
+2026-11-25T18:00:51.5366272Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-11-25T18:00:51.5561462Z Collecting kubernetes==35.0.0 (from -r requirements.txt (line 44))
+2026-11-25T18:00:51.5572326Z   Using cached kubernetes-35.0.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-11-25T18:00:51.5949091Z Collecting langchain==1.2.17 (from -r requirements.txt (line 45))
+2026-11-25T18:00:51.5959941Z   Using cached langchain-1.2.17-py3-none-any.whl.metadata (5.8 kB)
+2026-11-25T18:00:51.6120697Z Collecting langchain-classic==1.0.7 (from -r requirements.txt (line 46))
+2026-11-25T18:00:51.6130438Z   Using cached langchain_classic-1.0.7-py3-none-any.whl.metadata (5.1 kB)
+2026-11-25T18:00:51.6327609Z Collecting langchain-community==0.4.1 (from -r requirements.txt (line 47))
+2026-11-25T18:00:51.6337670Z   Using cached langchain_community-0.4.1-py3-none-any.whl.metadata (3.0 kB)
+2026-11-25T18:00:51.6624792Z Collecting langchain-core==1.3.3 (from -r requirements.txt (line 48))
+2026-11-25T18:00:51.6634277Z   Using cached langchain_core-1.3.3-py3-none-any.whl.metadata (4.5 kB)
+2026-11-25T18:00:51.6865713Z Collecting langchain-openai==1.2.1 (from -r requirements.txt (line 49))
+2026-11-25T18:00:51.6875218Z   Using cached langchain_openai-1.2.1-py3-none-any.whl.metadata (3.1 kB)
+2026-11-25T18:00:51.7026988Z Collecting langchain-protocol==0.0.15 (from -r requirements.txt (line 50))
+2026-11-25T18:00:51.7036965Z   Using cached langchain_protocol-0.0.15-py3-none-any.whl.metadata (2.4 kB)
+2026-11-25T18:00:51.7203831Z Collecting langchain-text-splitters==1.1.2 (from -r requirements.txt (line 51))
+2026-11-25T18:00:51.7213264Z   Using cached langchain_text_splitters-1.1.2-py3-none-any.whl.metadata (3.3 kB)
+2026-11-25T18:00:51.7482195Z Collecting langgraph==1.1.10 (from -r requirements.txt (line 52))
+2026-11-25T18:00:51.7490707Z   Using cached langgraph-1.1.10-py3-none-any.whl.metadata (8.0 kB)
+2026-11-25T18:00:51.7668566Z Collecting langgraph-checkpoint==4.0.3 (from -r requirements.txt (line 53))
+2026-11-25T18:00:51.7677216Z   Using cached langgraph_checkpoint-4.0.3-py3-none-any.whl.metadata (5.2 kB)
+2026-11-25T18:00:51.7842073Z Collecting langgraph-prebuilt==1.0.13 (from -r requirements.txt (line 54))
+2026-11-25T18:00:51.7852295Z   Using cached langgraph_prebuilt-1.0.13-py3-none-any.whl.metadata (5.2 kB)
+2026-11-25T18:00:51.8078022Z Collecting langgraph-sdk==0.3.14 (from -r requirements.txt (line 55))
+2026-11-25T18:00:51.8088684Z   Using cached langgraph_sdk-0.3.14-py3-none-any.whl.metadata (1.7 kB)
+2026-11-25T18:00:51.8508540Z Collecting langsmith==0.8.3 (from -r requirements.txt (line 56))
+2026-11-25T18:00:51.8519497Z   Using cached langsmith-0.8.3-py3-none-any.whl.metadata (15 kB)
+2026-11-25T18:00:51.8688741Z Collecting markdown-it-py==4.2.0 (from -r requirements.txt (line 57))
+2026-11-25T18:00:51.8698009Z   Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+2026-11-25T18:00:51.9413613Z Collecting MarkupSafe==3.0.3 (from -r requirements.txt (line 58))
+2026-11-25T18:00:51.9421381Z   Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-11-25T18:00:51.9640529Z Collecting marshmallow==3.26.2 (from -r requirements.txt (line 59))
+2026-11-25T18:00:51.9649877Z   Using cached marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
+2026-11-25T18:00:52.0039785Z Collecting mdurl==0.1.2 (from -r requirements.txt (line 60))
+2026-11-25T18:00:52.0050047Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+2026-11-25T18:00:52.0442372Z Collecting mmh3==5.2.1 (from -r requirements.txt (line 61))
+2026-11-25T18:00:52.0451352Z   Using cached mmh3-5.2.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (14 kB)
+2026-11-25T18:00:52.0606954Z Collecting mpmath==1.3.0 (from -r requirements.txt (line 62))
+2026-11-25T18:00:52.0615901Z   Using cached mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+2026-11-25T18:00:52.2107114Z Collecting multidict==6.7.1 (from -r requirements.txt (line 63))
+2026-11-25T18:00:52.2119905Z   Using cached multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+2026-11-25T18:00:52.2268530Z Collecting mypy_extensions==1.1.0 (from -r requirements.txt (line 64))
+2026-11-25T18:00:52.2278146Z   Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+2026-11-25T18:00:52.2479387Z Collecting networkx==3.6.1 (from -r requirements.txt (line 65))
+2026-11-25T18:00:52.2488639Z   Using cached networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+2026-11-25T18:00:52.3984814Z Collecting numpy==2.4.4 (from -r requirements.txt (line 66))
+2026-11-25T18:00:52.3995152Z   Using cached numpy-2.4.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-11-25T18:00:52.4148324Z Collecting oauthlib==3.3.1 (from -r requirements.txt (line 67))
+2026-11-25T18:00:52.4157510Z   Using cached oauthlib-3.3.1-py3-none-any.whl.metadata (7.9 kB)
+2026-11-25T18:00:52.4340503Z Collecting ollama==0.6.2 (from -r requirements.txt (line 68))
+2026-11-25T18:00:52.4349750Z   Using cached ollama-0.6.2-py3-none-any.whl.metadata (5.8 kB)
+2026-11-25T18:00:52.4770747Z Collecting onnxruntime==1.25.1 (from -r requirements.txt (line 69))
+2026-11-25T18:00:52.4778819Z   Using cached onnxruntime-1.25.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+2026-11-25T18:00:52.5133075Z Collecting openai==2.36.0 (from -r requirements.txt (line 70))
+2026-11-25T18:00:52.5141601Z   Using cached openai-2.36.0-py3-none-any.whl.metadata (31 kB)
+2026-11-25T18:00:52.5324672Z Collecting opentelemetry-api==1.41.1 (from -r requirements.txt (line 71))
+2026-11-25T18:00:52.5334132Z   Using cached opentelemetry_api-1.41.1-py3-none-any.whl.metadata (1.5 kB)
+2026-11-25T18:00:52.5489620Z Collecting opentelemetry-exporter-otlp-proto-common==1.41.1 (from -r requirements.txt (line 72))
+2026-11-25T18:00:52.5499257Z   Using cached opentelemetry_exporter_otlp_proto_common-1.41.1-py3-none-any.whl.metadata (1.9 kB)
+2026-11-25T18:00:52.5662065Z Collecting opentelemetry-exporter-otlp-proto-grpc==1.41.1 (from -r requirements.txt (line 73))
+2026-11-25T18:00:52.5671418Z   Using cached opentelemetry_exporter_otlp_proto_grpc-1.41.1-py3-none-any.whl.metadata (2.6 kB)
+2026-11-25T18:00:52.5838087Z Collecting opentelemetry-proto==1.41.1 (from -r requirements.txt (line 74))
+2026-11-25T18:00:52.5845703Z   Using cached opentelemetry_proto-1.41.1-py3-none-any.whl.metadata (2.4 kB)
+2026-11-25T18:00:52.6031204Z Collecting opentelemetry-sdk==1.41.1 (from -r requirements.txt (line 75))
+2026-11-25T18:00:52.6040751Z   Using cached opentelemetry_sdk-1.41.1-py3-none-any.whl.metadata (1.7 kB)
+2026-11-25T18:00:52.6226716Z Collecting opentelemetry-semantic-conventions==0.62b1 (from -r requirements.txt (line 76))
+2026-11-25T18:00:52.6235386Z   Using cached opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl.metadata (2.5 kB)
+2026-11-25T18:00:52.7988614Z Collecting orjson==3.11.9 (from -r requirements.txt (line 77))
+2026-11-25T18:00:52.8000322Z   Using cached orjson-3.11.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-11-25T18:00:52.8372721Z Collecting ormsgpack==1.12.2 (from -r requirements.txt (line 78))
+2026-11-25T18:00:52.8382735Z   Using cached ormsgpack-1.12.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+2026-11-25T18:00:52.8536323Z Collecting overrides==7.7.0 (from -r requirements.txt (line 79))
+2026-11-25T18:00:52.8545159Z   Using cached overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+2026-11-25T18:00:52.8712361Z Collecting packaging==26.2 (from -r requirements.txt (line 80))
+2026-11-25T18:00:52.8721943Z   Using cached packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+2026-11-25T18:00:52.8875008Z Collecting pluggy==1.6.0 (from -r requirements.txt (line 81))
+2026-11-25T18:00:52.8884538Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-11-25T18:00:52.9357255Z Collecting propcache==0.4.1 (from -r requirements.txt (line 82))
+2026-11-25T18:00:52.9365404Z   Using cached propcache-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+2026-11-25T18:00:53.0241382Z Collecting protobuf==6.33.6 (from -r requirements.txt (line 83))
+2026-11-25T18:00:53.0250141Z   Using cached protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+2026-11-25T18:00:53.0707333Z Collecting psycopg2-binary==2.9.12 (from -r requirements.txt (line 84))
+2026-11-25T18:00:53.0715489Z   Using cached psycopg2_binary-2.9.12-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+2026-11-25T18:00:53.1850026Z Collecting pybase64==1.4.3 (from -r requirements.txt (line 85))
+2026-11-25T18:00:53.1859319Z   Using cached pybase64-1.4.3-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl.metadata (8.7 kB)
+2026-11-25T18:00:53.2484980Z Collecting pydantic==2.13.4 (from -r requirements.txt (line 86))
+2026-11-25T18:00:53.2495838Z   Using cached pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+2026-11-25T18:00:53.2703285Z Collecting pydantic-settings==2.14.0 (from -r requirements.txt (line 87))
+2026-11-25T18:00:53.2712837Z   Using cached pydantic_settings-2.14.0-py3-none-any.whl.metadata (3.4 kB)
+2026-11-25T18:00:53.7043622Z Collecting pydantic_core==2.46.4 (from -r requirements.txt (line 88))
+2026-11-25T18:00:53.7055452Z   Using cached pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+2026-11-25T18:00:53.7225430Z Collecting Pygments==2.20.0 (from -r requirements.txt (line 89))
+2026-11-25T18:00:53.7234647Z   Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-25T18:00:53.7423848Z Collecting pypdf==6.12.2 (from -r requirements.txt (line 90))
+2026-11-25T18:00:53.7433573Z   Using cached pypdf-6.12.2-py3-none-any.whl.metadata (7.2 kB)
+2026-11-25T18:00:53.7605085Z Collecting PyPika==0.51.1 (from -r requirements.txt (line 91))
+2026-11-25T18:00:53.7612806Z   Using cached pypika-0.51.1-py2.py3-none-any.whl.metadata (51 kB)
+2026-11-25T18:00:53.7770166Z Collecting pyproject_hooks==1.2.0 (from -r requirements.txt (line 92))
+2026-11-25T18:00:53.7779236Z   Using cached pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)
+2026-11-25T18:00:53.7992719Z Collecting pytest==9.0.3 (from -r requirements.txt (line 93))
+2026-11-25T18:00:53.8003270Z   Using cached pytest-9.0.3-py3-none-any.whl.metadata (7.6 kB)
+2026-11-25T18:00:53.8153027Z Collecting python-dateutil==2.9.0.post0 (from -r requirements.txt (line 94))
+2026-11-25T18:00:53.8162276Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-11-25T18:00:53.8326165Z Collecting python-dotenv==1.2.2 (from -r requirements.txt (line 95))
+2026-11-25T18:00:53.8335001Z   Using cached python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+2026-11-25T18:00:53.8528800Z Collecting python-multipart==0.0.29 (from -r requirements.txt (line 96))
+2026-11-25T18:00:53.8538046Z   Using cached python_multipart-0.0.29-py3-none-any.whl.metadata (2.1 kB)
+2026-11-25T18:00:53.8833313Z Collecting PyYAML==6.0.3 (from -r requirements.txt (line 97))
+2026-11-25T18:00:53.8841359Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-11-25T18:00:53.9020692Z Collecting referencing==0.37.0 (from -r requirements.txt (line 98))
+2026-11-25T18:00:53.9030020Z   Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-11-25T18:00:54.1944942Z Collecting regex==2026.4.4 (from -r requirements.txt (line 99))
+2026-11-25T18:00:54.1956433Z   Using cached regex-2026.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-11-25T18:00:54.2179889Z Collecting requests==2.33.1 (from -r requirements.txt (line 100))
+2026-11-25T18:00:54.2189460Z   Using cached requests-2.33.1-py3-none-any.whl.metadata (4.8 kB)
+2026-11-25T18:00:54.2347230Z Collecting requests-oauthlib==2.0.0 (from -r requirements.txt (line 101))
+2026-11-25T18:00:54.2356691Z   Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+2026-11-25T18:00:54.2498920Z Collecting requests-toolbelt==1.0.0 (from -r requirements.txt (line 102))
+2026-11-25T18:00:54.2509073Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-11-25T18:00:54.2761345Z Collecting rich==15.0.0 (from -r requirements.txt (line 103))
+2026-11-25T18:00:54.2769371Z   Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+2026-11-25T18:00:54.4984290Z Collecting rpds-py==0.30.0 (from -r requirements.txt (line 104))
+2026-11-25T18:00:54.4995962Z   Using cached rpds_py-0.30.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-11-25T18:00:54.5704336Z Collecting safetensors==0.7.0 (from -r requirements.txt (line 105))
+2026-11-25T18:00:54.5715345Z   Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-11-25T18:00:54.6264254Z Collecting scikit-learn==1.8.0 (from -r requirements.txt (line 106))
+2026-11-25T18:00:54.6277264Z   Using cached scikit_learn-1.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (11 kB)
+2026-11-25T18:00:54.7037451Z Collecting scipy==1.17.1 (from -r requirements.txt (line 107))
+2026-11-25T18:00:54.7047555Z   Using cached scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-11-25T18:00:54.7275725Z Collecting sentence-transformers==5.5.1 (from -r requirements.txt (line 108))
+2026-11-25T18:00:54.7285431Z   Using cached sentence_transformers-5.5.1-py3-none-any.whl.metadata (18 kB)
+2026-11-25T18:00:54.7468041Z Collecting shellingham==1.5.4 (from -r requirements.txt (line 109))
+2026-11-25T18:00:54.7478223Z   Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+2026-11-25T18:00:54.7617165Z Collecting six==1.17.0 (from -r requirements.txt (line 110))
+2026-11-25T18:00:54.7626899Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-11-25T18:00:54.7793305Z Collecting sniffio==1.3.1 (from -r requirements.txt (line 111))
+2026-11-25T18:00:54.7801073Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-11-25T18:00:55.0398011Z Collecting SQLAlchemy==2.0.49 (from -r requirements.txt (line 112))
+2026-11-25T18:00:55.0408958Z   Using cached sqlalchemy-2.0.49-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+2026-11-25T18:00:55.0633865Z Collecting starlette==1.0.0 (from -r requirements.txt (line 113))
+2026-11-25T18:00:55.0644481Z   Using cached starlette-1.0.0-py3-none-any.whl.metadata (6.3 kB)
+2026-11-25T18:00:55.0806099Z Collecting sympy==1.14.0 (from -r requirements.txt (line 114))
+2026-11-25T18:00:55.0814998Z   Using cached sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+2026-11-25T18:00:55.0991973Z Collecting tenacity==9.1.4 (from -r requirements.txt (line 115))
+2026-11-25T18:00:55.1001346Z   Using cached tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+2026-11-25T18:00:55.1200853Z Collecting threadpoolctl==3.6.0 (from -r requirements.txt (line 116))
+2026-11-25T18:00:55.1209701Z   Using cached threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+2026-11-25T18:00:55.1518163Z Collecting tiktoken==0.12.0 (from -r requirements.txt (line 117))
+2026-11-25T18:00:55.1524732Z   Using cached tiktoken-0.12.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (6.7 kB)
+2026-11-25T18:00:55.2406220Z Collecting tokenizers==0.22.2 (from -r requirements.txt (line 118))
+2026-11-25T18:00:55.2417632Z   Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-11-25T18:00:55.2838670Z Collecting torch==2.12.0 (from -r requirements.txt (line 119))
+2026-11-25T18:00:55.2849320Z   Using cached torch-2.12.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (31 kB)
+2026-11-25T18:00:55.3082961Z Collecting tqdm==4.67.3 (from -r requirements.txt (line 120))
+2026-11-25T18:00:55.3092761Z   Using cached tqdm-4.67.3-py3-none-any.whl.metadata (57 kB)
+2026-11-25T18:00:55.3448983Z Collecting transformers==5.9.0 (from -r requirements.txt (line 121))
+2026-11-25T18:00:55.3458018Z   Using cached transformers-5.9.0-py3-none-any.whl.metadata (33 kB)
+2026-11-25T18:00:55.3835461Z Collecting typer==0.25.1 (from -r requirements.txt (line 122))
+2026-11-25T18:00:55.3846478Z   Using cached typer-0.25.1-py3-none-any.whl.metadata (15 kB)
+2026-11-25T18:00:55.4019377Z Collecting typing-inspect==0.9.0 (from -r requirements.txt (line 123))
+2026-11-25T18:00:55.4029102Z   Using cached typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+2026-11-25T18:00:55.4197687Z Collecting typing-inspection==0.4.2 (from -r requirements.txt (line 124))
+2026-11-25T18:00:55.4207655Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-11-25T18:00:55.4441890Z Collecting typing_extensions==4.15.0 (from -r requirements.txt (line 125))
+2026-11-25T18:00:55.4452366Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-25T18:00:55.4656288Z Collecting urllib3==2.7.0 (from -r requirements.txt (line 126))
+2026-11-25T18:00:55.4666023Z   Using cached urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+2026-11-25T18:00:55.5539207Z Collecting uuid_utils==0.14.1 (from -r requirements.txt (line 127))
+2026-11-25T18:00:55.5551021Z   Using cached uuid_utils-0.14.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.8 kB)
+2026-11-25T18:00:55.5792611Z Collecting uvicorn==0.46.0 (from -r requirements.txt (line 128))
+2026-11-25T18:00:55.5802576Z   Using cached uvicorn-0.46.0-py3-none-any.whl.metadata (6.7 kB)
+2026-11-25T18:00:55.6319879Z Collecting watchfiles==1.1.1 (from -r requirements.txt (line 129))
+2026-11-25T18:00:55.6330213Z   Using cached watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+2026-11-25T18:00:55.6504262Z Collecting websocket-client==1.9.0 (from -r requirements.txt (line 130))
+2026-11-25T18:00:55.6514067Z   Using cached websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+2026-11-25T18:00:55.7283418Z Collecting websockets==16.0 (from -r requirements.txt (line 131))
+2026-11-25T18:00:55.7294037Z   Using cached websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-11-25T18:00:55.9207204Z Collecting xxhash==3.7.0 (from -r requirements.txt (line 132))
+2026-11-25T18:00:55.9218254Z   Using cached xxhash-3.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+2026-11-25T18:00:56.0656111Z Collecting yarl==1.23.0 (from -r requirements.txt (line 133))
+2026-11-25T18:00:56.0665213Z   Using cached yarl-1.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+2026-11-25T18:00:56.0861225Z Collecting zipp==3.23.1 (from -r requirements.txt (line 134))
+2026-11-25T18:00:56.0871777Z   Using cached zipp-3.23.1-py3-none-any.whl.metadata (3.6 kB)
+2026-11-25T18:00:56.1312585Z Collecting zstandard==0.25.0 (from -r requirements.txt (line 135))
+2026-11-25T18:00:56.1322784Z   Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-11-25T18:00:56.3006527Z Requirement already satisfied: setuptools<82 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from torch==2.12.0->-r requirements.txt (line 119)) (79.0.1)
+2026-11-25T18:00:56.3222222Z Collecting cuda-toolkit==13.0.2 (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.3231306Z   Using cached cuda_toolkit-13.0.2-py2.py3-none-any.whl.metadata (9.4 kB)
+2026-11-25T18:00:56.3421556Z Collecting nvidia-cublas<=13.1.1.3,>=13.1.0.3 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.3431170Z   Using cached nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+2026-11-25T18:00:56.3744260Z Collecting cuda-bindings<14,>=13.0.3 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.3752592Z   Using cached cuda_bindings-13.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+2026-11-25T18:00:56.3929552Z Collecting nvidia-cudnn-cu13==9.20.0.48 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.3939193Z   Using cached nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+2026-11-25T18:00:56.4095075Z Collecting nvidia-cusparselt-cu13==0.8.1 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.4102945Z   Using cached nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+2026-11-25T18:00:56.4313709Z Collecting nvidia-nccl-cu13==2.29.7 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.4324651Z   Using cached nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl.metadata (2.1 kB)
+2026-11-25T18:00:56.4470464Z Collecting nvidia-nvshmem-cu13==3.4.5 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.4480348Z   Using cached nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.1 kB)
+2026-11-25T18:00:56.4659853Z Collecting triton==3.7.0 (from torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.4669184Z   Using cached triton-3.7.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.4954563Z Collecting nvidia-cuda-runtime==13.0.96.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.4964218Z   Using cached nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.5135040Z Collecting nvidia-cufft==12.0.0.61.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5143408Z   Using cached nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+2026-11-25T18:00:56.5295904Z Collecting nvidia-cufile==1.15.1.6.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5305398Z   Using cached nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.5452103Z Collecting nvidia-cuda-cupti==13.0.85.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5461326Z   Using cached nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.5606167Z Collecting nvidia-curand==10.4.0.35.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5615523Z   Using cached nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.5809416Z Collecting nvidia-cusolver==12.0.4.66.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5819409Z   Using cached nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+2026-11-25T18:00:56.5963945Z Collecting nvidia-cusparse==12.6.3.3.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.5973850Z   Using cached nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+2026-11-25T18:00:56.6125904Z Collecting nvidia-nvjitlink==13.0.88.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.6135267Z   Using cached nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.6302609Z Collecting nvidia-cuda-nvrtc==13.0.88.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.6311224Z   Using cached nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+2026-11-25T18:00:56.6450434Z Collecting nvidia-nvtx==13.0.85.* (from cuda-toolkit[cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2; platform_system == "Linux"->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.6459217Z   Using cached nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.8 kB)
+2026-11-25T18:00:56.6656538Z Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch==2.12.0->-r requirements.txt (line 119))
+2026-11-25T18:00:56.6667170Z   Using cached cuda_pathfinder-1.9.1-py3-none-any.whl.metadata (1.9 kB)
+2026-11-25T18:00:56.7522964Z Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.18.3->chromadb==1.5.9->-r requirements.txt (line 12))
+2026-11-25T18:00:56.7533937Z   Using cached uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+2026-11-25T18:00:56.7608258Z Using cached aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+2026-11-25T18:00:56.7618520Z Using cached aiohttp-3.13.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+2026-11-25T18:00:56.7634726Z Using cached multidict-6.7.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (246 kB)
+2026-11-25T18:00:56.7645611Z Using cached yarl-1.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (102 kB)
+2026-11-25T18:00:56.7655749Z Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+2026-11-25T18:00:56.7664390Z Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+2026-11-25T18:00:56.7673529Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-11-25T18:00:56.7682863Z Using cached anyio-4.13.0-py3-none-any.whl (114 kB)
+2026-11-25T18:00:56.7692454Z Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-11-25T18:00:56.7702198Z Using cached bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl (278 kB)
+2026-11-25T18:00:56.7712951Z Using cached build-1.5.0-py3-none-any.whl (26 kB)
+2026-11-25T18:00:56.7722347Z Using cached certifi-2026.4.22-py3-none-any.whl (135 kB)
+2026-11-25T18:00:56.7732344Z Using cached charset_normalizer-3.4.7-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (214 kB)
+2026-11-25T18:00:56.7742573Z Using cached chromadb-1.5.9-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (23.3 MB)
+2026-11-25T18:00:56.7827736Z Using cached click-8.3.3-py3-none-any.whl (110 kB)
+2026-11-25T18:00:56.7836214Z Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+2026-11-25T18:00:56.7845450Z Using cached dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+2026-11-25T18:00:56.7854570Z Using cached marshmallow-3.26.2-py3-none-any.whl (50 kB)
+2026-11-25T18:00:56.7863714Z Using cached typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+2026-11-25T18:00:56.7872788Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-11-25T18:00:56.7882023Z Using cached durationpy-0.10-py3-none-any.whl (3.9 kB)
+2026-11-25T18:00:56.7891055Z Using cached fastapi-0.136.1-py3-none-any.whl (117 kB)
+2026-11-25T18:00:56.7900651Z Using cached filelock-3.29.0-py3-none-any.whl (39 kB)
+2026-11-25T18:00:56.7910024Z Using cached flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+2026-11-25T18:00:56.7919816Z Using cached frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+2026-11-25T18:00:56.7929632Z Using cached fsspec-2026.4.0-py3-none-any.whl (203 kB)
+2026-11-25T18:00:56.7939667Z Using cached googleapis_common_protos-1.75.0-py3-none-any.whl (300 kB)
+2026-11-25T18:00:56.7950119Z Using cached protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+2026-11-25T18:00:56.7960757Z Using cached greenlet-3.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (615 kB)
+2026-11-25T18:00:56.7972735Z Using cached grpcio-1.80.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.8 MB)
+2026-11-25T18:00:56.8003889Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-11-25T18:00:56.8012919Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-11-25T18:00:56.8022582Z Using cached hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+2026-11-25T18:00:56.8046186Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-11-25T18:00:56.8055757Z Using cached httptools-0.7.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (456 kB)
+2026-11-25T18:00:56.8066613Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-11-25T18:00:56.8075964Z Using cached httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+2026-11-25T18:00:56.8085355Z Using cached huggingface_hub-1.14.0-py3-none-any.whl (661 kB)
+2026-11-25T18:00:56.8097005Z Using cached idna-3.13-py3-none-any.whl (68 kB)
+2026-11-25T18:00:56.8106328Z Using cached importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+2026-11-25T18:00:56.8115754Z Using cached importlib_resources-7.1.0-py3-none-any.whl (37 kB)
+2026-11-25T18:00:56.8124681Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-11-25T18:00:56.8133765Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-11-25T18:00:56.8143758Z Using cached jiter-0.14.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (358 kB)
+2026-11-25T18:00:56.8154398Z Using cached joblib-1.5.3-py3-none-any.whl (309 kB)
+2026-11-25T18:00:56.8164594Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-11-25T18:00:56.8173836Z Using cached jsonpointer-3.1.1-py3-none-any.whl (7.7 kB)
+2026-11-25T18:00:56.8183012Z Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-11-25T18:00:56.8192695Z Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-11-25T18:00:56.8202289Z Using cached kubernetes-35.0.0-py2.py3-none-any.whl (2.0 MB)
+2026-11-25T18:00:56.8218279Z Using cached langchain-1.2.17-py3-none-any.whl (113 kB)
+2026-11-25T18:00:56.8228078Z Using cached langchain_core-1.3.3-py3-none-any.whl (543 kB)
+2026-11-25T18:00:56.8239533Z Using cached langgraph-1.1.10-py3-none-any.whl (173 kB)
+2026-11-25T18:00:56.8249200Z Using cached langgraph_checkpoint-4.0.3-py3-none-any.whl (51 kB)
+2026-11-25T18:00:56.8258446Z Using cached langgraph_prebuilt-1.0.13-py3-none-any.whl (37 kB)
+2026-11-25T18:00:56.8267456Z Using cached langgraph_sdk-0.3.14-py3-none-any.whl (97 kB)
+2026-11-25T18:00:56.8277266Z Using cached langsmith-0.8.3-py3-none-any.whl (399 kB)
+2026-11-25T18:00:56.8287714Z Using cached pydantic-2.13.4-py3-none-any.whl (472 kB)
+2026-11-25T18:00:56.8299409Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-11-25T18:00:56.8311436Z Using cached tenacity-9.1.4-py3-none-any.whl (28 kB)
+2026-11-25T18:00:56.8320913Z Using cached uuid_utils-0.14.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (345 kB)
+2026-11-25T18:00:56.8331299Z Using cached langchain_classic-1.0.7-py3-none-any.whl (1.0 MB)
+2026-11-25T18:00:56.8344112Z Using cached langchain_text_splitters-1.1.2-py3-none-any.whl (35 kB)
+2026-11-25T18:00:56.8353474Z Using cached requests-2.33.1-py3-none-any.whl (64 kB)
+2026-11-25T18:00:56.8363398Z Using cached sqlalchemy-2.0.49-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+2026-11-25T18:00:56.8383392Z Using cached urllib3-2.7.0-py3-none-any.whl (131 kB)
+2026-11-25T18:00:56.8392911Z Using cached langchain_community-0.4.1-py3-none-any.whl (2.5 MB)
+2026-11-25T18:00:56.8410695Z Using cached pydantic_settings-2.14.0-py3-none-any.whl (60 kB)
+2026-11-25T18:00:56.8419764Z Using cached langchain_openai-1.2.1-py3-none-any.whl (98 kB)
+2026-11-25T18:00:56.8429468Z Using cached openai-2.36.0-py3-none-any.whl (1.3 MB)
+2026-11-25T18:00:56.8443510Z Using cached tiktoken-0.12.0-cp311-cp311-manylinux_2_28_x86_64.whl (1.2 MB)
+2026-11-25T18:00:56.8456775Z Using cached langchain_protocol-0.0.15-py3-none-any.whl (7.0 kB)
+2026-11-25T18:00:56.8465805Z Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+2026-11-25T18:00:56.8475558Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-11-25T18:00:56.8485365Z Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-11-25T18:00:56.8494682Z Using cached mmh3-5.2.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (103 kB)
+2026-11-25T18:00:56.8504293Z Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+2026-11-25T18:00:56.8515664Z Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+2026-11-25T18:00:56.8524614Z Using cached networkx-3.6.1-py3-none-any.whl (2.1 MB)
+2026-11-25T18:00:56.8542420Z Using cached numpy-2.4.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+2026-11-25T18:00:56.8605448Z Using cached oauthlib-3.3.1-py3-none-any.whl (160 kB)
+2026-11-25T18:00:56.8613652Z Using cached ollama-0.6.2-py3-none-any.whl (15 kB)
+2026-11-25T18:00:56.8623004Z Using cached onnxruntime-1.25.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.0 MB)
+2026-11-25T18:00:56.8688035Z Using cached opentelemetry_api-1.41.1-py3-none-any.whl (69 kB)
+2026-11-25T18:00:56.8697912Z Using cached opentelemetry_exporter_otlp_proto_common-1.41.1-py3-none-any.whl (18 kB)
+2026-11-25T18:00:56.8706843Z Using cached opentelemetry_exporter_otlp_proto_grpc-1.41.1-py3-none-any.whl (20 kB)
+2026-11-25T18:00:56.8721348Z Using cached opentelemetry_sdk-1.41.1-py3-none-any.whl (180 kB)
+2026-11-25T18:00:56.8731169Z Using cached opentelemetry_proto-1.41.1-py3-none-any.whl (72 kB)
+2026-11-25T18:00:56.8740688Z Using cached opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl (231 kB)
+2026-11-25T18:00:56.8750867Z Using cached orjson-3.11.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (133 kB)
+2026-11-25T18:00:56.8760629Z Using cached ormsgpack-1.12.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+2026-11-25T18:00:56.8770412Z Using cached overrides-7.7.0-py3-none-any.whl (17 kB)
+2026-11-25T18:00:56.8779496Z Using cached packaging-26.2-py3-none-any.whl (100 kB)
+2026-11-25T18:00:56.8789045Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-11-25T18:00:56.8798484Z Using cached propcache-0.4.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (210 kB)
+2026-11-25T18:00:56.8808679Z Using cached psycopg2_binary-2.9.12-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.3 MB)
+2026-11-25T18:00:56.8832633Z Using cached pybase64-1.4.3-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (71 kB)
+2026-11-25T18:00:56.8842127Z Using cached pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-11-25T18:00:56.8860141Z Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+2026-11-25T18:00:56.8873647Z Using cached pypdf-6.12.2-py3-none-any.whl (343 kB)
+2026-11-25T18:00:56.8884498Z Using cached pypika-0.51.1-py2.py3-none-any.whl (60 kB)
+2026-11-25T18:00:56.8892859Z Using cached pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)
+2026-11-25T18:00:56.8902284Z Using cached pytest-9.0.3-py3-none-any.whl (375 kB)
+2026-11-25T18:00:56.8913261Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-11-25T18:00:56.8923192Z Using cached python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+2026-11-25T18:00:56.8932298Z Using cached python_multipart-0.0.29-py3-none-any.whl (29 kB)
+2026-11-25T18:00:56.8941319Z Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-11-25T18:00:56.8950611Z Using cached regex-2026.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (799 kB)
+2026-11-25T18:00:56.8962913Z Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+2026-11-25T18:00:56.8971839Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-11-25T18:00:56.9002756Z Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+2026-11-25T18:00:56.9003469Z Using cached rpds_py-0.30.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (390 kB)
+2026-11-25T18:00:56.9006867Z Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+2026-11-25T18:00:56.9018632Z Using cached scikit_learn-1.8.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.1 MB)
+2026-11-25T18:00:56.9056849Z Using cached scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-11-25T18:00:56.9178362Z Using cached sentence_transformers-5.5.1-py3-none-any.whl (588 kB)
+2026-11-25T18:00:56.9189334Z Using cached transformers-5.9.0-py3-none-any.whl (10.8 MB)
+2026-11-25T18:00:56.9232963Z Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+2026-11-25T18:00:56.9252700Z Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+2026-11-25T18:00:56.9261716Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-11-25T18:00:56.9271372Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-11-25T18:00:56.9279390Z Using cached starlette-1.0.0-py3-none-any.whl (72 kB)
+2026-11-25T18:00:56.9289084Z Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+2026-11-25T18:00:56.9319181Z Using cached threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+2026-11-25T18:00:56.9328759Z Using cached torch-2.12.0-cp311-cp311-manylinux_2_28_x86_64.whl (532.2 MB)
+2026-11-25T18:00:57.0950630Z Using cached tqdm-4.67.3-py3-none-any.whl (78 kB)
+2026-11-25T18:00:57.0964503Z Using cached typer-0.25.1-py3-none-any.whl (58 kB)
+2026-11-25T18:00:57.0979119Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-11-25T18:00:57.0993364Z Using cached uvicorn-0.46.0-py3-none-any.whl (70 kB)
+2026-11-25T18:00:57.1007106Z Using cached watchfiles-1.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+2026-11-25T18:00:57.1022963Z Using cached websocket_client-1.9.0-py3-none-any.whl (82 kB)
+2026-11-25T18:00:57.1036621Z Using cached websockets-16.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (184 kB)
+2026-11-25T18:00:57.1052211Z Using cached xxhash-3.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (193 kB)
+2026-11-25T18:00:57.1064115Z Using cached zipp-3.23.1-py3-none-any.whl (10 kB)
+2026-11-25T18:00:57.1077442Z Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-11-25T18:00:57.1111732Z Using cached cuda_toolkit-13.0.2-py2.py3-none-any.whl (2.4 kB)
+2026-11-25T18:00:57.1124664Z Using cached nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl (366.2 MB)
+2026-11-25T18:00:57.2339647Z Using cached nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+2026-11-25T18:00:57.2883242Z Using cached nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl (206.0 MB)
+2026-11-25T18:00:57.3524303Z Using cached nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+2026-11-25T18:00:57.3721534Z Using cached triton-3.7.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (201.4 MB)
+2026-11-25T18:00:57.4566494Z Using cached cuda_bindings-13.5.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (8.4 MB)
+2026-11-25T18:00:57.4687274Z Using cached nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+2026-11-25T18:00:58.6937946Z Using cached nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+2026-11-25T18:00:58.7290390Z Using cached nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+2026-11-25T18:00:59.0794273Z Using cached nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+2026-11-25T18:00:59.0813284Z Using cached nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+2026-11-25T18:00:59.9128321Z Using cached nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+2026-11-25T18:00:59.9145065Z Using cached nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+2026-11-25T18:01:00.1729997Z Using cached nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+2026-11-25T18:01:01.0495819Z Using cached nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+2026-11-25T18:01:01.6819235Z Using cached nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.7 MB)
+2026-11-25T18:01:01.8580324Z Using cached nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+2026-11-25T18:01:01.8589742Z Using cached cuda_pathfinder-1.9.1-py3-none-any.whl (63 kB)
+2026-11-25T18:01:01.8600096Z Using cached uvloop-0.23.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.0 MB)
+2026-11-25T18:01:04.8773571Z Installing collected packages: PyPika, nvidia-cusparselt-cu13, mpmath, flatbuffers, durationpy, cuda-toolkit, zstandard, zipp, xxhash, websockets, websocket-client, uvloop, uuid_utils, urllib3, typing_extensions, triton, tqdm, threadpoolctl, tenacity, sympy, sniffio, six, shellingham, safetensors, rpds-py, regex, PyYAML, python-multipart, python-dotenv, pyproject_hooks, pypdf, Pygments, pybase64, psycopg2-binary, protobuf, propcache, pluggy, packaging, overrides, ormsgpack, orjson, oauthlib, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, numpy, networkx, mypy_extensions, multidict, mmh3, mdurl, MarkupSafe, jsonpointer, joblib, jiter, iniconfig, importlib_resources, idna, httpx-sse, httptools, hf-xet, h11, greenlet, fsspec, frozenlist, filelock, distro, cuda-pathfinder, colorama, click, charset-normalizer, certifi, bcrypt, attrs, annotated-types, annotated-doc, aiohappyeyeballs, yarl, uvicorn, typing-inspection, typing-inspect, SQLAlchemy, scipy, requests, referencing, python-dateutil, pytest, pydantic_core, opentelemetry-proto, onnxruntime, nvidia-cusparse, nvidia-cufft, nvidia-cublas, marshmallow, markdown-it-py, langchain-protocol, jsonpatch, Jinja2, importlib_metadata, httpcore, grpcio, googleapis-common-protos, cuda-bindings, build, anyio, aiosignal, watchfiles, tiktoken, starlette, scikit-learn, rich, requests-toolbelt, requests-oauthlib, pydantic, opentelemetry-exporter-otlp-proto-common, opentelemetry-api, nvidia-cusolver, nvidia-cudnn-cu13, jsonschema-specifications, httpx, dataclasses-json, aiohttp, typer, pydantic-settings, opentelemetry-semantic-conventions, openai, ollama, langsmith, langgraph-sdk, kubernetes, jsonschema, fastapi, torch, opentelemetry-sdk, langchain-core, huggingface_hub, tokenizers, opentelemetry-exporter-otlp-proto-grpc, langgraph-checkpoint, langchain-text-splitters, langchain-openai, transformers, langgraph-prebuilt, langchain-classic, chromadb, sentence-transformers, langgraph, langchain-community, langchain
+2026-11-25T18:01:47.7804821Z 
+2026-11-25T18:01:47.7847604Z Successfully installed Jinja2-3.1.6 MarkupSafe-3.0.3 PyPika-0.51.1 PyYAML-6.0.3 Pygments-2.20.0 SQLAlchemy-2.0.49 aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.13.0 attrs-26.1.0 bcrypt-5.0.0 build-1.5.0 certifi-2026.4.22 charset-normalizer-3.4.7 chromadb-1.5.9 click-8.3.3 colorama-0.4.6 cuda-bindings-13.5.0 cuda-pathfinder-1.9.1 cuda-toolkit-13.0.2 dataclasses-json-0.6.7 distro-1.9.0 durationpy-0.10 fastapi-0.136.1 filelock-3.29.0 flatbuffers-25.12.19 frozenlist-1.8.0 fsspec-2026.4.0 googleapis-common-protos-1.75.0 greenlet-3.5.0 grpcio-1.80.0 h11-0.16.0 hf-xet-1.5.0 httpcore-1.0.9 httptools-0.7.1 httpx-0.28.1 httpx-sse-0.4.3 huggingface_hub-1.14.0 idna-3.13 importlib_metadata-8.7.1 importlib_resources-7.1.0 iniconfig-2.3.0 jiter-0.14.0 joblib-1.5.3 jsonpatch-1.33 jsonpointer-3.1.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kubernetes-35.0.0 langchain-1.2.17 langchain-classic-1.0.7 langchain-community-0.4.1 langchain-core-1.3.3 langchain-openai-1.2.1 langchain-protocol-0.0.15 langchain-text-splitters-1.1.2 langgraph-1.1.10 langgraph-checkpoint-4.0.3 langgraph-prebuilt-1.0.13 langgraph-sdk-0.3.14 langsmith-0.8.3 markdown-it-py-4.2.0 marshmallow-3.26.2 mdurl-0.1.2 mmh3-5.2.1 mpmath-1.3.0 multidict-6.7.1 mypy_extensions-1.1.0 networkx-3.6.1 numpy-2.4.4 nvidia-cublas-13.1.1.3 nvidia-cuda-cupti-13.0.85 nvidia-cuda-nvrtc-13.0.88 nvidia-cuda-runtime-13.0.96 nvidia-cudnn-cu13-9.20.0.48 nvidia-cufft-12.0.0.61 nvidia-cufile-1.15.1.6 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.4.66 nvidia-cusparse-12.6.3.3 nvidia-cusparselt-cu13-0.8.1 nvidia-nccl-cu13-2.29.7 nvidia-nvjitlink-13.0.88 nvidia-nvshmem-cu13-3.4.5 nvidia-nvtx-13.0.85 oauthlib-3.3.1 ollama-0.6.2 onnxruntime-1.25.1 openai-2.36.0 opentelemetry-api-1.41.1 opentelemetry-exporter-otlp-proto-common-1.41.1 opentelemetry-exporter-otlp-proto-grpc-1.41.1 opentelemetry-proto-1.41.1 opentelemetry-sdk-1.41.1 opentelemetry-semantic-conventions-0.62b1 orjson-3.11.9 ormsgpack-1.12.2 overrides-7.7.0 packaging-26.2 pluggy-1.6.0 propcache-0.4.1 protobuf-6.33.6 psycopg2-binary-2.9.12 pybase64-1.4.3 pydantic-2.13.4 pydantic-settings-2.14.0 pydantic_core-2.46.4 pypdf-6.12.2 pyproject_hooks-1.2.0 pytest-9.0.3 python-dateutil-2.9.0.post0 python-dotenv-1.2.2 python-multipart-0.0.29 referencing-0.37.0 regex-2026.4.4 requests-2.33.1 requests-oauthlib-2.0.0 requests-toolbelt-1.0.0 rich-15.0.0 rpds-py-0.30.0 safetensors-0.7.0 scikit-learn-1.8.0 scipy-1.17.1 sentence-transformers-5.5.1 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 starlette-1.0.0 sympy-1.14.0 tenacity-9.1.4 threadpoolctl-3.6.0 tiktoken-0.12.0 tokenizers-0.22.2 torch-2.12.0 tqdm-4.67.3 transformers-5.9.0 triton-3.7.0 typer-0.25.1 typing-inspect-0.9.0 typing-inspection-0.4.2 typing_extensions-4.15.0 urllib3-2.7.0 uuid_utils-0.14.1 uvicorn-0.46.0 uvloop-0.23.0 watchfiles-1.1.1 websocket-client-1.9.0 websockets-16.0 xxhash-3.7.0 yarl-1.23.0 zipp-3.23.1 zstandard-0.25.0
+2026-11-25T18:01:48.2006200Z ##[group]Run python -c "from api.main import app; print('CLEAN IMPORT OK')"
+2026-11-25T18:01:48.2006704Z [36;1mpython -c "from api.main import app; print('CLEAN IMPORT OK')"[0m
+2026-11-25T18:01:48.2025496Z shell: /usr/bin/bash -e {0}
+2026-11-25T18:01:48.2025786Z env:
+2026-11-25T18:01:48.2026066Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:48.2026469Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-25T18:01:48.2026906Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:48.2027261Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:48.2027631Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:48.2028156Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-25T18:01:48.2028521Z ##[endgroup]
+2026-11-25T18:01:53.6813253Z 2026-11-25 18:01:53 | INFO | rag_chatbot | RAG Chatbot Platform initialized — version 1.0.0, environment 'development'
+2026-11-25T18:01:53.6869790Z CLEAN IMPORT OK
+2026-11-25T18:01:54.4780274Z ##[group]Run python -m pytest tests -v
+2026-11-25T18:01:54.4780634Z [36;1mpython -m pytest tests -v[0m
+2026-11-25T18:01:54.4800163Z shell: /usr/bin/bash -e {0}
+2026-11-25T18:01:54.4800442Z env:
+2026-11-25T18:01:54.4800791Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:54.4801284Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-25T18:01:54.4801677Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:54.4802026Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:54.4802416Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-25T18:01:54.4802775Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-25T18:01:54.4803096Z ##[endgroup]
+2026-11-25T18:01:55.1261302Z ============================= test session starts ==============================
+2026-11-25T18:01:55.1262175Z platform linux -- Python 3.11.18, pytest-9.0.3, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+2026-11-25T18:01:55.1262890Z cachedir: .pytest_cache
+2026-11-25T18:01:55.1263232Z rootdir: /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-25T18:01:55.1263623Z configfile: pytest.ini
+2026-11-25T18:01:55.1263970Z plugins: anyio-4.13.0, langsmith-0.8.3
+2026-11-25T18:01:58.7796400Z collecting ... collected 13 items
+2026-11-25T18:01:58.7796798Z 
+2026-11-25T18:01:58.7801621Z tests/test_app.py::test_app_constructs PASSED                            [  7%]
+2026-11-25T18:01:58.7805544Z tests/test_app.py::test_expected_routes_registered PASSED                [ 15%]
+2026-11-25T18:01:58.7853233Z tests/test_app.py::test_root_endpoint FAILED                             [ 23%]
+2026-11-25T18:01:58.7878402Z tests/test_app.py::test_health_endpoint PASSED                           [ 30%]
+2026-11-25T18:01:58.7881853Z tests/test_behaviour.py::test_chat_request_accepts_valid_question PASSED [ 38%]
+2026-11-25T18:01:58.7885491Z tests/test_behaviour.py::test_chat_request_rejects_short_question PASSED [ 46%]
+2026-11-25T18:01:58.7889068Z tests/test_behaviour.py::test_chat_request_rejects_overlong_question PASSED [ 53%]
+2026-11-25T18:01:58.7892572Z tests/test_behaviour.py::test_chat_response_requires_all_fields PASSED   [ 61%]
+2026-11-25T18:01:58.7904900Z tests/test_behaviour.py::test_chunking_returns_empty_list_for_blank_text PASSED [ 69%]
+2026-11-25T18:01:58.7917987Z tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks PASSED [ 76%]
+2026-11-25T18:01:58.7929732Z tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id PASSED [ 84%]
+2026-11-25T18:01:58.7940912Z tests/test_behaviour.py::test_chunking_char_count_matches_content_length PASSED [ 92%]
+2026-11-25T18:01:59.4493178Z tests/test_behaviour.py::test_settings_defaults_are_sane PASSED          [100%]
+2026-11-25T18:01:59.4493583Z 
+2026-11-25T18:01:59.4493773Z =================================== FAILURES ===================================
+2026-11-25T18:01:59.4494413Z ______________________________ test_root_endpoint ______________________________
+2026-11-25T18:01:59.4494665Z 
+2026-11-25T18:01:59.4494848Z     def test_root_endpoint() -> None:
+2026-11-25T18:01:59.4495212Z         """GET / returns the welcome payload."""
+2026-11-25T18:01:59.4495513Z         response = client.get("/")
+2026-11-25T18:01:59.4495791Z         assert response.status_code == 200
+2026-11-25T18:01:59.4496134Z         body = response.json()
+2026-11-25T18:01:59.4496423Z >       assert body["status"] == "running"
+2026-11-25T18:01:59.4496706Z                ^^^^^^^^^^^^^^
+2026-11-25T18:01:59.4496976Z E       KeyError: 'status'
+2026-11-25T18:01:59.4497139Z 
+2026-11-25T18:01:59.4497268Z tests/test_app.py:40: KeyError
+2026-11-25T18:01:59.4497584Z =========================== short test summary info ============================
+2026-11-25T18:01:59.4498377Z FAILED tests/test_app.py::test_root_endpoint - KeyError: 'status'
+2026-11-25T18:01:59.4498889Z ========================= 1 failed, 12 passed in 3.67s =========================
+2026-11-25T18:02:00.1322798Z ##[error]Process completed with exit code 1.
+2026-11-25T18:02:00.1435853Z Post job cleanup.
+2026-11-25T18:02:00.2078891Z [command]/usr/bin/git version
+2026-11-25T18:02:00.2113601Z git version 2.56.1
+2026-11-25T18:02:00.2144136Z Temporarily overriding HOME='/home/runner/work/_temp/69541f17-a805-4d65-b074-f3c6fd145cf6' before making global git config changes
+2026-11-25T18:02:00.2144988Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-25T18:02:00.2148978Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-25T18:02:00.2180251Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-25T18:02:00.2206094Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-25T18:02:00.2400394Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-25T18:02:00.2416637Z http.https://github.com/.extraheader
+2026-11-25T18:02:00.2424230Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-25T18:02:00.2447303Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-25T18:02:00.2636451Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-25T18:02:00.2657209Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-25T18:02:00.2941630Z Cleaning up orphan processes

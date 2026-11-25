@@ -1,0 +1,96 @@
+{
+  "id": "inj-061",
+  "category": "real_regression",
+  "commit": "918da45",
+  "run_id": "45670616233",
+  "job_id": "139404578098",
+  "target_file": "api/main.py",
+  "mutation": "        \"status\": \"running\", ->         \"state\": \"running\",",
+  "expected_failing_tests": [
+    "tests/test_app.py::test_root_endpoint"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-061.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-25T18:00:17Z",
+    "job_completed_at": "2026-11-25T18:02:01Z",
+    "duration_s": 104,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45670616233",
+        "commit": "918da45",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-061.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. read_root() now returns 'state' instead of 'status'. The import step passes; pytest runs and test_root_endpoint fails with KeyError: 'status' at body[\"status\"], 1 failed / 12 passed. The log shows which key is missing but not what it was renamed to; the agent must read read_root() in api/main.py. No v1.0 case renames a returned field.",
+  "holdout": {
+    "version": "1.1",
+    "family": "renamed or dropped field in a returned object",
+    "mode": "decoy",
+    "branch": "wip-f9b439",
+    "commit_message": "Update api/main.py",
+    "same_commit_rerun": null,
+    "decoy": true,
+    "parent_commit": "9ab6293785347183b5eb5f77853312de6d7fb35e",
+    "injection_commit_full": "918da45b505326286255f26469c7982e112f1e43",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "decoy",
+        "attempt": 1,
+        "run_id": "45668849388",
+        "commit": "ba13849",
+        "commit_full": "ba138493e89aa99c75931672a596f37b4f1333aa",
+        "created_at": "2026-11-25T17:49:52Z",
+        "conclusion": "failure",
+        "outcome": "F",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/extra-inj-061-decoy1-run45668849388.log"
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45669337564",
+        "commit": "9ab6293",
+        "commit_full": "9ab6293785347183b5eb5f77853312de6d7fb35e",
+        "created_at": "2026-11-25T17:52:40Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
