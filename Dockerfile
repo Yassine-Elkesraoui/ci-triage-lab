@@ -9,7 +9,8 @@
 #
 # Listens on 0.0.0.0:7860 for Hugging Face Spaces compatibility.
 # ─────────────────────────────────────────────────────────────────────
-FROM python:3.11-slim
+ARG PYTHON_VERSION
+FROM python:${PYTHON_VERSION}-slim
 
 # Avoid interactive prompts; keep Python output unbuffered for live logs.
 ENV PYTHONUNBUFFERED=1 \
