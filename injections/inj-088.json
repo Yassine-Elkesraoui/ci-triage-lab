@@ -1,0 +1,96 @@
+{
+  "id": "inj-088",
+  "category": "build",
+  "commit": "8276fbc",
+  "run_id": "45675386098",
+  "job_id": "139422674151",
+  "target_file": "Dockerfile",
+  "mutation": "# ─────────────────────────────────────────────────────────────────────\nFROM python:3.11-slim -> # ─────────────────────────────────────────────────────────────────────\nARG PYTHON_VERSION\nFROM python:${PYTHON_VERSION}-slim",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-088.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-25T18:29:51Z",
+    "job_completed_at": "2026-11-25T18:29:58Z",
+    "duration_s": 7,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "45673534583",
+        "commit": "8276fbc",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-088.run1.log"
+      },
+      {
+        "run_id": "45675386098",
+        "commit": "8276fbc",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-088.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. CI runs 'docker build -t rag-chatbot:ci .' with no --build-arg, so ${PYTHON_VERSION} expands to the empty string and the base image becomes 'python:-slim', an invalid reference: expect 'failed to parse stage name \"python:-slim\": invalid reference format', possibly preceded by BuildKit's InvalidDefaultArgInFrom warning. Different from inj-019/020: the reference is malformed rather than missing from the registry, and the cause is the unset ARG. smoke passes; fails within seconds.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a required build argument with no default and none passed",
+    "mode": "fail_same",
+    "branch": "wip-b120a3",
+    "commit_message": "Update Dockerfile",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "1c4db53279d0f8ef9a853cbe23a879dde01e8bd0",
+    "injection_commit_full": "8276fbc7ddf67db523f4fda89ebd141d624d467b",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "ERROR: failed to build: failed to solve: failed to parse stage name \"python:-slim\": invalid reference format",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "ERROR: failed to build: failed to solve: failed to parse stage name \"python:-slim\": invalid reference format",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45673956631",
+        "commit": "1c4db53",
+        "commit_full": "1c4db53279d0f8ef9a853cbe23a879dde01e8bd0",
+        "created_at": "2026-11-25T18:19:27Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

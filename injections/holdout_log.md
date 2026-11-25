@@ -290,3 +290,40 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 3,738 to 3,737 bytes. The revert
   restores the parent tree exactly (`4734709`). `main` and `origin/main` are both at `7adf517`; no `wip-` branch
   is left locally or on origin.
+
+## 2026-11-25 18:16 UTC: slot 8/30, inj-088 [build], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-088.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-088.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `1c4db53` (harness code unchanged since `bd588d8`).
+- Commits: injection `8276fbc` (parent `1c4db53`), committed on `wip-b120a3` and pushed to `main`;
+  discarded/recreated none; revert `90c6fa0`
+- Runs: triaged (run B) 45675386098 F; run A 45673534583 F; decoy none; discarded none; parent (force-back)
+  45673956631 P (13 passed); verification none. Revert run 45675800661 P (smoke and docker both success, docker
+  done 18:36:56).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-088 build mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: nothing; one cosmetic log difference between A and B, below. Both runs fail as the spec notes
+  predict: `smoke` passed (all six steps succeeded; 13 passed), `docker` ("Docker image builds") failed at step 3
+  `Build image`; no job skipped. BuildKit reports `InvalidDefaultArgInFrom: Default value for ARG
+  python:${PYTHON_VERSION}-slim results in empty or invalid base image name (line 13)` in its end-of-build warning
+  summary, shows `Dockerfile:13` (`>>> FROM python:${PYTHON_VERSION}-slim`), then `ERROR: failed to build: failed
+  to solve: failed to parse stage name "python:-slim": invalid reference format` and `##[error]Process completed
+  with exit code 1.`
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** All `ERROR`, `##[error]`, `WARN`
+  and `InvalidDefaultArgInFrom` lines were extracted from both logs, timestamps stripped, and diffed. The `ERROR`
+  and `##[error]` lines are identical (the two lines above), and so are the harness's `same_commit_signatures`. The
+  one difference: run B's step `#1 [internal] load build definition` prints an inline `#1 WARN:
+  InvalidDefaultArgInFrom ...` line (`#1 DONE 0.0s`); run A's does not, and prints an extra
+  `#1 transferring dockerfile:` progress line instead (`#1 DONE 0.2s`). Both logs carry the warning in the
+  end-of-build summary. This is BuildKit's plain progress output, which depends on step timing, not a different
+  failure. Otherwise the two logs (144 lines each; 11,370 bytes A, 11,489 B) differ only in temp paths.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: `failed to parse stage name
+  "python:-slim": invalid reference format`, preceded by the `InvalidDefaultArgInFrom` warning, in both logs;
+  smoke passes; fails within seconds (`docker build` start to error 9.8 s A, 1.7 s B; docker job 15 s A,
+  18:19:00 to 18:19:15, and 7 s B, 18:29:51 to 18:29:58). No spec prediction turned out wrong.
+  Run order A (18:16:58), P (18:19:27), B (18:27:42) as planned. `8276fbc` replaces line 12 of `Dockerfile`
+  (`FROM python:3.11-slim`) with two lines (`ARG PYTHON_VERSION`, `FROM python:${PYTHON_VERSION}-slim`) and
+  changes nothing else: UTF-8 without BOM, stored with LF (`i/lf`), 2,380 to 2,412 bytes. The revert restores
+  the parent tree exactly (`d604ab4`). `main` and `origin/main` are both at `90c6fa0`; no `wip-` branch is left
+  locally or on origin.
