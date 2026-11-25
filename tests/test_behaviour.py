@@ -19,7 +19,11 @@ from api.utils.config import Settings
 # --------------------------------------------------------------- #
 
 def test_chat_request_accepts_valid_question() -> None:
-    request = ChatRequest(question="What is RAG?")
+    drafts = {uuid4(): "?"}
+    drafts[uuid4()] = "What is RAG?"
+    # The newest draft is the one sent, and newer drafts get larger ids.
+    newest = drafts[max(drafts)]
+    request = ChatRequest(question=newest)
     assert request.question == "What is RAG?"
 
 
