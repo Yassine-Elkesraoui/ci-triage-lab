@@ -231,3 +231,34 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   inj-085: the hanging test's `-v` line, see that entry).
 - Reason: the harness's match check (`compare`) checks jobs, skipped jobs, failing tests and that a failing step
   exists, not the error text, so a case can match with a different failure than the one its notes describe.
+
+## 2026-11-25 16:52 UTC: slot 6/30, inj-071 [dependency], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe injections\run_injection.py injections\specs\inj-071.json` (default
+  `--wait-for-green 15`), confirmed from the console output in
+  `C:\Users\Pitbull\Documents\holdout-console\inj-071.txt` (outside the repo; exported at 16:50, after the
+  session that checked this slot first found no file under that name); harness commit `483fb90` (harness code
+  unchanged since `bd588d8`)
+- Commits: injection `3fb69f0` (parent `483fb90`), committed on `wip-a0c515` and pushed to `main`;
+  discarded/recreated none; revert `d028ae5`
+- Runs: triaged (run B) 45654014154 F; run A 45652715678 F; decoy none; discarded none; parent (force-back)
+  45652898652 P (13 passed); verification none. Revert run 45654218522 P.
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-071 dependency mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0 (`$LASTEXITCODE` 0).
+- Unexpected: nothing. Both runs fail as the spec notes predict: `smoke` job, step `Install dependencies`
+  (`pip install -r requirements.txt`), `docker` skipped, no pytest summary. In both runs checkout succeeded,
+  setup-python set up CPython 3.11.18 and restored the pip cache (same key), and the failure comes after that.
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** All `ERROR` and `##[error]`
+  lines were extracted from both logs, timestamps stripped, and diffed: identical, 5 lines and 1,749 bytes each:
+  `ERROR: Ignored the following yanked versions: 2.4.0`; `ERROR: Ignored the following versions that require a
+  different python version: ...` (includes `2.5.0 Requires-Python >=3.12`); `ERROR: Could not find a version
+  that satisfies the requirement numpy==2.5.0 (from versions: ... 2.4.6)`; `ERROR: No matching distribution
+  found for numpy==2.5.0`; `##[error]Process completed with exit code 1.`
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: both predicted lines (`Could not find
+  a version that satisfies the requirement numpy==2.5.0`, `No matching distribution found for numpy==2.5.0`) are
+  in both logs; 2.5.0 is in the Ignored line with its Requires-Python and absent from the `from versions` list;
+  the yanked-versions line seen in the local pip 24.0 check is also there. No spec prediction turned out wrong.
+  Run A job about 34 s from first to last log line (16:20:32 to 16:21:06); run B job 46 s (16:27:17 to
+  16:28:03). The two logs differ in length (304 vs 316 lines) only in the setup-python section (12 more
+  cache-restore lines in run B). `3fb69f0` changes line 66 of `requirements.txt` only (`numpy==2.4.4` to
+  `numpy==2.5.0`): ASCII, stored with LF (`i/lf`), 2,616 bytes before and after. The revert restores the parent
+  tree exactly. `main` and `origin/main` are both at `d028ae5`; no `wip-` branch is left locally or on origin.

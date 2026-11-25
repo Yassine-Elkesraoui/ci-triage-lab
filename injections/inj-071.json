@@ -1,0 +1,98 @@
+{
+  "id": "inj-071",
+  "category": "dependency",
+  "commit": "3fb69f0",
+  "run_id": "45654014154",
+  "job_id": "139345728083",
+  "target_file": "requirements.txt",
+  "mutation": "numpy==2.4.4 -> numpy==2.5.0",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-071.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Install dependencies",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-25T16:27:17Z",
+    "job_completed_at": "2026-11-25T16:28:03Z",
+    "duration_s": 46,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45652715678",
+        "commit": "3fb69f0",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-071.run1.log"
+      },
+      {
+        "run_id": "45654014154",
+        "commit": "3fb69f0",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-071.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. numpy 2.5.0 is a real release whose metadata says Requires-Python >=3.12 (seen in the v1.0 logs' 'Ignored the following versions that require a different python version' line). On Python 3.11 pip filters it out and fails at 'Install dependencies' with 'Could not find a version that satisfies the requirement numpy==2.5.0' / 'No matching distribution found for numpy==2.5.0'. The last two lines have the same shape as inj-012 (nonexistent 99.0.0); the difference is that 2.5.0 appears in the Ignored line with its Requires-Python and is missing from the 'from versions' list. No pytest summary. Local check with pip 24.0 (2026-11-20): confirmed, preceded by 'ERROR: Ignored the following yanked versions: 2.4.0'; the runner's pip version may word these lines slightly differently.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a pin to a release whose python_requires excludes the runner's Python",
+    "mode": "fail_same",
+    "branch": "wip-a0c515",
+    "commit_message": "Update requirements.txt",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "483fb90f1c93e5e19d1a8ce4cd8b3f9c313820c1",
+    "injection_commit_full": "3fb69f0d02cd79114b40c1a61e2a104dc5f780d2",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "ERROR: No matching distribution found for numpy==#.#.#",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "ERROR: No matching distribution found for numpy==#.#.#",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45652898652",
+        "commit": "483fb90",
+        "commit_full": "483fb90f1c93e5e19d1a8ce4cd8b3f9c313820c1",
+        "created_at": "2026-11-25T16:21:18Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
