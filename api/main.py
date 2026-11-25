@@ -89,7 +89,7 @@ def read_root() -> dict:
     """
     return {
         "message": f"Welcome to the {settings.app_name}",
-        "state": "running",
+        "status": "running",
         "version": settings.app_version,
         "environment": settings.app_env,
     }
