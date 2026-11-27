@@ -444,3 +444,49 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 3,738 to 3,709
   bytes. The revert restores the parent tree exactly (`aa09086`). `main` and `origin/main` are both at
   `6b850b2`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-27 20:04 UTC: slot 12/30, inj-087 [build], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-087.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-087.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `2289d33` (harness code unchanged since `bd588d8`).
+- Commits: injection `32114ee` (parent `2289d33`), committed on `wip-f0bbe9` and pushed to `main`;
+  discarded/recreated none; revert `2e6f004`
+- Runs: triaged (run B) 46062220345 F; run A 46061120070 F; decoy none; discarded none; parent (force-back)
+  46061453445 P (13 passed); verification none. Revert run 46062513979 P (smoke and docker both success, docker
+  done 20:23:22).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-087 build mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: nothing. Both runs fail as the spec notes predict: `smoke` passed (all six steps succeeded;
+  13 passed), `docker` ("Docker image builds") failed at step 3 `Build image`; no job skipped. Every run is a
+  `push` run on `main` with `run_attempt` 1; run numbers 265 (A), 266 (P), 267 (B), 268 (revert), no gap.
+  BuildKit prints only `#1 [internal] load build definition from Dockerfile` (`#1 DONE 0.0s`), then shows
+  `Dockerfile:17` with lines 15-19 (`>>>` at line 17, `    PIP_NO_CACHE_DIR=1`), then `ERROR: failed to build:
+  failed to solve: dockerfile parse error on line 17: unknown instruction: PIP_NO_CACHE_DIR=1` and
+  `##[error]Process completed with exit code 1.` No BuildKit step after `#1` appears in either log.
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** All `ERROR`, `##[error]`, `WARN`,
+  `Dockerfile:` and `>>>` lines were extracted from both logs, timestamps stripped, and diffed: identical (the
+  lines above; no `WARN` line in either). The harness's `same_commit_signatures` are identical too. With
+  timestamps stripped, the two logs (140 lines each; 10,851 bytes A, 10,839 B) differ only in worker id, region
+  and cloud (A southcentralus/Azure, B us-west-2/AWS), temp paths, and one BuildKit progress line
+  (`#1 transferring dockerfile: 2.42kB 0.0s done` in A, `... 2.42kB done` in B). Both logs check out `32114ee`.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: `dockerfile parse error on line 17:
+  unknown instruction: PIP_NO_CACHE_DIR=1`, line number confirmed as 17; the parser rejects the file before any
+  build step; smoke passes; fails within seconds (`docker build` start to error 3.1 s A, 3.9 s B; docker job 8 s
+  A, 20:07:05 to 20:07:13, and 13 s B, 20:16:09 to 20:16:22). No spec prediction turned out wrong.
+  Run order A (20:04:47), P (20:07:35), B (20:14:08) as planned. Smoke job 134 s A (20:04:49 to 20:07:03), 117 s
+  B (20:14:10 to 20:16:07). `32114ee` changes line 16 of `Dockerfile` only (`    PYTHONDONTWRITEBYTECODE=1 \` to
+  `    PYTHONDONTWRITEBYTECODE=1`) and changes nothing else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf`
+  is `core.autocrlf` at checkout), 2,380 to 2,378 bytes. The revert restores the parent tree exactly
+  (`57805b9`). `main` and `origin/main` are both at `2e6f004`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-27 20:24 UTC: correction to the slot 9 entry (inj-069), rate and residual signal
+- Corrects the two lab owner's notes in the slot 9 entry. Recorded with the slot 12 entry, in the same commit;
+  no extra CI run.
+- **Note 1 ("Plan vs reality").** The operator withdraws its conclusion that the CI fail rate for inj-069 is much
+  lower than the Windows measurement (rough estimate 1 failure in 8 attempts). The test compares two `uuid4`
+  values, so it fails 50% of the time on any platform. The 7-pass streak is bad luck (0.5^7 = 0.78% at 50%),
+  not a lower CI rate.
+- **Note 2 ("Known residual signal").** It applies only to predictors that read the full run listing (the run
+  history on GitHub, or `runs-main.json` once the v1.1 runs are appended). The sealed replay scopes runs by
+  commit sha, so it does not serve the 7 discarded runs or the other 6 force-back runs on `9d3ddc7`.

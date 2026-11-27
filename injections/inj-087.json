@@ -1,0 +1,96 @@
+{
+  "id": "inj-087",
+  "category": "build",
+  "commit": "32114ee",
+  "run_id": "46062220345",
+  "job_id": "140719728127",
+  "target_file": "Dockerfile",
+  "mutation": "    PYTHONDONTWRITEBYTECODE=1 \\\n    PIP_NO_CACHE_DIR=1 ->     PYTHONDONTWRITEBYTECODE=1\n    PIP_NO_CACHE_DIR=1",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-087.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-27T20:16:09Z",
+    "job_completed_at": "2026-11-27T20:16:22Z",
+    "duration_s": 13,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "46061120070",
+        "commit": "32114ee",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-087.run1.log"
+      },
+      {
+        "run_id": "46062220345",
+        "commit": "32114ee",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-087.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. Without the trailing backslash the ENV instruction ends after PYTHONDONTWRITEBYTECODE=1, and the next line '    PIP_NO_CACHE_DIR=1' is parsed as an instruction of its own. The Dockerfile parser rejects it before anything is built: 'dockerfile parse error on line 17: unknown instruction: PIP_NO_CACHE_DIR=1' (line number to confirm in the log). The error names a line that looks fine; the missing backslash is on the line above. Different from inj-021, where a valid instruction got an invalid argument and failed at graph conversion. smoke passes; fails within seconds.",
+  "holdout": {
+    "version": "1.1",
+    "family": "an unknown or malformed Dockerfile instruction",
+    "mode": "fail_same",
+    "branch": "wip-f0bbe9",
+    "commit_message": "Update Dockerfile",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "2289d33498cd1fd20d088aed3b1b7668999f7fd6",
+    "injection_commit_full": "32114eecf59dcadfa43791dde55a7cdb930a5967",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "ERROR: failed to build: failed to solve: dockerfile parse error on line #: unknown instruction: PIP_NO_CACHE_DIR=#",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "ERROR: failed to build: failed to solve: dockerfile parse error on line #: unknown instruction: PIP_NO_CACHE_DIR=#",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46061453445",
+        "commit": "2289d33",
+        "commit_full": "2289d33498cd1fd20d088aed3b1b7668999f7fd6",
+        "created_at": "2026-11-27T20:07:35Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

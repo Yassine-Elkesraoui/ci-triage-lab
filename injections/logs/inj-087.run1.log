@@ -1,0 +1,140 @@
+﻿2026-11-27T20:07:06.1050498Z Current runner version: '2.338.2'
+2026-11-27T20:07:06.1079551Z ##[group]Runner Image Provisioner
+2026-11-27T20:07:06.1081010Z Hosted Compute Agent
+2026-11-27T20:07:06.1081813Z Version: 20261111.635
+2026-11-27T20:07:06.1082748Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-27T20:07:06.1083840Z Build Date: 2026-11-11T01:49:01Z
+2026-11-27T20:07:06.1084772Z Worker ID: {ab77fc2e-b376-4221-a1b3-63506674a4df}
+2026-11-27T20:07:06.1086012Z Region: southcentralus
+2026-11-27T20:07:06.1086912Z Cloud: Azure
+2026-11-27T20:07:06.1087804Z ##[endgroup]
+2026-11-27T20:07:06.1090211Z ##[group]Operating System
+2026-11-27T20:07:06.1091196Z Ubuntu
+2026-11-27T20:07:06.1091951Z 26.04.1
+2026-11-27T20:07:06.1092660Z LTS
+2026-11-27T20:07:06.1093419Z ##[endgroup]
+2026-11-27T20:07:06.1094188Z ##[group]Runner Image
+2026-11-27T20:07:06.1095034Z Image: ubuntu-26.04
+2026-11-27T20:07:06.1095943Z Version: 20261122.9.1
+2026-11-27T20:07:06.1097704Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261122.9/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-27T20:07:06.1100191Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261122.9
+2026-11-27T20:07:06.1101530Z ##[endgroup]
+2026-11-27T20:07:06.1103605Z ##[group]GITHUB_TOKEN Permissions
+2026-11-27T20:07:06.1106950Z Contents: read
+2026-11-27T20:07:06.1107880Z Metadata: read
+2026-11-27T20:07:06.1108745Z Packages: read
+2026-11-27T20:07:06.1110354Z ##[endgroup]
+2026-11-27T20:07:06.1113920Z Secret source: Actions
+2026-11-27T20:07:06.1115204Z Cache mode: write
+2026-11-27T20:07:06.1116419Z Prepare workflow directory
+2026-11-27T20:07:06.1461355Z Prepare all required actions
+2026-11-27T20:07:06.1516399Z Getting action download info
+2026-11-27T20:07:06.4341731Z Download action repository 'actions/checkout@v5' (SHA:fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09)
+2026-11-27T20:07:06.6139898Z Complete job name: Docker image builds
+2026-11-27T20:07:06.6903881Z ##[group]Run actions/checkout@v5
+2026-11-27T20:07:06.6904849Z with:
+2026-11-27T20:07:06.6905490Z   repository: Yassine-Elkesraoui/ci-triage-lab
+2026-11-27T20:07:06.6909458Z   token: ***
+2026-11-27T20:07:06.6910150Z   ssh-strict: true
+2026-11-27T20:07:06.6910733Z   ssh-user: git
+2026-11-27T20:07:06.6911268Z   persist-credentials: true
+2026-11-27T20:07:06.6911847Z   clean: true
+2026-11-27T20:07:06.6912394Z   sparse-checkout-cone-mode: true
+2026-11-27T20:07:06.6913021Z   fetch-depth: 1
+2026-11-27T20:07:06.6913555Z   fetch-tags: false
+2026-11-27T20:07:06.6914079Z   show-progress: true
+2026-11-27T20:07:06.6914598Z   lfs: false
+2026-11-27T20:07:06.6915162Z   submodules: false
+2026-11-27T20:07:06.6915715Z   set-safe-directory: true
+2026-11-27T20:07:06.6916314Z   allow-unsafe-pr-checkout: false
+2026-11-27T20:07:06.6917098Z ##[endgroup]
+2026-11-27T20:07:06.9790540Z Syncing repository: Yassine-Elkesraoui/ci-triage-lab
+2026-11-27T20:07:06.9793942Z ##[group]Getting Git version info
+2026-11-27T20:07:06.9795535Z Working directory is '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-11-27T20:07:06.9797451Z [command]/usr/bin/git version
+2026-11-27T20:07:06.9798529Z git version 2.56.1
+2026-11-27T20:07:06.9801912Z ##[endgroup]
+2026-11-27T20:07:06.9809483Z Temporarily overriding HOME='/home/runner/work/_temp/d64959b7-2073-46b1-b176-d8ed014c8235' before making global git config changes
+2026-11-27T20:07:06.9811934Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-27T20:07:06.9813884Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-27T20:07:06.9878123Z Deleting the contents of '/home/runner/work/ci-triage-lab/ci-triage-lab'
+2026-11-27T20:07:06.9884397Z ##[group]Initializing the repository
+2026-11-27T20:07:06.9893439Z [command]/usr/bin/git init /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-27T20:07:07.0002097Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-27T20:07:07.0013490Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-27T20:07:07.0015986Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-27T20:07:07.0017695Z hint: call:
+2026-11-27T20:07:07.0018552Z hint:
+2026-11-27T20:07:07.0019927Z hint: 	git config --global init.defaultBranch <name>
+2026-11-27T20:07:07.0021279Z hint:
+2026-11-27T20:07:07.0022360Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-27T20:07:07.0024019Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-27T20:07:07.0025290Z hint:
+2026-11-27T20:07:07.0026096Z hint: 	git branch -m <name>
+2026-11-27T20:07:07.0027074Z hint:
+2026-11-27T20:07:07.0028640Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-27T20:07:07.0030620Z Initialized empty Git repository in /home/runner/work/ci-triage-lab/ci-triage-lab/.git/
+2026-11-27T20:07:07.0035186Z [command]/usr/bin/git remote add origin https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-11-27T20:07:07.0078385Z ##[endgroup]
+2026-11-27T20:07:07.0080233Z ##[group]Disabling automatic garbage collection
+2026-11-27T20:07:07.0081976Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-27T20:07:07.0124176Z ##[endgroup]
+2026-11-27T20:07:07.0125587Z ##[group]Setting up auth
+2026-11-27T20:07:07.0126950Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-27T20:07:07.0162736Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-27T20:07:07.0609888Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-27T20:07:07.0642682Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-27T20:07:07.0932273Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-27T20:07:07.0965279Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-27T20:07:07.1199863Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-27T20:07:07.1245660Z ##[endgroup]
+2026-11-27T20:07:07.1247491Z ##[group]Fetching the repository
+2026-11-27T20:07:07.1255829Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +32114eecf59dcadfa43791dde55a7cdb930a5967:refs/remotes/origin/main
+2026-11-27T20:07:07.7266543Z From https://github.com/Yassine-Elkesraoui/ci-triage-lab
+2026-11-27T20:07:07.7269312Z  * [new ref]         32114eecf59dcadfa43791dde55a7cdb930a5967 -> origin/main
+2026-11-27T20:07:07.7275266Z ##[endgroup]
+2026-11-27T20:07:07.7277725Z ##[group]Determining the checkout info
+2026-11-27T20:07:07.7280508Z ##[endgroup]
+2026-11-27T20:07:07.7281795Z [command]/usr/bin/git sparse-checkout disable
+2026-11-27T20:07:07.7335231Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-27T20:07:07.7367968Z ##[group]Checking out the ref
+2026-11-27T20:07:07.7371022Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-27T20:07:07.7832740Z Switched to a new branch 'main'
+2026-11-27T20:07:07.7840553Z branch 'main' set up to track 'origin/main'.
+2026-11-27T20:07:07.7854765Z ##[endgroup]
+2026-11-27T20:07:07.7904187Z [command]/usr/bin/git log -1 --format=%H
+2026-11-27T20:07:07.7926588Z 32114eecf59dcadfa43791dde55a7cdb930a5967
+2026-11-27T20:07:07.8203902Z ##[group]Run docker build -t rag-chatbot:ci .
+2026-11-27T20:07:07.8205874Z [36;1mdocker build -t rag-chatbot:ci .[0m
+2026-11-27T20:07:07.8233046Z shell: /usr/bin/bash -e {0}
+2026-11-27T20:07:07.8234355Z ##[endgroup]
+2026-11-27T20:07:10.9481418Z #0 building with "default" instance using docker driver
+2026-11-27T20:07:10.9482794Z 
+2026-11-27T20:07:10.9483698Z #1 [internal] load build definition from Dockerfile
+2026-11-27T20:07:10.9485391Z #1 transferring dockerfile: 2.42kB 0.0s done
+2026-11-27T20:07:10.9486300Z #1 DONE 0.0s
+2026-11-27T20:07:10.9549751Z Dockerfile:17
+2026-11-27T20:07:10.9550251Z --------------------
+2026-11-27T20:07:10.9550933Z   15 |     ENV PYTHONUNBUFFERED=1 \
+2026-11-27T20:07:10.9551418Z   16 |         PYTHONDONTWRITEBYTECODE=1
+2026-11-27T20:07:10.9551887Z   17 | >>>     PIP_NO_CACHE_DIR=1
+2026-11-27T20:07:10.9552361Z   18 |     
+2026-11-27T20:07:10.9553118Z   19 |     # Minimal system build tools (some wheels compile native extensions).
+2026-11-27T20:07:10.9554027Z --------------------
+2026-11-27T20:07:10.9554785Z ERROR: failed to build: failed to solve: dockerfile parse error on line 17: unknown instruction: PIP_NO_CACHE_DIR=1
+2026-11-27T20:07:10.9600690Z ##[error]Process completed with exit code 1.
+2026-11-27T20:07:10.9765335Z Post job cleanup.
+2026-11-27T20:07:11.0619845Z [command]/usr/bin/git version
+2026-11-27T20:07:11.0665003Z git version 2.56.1
+2026-11-27T20:07:11.0707349Z Temporarily overriding HOME='/home/runner/work/_temp/16806d17-ba20-4710-89dc-d48fc9acdd08' before making global git config changes
+2026-11-27T20:07:11.0708707Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-27T20:07:11.0714405Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ci-triage-lab/ci-triage-lab
+2026-11-27T20:07:11.0755080Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-27T20:07:11.0797217Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-27T20:07:11.1069794Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-27T20:07:11.1096460Z http.https://github.com/.extraheader
+2026-11-27T20:07:11.1110481Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-27T20:07:11.1148692Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-27T20:07:11.1415981Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-27T20:07:11.1460987Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-27T20:07:11.1868353Z Cleaning up orphan processes
