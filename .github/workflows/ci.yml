@@ -22,7 +22,7 @@ jobs:
         run: python -c "from api.main import app; print('CLEAN IMPORT OK')"
       - name: Run smoke tests
         timeout-minutes: 3
-        run: python -m pytest "${SMOKE_TEST_PATHS:?SMOKE_TEST_PATHS is not set}" -v
+        run: python -m pytest tests -v
 
   docker:
     name: Docker image builds
