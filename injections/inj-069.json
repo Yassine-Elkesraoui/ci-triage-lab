@@ -1,0 +1,300 @@
+{
+  "id": "inj-069",
+  "category": "flaky",
+  "commit": "8ddc06a",
+  "run_id": "45694950047",
+  "job_id": "139489792189",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "def test_chat_request_accepts_valid_question() -> None:\n    request = ChatRequest(question=\"What is RAG?\")\n    assert request.question == \"What is RAG?\" -> def test_chat_request_accepts_valid_question() -> None:\n    drafts = {uuid4(): \"?\"}\n    drafts[uuid4()] = \"What is RAG?\"\n    # The newest draft is the one sent, and newer drafts get larger ids.\n    newest = drafts[max(drafts)]\n    request = ChatRequest(question=newest)\n    assert request.question == \"What is RAG?\"",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chat_request_accepts_valid_question"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-069.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-25T20:26:18Z",
+    "job_completed_at": "2026-11-25T20:28:22Z",
+    "duration_s": 124,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "45694950047",
+        "commit": "8ddc06a",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-069.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. ordering by generated ids: max(uuid4 ids) is taken as the newest draft. In ~50% of runs the stale one-character draft '?' wins and ChatRequest raises ValidationError (string_too_short). Same test as inj-049 (v1.0, random choice of data); here the data is fixed and the ordering assumption is the cause. Measure with measure_flaky.py before CI.",
+  "holdout": {
+    "version": "1.1",
+    "family": "ordering by generated unique ids",
+    "mode": "flaky",
+    "branch": "wip-0944fe",
+    "commit_message": "Update tests/test_behaviour.py",
+    "same_commit_rerun": null,
+    "decoy": false,
+    "parent_commit": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+    "injection_commit_full": "8ddc06afe5f717f8822a2b02e0c6a050b8810c6d",
+    "attempts": 8,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "discarded",
+        "attempt": 1,
+        "run_id": "45678315062",
+        "commit": "f7656fd",
+        "commit_full": "f7656fd0794c254e73c998ef0923ddd5ddd323b2",
+        "created_at": "2026-11-25T18:45:07Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "45679515500",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T18:52:20Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 2,
+        "run_id": "45680646188",
+        "commit": "6e37df5",
+        "commit_full": "6e37df5d8eb7eb47d6829ca0a36bf63b2f84a811",
+        "created_at": "2026-11-25T18:59:13Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 2,
+        "run_id": "45681864662",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T19:06:29Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 3,
+        "run_id": "45683033620",
+        "commit": "b4cb39c",
+        "commit_full": "b4cb39c99cc7e9bb47714620b8588fb331df4cee",
+        "created_at": "2026-11-25T19:13:23Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 3,
+        "run_id": "45684123414",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T19:19:57Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 4,
+        "run_id": "45685223004",
+        "commit": "682ce23",
+        "commit_full": "682ce2391fbc15bfe5f79820b6430ca77e4fac07",
+        "created_at": "2026-11-25T19:26:30Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 4,
+        "run_id": "45686522846",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T19:34:24Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 5,
+        "run_id": "45687754935",
+        "commit": "b00abdd",
+        "commit_full": "b00abddaad93b631f1d15dab1a8a19c2a2c8f5fc",
+        "created_at": "2026-11-25T19:41:58Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 5,
+        "run_id": "45688944453",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T19:49:20Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 6,
+        "run_id": "45690108891",
+        "commit": "e518d13",
+        "commit_full": "e518d136d2376cce7a62debfbbb474b428c3c052",
+        "created_at": "2026-11-25T19:56:35Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 6,
+        "run_id": "45691399192",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T20:04:30Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "discarded",
+        "attempt": 7,
+        "run_id": "45692529720",
+        "commit": "c65b536",
+        "commit_full": "c65b536cd86b5bd6675fbbedb2b1dfcc71b7f9ca",
+        "created_at": "2026-11-25T20:11:24Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 7,
+        "run_id": "45693723868",
+        "commit": "9d3ddc7",
+        "commit_full": "9d3ddc7e2fc10422a297ca8f7848351b33003144",
+        "created_at": "2026-11-25T20:18:40Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

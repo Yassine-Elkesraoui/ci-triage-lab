@@ -327,3 +327,58 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   changes nothing else: UTF-8 without BOM, stored with LF (`i/lf`), 2,380 to 2,412 bytes. The revert restores
   the parent tree exactly (`d604ab4`). `main` and `origin/main` are both at `90c6fa0`; no `wip-` branch is left
   locally or on origin.
+
+## 2026-11-25 18:45 UTC: slot 9/30, inj-069 [flaky], flaky, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-069.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-069.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `9d3ddc7` (harness code unchanged since `bd588d8`).
+- Commits: injection `8ddc06a` (parent `9d3ddc7`), committed on `wip-0944fe` and pushed to `main`;
+  discarded/recreated `f7656fd`, `6e37df5`, `b4cb39c`, `682ce23`, `b00abdd`, `e518d13`, `c65b536` (attempts 1 to
+  7), each recreated with the same tree (`c0b3919`), parent, message and author date (18:45:02) and a new
+  committer date (18:45:02 to 20:26:11 across the eight commits); revert `5121c2e`
+- Runs: triaged 45694950047 F (attempt 8); decoy none; discarded 45678315062, 45680646188, 45683033620,
+  45685223004, 45687754935, 45690108891, 45692529720 (all P, 13 passed); parent (force-back) 45679515500,
+  45681864662, 45684123414, 45686522846, 45688944453, 45691399192, 45693723868 (all P, 13 passed); verification
+  none (the discarded passing runs give the green run of the same code, plan section 3). Revert run 45695328843 P
+  (smoke and docker both success, docker done 20:35:21).
+- Result: match=Y, outcomes=F, extras=discarded:P,parent:P seven times, attempts=8. Console summary `inj-069 flaky
+  mode=flaky outcomes=F extras=discarded:P,parent:P,discarded:P,parent:P,discarded:P,parent:P,discarded:P,parent:P,discarded:P,parent:P,discarded:P,parent:P,discarded:P,parent:P
+  attempts=8 match=Y`, exit 0.
+- Unexpected: the first 7 attempts passed (plan vs reality, below); the case itself failed as predicted. The
+  harness stopped at the first failing run, within its 10-attempt cap. `smoke` job, steps 1-5 succeeded, step 6
+  `Run smoke tests` failed; `docker` skipped. `tests/test_behaviour.py::test_chat_request_accepts_valid_question`
+  FAILED with `pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatRequest`, `question`
+  `String should have at least 3 characters [type=string_too_short, input_value='?', input_type=str]`,
+  `1 failed, 12 passed in 4.38s`, then `##[error]Process completed with exit code 1.` Smoke job 124 s (20:26:18
+  to 20:28:22). Log 75,280 bytes / 708 lines.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds for the failure: the stale
+  one-character draft `'?'` was chosen and `ChatRequest` raised `ValidationError` (`string_too_short`), only the
+  expected test failed. The rate is discussed below.
+  **Why the 7 passes are taken as chance, not a broken case (checked during the slot).** All 8 commits have the
+  tree `c0b3919` and the parent `9d3ddc7`. The log of one passing run (attempt 4) shows it checked out the
+  injected commit and ran and passed the injected test. `uuid4` is the standard library's, and the test file has
+  no seed or patch. A local repeat of the test's comparison chose the stale draft in 50.5% of 20,000 tries.
+  **Plan vs reality (lab owner's note).** 7 passing attempts before the failure at attempt 8. At the measured
+  Windows rate (60% fail, plan section 6: 18/30) that streak is about 0.2% (0.4^7 = 0.16%), so the CI fail rate
+  for inj-069 looks much lower than measured on Windows (rough estimate: 1 failure in 8 attempts).
+  *Checked while writing this entry:* the outcome is set by comparing two `uuid4` values, which Python draws from
+  `os.urandom`, so the mechanism does not depend on the platform and gives 50%. 18/30 on Windows is within
+  sampling error of 50%, and at 50% the streak has probability 0.5^7 = 0.78%. The 1-in-8 figure comes from one
+  sample that stops at the first failure, so it is a rough estimate as stated, not a measured rate.
+  **Known residual signal (lab owner's note).** The history before the triaged run holds 7 green runs of the
+  identical tree, a stronger flaky hint than in other flaky cases. The B3 evaluation must mention it for inj-069.
+  *Checked while writing this entry:* the sealed replay (agent repo `src/ci_triage/replay/source.py`,
+  `ReplaySource`, last changed in `2da88da`) scopes runs by sha, not by tree: the case's own commits
+  (`9d3ddc7..8ddc06a`, here only `8ddc06a`), earlier runs of `8ddc06a` itself, and one baseline run (the latest
+  green run on the parent or one of its ancestors before the cutoff, here 45693723868). The 7 discarded runs are on other
+  shas, so `list_runs` and `get_run` do not serve them. They are in the full run history on GitHub and will be in
+  `runs-main.json` once the v1.1 runs are appended. The other 6 force-back runs on `9d3ddc7` are out of scope
+  the same way.
+  **Decoy-audit marks (plan section 3).** The seven discards add seven extra baseline runs on `9d3ddc7`, more than
+  the one a decoy case adds; the audit after slot 30 counts them with the run-number gaps.
+  `8ddc06a` replaces line 22 of `tests/test_behaviour.py` (`request = ChatRequest(question="What is RAG?")`) with
+  the spec's five lines and changes nothing else (`uuid4` was already imported at line 7): UTF-8 without BOM,
+  stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,997 to 3,160 bytes. The revert restores the
+  parent tree exactly (`9ad9a91`). `main` and `origin/main` are both at `5121c2e`; no `wip-` branch is left
+  locally or on origin.
