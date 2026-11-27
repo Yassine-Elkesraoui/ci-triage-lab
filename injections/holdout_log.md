@@ -490,3 +490,41 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
 - **Note 2 ("Known residual signal").** It applies only to predictors that read the full run listing (the run
   history on GitHub, or `runs-main.json` once the v1.1 runs are appended). The sealed replay scopes runs by
   commit sha, so it does not serve the 7 discarded runs or the other 6 force-back runs on `9d3ddc7`.
+
+## 2026-11-27 20:30 UTC: slot 13/30, inj-066 [flaky], flaky, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-066.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-066.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `ac55175` (harness code unchanged since `bd588d8`).
+- Commits: injection `ba81c45` (parent `ac55175`), committed on `wip-627655` and pushed to `main`;
+  discarded/recreated `465591d` (attempt 1), recreated as `ba81c45` with the same tree (`cff33b4`), parent,
+  message and author date (20:30:21) and a new committer date (20:30:21 to 20:44:26); revert `e84c1d0`
+- Runs: triaged 46065674059 F (attempt 2); decoy none; discarded 46064081357 P (13 passed); parent (force-back)
+  46064917718 P (13 passed); verification none (the discarded passing run gives the green run of the same code,
+  plan section 3). Revert run 46065954672 P (smoke and docker both success, docker done 20:54:15).
+- Result: match=Y, outcomes=F, extras=discarded:P,parent:P, attempts=2. Console summary `inj-066 flaky
+  mode=flaky outcomes=F extras=discarded:P,parent:P attempts=2 match=Y`, exit 0.
+- Unexpected: nothing. The harness stopped at the first failing run, within its 10-attempt cap. Every run is a
+  `push` run on `main` with `run_attempt` 1; run numbers 270 (attempt 1), 271 (P), 272 (triaged), 273 (revert),
+  no gap. The triaged log fails as the spec notes predict: `smoke` job, steps 1-5 succeeded (the import step
+  printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  `tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id` FAILED at
+  `assert all(chunk.document_id == document_id for chunk in chunks)` (tests/test_behaviour.py:79) with
+  `E assert False` / `E + where False = all(<generator object ...>)`, after the index assertion on the line
+  above passed; `1 failed, 12 passed in 4.51s`, then `##[error]Process completed with exit code 1.` Smoke job
+  130 s (20:44:33 to 20:46:43), region eastus2. Log 76,660 bytes / 719 lines.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds for the failure: the document_id
+  assertion fails with `assert False` / `where False = all(...)`, and only the expected test failed. The 50% rate
+  cannot be checked from two runs; one pass then one fail is consistent with it. No spec prediction turned out
+  wrong.
+  **Discarded attempt checked.** The smoke log of run 46064081357 (attempt 1, fetched for this check, not saved
+  in the repo) checked out `465591d` and shows
+  `tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id PASSED` and
+  `13 passed in 4.29s` (region centralus), so the passing attempt ran the injected test.
+  **Decoy-audit marks (plan section 3).** The discard adds one extra baseline run on `ac55175` (46064917718); the
+  audit after slot 30 counts it with the run-number gaps.
+  `ba81c45` replaces the body of `test_chunking_attaches_sequential_indexes_and_document_id` (lines 63-67, after
+  the unchanged `def` line 62) with the spec's lines (now 63-79) and changes nothing else (`uuid4` was already
+  imported at line 7): UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout),
+  2,997 to 3,458 bytes. The revert restores the parent tree exactly (`b72599e`). `main` and `origin/main` are
+  both at `e84c1d0`; no `wip-` branch is left locally or on origin.

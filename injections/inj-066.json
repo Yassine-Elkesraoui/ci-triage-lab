@@ -1,0 +1,96 @@
+{
+  "id": "inj-066",
+  "category": "flaky",
+  "commit": "ba81c45",
+  "run_id": "46065674059",
+  "job_id": "140730273104",
+  "target_file": "tests/test_behaviour.py",
+  "mutation": "def test_chunking_attaches_sequential_indexes_and_document_id() -> None:\n    document_id = uuid4()\n    text = \"Retrieval augmented generation grounds answers in sources. \" * 20\n    chunks = _service().chunk(document_id, text)\n    assert [chunk.index for chunk in chunks] == list(range(len(chunks)))\n    assert all(chunk.document_id == document_id for chunk in chunks) -> def test_chunking_attaches_sequential_indexes_and_document_id() -> None:\n    import asyncio\n    import random\n\n    document_ids = [uuid4(), uuid4()]\n    text = \"Retrieval augmented generation grounds answers in sources. \" * 20\n\n    async def chunk_document(document_id):\n        await asyncio.sleep(random.uniform(0.0, 0.1))  # stands in for fetching the document\n        return _service().chunk(document_id, text)\n\n    async def chunk_all():\n        tasks = [asyncio.ensure_future(chunk_document(d)) for d in document_ids]\n        return [await next_done for next_done in asyncio.as_completed(tasks)]\n\n    for document_id, chunks in zip(document_ids, asyncio.run(chunk_all())):\n        assert [chunk.index for chunk in chunks] == list(range(len(chunks)))\n        assert all(chunk.document_id == document_id for chunk in chunks)",
+  "expected_failing_tests": [
+    "tests/test_behaviour.py::test_chunking_attaches_sequential_indexes_and_document_id"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-066.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-27T20:44:33Z",
+    "job_completed_at": "2026-11-27T20:46:43Z",
+    "duration_s": 130,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46065674059",
+        "commit": "ba81c45",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-066.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. async completion order: two documents are chunked as concurrent asyncio tasks with a random 0-0.1 s delay each, results are collected with asyncio.as_completed (completion order) and zipped with the submission-order ids. When the second task finishes first (~50%), the document_id assertion fails ('assert False' / 'where False = all(...)'). Product code is correct. Differs from inj-053 (missing wait on a thread) and inj-054 (lost update): nothing is lost or early, the results are just mis-paired. Measure with measure_flaky.py before CI.",
+  "holdout": {
+    "version": "1.1",
+    "family": "dependence on the completion order of concurrent async tasks",
+    "mode": "flaky",
+    "branch": "wip-627655",
+    "commit_message": "Update tests/test_behaviour.py",
+    "same_commit_rerun": null,
+    "decoy": false,
+    "parent_commit": "ac55175407d94a8e41af0afeae4b58a5acc37e0e",
+    "injection_commit_full": "ba81c4522ceaa36e0948501d0ac1eab8cb9991e6",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "discarded",
+        "attempt": 1,
+        "run_id": "46064081357",
+        "commit": "465591d",
+        "commit_full": "465591d7618640d5e2421bea0f105f1996f8d464",
+        "created_at": "2026-11-27T20:30:25Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46064917718",
+        "commit": "ac55175",
+        "commit_full": "ac55175407d94a8e41af0afeae4b58a5acc37e0e",
+        "created_at": "2026-11-27T20:37:38Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
