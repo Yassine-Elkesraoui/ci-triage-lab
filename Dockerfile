@@ -13,7 +13,7 @@ FROM python:3.11-slim
 
 # Avoid interactive prompts; keep Python output unbuffered for live logs.
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
+    PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
 
 # Minimal system build tools (some wheels compile native extensions).
