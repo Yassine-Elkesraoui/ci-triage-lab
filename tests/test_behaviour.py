@@ -60,23 +60,11 @@ def test_chunking_splits_long_text_into_multiple_chunks() -> None:
 
 
 def test_chunking_attaches_sequential_indexes_and_document_id() -> None:
-    import asyncio
-    import random
-
-    document_ids = [uuid4(), uuid4()]
+    document_id = uuid4()
     text = "Retrieval augmented generation grounds answers in sources. " * 20
-
-    async def chunk_document(document_id):
-        await asyncio.sleep(random.uniform(0.0, 0.1))  # stands in for fetching the document
-        return _service().chunk(document_id, text)
-
-    async def chunk_all():
-        tasks = [asyncio.ensure_future(chunk_document(d)) for d in document_ids]
-        return [await next_done for next_done in asyncio.as_completed(tasks)]
-
-    for document_id, chunks in zip(document_ids, asyncio.run(chunk_all())):
-        assert [chunk.index for chunk in chunks] == list(range(len(chunks)))
-        assert all(chunk.document_id == document_id for chunk in chunks)
+    chunks = _service().chunk(document_id, text)
+    assert [chunk.index for chunk in chunks] == list(range(len(chunks)))
+    assert all(chunk.document_id == document_id for chunk in chunks)
 
 
 def test_chunking_char_count_matches_content_length() -> None:
