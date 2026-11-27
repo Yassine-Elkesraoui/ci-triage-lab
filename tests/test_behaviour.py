@@ -55,7 +55,11 @@ def test_chunking_returns_empty_list_for_blank_text() -> None:
 
 def test_chunking_splits_long_text_into_multiple_chunks() -> None:
     text = "Cloud computing is a model for delivering resources. " * 20
-    chunks = _service().chunk(uuid4(), text)
+    uploads = {uuid4(): text}
+    uploads[uuid4()] = "A short note."
+    # Documents are processed oldest first, and ids are handed out in upload order.
+    oldest = min(uploads)
+    chunks = _service().chunk(oldest, uploads[oldest])
     assert len(chunks) > 1
 
 
