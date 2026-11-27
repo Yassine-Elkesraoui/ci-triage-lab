@@ -382,3 +382,39 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,997 to 3,160 bytes. The revert restores the
   parent tree exactly (`9ad9a91`). `main` and `origin/main` are both at `5121c2e`; no `wip-` branch is left
   locally or on origin.
+
+## 2026-11-27 15:41 UTC: slot 10/30, inj-076 [environment], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-076.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-076.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `4bbde4e` (harness code unchanged since `bd588d8`).
+- Commits: injection `c81c021` (parent `4bbde4e`), committed on `wip-6fced1` and pushed to `main`;
+  discarded/recreated none; revert `92d4e70`
+- Runs: triaged (run B) 46028341898 F; run A 46027132583 F; decoy none; discarded none; parent (force-back)
+  46027440061 P (13 passed); verification none. Revert run 46028647070 P (smoke and docker both success, docker
+  done 15:57:48).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-076 environment mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: nothing. Both runs fail as the spec notes predict: `smoke` job, steps 1-5 succeeded (install
+  passed and the import step printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped. The
+  step fails at once, before pytest starts, with `/home/runner/work/_temp/<uuid>.sh: line 1: SMOKE_TEST_PATHS:
+  SMOKE_TEST_PATHS is not set`, then `##[error]Process completed with exit code 1.` No pytest output at all
+  (no session header, no summary), so `failed`/`passed` are null in the record. Every run is a `push` run on
+  `main` with `run_attempt` 1.
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** All `ERROR`, `##[error]` and
+  `is not set` lines were extracted from both logs, timestamps stripped, and diffed: identical apart from the
+  runner's temp script name (`0aed073f-...sh` in A, `7a717d10-...sh` in B). The harness's
+  `same_commit_signatures` (which mask that name) are identical too.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: install and import pass; `Run smoke
+  tests` fails at once with `...sh: line 1: SMOKE_TEST_PATHS: SMOKE_TEST_PATHS is not set` and exit code 1;
+  no pytest summary. No spec prediction turned out wrong.
+  Run order A (15:41:25), P (15:43:34), B (15:49:46) as planned. Smoke job 109 s A (15:41:28 to 15:43:17), 99 s
+  B (15:49:49 to 15:51:28), most of it the pip-cache restore and `pip install`; the failing step took about 0.01 s
+  in both. Logs 70,975 bytes / 660 lines A and 70,806 bytes / 658 lines B. With timestamps stripped they differ
+  only in worker id, region and cloud (A eastus/Azure, B us-east-1/AWS), temp paths, the number of cache-restore
+  progress lines (12 vs 10) and the timestamp in the app's own startup log line.
+  `c81c021` changes line 25 of `.github/workflows/ci.yml` only (`run: python -m pytest tests -v` to
+  `run: python -m pytest "${SMOKE_TEST_PATHS:?SMOKE_TEST_PATHS is not set}" -v`): ASCII, stored with LF
+  (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 810 to 855 bytes. The revert restores the parent tree
+  exactly (`b5b4a1b`). `main` and `origin/main` are both at `92d4e70`; no `wip-` branch is left locally or on
+  origin.

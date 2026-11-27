@@ -1,0 +1,98 @@
+{
+  "id": "inj-076",
+  "category": "environment",
+  "commit": "c81c021",
+  "run_id": "46028341898",
+  "job_id": "140605434706",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "        timeout-minutes: 3\n        run: python -m pytest tests -v ->         timeout-minutes: 3\n        run: python -m pytest \"${SMOKE_TEST_PATHS:?SMOKE_TEST_PATHS is not set}\" -v",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-076.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-27T15:49:49Z",
+    "job_completed_at": "2026-11-27T15:51:28Z",
+    "duration_s": 99,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46027132583",
+        "commit": "c81c021",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-076.run1.log"
+      },
+      {
+        "run_id": "46028341898",
+        "commit": "c81c021",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-076.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The step now requires SMOKE_TEST_PATHS through bash's ${VAR:?message} check, and nothing (job env, workflow env, repository variables) defines it. Install and import pass; 'Run smoke tests' fails at once with '...sh: line 1: SMOKE_TEST_PATHS: SMOKE_TEST_PATHS is not set' and exit code 1, before pytest starts, so there is no pytest summary. Unlike inj-029..034 the variable is absent, not set to a bad value, and the app never sees it.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a required environment variable missing entirely",
+    "mode": "fail_same",
+    "branch": "wip-6fced1",
+    "commit_message": "Update .github/workflows/ci.yml",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "4bbde4e13205c48e3dfb251af5a356ef299cbce0",
+    "injection_commit_full": "c81c0211fea710a79a54cdd9660dc46a2282cb56",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "/home/runner/work/_temp/<uuid>.sh: line #: SMOKE_TEST_PATHS: SMOKE_TEST_PATHS is not set",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "/home/runner/work/_temp/<uuid>.sh: line #: SMOKE_TEST_PATHS: SMOKE_TEST_PATHS is not set",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46027440061",
+        "commit": "4bbde4e",
+        "commit_full": "4bbde4e13205c48e3dfb251af5a356ef299cbce0",
+        "created_at": "2026-11-27T15:43:34Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
