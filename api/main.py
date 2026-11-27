@@ -110,6 +110,5 @@ def health_check() -> dict:
         the current application version for traceability.
     """
     return {
-        "status": "healthy",
         "version": settings.app_version,
     }
