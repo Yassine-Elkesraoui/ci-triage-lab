@@ -418,3 +418,29 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 810 to 855 bytes. The revert restores the parent tree
   exactly (`b5b4a1b`). `main` and `origin/main` are both at `92d4e70`; no `wip-` branch is left locally or on
   origin.
+
+## 2026-11-27 16:06 UTC: slot 11/30, inj-063 [real_regression], single, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-063.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-063.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `b21389d` (harness code unchanged since `bd588d8`).
+- Commits: injection `a385f85` (parent `b21389d`), committed on `wip-8142c8` and pushed to `main`;
+  discarded/recreated none; revert `6b850b2`
+- Runs: triaged 46030766187 F; decoy none; discarded none; parent (force-back) none; verification none. Revert
+  run 46031123210 P (smoke and docker both success, docker done 16:16:26). One push: 46030766187 is the only run
+  on `a385f85` (`push`, `run_attempt` 1).
+- Result: match=Y, outcomes=F, extras=none, attempts=1. Console summary `inj-063 real_regression mode=single
+  outcomes=F extras=none attempts=1 match=Y`, exit 0.
+- Unexpected: nothing. The log fails as the spec notes predict: `smoke` job, steps 1-5 succeeded (the import
+  step printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  `tests/test_app.py::test_health_endpoint` fails at `assert response.json()["status"] == "healthy"`
+  (tests/test_app.py:47) with `KeyError: 'status'`, `1 failed, 12 passed in 4.71s`, then
+  `##[error]Process completed with exit code 1.` Smoke job 135 s (16:06:39 to 16:08:54), region westus3. Log
+  74,866 bytes / 706 lines. As the notes say, the log names the missing key; that the field was dropped rather
+  than renamed shows only in the diff.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: `KeyError: 'status'` at
+  `response.json()["status"]`, 1 failed / 12 passed, import step passes. No spec prediction turned out wrong.
+  `a385f85` removes line 113 of `api/main.py` (`"status": "healthy",` in `health_check()`) and changes nothing
+  else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 3,738 to 3,709
+  bytes. The revert restores the parent tree exactly (`aa09086`). `main` and `origin/main` are both at
+  `6b850b2`; no `wip-` branch is left locally or on origin.

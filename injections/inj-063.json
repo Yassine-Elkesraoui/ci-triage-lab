@@ -1,0 +1,61 @@
+{
+  "id": "inj-063",
+  "category": "real_regression",
+  "commit": "a385f85",
+  "run_id": "46030766187",
+  "job_id": "140613666271",
+  "target_file": "api/main.py",
+  "mutation": "        \"status\": \"healthy\",\n        \"version\": settings.app_version, ->         \"version\": settings.app_version,",
+  "expected_failing_tests": [
+    "tests/test_app.py::test_health_endpoint"
+  ],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-063.log",
+  "observed": {
+    "failed": 1,
+    "passed": 12,
+    "errors": 0,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-27T16:06:39Z",
+    "job_completed_at": "2026-11-27T16:08:54Z",
+    "duration_s": 135,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46030766187",
+        "commit": "a385f85",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": 1,
+        "passed": 12,
+        "log_file": "injections/logs/inj-063.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. health_check() returns only 'version'. test_health_endpoint fails with KeyError: 'status' at response.json()[\"status\"]; 1 failed / 12 passed. Same exception shape as inj-061 on a different endpoint; here the field is gone rather than renamed, which only the diff shows.",
+  "holdout": {
+    "version": "1.1",
+    "family": "renamed or dropped field in a returned object",
+    "mode": "single",
+    "branch": "wip-8142c8",
+    "commit_message": "Update api/main.py",
+    "same_commit_rerun": null,
+    "decoy": false,
+    "parent_commit": "b21389d778c2280853fc59d28e39fcc57ac63040",
+    "injection_commit_full": "a385f85422400360694888932e69d4d238a99a44",
+    "attempts": 1,
+    "same_commit_signatures": null,
+    "extra_runs": []
+  }
+}
