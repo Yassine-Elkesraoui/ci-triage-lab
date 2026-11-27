@@ -528,3 +528,60 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   imported at line 7): UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout),
   2,997 to 3,458 bytes. The revert restores the parent tree exactly (`b72599e`). `main` and `origin/main` are
   both at `e84c1d0`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-27 21:02 UTC: slot 14/30, inj-068 [flaky], flaky_rerun, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-068.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-068.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `ef6b0d1` (harness code unchanged since `bd588d8`).
+- Commits: injection `d88d512` (parent `ef6b0d1`), committed on `wip-9dfb36` and pushed to `main`;
+  discarded/recreated `918a2d1`, `79f4824`, `187685b`, `f6a46c2`, `c41d661`, `86ff190`, `b6217f1`, `0db3f66`,
+  `d633290` (attempts 1 to 9), each recreated with the same tree (`d5336b4`), parent, message and author date
+  (21:02:48) and a new committer date (21:02:48 to 23:32:03 across the ten commits); revert `d9025b3`
+- Runs: triaged (run B) 46084408880 F; run A 46083029077 P (13 passed); decoy none; discarded 46067679192 F,
+  46068736096 P, 46070448541 P, 46072166985 F, 46073253688 F, 46074271143 F, 46075528147 F, 46076501607 F,
+  46077486753 P, 46078836590 P, 46080326955 P, 46081767174 P; parent (force-back) 46067966566, 46069571219,
+  46071344833, 46072431645, 46073511438, 46074504351, 46075785135, 46076714647, 46078128050, 46079593247,
+  46081101816, 46082426677, 46083690866 (all P, 13 passed; the last is attempt 10's planned A-to-B parent run);
+  verification none. Revert run 46084594531 P (smoke and docker both success, docker done 23:56:27).
+- Result: match=Y, outcomes=PF, extras=25 (discarded and parent runs, in the console summary), attempts=10.
+  Console summary `inj-068 flaky mode=flaky_rerun outcomes=PF extras=discarded:F,parent:P,parent:P,discarded:P,discarded:P,parent:P,discarded:F,parent:P,discarded:F,parent:P,discarded:F,parent:P,discarded:F,parent:P,discarded:F,parent:P,parent:P,discarded:P,discarded:P,parent:P,parent:P,discarded:P,discarded:P,parent:P,parent:P
+  attempts=10 match=Y`, exit 0.
+- Unexpected: the case matched only at attempt 10, the last attempt the harness's 10-attempt cap allows. The
+  session stopped before writing this entry. The operator accepted attempt 10: it is within the sealed cap, so it
+  is a valid result, and rejecting it would bias the sample. Otherwise as predicted.
+  **Attempts.** flaky_rerun needs run A to pass and run B to fail:
+  - attempts 1, 3, 4, 5, 6, 7: run A failed, discarded (no run B);
+  - attempts 2, 8, 9: run A passed, the parent run passed, run B passed, discarded;
+  - attempt 10: run A 46083029077 passed, parent run 46083690866 passed, run B 46084408880 failed (triaged).
+  **Rate (lab owner's note).** 7 failures in 13 injection runs (6 failing A runs plus the triaged B), which is
+  consistent with 50%. At 50% per run, an attempt succeeds (A passes, B fails) about 25% of the time, so needing
+  all 10 attempts (no success in the first 9) had a chance of 0.75^9, about 7.5%.
+  Every run is a `push` run on `main` with `run_attempt` 1; run numbers 275 to 301 for the case and 302 for the
+  revert, no gap. The triaged log fails as the spec notes predict: `smoke` job, steps 1-5 succeeded (the import
+  step printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  `tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks` FAILED at `assert len(chunks) > 1`
+  (tests/test_behaviour.py:63) with `AssertionError: assert 1 > 1`, `where 1 = len([DocumentChunk(...,
+  content='A short note.', char_count=13)])`, `1 failed, 12 passed in 5.27s`, then
+  `##[error]Process completed with exit code 1.` Smoke job 113 s (23:47:17 to 23:49:10), region eastus. Log
+  75,339 bytes / 705 lines.
+  **Run A checked.** The smoke log of run 46083029077 (fetched for this check, not saved in the repo) checked out
+  `d88d512` and shows `tests/test_behaviour.py::test_chunking_splits_long_text_into_multiple_chunks PASSED` and
+  `13 passed in 5.48s` (region eastus), so run A ran the injected test on the triaged sha.
+  **Discarded failing runs.** The six failing discarded A runs each checked out their own attempt's sha and fail
+  the same way as the triaged run (`AssertionError: assert 1 > 1` on `content='A short note.'`, 1 failed /
+  12 passed, only the expected test). Their logs are saved as `logs/extra-inj-068-discarded<k>-run<run_id>.log`.
+  `<k>` numbers discarded runs, not attempts: attempts 2, 8 and 9 each discarded two runs (A and B, both
+  passing, so no log), so the logs are `discarded1` (attempt 1) and `discarded4` to `discarded8` (attempts 3 to
+  7).
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: the short note sorts first, yields one
+  chunk, and `assert 1 > 1` fails; only the expected test failed; run A passed as planned. No spec prediction
+  turned out wrong.
+  **Decoy-audit marks (plan section 3).** 13 force-back runs on `ef6b0d1`: one is the planned A-to-B parent run
+  of attempt 10, the other 12 come from the nine discarded attempts. The audit after slot 30 counts them with the
+  run-number gaps.
+  `d88d512` replaces line 58 of `tests/test_behaviour.py` (`chunks = _service().chunk(uuid4(), text)`) with the
+  spec's five lines (now 58-62) and changes nothing else (`uuid4` was already imported at line 7): UTF-8 without
+  BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,997 to 3,186 bytes. The revert
+  restores the parent tree exactly (`900079c`). `main` and `origin/main` are both at `d9025b3`; no `wip-` branch
+  is left locally or on origin.
