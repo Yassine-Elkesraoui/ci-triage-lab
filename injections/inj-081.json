@@ -1,0 +1,98 @@
+{
+  "id": "inj-081",
+  "category": "timeout",
+  "commit": "d6803aa",
+  "run_id": "46139891711",
+  "job_id": "140963271586",
+  "target_file": "api/main.py",
+  "mutation": "    return {\n        \"message\": f\"Welcome to the {settings.app_name}\",\n        \"status\": \"running\",\n        \"version\": settings.app_version,\n        \"environment\": settings.app_env,\n    }\n\n\n@app.get(\"/health\", tags=[\"General\"])\ndef health_check() -> dict:\n    \"\"\"\n    Health check endpoint for monitoring and load balancers.\n\n    This endpoint is intentionally lightweight (no database calls,\n    no external services) so it can be called frequently without\n    impacting performance. It is the standard pattern used by\n    Kubernetes, Docker, and cloud platforms to verify a service is alive.\n\n    Returns:\n        A dictionary indicating the service is healthy, including\n        the current application version for traceability.\n    \"\"\"\n    return {\n        \"status\": \"healthy\",\n        \"version\": settings.app_version,\n    } ->     with _metadata_lock:\n        return {\n            \"message\": f\"Welcome to the {settings.app_name}\",\n            \"status\": \"running\",\n            \"version\": settings.app_version,\n            \"environment\": settings.app_env,\n        }\n\n\n@app.get(\"/health\", tags=[\"General\"])\ndef health_check() -> dict:\n    \"\"\"\n    Health check endpoint for monitoring and load balancers.\n\n    This endpoint is intentionally lightweight (no database calls,\n    no external services) so it can be called frequently without\n    impacting performance. It is the standard pattern used by\n    Kubernetes, Docker, and cloud platforms to verify a service is alive.\n\n    Returns:\n        A dictionary indicating the service is healthy, including\n        the current application version for traceability.\n    \"\"\"\n    with _metadata_lock:\n        return {\n            \"status\": \"healthy\",\n            \"version\": read_root()[\"version\"],\n        }\n\n\n# Serialises reads of the runtime metadata shared by / and /health.\nimport threading  # noqa: E402\n\n_metadata_lock = threading.Lock()",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-081.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-28T11:26:27Z",
+    "job_completed_at": "2026-11-28T11:31:24Z",
+    "duration_s": 297,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46138955451",
+        "commit": "d6803aa",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-081.run1.log"
+      },
+      {
+        "run_id": "46139891711",
+        "commit": "d6803aa",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-081.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. deadlock: read_root() and health_check() both hold a non-reentrant threading.Lock, and health_check() calls read_root() while holding it. GET / works (test_root_endpoint passes); GET /health blocks forever in the TestClient worker thread. The import step does not touch the lock. The baseline 'timeout-minutes: 3' on 'Run smoke tests' kills the step; with -v the last line is 'tests/test_app.py::test_health_endpoint' with no outcome after 3 PASSED, and there is no pytest summary. No v1.0 timeout hangs in test_health_endpoint. Verify locally with a short timeout before CI.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a deadlock (a lock acquired twice, or two waits on each other)",
+    "mode": "fail_same",
+    "branch": "wip-a1a6bc",
+    "commit_message": "Update api/main.py",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "e42df4710f6d9accc6b98f3fa1ddb2ce263a7179",
+    "injection_commit_full": "d6803aa496743959d39978be072fdab20e633d8f",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "tests/test_app.py::test_root_endpoint PASSED                             [ #%]",
+        "##[error]The action 'Run smoke tests' has timed out after # minutes."
+      ],
+      "run_b": [
+        "tests/test_app.py::test_root_endpoint PASSED                             [ #%]",
+        "##[error]The action 'Run smoke tests' has timed out after # minutes."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46139363814",
+        "commit": "e42df47",
+        "commit_full": "e42df4710f6d9accc6b98f3fa1ddb2ce263a7179",
+        "created_at": "2026-11-28T11:19:52Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

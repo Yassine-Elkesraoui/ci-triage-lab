@@ -758,3 +758,57 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   - there is no pytest summary;
   - for fail_same cases, runs A and B end the same way.
 - Record a plan-vs-reality note each time. Any other difference still stops the run.
+
+## 2026-11-28 11:14 UTC: slot 19/30, inj-081 [timeout], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-081.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-081.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `e42df47` (harness code unchanged since `bd588d8`).
+- Commits: injection `d6803aa` (parent `e42df47`), committed on `wip-a1a6bc` and pushed to `main`;
+  discarded/recreated none; revert `d0edf3e`
+- Runs: triaged (run B) 46139891711 F; run A 46138955451 F; decoy none; discarded none; parent (force-back)
+  46139363814 P (13 passed); verification none. Revert run 46140296889 P (smoke and docker both success, docker
+  done 11:38:35).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-081 timeout mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: one departure from the spec notes, the known missing hanging-test line (plan vs reality, below),
+  allowed by the standing procedure of 2026-11-28 02:02 UTC. Otherwise as predicted. In both runs, `smoke` job,
+  step 6 `Run smoke tests` failed: `##[error]The action 'Run smoke tests' has timed out after 3 minutes.`;
+  `docker` skipped. Steps 1-5 succeeded (install passed and the import step printed `CLEAN IMPORT OK`). pytest
+  collected 13 items, and the first three, `tests/test_app.py::test_app_constructs`,
+  `test_expected_routes_registered` and `test_root_endpoint`, PASSED about 7 s after the step started. The log is
+  then silent until the timeout (step about 3 m 12 s: A 11:16:29 to 11:19:42, B 11:28:10 to 11:31:22). There is
+  no pytest summary, and cleanup ends with one `Terminate orphan process: pid (...) (python)` line, the pytest
+  process (the deadlock is in a thread of that process, so there is no child interpreter, unlike slot 18): the
+  step's timeout, not a crash or a runner problem. Smoke job 301 s A (11:14:43 to 11:19:44), 297 s B (11:26:27 to
+  11:31:24). No pytest count summary, so `failed`/`passed` are null in the record. Every run is a `push` run on
+  `main` with `run_attempt` 1; run numbers 322 (A), 323 (P), 324 (B), 325 (revert), no gap.
+  **Plan vs reality.** The spec notes predict that the last `-v` line is `tests/test_app.py::test_health_endpoint`,
+  after 3 PASSED. That line is not in either log; the test name does not appear at all. The last pytest line is
+  `tests/test_app.py::test_root_endpoint PASSED [ 23%]`, followed directly by the timeout line. The hanging test
+  is identified only by inference: it is the 4th of the 13 collected tests (`tests/test_app.py` defines
+  `test_root_endpoint` at line 35 and `test_health_endpoint` at line 43). Same departure as slots 5 and 18.
+  **Standing procedure of 2026-11-28 02:02 UTC (missing hanging-test line).** All four conditions hold: both logs
+  have "has timed out after"; the last PASSED line in both is `test_root_endpoint`, the test just before the
+  predicted hanging test `test_health_endpoint` in collection order; there is no pytest summary in either; runs A
+  and B end the same way (below).
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** Runs A and B end the same way:
+  same last PASSED line, same timeout line, no pytest summary in either. All `ERROR`, `##[error]`, `timed out`,
+  `PASSED`, `FAILED`, `collected`, `no tests ran`, pytest count and `Terminate orphan` lines were extracted from
+  both logs, timestamps stripped and pids masked, and diffed: identical (7 lines each). The harness's
+  `same_commit_signatures` (the masked `test_root_endpoint PASSED` and timeout lines) are identical too. With
+  timestamps stripped, the two logs (72,029 bytes / 674 lines A, 71,853 bytes / 672 lines B) differ only in worker
+  id, region (A southcentralus, B eastus, both Azure; same runner image 20261122.9.1), temp paths, cache-restore
+  progress lines (15 vs 13), the timestamp in the app's own startup log line and the orphan pid. Both logs check
+  out `d6803aa`.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds except for the line above: the import
+  step passes (it does not touch the lock); GET / works (`test_root_endpoint` passes); the step is killed by its
+  3-minute timeout ("has timed out after" is in both logs) after 3 PASSED, with no summary. Wrong: the hanging
+  test's `-v` line (plan vs reality, above).
+  Run order A (11:14:41), P (11:19:52), B (11:26:25) as planned. `d6803aa` wraps the `return` of `read_root()`
+  (old lines 90-95) and of `health_check()` (old lines 112-115) in `with _metadata_lock:`, makes `health_check()`
+  take its version from `read_root()["version"]`, and adds the comment, `import threading  # noqa: E402` and
+  `_metadata_lock = threading.Lock()` at the end of `api/main.py`, exactly the spec's find/replace (checked by
+  applying it to the parent's file) and nothing else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is
+  `core.autocrlf` at checkout), 3,738 to 3,966 bytes. The revert restores the parent tree exactly (`fed1e6f`).
+  `main` and `origin/main` are both at `d0edf3e`; no `wip-` branch is left locally or on origin.
