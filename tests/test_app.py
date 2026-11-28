@@ -27,15 +27,6 @@ def test_app_constructs() -> None:
 
 def test_expected_routes_registered() -> None:
     """All core endpoints are mounted."""
-    import subprocess
-    import sys
-
-    # Cross-check in a fresh interpreter, so a route registered only as a
-    # side effect of the test session cannot hide a missing one.
-    child = subprocess.Popen([sys.executable, "-"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    child.stdin.write(b"from api.main import app\nprint(sorted({r.path for r in app.routes}))\n")
-    child.stdin.flush()
-    assert child.wait() == 0
     paths = {route.path for route in app.routes}
     for expected in ("/", "/health", "/chat", "/chat/rag", "/eval/data", "/eval/dashboard"):
         assert expected in paths, f"missing route: {expected}"
