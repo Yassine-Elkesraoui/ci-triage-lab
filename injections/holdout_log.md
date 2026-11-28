@@ -618,3 +618,41 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   `testpaths = tests`) and changes nothing else: ASCII, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at
   checkout), 42 to 67 bytes. The revert restores the parent tree exactly (`d3d81d9`). `main` and `origin/main` are
   both at `73df41e`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-28 00:28 UTC: slot 16/30, inj-086 [build], single, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-086.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-086.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `421fd7b` (harness code unchanged since `bd588d8`).
+- Commits: injection `31e92bc` (parent `421fd7b`), committed on `wip-42f2dc` and pushed to `main`;
+  discarded/recreated none; revert `085b5fc`
+- Runs: triaged 46088108668 F; decoy none; discarded none; parent (force-back) none; verification none. Revert
+  run 46088367705 P (smoke and docker both success, docker done 00:39:28). One push: 46088108668 is the only run
+  on `31e92bc` (`push`, `run_attempt` 1); run numbers 309 (triaged), 310 (revert), no gap.
+- Result: match=Y, outcomes=F, extras=none, attempts=1. Console summary `inj-086 build mode=single outcomes=F
+  extras=none attempts=1 match=Y`, exit 0.
+- Unexpected: nothing. Pre-CI check from the spec notes, made before the run (00:28 UTC): `docker.io/library/builder`
+  still does not exist (Docker Hub API `GET /v2/repositories/library/builder/` 404; registry manifest request
+  with an anonymous pull token 401), as in plan section 6.
+  The log fails as the spec notes predict: `smoke` passed (all six steps succeeded; 13 passed), `docker` ("Docker
+  image builds") failed at step 3 `Build image`; no job skipped. BuildKit loads the build definition (`#1`), then
+  `#2 [internal] load metadata for docker.io/library/builder:latest` fails with `#2 ERROR: pull access denied,
+  repository does not exist or may require authorization: server message: insufficient_scope: authorization
+  failed`; the concurrent `#5 [internal] load metadata for docker.io/library/python:3.11-slim` is CANCELED. The
+  log shows `Dockerfile:28` (`>>> COPY --from=builder requirements.txt .`), then `ERROR: failed to build: failed
+  to solve: builder: failed to resolve source metadata for docker.io/library/builder:latest: pull access denied,
+  repository does not exist or may require authorization: server message: insufficient_scope: authorization
+  failed` and `##[error]Process completed with exit code 1.` No build step (`[1/9]` or later) ran.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: BuildKit treats `builder` as
+  `docker.io/library/builder:latest` and fails while loading its metadata, before any step runs, with `failed to
+  resolve source metadata for docker.io/library/builder:latest: pull access denied, repository does not exist or
+  may require authorization` (followed by `: server message: insufficient_scope: authorization failed`, which the
+  notes' "an error like" leaves open); the failing instruction is the `COPY --from` line (Dockerfile:28, as in
+  plan section 6) and the `FROM` line is unchanged; smoke passes (13 passed); fails within seconds (`docker build`
+  start to error 0.9 s; docker job 6 s, 00:31:20 to 00:31:26). No spec prediction turned out wrong.
+  Smoke job 135 s (00:29:03 to 00:31:18). Docker log 12,194 bytes / 158 lines, region westus2 (Azure); as for
+  inj-089, `observe()` saves only the failing job's log, here the docker job. `31e92bc` changes line 28 of
+  `Dockerfile` only (`COPY requirements.txt .` to `COPY --from=builder requirements.txt .`): UTF-8 without BOM,
+  stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,380 to 2,395 bytes. The revert restores
+  the parent tree exactly (`98764f3`). `main` and `origin/main` are both at `085b5fc`; no `wip-` branch is left
+  locally or on origin.

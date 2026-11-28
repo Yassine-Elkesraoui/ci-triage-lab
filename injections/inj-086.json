@@ -1,0 +1,57 @@
+{
+  "id": "inj-086",
+  "category": "build",
+  "commit": "31e92bc",
+  "run_id": "46088108668",
+  "job_id": "140803053822",
+  "target_file": "Dockerfile",
+  "mutation": "COPY requirements.txt . -> COPY --from=builder requirements.txt .",
+  "expected_failing_tests": [],
+  "expected_failing_job": "docker",
+  "expected_skipped_jobs": [],
+  "log_file": "injections/logs/inj-086.log",
+  "observed": {
+    "failed": 0,
+    "passed": 13,
+    "errors": 0,
+    "failing_step": "Build image",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-28T00:31:20Z",
+    "job_completed_at": "2026-11-28T00:31:26Z",
+    "duration_s": 6,
+    "jobs": {
+      "smoke": "success",
+      "docker": "failure"
+    },
+    "runs": [
+      {
+        "run_id": "46088108668",
+        "commit": "31e92bc",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "success",
+          "docker": "failure"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": "injections/logs/inj-086.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The Dockerfile has a single unnamed stage, so BuildKit does not resolve --from=builder to a stage; it treats 'builder' as an image reference (docker.io/library/builder:latest) and fails while loading its metadata, before any step runs, with an error like 'failed to resolve source metadata for docker.io/library/builder:latest: pull access denied, repository does not exist or may require authorization'. The error text resembles inj-020's (misspelled base image), but the failing instruction is the COPY --from line and the FROM line is unchanged. Before CI, check that docker.io/library/builder still does not exist. smoke passes (13 passed); fails within seconds.",
+  "holdout": {
+    "version": "1.1",
+    "family": "COPY --from naming a stage that does not exist",
+    "mode": "single",
+    "branch": "wip-42f2dc",
+    "commit_message": "Update Dockerfile",
+    "same_commit_rerun": null,
+    "decoy": false,
+    "parent_commit": "421fd7b23625a587223e70057a9a1a20b7ae43ea",
+    "injection_commit_full": "31e92bc9f7652ecbc9ebb3e9c8c5068699988573",
+    "attempts": 1,
+    "same_commit_signatures": null,
+    "extra_runs": []
+  }
+}
