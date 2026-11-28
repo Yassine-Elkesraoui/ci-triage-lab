@@ -696,3 +696,65 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   `timeout-minutes: 3`, and changes nothing else: ASCII, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at
   checkout), 810 to 843 bytes. The revert restores the parent tree exactly (`70be5b3`). `main` and `origin/main`
   are both at `2808b79`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-28 01:13 UTC: slot 18/30, inj-082 [timeout], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-082.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-082.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `45de224` (harness code unchanged since `bd588d8`).
+- Commits: injection `d3f09f4` (parent `45de224`), committed on `wip-5cbd0b` and pushed to `main`;
+  discarded/recreated none; revert `9029a93`
+- Runs: triaged (run B) 46093191474 F; run A 46092021805 F; decoy none; discarded none; parent (force-back)
+  46092489149 P (13 passed); verification none. Revert run 46093646217 P (smoke and docker both success, docker
+  done 01:41:06).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-082 timeout mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: one departure from the spec notes (plan vs reality, below); the session stopped on it before
+  writing this entry, and the operator accepted the slot. Otherwise as predicted. In both runs, `smoke` job,
+  step 6 `Run smoke tests` failed: `##[error]The action 'Run smoke tests' has timed out after 3 minutes.`;
+  `docker` skipped. Steps 1-5 succeeded (install passed and the import step printed `CLEAN IMPORT OK`). pytest
+  collected 13 items, and the first, `tests/test_app.py::test_app_constructs`, PASSED about 6 s after the step
+  started. The log is then silent until the timeout (step about 3 m 12 s: A 01:15:39 to 01:18:51, B 01:29:22 to
+  01:32:34). There is no pytest summary, and cleanup ends with two `Terminate orphan process: pid (...)
+  (python)` lines, the pytest process and the child interpreter, so both were still running when the step was
+  stopped: the step's timeout, not a crash or a runner problem. Smoke job 315 s A (01:13:38 to 01:18:53), 314 s
+  B (01:27:23 to 01:32:37). No pytest count summary, so `failed`/`passed` are null in the record. Every run is a
+  `push` run on `main` with `run_attempt` 1; run numbers 317 (A), 318 (P), 319 (B), 320 (revert), no gap.
+  **Plan vs reality.** The spec notes predict that the last `-v` line is
+  `tests/test_app.py::test_expected_routes_registered`, after 1 PASSED. That line is not in either log; the test
+  name does not appear at all. The last pytest line is `tests/test_app.py::test_app_constructs PASSED [  7%]`,
+  followed directly by the timeout line. The hanging test is identified only by inference: it is the 2nd of the
+  13 collected tests (`tests/test_app.py` defines `test_app_constructs` at line 23 and
+  `test_expected_routes_registered` at line 28), and the plan's local check (section 6, inj-082 row) saw it hang.
+  This is the same departure as slot 5 (inj-085), and the slot 5 hypothesis (pytest `-v` writes the test id
+  without a newline, and the unfinished line is lost when the step is killed) fits it too; still not verified.
+  As checked for slot 5, no label field or grader input depends on the test name appearing in the log, and
+  `expected_failing_tests` is empty here, so `build_index.py` skips the failing-tests check. The harness's
+  `compare` does not check that the failure is a timeout; the timeout was confirmed by hand, above.
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** Runs A and B end the same way:
+  same last PASSED line (`tests/test_app.py::test_app_constructs PASSED [  7%]`), same timeout line
+  (`##[error]The action 'Run smoke tests' has timed out after 3 minutes.`), no pytest summary in either. All
+  `ERROR`, `##[error]`, `timed out`, `PASSED`, `FAILED` and `Terminate orphan` lines were extracted from both logs,
+  timestamps stripped and pids masked, and diffed: identical. The harness's `same_commit_signatures` are identical
+  too. With timestamps stripped, the two logs (71,540 bytes / 669 lines A, 72,802 bytes / 684 lines B) differ only
+  in worker id, region (A eastus2, B westus, both Azure), temp paths, cache-restore progress lines, the timestamp in
+  the app's own startup log line and the orphan pids. Both logs check out `d3f09f4`.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds except for the line above: the step is
+  killed by its 3-minute timeout ("has timed out after" is in both logs) after 1 PASSED, with no summary. Wrong:
+  the hanging test's `-v` line (plan vs reality, above).
+  Run order A (01:13:36), P (01:19:07), B (01:27:20) as planned. `d3f09f4` inserts the spec's nine lines after
+  line 29 of `tests/test_app.py` (the docstring of `test_expected_routes_registered`), before
+  `paths = {route.path for route in app.routes}` (now line 39), and changes nothing else: ASCII, stored with LF
+  (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 1,526 to 1,953 bytes. The revert restores the parent tree
+  exactly (`cde227e`). `main` and `origin/main` are both at `9029a93`; no `wip-` branch is left locally or on
+  origin.
+
+## 2026-11-28 02:02 UTC: standing procedure, missing hanging-test line in timeout cases
+- Applies to the remaining timeout cases: slots 19 (inj-081), 23 (inj-083) and 25 (inj-084).
+- A missing `-v` line for the hanging test is a known spec-note error (seen in slots 5 and 18), not a stop, as
+  long as all of these hold:
+  - the log has "has timed out after";
+  - the last PASSED line is the test just before the predicted hanging test in collection order;
+  - there is no pytest summary;
+  - for fail_same cases, runs A and B end the same way.
+- Record a plan-vs-reality note each time. Any other difference still stops the run.

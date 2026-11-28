@@ -1,0 +1,98 @@
+{
+  "id": "inj-082",
+  "category": "timeout",
+  "commit": "d3f09f4",
+  "run_id": "46093191474",
+  "job_id": "140818582628",
+  "target_file": "tests/test_app.py",
+  "mutation": "def test_expected_routes_registered() -> None:\n    \"\"\"All core endpoints are mounted.\"\"\"\n    paths = {route.path for route in app.routes} -> def test_expected_routes_registered() -> None:\n    \"\"\"All core endpoints are mounted.\"\"\"\n    import subprocess\n    import sys\n\n    # Cross-check in a fresh interpreter, so a route registered only as a\n    # side effect of the test session cannot hide a missing one.\n    child = subprocess.Popen([sys.executable, \"-\"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)\n    child.stdin.write(b\"from api.main import app\\nprint(sorted({r.path for r in app.routes}))\\n\")\n    child.stdin.flush()\n    assert child.wait() == 0\n    paths = {route.path for route in app.routes}",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-082.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-28T01:27:23Z",
+    "job_completed_at": "2026-11-28T01:32:37Z",
+    "duration_s": 314,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46092021805",
+        "commit": "d3f09f4",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-082.run1.log"
+      },
+      {
+        "run_id": "46093191474",
+        "commit": "d3f09f4",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-082.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. stdin: 'python -' reads its program from stdin until end-of-file, and the test writes the program to the pipe but never closes it (communicate() would), then waits. The child blocks on read and the parent on wait(), so the step is killed by its 3-minute timeout; last -v line 'tests/test_app.py::test_expected_routes_registered' after 1 PASSED, no summary. Why a pipe: in GitHub Actions a step's own stdin is not interactive, so input() or a direct read there gets end-of-file and fails fast, and pytest's capture makes a test's stdin read raise at once. Only a pipe whose write end stays open blocks, and that is the realistic bug (a forgotten close()). Verify locally with a short timeout.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a command blocked waiting on stdin",
+    "mode": "fail_same",
+    "branch": "wip-5cbd0b",
+    "commit_message": "Update tests/test_app.py",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "45de2240baa79afee4cbc15e6851c38cc37a5f4a",
+    "injection_commit_full": "d3f09f486e41663dd7c8077adee274d41e6a1208",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "tests/test_app.py::test_app_constructs PASSED                            [  #%]",
+        "##[error]The action 'Run smoke tests' has timed out after # minutes."
+      ],
+      "run_b": [
+        "tests/test_app.py::test_app_constructs PASSED                            [  #%]",
+        "##[error]The action 'Run smoke tests' has timed out after # minutes."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46092489149",
+        "commit": "45de224",
+        "commit_full": "45de2240baa79afee4cbc15e6851c38cc37a5f4a",
+        "created_at": "2026-11-28T01:19:07Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
