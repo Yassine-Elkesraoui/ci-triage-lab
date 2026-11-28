@@ -87,12 +87,13 @@ def read_root() -> dict:
         A dictionary containing the application name, status, version,
         and current environment.
     """
-    return {
-        "message": f"Welcome to the {settings.app_name}",
-        "status": "running",
-        "version": settings.app_version,
-        "environment": settings.app_env,
-    }
+    with _metadata_lock:
+        return {
+            "message": f"Welcome to the {settings.app_name}",
+            "status": "running",
+            "version": settings.app_version,
+            "environment": settings.app_env,
+        }
 
 
 @app.get("/health", tags=["General"])
@@ -109,7 +110,14 @@ def health_check() -> dict:
         A dictionary indicating the service is healthy, including
         the current application version for traceability.
     """
-    return {
-        "status": "healthy",
-        "version": settings.app_version,
-    }
+    with _metadata_lock:
+        return {
+            "status": "healthy",
+            "version": read_root()["version"],
+        }
+
+
+# Serialises reads of the runtime metadata shared by / and /health.
+import threading  # noqa: E402
+
+_metadata_lock = threading.Lock()
