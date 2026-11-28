@@ -656,3 +656,43 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,380 to 2,395 bytes. The revert restores
   the parent tree exactly (`98764f3`). `main` and `origin/main` are both at `085b5fc`; no `wip-` branch is left
   locally or on origin.
+
+## 2026-11-28 00:47 UTC: slot 17/30, inj-078 [environment], fail_same, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-078.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-078.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `bf3ea98` (harness code unchanged since `bd588d8`).
+- Commits: injection `ec1c1ac` (parent `bf3ea98`), committed on `wip-b7c1dc` and pushed to `main`;
+  discarded/recreated none; revert `2808b79`
+- Runs: triaged (run B) 46090581395 F; run A 46089799070 F; decoy none; discarded none; parent (force-back)
+  46089980540 P (13 passed); verification none. Revert run 46090751617 P (smoke and docker both success, docker
+  done 01:04:54).
+- Result: match=Y, outcomes=FF, extras=parent:P, attempts=1. Console summary `inj-078 environment mode=fail_same
+  outcomes=FF extras=parent:P attempts=1 match=Y`, exit 0.
+- Unexpected: nothing; one cosmetic log difference between A and B, below. Both runs fail as the spec notes
+  predict: `smoke` job, steps 1-5 succeeded (install passed and the import step printed `CLEAN IMPORT OK`), step 6
+  `Run smoke tests` failed; `docker` skipped. pytest starts in `tests/` and still finds the repository's
+  configuration (`rootdir: /home/runner/work/ci-triage-lab/ci-triage-lab`, `configfile: pytest.ini`), then prints
+  `ERROR: file or directory not found: tests`, `collecting ... collected 0 items`, `no tests ran in 0.00s` and
+  `##[error]Process completed with exit code 4.` No pytest count summary, so `failed`/`passed` are null in the
+  record. Every run is a `push` run on `main` with `run_attempt` 1; run numbers 312 (A), 313 (P), 314 (B), 315
+  (revert), no gap.
+  **Error lines, run A vs run B (standing procedure of 2026-11-24 21:01 UTC).** All `ERROR`, `##[error]`,
+  `rootdir`, `configfile`, `collected` and `no tests ran` lines were extracted from both logs, timestamps
+  stripped, and diffed: identical, in the same order. The harness's `same_commit_signatures` (the masked
+  `no tests ran` and exit-code lines) are identical too. The one difference is where a blank line falls: run A has
+  a blank line between the `ERROR` line and `collecting ...`, run B has none there and one before `##[error]`
+  instead. pytest writes the `ERROR` line to stderr and the rest to stdout, and the runner merges the two streams,
+  so this is output interleaving, not a different failure. Otherwise, with timestamps stripped, the two logs
+  (71,988 bytes / 675 lines A, 71,726 bytes / 672 lines B) differ only in worker id, runner image build
+  (20261116.202.1 vs 20261122.9.1), temp paths, cache-restore progress lines and the timestamp in the app's own
+  startup log line; both ran in centralus (Azure) and both check out `ec1c1ac`.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: rootdir is the repository and
+  `pytest.ini` is found; `ERROR: file or directory not found: tests`, `no tests ran`, exit code 4; install and
+  import pass; no test executes and the summary line has no counts. No spec prediction turned out wrong.
+  Run order A (00:47:51), P (00:49:58), B (00:56:50) as planned. Smoke job 118 s A (00:47:53 to 00:49:51), 107 s
+  B (00:56:53 to 00:58:40); the pytest step about 0.9 s A and 1.1 s B. `ec1c1ac` adds one line,
+  `working-directory: tests`, after line 23 (`- name: Run smoke tests`) of `.github/workflows/ci.yml`, before
+  `timeout-minutes: 3`, and changes nothing else: ASCII, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at
+  checkout), 810 to 843 bytes. The revert restores the parent tree exactly (`70be5b3`). `main` and `origin/main`
+  are both at `2808b79`; no `wip-` branch is left locally or on origin.

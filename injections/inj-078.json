@@ -1,0 +1,98 @@
+{
+  "id": "inj-078",
+  "category": "environment",
+  "commit": "ec1c1ac",
+  "run_id": "46090581395",
+  "job_id": "140810287903",
+  "target_file": ".github/workflows/ci.yml",
+  "mutation": "      - name: Run smoke tests\n        timeout-minutes: 3 ->       - name: Run smoke tests\n        working-directory: tests\n        timeout-minutes: 3",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-078.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-28T00:56:53Z",
+    "job_completed_at": "2026-11-28T00:58:40Z",
+    "duration_s": 107,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46089799070",
+        "commit": "ec1c1ac",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-078.run1.log"
+      },
+      {
+        "run_id": "46090581395",
+        "commit": "ec1c1ac",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-078.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. pytest is started inside tests/ with the argument 'tests', which now means tests/tests. pytest still finds pytest.ini in the parent (rootdir is the repository), then stops with 'ERROR: file or directory not found: tests' and 'no tests ran', exit code 4. Install and import pass; no test executes, and the summary line has no counts. Different signature from inj-077 although both change working-directory.",
+  "holdout": {
+    "version": "1.1",
+    "family": "a wrong working directory or PYTHONPATH",
+    "mode": "fail_same",
+    "branch": "wip-b7c1dc",
+    "commit_message": "Update .github/workflows/ci.yml",
+    "same_commit_rerun": "fail_same",
+    "decoy": false,
+    "parent_commit": "bf3ea98f41029bbc37ca631d7971c8078b2a2404",
+    "injection_commit_full": "ec1c1ac5e76bf0ff679085505c6187fce5be6360",
+    "attempts": 1,
+    "same_commit_signatures": {
+      "run_a": [
+        "============================ no tests ran in #.#s =============================",
+        "##[error]Process completed with exit code #."
+      ],
+      "run_b": [
+        "============================ no tests ran in #.#s =============================",
+        "##[error]Process completed with exit code #."
+      ]
+    },
+    "extra_runs": [
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46089980540",
+        "commit": "bf3ea98",
+        "commit_full": "bf3ea98f41029bbc37ca631d7971c8078b2a2404",
+        "created_at": "2026-11-28T00:49:58Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}
