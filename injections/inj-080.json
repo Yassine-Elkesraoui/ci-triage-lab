@@ -1,0 +1,94 @@
+{
+  "id": "inj-080",
+  "category": "environment",
+  "commit": "32bb060",
+  "run_id": "46086622087",
+  "job_id": "140797577119",
+  "target_file": "pytest.ini",
+  "mutation": "pythonpath = .\ntestpaths = tests -> pythonpath = .\ntestpaths = tests\npython_files = *_test.py",
+  "expected_failing_tests": [],
+  "expected_failing_job": "smoke",
+  "expected_skipped_jobs": [
+    "docker"
+  ],
+  "log_file": "injections/logs/inj-080.log",
+  "observed": {
+    "failed": null,
+    "passed": null,
+    "errors": null,
+    "failing_step": "Run smoke tests",
+    "failing_step_inferred": false,
+    "job_conclusion": "failure",
+    "job_started_at": "2026-11-28T00:12:17Z",
+    "job_completed_at": "2026-11-28T00:14:16Z",
+    "duration_s": 119,
+    "jobs": {
+      "smoke": "failure",
+      "docker": "skipped"
+    },
+    "runs": [
+      {
+        "run_id": "46086622087",
+        "commit": "32bb060",
+        "conclusion": "failure",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/inj-080.log"
+      }
+    ]
+  },
+  "notes": "Expected behaviour below is predicted from the code, not yet observed in CI; check it against the saved log. The test files are named test_*.py, so python_files = *_test.py matches none of them: 'collected 0 items', 'no tests ran', exit code 5, and the step fails. Install and import pass. Unlike inj-035..037 pytest starts normally and accepts its configuration; it simply discovers nothing. The pytest.ini line and the file names are the evidence.",
+  "holdout": {
+    "version": "1.1",
+    "family": "test-discovery configuration that collects no tests or the wrong ones",
+    "mode": "decoy",
+    "branch": "wip-3a124c",
+    "commit_message": "Update pytest.ini",
+    "same_commit_rerun": null,
+    "decoy": true,
+    "parent_commit": "9e904ddcf8985226bff6b9274cbc30f45e2b5f3f",
+    "injection_commit_full": "32bb060dcd122807ce7ca53098161ac55696f42f",
+    "attempts": 2,
+    "same_commit_signatures": null,
+    "extra_runs": [
+      {
+        "role": "decoy",
+        "attempt": 1,
+        "run_id": "46085869716",
+        "commit": "6f3b348",
+        "commit_full": "6f3b34857a56df803d9051747ad20d7a057a5157",
+        "created_at": "2026-11-28T00:03:55Z",
+        "conclusion": "failure",
+        "outcome": "F",
+        "jobs": {
+          "smoke": "failure",
+          "docker": "skipped"
+        },
+        "failed": null,
+        "passed": null,
+        "log_file": "injections/logs/extra-inj-080-decoy1-run46085869716.log"
+      },
+      {
+        "role": "parent",
+        "attempt": 1,
+        "run_id": "46086093943",
+        "commit": "9e904dd",
+        "commit_full": "9e904ddcf8985226bff6b9274cbc30f45e2b5f3f",
+        "created_at": "2026-11-28T00:06:22Z",
+        "conclusion": "success",
+        "outcome": "P",
+        "jobs": {
+          "smoke": "success",
+          "docker": "success"
+        },
+        "failed": 0,
+        "passed": 13,
+        "log_file": null
+      }
+    ]
+  }
+}

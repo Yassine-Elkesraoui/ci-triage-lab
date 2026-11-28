@@ -585,3 +585,36 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at checkout), 2,997 to 3,186 bytes. The revert
   restores the parent tree exactly (`900079c`). `main` and `origin/main` are both at `d9025b3`; no `wip-` branch
   is left locally or on origin.
+
+## 2026-11-28 00:03 UTC: slot 15/30, inj-080 [environment], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-080.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-080.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `9e904dd` (harness code unchanged since `bd588d8`).
+- Commits: injection `32bb060` (parent `9e904dd`), committed on `wip-3a124c` and pushed to `main`;
+  discarded/recreated `6f3b348` (decoy attempt), recreated as `32bb060` with the same tree (`e466d1e`), parent,
+  message and author date, and a new committer date (00:03:51 to 00:12:10); revert `73df41e`
+- Runs: triaged 46086622087 F; decoy 46085869716 F; discarded none; parent (force-back) 46086093943 P (13 passed);
+  verification none. Revert run 46086836936 P (smoke and docker both success, docker done 00:21:22).
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Console summary `inj-080 environment mode=decoy outcomes=F extras=decoy:F,parent:P
+  attempts=2 match=Y`, exit 0.
+- Unexpected: nothing. Both logs fail as the spec notes predict: `smoke` job, steps 1-5 succeeded (install
+  passed and the import step printed `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  pytest starts normally (`rootdir: /home/runner/work/ci-triage-lab/ci-triage-lab`, `configfile: pytest.ini`),
+  then `collecting ... collected 0 items`, `no tests ran in 0.00s` and `##[error]Process completed with exit code
+  5.` There is no pytest count summary, so `failed`/`passed` are null in the record (for the decoy run too). Every
+  run is a `push` run on `main` with `run_attempt` 1; run numbers 304 (decoy), 305 (P), 306 (triaged), 307
+  (revert), no gap.
+  Lines compared by hand (decoy vs triaged; `configfile`, `collect`, `no tests ran` and `##[error]` lines,
+  timestamps stripped): identical. With timestamps stripped, the two logs (72,054 bytes / 675 lines decoy, 72,133
+  bytes / 676 lines triaged) differ in worker id, region (decoy westcentralus, triaged westus3), temp paths, the
+  checked-out sha and the cache-restore progress lines. Both logs check out their own sha. Smoke job 120 s decoy
+  (00:03:57 to 00:05:57), 119 s triaged (00:12:17 to 00:14:16); the pytest step about 0.9 s in both.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: install and import pass; pytest
+  accepts its configuration and collects nothing: `collected 0 items`, `no tests ran`, exit code 5. No spec
+  prediction turned out wrong.
+  `32bb060` adds one line, `python_files = *_test.py`, at the end of `pytest.ini` (line 4, after
+  `testpaths = tests`) and changes nothing else: ASCII, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf` at
+  checkout), 42 to 67 bytes. The revert restores the parent tree exactly (`d3d81d9`). `main` and `origin/main` are
+  both at `73df41e`; no `wip-` branch is left locally or on origin.
