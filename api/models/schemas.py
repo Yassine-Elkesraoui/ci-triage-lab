@@ -10,7 +10,7 @@ business logic. This eliminates a class of bugs and protects the LLM
 from wasted inference on garbage input.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class ChatRequest(BaseModel):
@@ -32,6 +32,13 @@ class ChatRequest(BaseModel):
         description="The user's question to the AI. Must be 3-2000 characters.",
         examples=["What is Retrieval-Augmented Generation?"],
     )
+
+    @field_validator("question", mode="before")
+    @classmethod
+    def _check_question_length(cls, value: str) -> str:
+        if not 3 <= len(value) <= 2000:
+            raise TypeError(f"question must be 3-2000 characters, got {len(value)}")
+        return value
 
 
 class ChatResponse(BaseModel):
