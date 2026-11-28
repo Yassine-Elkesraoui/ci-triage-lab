@@ -812,3 +812,44 @@ Every case run gets one entry, whether it matched, aborted or was retried, using
   applying it to the parent's file) and nothing else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is
   `core.autocrlf` at checkout), 3,738 to 3,966 bytes. The revert restores the parent tree exactly (`fed1e6f`).
   `main` and `origin/main` are both at `d0edf3e`; no `wip-` branch is left locally or on origin.
+
+## 2026-11-28 12:13 UTC: slot 20/30, inj-064 [real_regression], decoy, attempt 1 of this slot
+- Command: `.\.venv\Scripts\python.exe -u injections\run_injection.py injections\specs\inj-064.json` (default
+  `--wait-for-green 15`), run by Claude Code in the background with all output written to
+  `C:\Users\Pitbull\Documents\holdout-console\inj-064.txt` (outside the repo). The exit code was captured by the
+  wrapping shell and is not in that file. Harness commit `6587825` (harness code unchanged since `bd588d8`).
+- Commits: injection `e6beeea` (parent `6587825`), committed on `wip-3ceaaf` and pushed to `main`;
+  discarded/recreated `63e2fea` (decoy attempt), recreated as `e6beeea` with the same tree (`ccd3fd2`), parent,
+  message and author date (12:13:42), and a new committer date (12:13:42 to 12:22:41); revert `2f5ba61`
+- Runs: triaged 46144357900 F; decoy 46143605661 F; discarded none; parent (force-back) 46143811705 P (13 passed);
+  verification none. Revert run 46144839398 P (smoke and docker both success, docker done 12:34:39).
+- Result: match=Y, outcomes=F, extras=decoy:F,parent:P, attempts=2 (the decoy attempt plus the triaged commit;
+  this slot was run once). Console summary `inj-064 real_regression mode=decoy outcomes=F extras=decoy:F,parent:P
+  attempts=2 match=Y`, exit 0.
+- Unexpected: nothing; the triaged run's runner was slow in setup (below), with no effect on the failure. Both
+  logs fail as the spec notes predict: `smoke` job, steps 1-5 succeeded (the import step printed
+  `CLEAN IMPORT OK`), step 6 `Run smoke tests` failed; `docker` skipped.
+  `tests/test_behaviour.py::test_chat_request_rejects_short_question` and
+  `test_chat_request_rejects_overlong_question` FAILED inside `with pytest.raises(ValidationError):` at
+  `raise TypeError(f"question must be 3-2000 characters, got {len(value)}")` (`api/models/schemas.py:40:
+  TypeError`), with `E TypeError: question must be 3-2000 characters, got 2` and `... got 2001`; all other 11
+  tests PASSED (including `test_chat_request_accepts_valid_question`); `2 failed, 11 passed`, then
+  `##[error]Process completed with exit code 1.` Every run is a `push` run on `main` with `run_attempt` 1; run
+  numbers 327 (decoy), 328 (P), 329 (triaged), 330 (revert), no gap.
+  Lines compared by hand (decoy vs triaged; `##[error]`, `E`, `>`, `FAILED`, `PASSED`, `collected` and summary
+  lines, timestamps stripped): identical apart from the pytest duration (4.44 s decoy, 5.25 s triaged). With
+  timestamps stripped, the two logs (76,617 bytes / 728 lines decoy, 76,358 bytes / 725 lines triaged) differ in
+  worker id, region (decoy centralus, triaged eastus, both Azure; same runner image 20261122.9.1), temp paths,
+  the checked-out sha and the cache-restore progress lines (15 vs 12). Both logs check out their own sha.
+  Smoke job 122 s decoy (12:13:48 to 12:15:50) and 323 s triaged (12:22:48 to 12:28:11): in the triaged run
+  setup-python took 83 s and `Install dependencies` 206 s (decoy 26 s and 79 s), and the test step 14 s (decoy
+  7 s). Install succeeded in both; the slow runner changes only the timings.
+  **Spec prediction (standing procedure of 2026-11-24 23:55 UTC).** Holds: pydantic 2.13 lets the `TypeError` from
+  the before-validator through, so `pytest.raises(ValidationError)` does not catch it and both rejection tests fail
+  with `TypeError: question must be 3-2000 characters, got 2` / `got 2001`; 2 failed / 11 passed; valid questions
+  are unaffected; the traceback ends in `schemas.py`. No spec prediction turned out wrong.
+  `e6beeea` adds `field_validator` to the pydantic import (line 13) and inserts the spec's before-validator
+  `_check_question_length` after line 35 (now lines 36-42), exactly the spec's find/replace (checked by applying it
+  to the parent's file) and nothing else: UTF-8 without BOM, stored with LF (`i/lf`; `w/crlf` is `core.autocrlf`
+  at checkout), 1,454 to 1,739 bytes. The revert restores the parent tree exactly (`80cac46`). `main` and
+  `origin/main` are both at `2f5ba61`; no `wip-` branch is left locally or on origin.
